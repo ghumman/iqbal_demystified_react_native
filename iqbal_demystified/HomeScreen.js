@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import { TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
 import {createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 import logo from './assets/allam_iqbal_pic.jpg';
@@ -10,9 +10,10 @@ import iconDiscussion from './assets/android_app_assets/icon_discussion.png';
 import iconSearch from './assets/android_app_assets/icon_search.png';
 import iconInfo from './assets/android_app_assets/icon_info.png';
 
-import Urdu from './Urdu';
-import Farsi1 from './Farsi1';
-import Farsi2 from './Farsi2';
+import DetailsScreen from './DetailsScreen';
+
+import TabNavigator from './TabScreen';
+
 
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
@@ -20,13 +21,8 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 
 
 
-const TabNavigator = createBottomTabNavigator({
-  Urdu: Urdu,
-  Farsi1: Farsi1,
-  Farsi2: Farsi2
-});
 
-const TabFunction = createAppContainer(TabNavigator);
+// const TabFunction = createAppContainer(TabNavigator);
 
 
 export default class HomeScreen extends React.Component {
@@ -42,6 +38,7 @@ constructor(props) {
 	
 	render() {
     		const state = this.state;
+		const {navigate} = this.props.navigation;
 		return (
 			<View style={{flex: 1}}>
 		<View style={{flex: 1}}>
@@ -76,16 +73,34 @@ constructor(props) {
         <Text style={styles.instructions}>{instructions}</Text>
 	*/}
 			{/*<Text> Can you see me ? </Text>*/}
+{/*
+<TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})} >
+<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/>
+</TouchableHighlight>
+*/}
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/></View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconBest}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})} >
+			<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/>
+		</TouchableHighlight>
+
+	</View>
+
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})} >
+			<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconBest}/>
+		</TouchableHighlight>
+	</View>
+
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconDiscussion}/></View>
       </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/></View>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/></View>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/></View>
+
+	
       </View>
 
         {/*
@@ -95,7 +110,12 @@ constructor(props) {
 	</View>
 			
 	<View style={{flex: 2}}>
-			<TabFunction/>
+			{/*<TabFunction/>*/}
+		{/*
+		{navigate('TabFunction')}
+		*/}
+		{/*<DetailsScreen/>*/}
+		<Button onPress={() => navigate('TabFunction')} title='BOOKS'/>
 	</View>
 			</View>
 

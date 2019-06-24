@@ -2,16 +2,23 @@
 
 import React from "react";
 import { View, Text } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { createBottomTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 
 import HomeScreen from './HomeScreen';
+import ListPoemScreen from './ListPoemScreen';
 import DetailsScreen from './DetailsScreen';
+
+import TabNavigator from './TabScreen'
 
 
 
 const AppNavigator = createStackNavigator(
     {
     Home: HomeScreen,
+    ListPoem: ListPoemScreen,
+    TabFunction: TabNavigator,
+    // Poem: PoemScreen,
+    // Sher: SherScreen,
     Details: DetailsScreen
   },
   {
