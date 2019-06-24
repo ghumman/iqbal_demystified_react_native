@@ -10,43 +10,20 @@ import iconDiscussion from './assets/android_app_assets/icon_discussion.png';
 import iconSearch from './assets/android_app_assets/icon_search.png';
 import iconInfo from './assets/android_app_assets/icon_info.png';
 
+import Urdu from './Urdu';
+import Farsi1 from './Farsi1';
+import Farsi2 from './Farsi2';
+
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 
-class Page1 extends React.Component {
-  render() {
-    return (
-        /*<View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />*/
-        <View style={{flex: 2, backgroundColor: 'powderblue'}} />
 
-	/*
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
-      </View>
-	*/
-    );
-  }
-}
-
-class Page2 extends React.Component {
-  render() {
-    return (
-	        /*<View style={{width: 100, height: 100, backgroundColor: 'skyblue'}} />*/
-	        <View style={{flex: 2, backgroundColor: 'skyblue'}} />
-
-	/*
-      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Settings!</Text>
-      </View>
-	*/
-    );
-  }
-}
 
 
 const TabNavigator = createBottomTabNavigator({
-  Page1: Page1,
-  Page2: Page2,
+  Urdu: Urdu,
+  Farsi1: Farsi1,
+  Farsi2: Farsi2
 });
 
 const TabFunction = createAppContainer(TabNavigator);
@@ -101,13 +78,20 @@ constructor(props) {
 			{/*<Text> Can you see me ? </Text>*/}
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 50, height: 50, resizeMode: 'contain'}} source={iconSearch}/></View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 50, height: 50, resizeMode: 'contain'}} source={iconSearch}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconBest}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconDiscussion}/></View>
+      </View>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/></View>
+      </View>
+
         {/*
 <View style={{backgroundColor: 'skyblue', justifyContent: 'space-between'}} ><Image style={{resizeMode: 'contain'}}source={iconSearch}/></View>
         <View style={{backgroundColor: 'steelblue', justifyContent: 'space-between'}} />
 	*/}
-      </View>
 	</View>
 			
 	<View style={{flex: 2}}>
