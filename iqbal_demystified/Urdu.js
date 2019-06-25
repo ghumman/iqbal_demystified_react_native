@@ -56,11 +56,26 @@ class Urdu extends React.Component {
 	</View>
 
         {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} /></TouchableHighlight></View>*/}
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} /></View>
+
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_001")}>	
+			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} />
+		</TouchableHighlight>
+	</View>
 	</View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook3}/></View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook4}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_004")}>	
+			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook3}/>
+		</TouchableHighlight>
+	</View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_003")}>	
+			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook4}/>
+		</TouchableHighlight>
+	
+	</View>
+
       </View>
 	</View>
     );

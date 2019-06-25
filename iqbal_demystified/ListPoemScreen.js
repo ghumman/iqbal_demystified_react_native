@@ -2,6 +2,8 @@ import React from "react";
 import { Alert, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
+import StaticContentService from './StaticContentServiceYamlTest';
+
 class ListPoemScreen extends React.Component {
         constructor(props) {
     super(props);   
@@ -51,12 +53,18 @@ class ListPoemScreen extends React.Component {
                 }
         }
 
-	getPoemList(bookName) {
+	getPoemList(listId) {
 		// Alert.alert('bookName reaceived is {bookname}')
 		console.log('Inside getPoemList')
-		console.log('bookName reaceived is {bookName}')
+		console.log('bookName reaceived is {listId}')
 		// Alert.alert(bookname)
-		console.log(bookName)
+		console.log(listId)
+
+    var response = StaticContentService.getPoemList(listId);
+    console.log("response: ");
+    console.log(response);
+		
+
 	}
 
 
