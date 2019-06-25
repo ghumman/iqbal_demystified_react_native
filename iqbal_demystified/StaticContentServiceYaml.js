@@ -2,26 +2,28 @@
 // import yamlFile from 'raw-loader!./List_001.yaml'; 
 
 var RNFS = require('react-native-fs');
+var  YAML = require('yaml');
+
 
 
 export default {
 
-  getPoemList (listId) {
+  async getPoemList (listId) {
 	// var  YAML = require('yamljs');
         // const yamlFile = require('raw-loader!./' + listId + '.yaml');
         // const yamlFile = require('!raw-loader!./assets/lists/' + listId + '.yaml');
         // const yamlFile = require('raw-loader!./assets/lists/' + listId + '.yaml');
+        
+	const path = RNFS.MainBundlePath + '/assets/lists/' + listId + '.yaml';
+        
+	const yamlFile = await RNFS.readFile(path, "utf8");
 
-	RNFS.readFile('./assets/lists/' + listId + '.yaml' , 'utf8')
-    		.then((contents) => {
-      		console.log(contents)
-    	})
 
         // require('./bgs/' + this.id + '.jpg')
         // console.log({yamlFile});
-        // console.log("yamlFile: ");
-        // console.log(yamlFile.default);
-        // return yamlFile.default;
+        console.log("yamlFile: ");
+        console.log(yamlFile.default);
+        return yamlFile.default;
 
   },
 

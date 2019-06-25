@@ -9,13 +9,14 @@
 
 // import someText from "./test"; 
 
+	  var RNFS = require('react-native-fs');
+	  var  YAML = require('yaml');
+
 export default {
 
   async getPoemList (listId) {
 
         try {
-	  var RNFS = require('react-native-fs');
-	  var  YAML = require('yaml');
           const path = RNFS.MainBundlePath + "/assets/lists/List_001.yaml";
           // const path = RNFS.MainBundlePath + "/test.txt";
           // const path = RNFS.MainBundlePath + "/test/test.txt";
@@ -26,11 +27,14 @@ export default {
           // const path = RNFS.MainBundlePath + '/List_001.yaml';
           // const path = RNFS.MainBundlePath + '/test3/test3.txt';
           const contents = await RNFS.readFile(path, "utf8");
-          console.log("" + contents);
-    var yamlObject = YAML.parse(contents)
+          // console.log("" + contents);
 
-    console.log("yamlObject : ")
-    console.log(yamlObject)
+    // var yamlObject = YAML.parse(contents)
+
+    // console.log("yamlObject : ")
+    // console.log(yamlObject)
+    // return yamlObject
+    return contents
         } catch (e) {
           console.log("" + e);
         }
