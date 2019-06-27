@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import { TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 // import Divider from '@material-ui/core/Divider';
 // import { Divider } from 'react-native-elements';
 
 // import StaticContentService from './StaticContentServiceYamlTest2';
-import StaticContentService from './StaticContentServiceYamlTest';
+// import StaticContentService from './StaticContentServiceYamlTest';
+import StaticContentService from './StaticContentServiceYaml';
 
 var  YAML = require('yaml');
 
@@ -177,6 +178,21 @@ that.setState({poemList: yamlObject.sections});
 
 	}
 
+        onSubmit = (poemNumber) => {
+
+          console.log("Value of poemNumber: ");
+          console.log(poemNumber);
+          if (poemNumber != 0)
+          {
+	  this.props.navigation.navigate('Poem', {detailPoem: poemNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
+          /*        this.props.history.push({
+                            pathname: '/PoemPage',
+                            state: { detailPoem: poemNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password }
+                  })
+	*/
+          }
+        }
+
 
 
   render() {
@@ -186,14 +202,17 @@ that.setState({poemList: yamlObject.sections});
                 );
     return (
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                        <Text>
+			<View>
                                 <Text>
                                         {this.state.bookNameUrdu}
                                 </Text>
+			</View>
+			<View>
                                 <Text>
                                         {this.state.bookNameEnglish}
                                 </Text>
-                        </Text>
+			</View>
+
 				{/*
                                 <Text>
                                         {item3}
@@ -203,7 +222,7 @@ that.setState({poemList: yamlObject.sections});
           data={
 		this.state.poemText
           }
-          renderItem={({item}) => <Text style={styles.item} >{item.text}</Text>}
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><Text style={styles.item}>{item.text}</Text></TouchableHighlight>}
         />
 
         {/*<Text>{this.state.navigation.getParam(profileUsername)}</Text>*/}

@@ -6,9 +6,11 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 
 import HomeScreen from './HomeScreen';
 import ListPoemScreen from './ListPoemScreen';
+import PoemScreen from './PoemScreen';
 import DetailsScreen from './DetailsScreen';
 
-import TabNavigator from './TabScreen'
+import TabNavigator from './TabScreen';
+import SherNavigator from './SherTabsScreen';
 
 
 
@@ -17,8 +19,8 @@ const AppNavigator = createStackNavigator(
     Home: HomeScreen,
     ListPoem: ListPoemScreen,
     TabFunction: TabNavigator,
-    // Poem: PoemScreen,
-    // Sher: SherScreen,
+    SherTabs: SherNavigator,
+    Poem: PoemScreen,
     Details: DetailsScreen
   },
   {

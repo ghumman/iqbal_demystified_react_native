@@ -9,30 +9,30 @@ var  YAML = require('yaml');
 export default {
 
   async getPoemList (listId) {
-	// var  YAML = require('yamljs');
-        // const yamlFile = require('raw-loader!./' + listId + '.yaml');
-        // const yamlFile = require('!raw-loader!./assets/lists/' + listId + '.yaml');
-        // const yamlFile = require('raw-loader!./assets/lists/' + listId + '.yaml');
         
-	const path = RNFS.MainBundlePath + '/assets/lists/' + listId + '.yaml';
-        
-	const yamlFile = await RNFS.readFile(path, "utf8");
+        try {
+        	// const yamlFile = require('raw-loader!./assets/lists/' + listId + '.yaml');
+
+		const path = RNFS.MainBundlePath + '/assets/lists/' + listId + '.yaml';
+		const yamlFile = await RNFS.readFile(path, "utf8");
 
 
-        // require('./bgs/' + this.id + '.jpg')
-        // console.log({yamlFile});
-        console.log("yamlFile: ");
-        console.log(yamlFile.default);
-        return yamlFile.default;
+		return yamlFile;
+	} catch (e) {
+          console.log("" + e);
+        }
+
 
   },
 
-  getPoemListSearch (listId) {
-	var  YAML = require('yamljs');
+  async getPoemListSearch (listId) {
+	try {
+	// var  YAML = require('yamljs');
 	  	
         // const yamlFile = require('raw-loader!./' + listId + '.yaml');
 
       	// var poemListSearch =  [];
+	var path = Array(11);
 	var yamlFile = Array(11);
 	var yamlObject = Array(11);
 	var i, j, k;
@@ -46,11 +46,17 @@ export default {
 	for (i=1; i<=11; i++)
 
 		if (i <= 9){
-        		yamlFile[i-1] = require('!raw-loader!./assets/lists/List_00' + i + '.yaml');
+        		// yamlFile[i-1] = require('!raw-loader!./assets/lists/List_00' + i + '.yaml');
+        		path[i-1] = RNFS.MainBundlePath + '/assets/lists/List_00' + i + '.yaml';
+			yamlFile[i-1] = await RNFS.readFile(path[i-1], "utf8");
+
       			yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
 		}
 		else{
-	       		yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
+	       		// yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
+	       		path[i-1] = RNFS.MainBundlePath + '/assets/lists/List_0' + i + '.yaml';
+			yamlFile[i-1] = await RNFS.readFile(path[i-1], "utf8");
+
       			yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
 		}
 			
@@ -154,10 +160,15 @@ return newList;
         // return (yamlFile + yamlFile2 + yamlFile3 + yamlFile4);
         // return yamlFile;
 
+	}catch (e) {
+		console.log("" + e);
+	}
+
   },
 
-  getPoemSearch (poemId) {
-	var  YAML = require('yamljs');
+  async getPoemSearch (poemId) {
+	try {
+	// var  YAML = require('yamljs');
         // const yamlFile = require('raw-loader!./' + listId + '.yaml');
 
       	// var poemListSearch =  [];
@@ -179,6 +190,7 @@ return newList;
 	// var yamlFile = Array(646);
 	// var yamlObject = Array(646);
 
+	var path = Array(1440);
 	var yamlFile = Array(1440);
 	var yamlObject = Array(1440);
 
@@ -221,29 +233,46 @@ return newList;
 	for (i=1; i<=numberOfFiles[l-1]; i++){
 		if (l <=9 ){	// if l/books number is between 1-9
 		if (i <= 9){
-        		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_00' + i + '.yaml');
+        		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_00' + i + '.yaml');
+        		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_00' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
+
       			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 		else if (i <= 99){
-	       		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_0' + i + '.yaml');
+	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_0' + i + '.yaml');
+	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_0' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
       			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 		else {
-	       		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_' + i + '.yaml');
+	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_' + i + '.yaml');
+	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
+
       			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 		}	// if l <= 9 ends
 		else {	// else if l/books nubmer is between 10-11
 		if (i <= 9){
-        		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_00' + i + '.yaml');
+        		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_00' + i + '.yaml');
+
+        		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_00' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
+
       			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 		else if (i <= 99){
-	       		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_0' + i + '.yaml');
+	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_0' + i + '.yaml');
+	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_0' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
       			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 		else {
-	       		yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_' + i + '.yaml');
+	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_' + i + '.yaml');
+	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_' + i + '.yaml';
+			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
+
       			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
 		}
 
@@ -257,15 +286,24 @@ return newList;
 	// for (ii=1; ii<=179; ii++){
 	for (ii=1; ii<=numberOfFiles[1]; ii++){
 		if (ii <= 9){
-        		yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_00' + ii + '.yaml');
+        		// yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_00' + ii + '.yaml');
+        		path[i+ii-2] = RNFS.MainBundlePath + '/assets/poems/002/002_00' + ii + '.yaml';
+			yamlFile[i+ii-2] = await RNFS.readFile(path[i+ii-2], "utf8");
+
       			yamlObject[i+ii-2] = YAML.parse(yamlFile[i+ii-2]);
 		}
 		else if (ii <= 99){
-	       		yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_0' + ii + '.yaml');
+	       		// yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_0' + ii + '.yaml');
+	       		path[i+ii-2] = RNFS.MainBundlePath + '/assets/poems/002/002_0' + ii + '.yaml';
+			yamlFile[i+ii-2] = await RNFS.readFile(path[i+ii-2], "utf8");
+
       			yamlObject[i+ii-2] = YAML.parse(yamlFile[i+ii-2]);
 		}
 		else {
-	       		yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_' + ii + '.yaml');
+	       		// yamlFile[i+ii-2] = require('raw-loader!./../assets/poems/002/002_' + ii + '.yaml');
+	       		path[i+ii-2] = RNFS.MainBundlePath + '/assets/poems/002/002_' + ii + '.yaml';
+			yamlFile[i+ii-2] = await RNFS.readFile(path[i+ii-2], "utf8");
+
       			yamlObject[i+ii-2] = YAML.parse(yamlFile[i+ii-2]);
 		}
 }
@@ -355,44 +393,13 @@ for (i=0; i<(yamlObject[k].sher).length; i++) {
 
 return newList;
 
-/*
-
-	if ((JSON.stringify(yamlObject[0].sections[1].poems[0].poemName[0].text)).match(listId)){
-      		console.log("Found");
-		console.log(yamlObject[0].sections[1].poems[0]);
-		// return yamlObject.sections[1].poems[0];
-		// var newList = {poems : [yamlObject.sections[1].poems[0], yamlObject.sections[1].poems[0]]};
-		// newList = {poems : [yamlObject.sections[1].poems[0], yamlObject.sections[1].poems[0]]};
-		// var newList = [yamlObject.sections[1].poems[0]];
-		// return yamlObject.sections[1].poems[0];
-		return newList;
-		// return yamlObject.sections[1];
+	}catch (e) {
+          console.log("" + e);
 	}
-	else{
-      		console.log("Not Found");
-	}
-	return {sher: []};
-
-
-
-      	// console.log({yamlObject.name[0].text});
-      	// console.log({yamlObject});
-      	// console.log(yamlObject);
-      	// console.log("Value of yamlObject.name.text" + poemListSearch);
-
-        // poemListSearch = yamlObject
-        // const yamlFile = require('raw-loader!./../assets/lists/' + listId + '.yaml');
-        // require('./bgs/' + this.id + '.jpg')
-        // console.log({yamlFile});
-        // return (yamlFile + yamlFile2 + yamlFile3 + yamlFile4);
-        // return yamlFile;
-*/
-
   },
-  getPoem (poemId) {
-	var  YAML = require('yamljs');
-        // const yamlFile = require('raw-loader!./' + listId + '.yaml');
-	// split the stirng listId
+
+  async getPoem (poemId) {
+	try {
 	var arr = poemId.split("_");
 
 	//print both parts of string
@@ -400,16 +407,21 @@ return newList;
 	console.log("arr[1]: " + arr[1]);
 
 
-        // const yamlFile = require('raw-loader!./../assets/lists/' + listId + '.yaml');
-        const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + poemId + '.yaml');
-        // const yamlFile = require('raw-loader!./../assets/poems/001/001_001.yaml');
-        console.log(yamlFile.default);
-        return yamlFile.default;
+        // const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + poemId + '.yaml');
+
+        const path = RNFS.MainBundlePath + '/assets/poems/' + arr[0] + '/' + poemId + '.yaml';
+	const yamlFile = await RNFS.readFile(path, "utf8");
+
+        return yamlFile;
+	} catch (e) {
+		console.log("" + e);
+	}
 
   },
 
-    getRecentSher (sherList) {
-	var  YAML = require('yamljs');
+    async getRecentSher (sherList) {
+	try {
+	// var  YAML = require('yamljs');
 	console.log("Inside getRecentSher");
 	console.log(sherList);
 
@@ -428,15 +440,11 @@ return newList;
 
         // const yamlFile = require('raw-loader!./../assets/poems/' + arr[0] + '/' + sherList + '.yaml');
 
-        const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml');
+        // const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml');
 
-	/*
-	console.log("Equal");
-	if (arr[2] == 1)
-		console.log("Equal");
-	else	
-		console.log("Not Equal");
-	*/
+        const path = RNFS.MainBundlePath + '/assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml';
+	const yamlFile = await RNFS.readFile(path, "utf8");
+
 	var sherIndex = arr[2] - 1;
 
 	console.log("sherIndex");
@@ -452,64 +460,23 @@ return newList;
 
 	return newList;
 	
-	// var yamlSherObject = yamlObject.sher;
-	// var yamlSpecificSher = yamlObject.sher[sherIndex].sherContent[0];
-        // console.log("yamlObject: ");
-        // console.log({yamlSherObject});
+        } catch (e) {
+          console.log("" + e);
+        }
 
-        // console.log("yamlSpecificSher: ");
-        // console.log({yamlSpecificSher});
-        // console.log(JSON.stringify({yamlObject.id}));
-
-        // const yamlFile = require('raw-loader!./../assets/poems/001/001_001.yaml');
-        // console.log({yamlFile});
-        // return yamlFile;
-
-/*
-      	console.log("Testing");
-'use strict';
-console.log(yamlObject.length);
-for (k =0; k<yamlObject.length; k++){
-for (i=0; i<(yamlObject[k].sher).length; i++) {
-			if (JSON.stringify(yamlObject[k].sher[i].sherContent[0].text).match(poemId)){
-				newList['sher'].push(yamlObject[k].sher[i]);
-				console.log("Inside second for");
-				console.log(yamlObject[k].sher[i]);
-		}
-}
-}
-return newList;
-  }
-  
-*/
 },	// function getRecent Sher ends
 
-    getSherDiscussion (sherGeneralDiscussionServerResponse) {	
-	var  YAML = require('yamljs');
+    async getSherDiscussion (sherGeneralDiscussionServerResponse) {	
+	try {
+	// var  YAML = require('yamljs');
+	console.log("Inside getSherDiscussion inside StaticContentServiceYaml, Value of sherGeneralServerResponse: ")
+
+	console.log(sherGeneralDiscussionServerResponse);
 	return sherGeneralDiscussionServerResponse;
 
-/*
-	console.log("Inside getRecentSher");
-	console.log(sherGeneralDiscussionServerResponse);
-	var newList =  {sher: []};
-	var i;
-	// var sherArray = sherList.split(",");
-	var sherArray = sherGeneralDiscussionServerResponse.split(",");
-	for (i=0; i < (sherArray.length - 1); i++){
-	console.log("sherArray");
-	console.log(sherArray);
-	var arr = sherArray[i].split("_");
-        const yamlFile = require('raw-loader!./../assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml');
-	var sherIndex = arr[2] - 1;
-	console.log("sherIndex");
-	console.log(sherIndex);
-	var yamlObject = YAML.parse(yamlFile);
-	newList['sher'].push(yamlObject.sher[sherIndex]);
-	}	// for number of total shers ends
-	console.log("newList");
-	console.log(newList);
-	return newList;
-*/
+        } catch (e) {
+          console.log("" + e);
+        }
 
 	}	// function getSherDiscussion Sher
 }	// default ends
