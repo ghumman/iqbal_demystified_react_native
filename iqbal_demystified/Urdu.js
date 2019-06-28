@@ -15,9 +15,9 @@ class Urdu extends React.Component {
 	constructor(props) {
 	    super(props);
 	    this.state = {
-	      signinConfirmation: "testing",
-	      username: "agent3", 
-	      password: "agent"
+	      signinConfirmation: "",
+	      username: "", 
+	      password: ""
 	    }
 	  }
 

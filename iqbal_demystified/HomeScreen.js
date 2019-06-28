@@ -29,13 +29,56 @@ export default class HomeScreen extends React.Component {
 constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['Head', 'Head2', 'Head3', 'Head4'],
-      tableData: [
-        ['1', '2', '3', '4']
-      ]
+          username: "",
+          password: "",
+          signinConfirmation: "",
+          gotoPage: ""	
     }
   }
 	
+ onSubmit = (pageName) => {
+          if (pageName === 'Intikhab'){
+                this.props.navigation.navigate('ListPoemPage',{ detailBook: "List_Editor_Pick", profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+          }
+          else {
+                this.props.navigation.navigate(pageName,{ profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+          }
+        }
+
+        componentDidMount() {
+                try {
+			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+			this.setState({username: this.props.navigation.getParam('profileUsername')});
+			this.setState({password: this.props.navigation.getParam('profilePassword')});
+
+                // this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
+                // this.setState({username: this.props.location.state.profileUsername});
+                // this.setState({password: this.props.location.state.profilePassword});
+
+      if (this.props.navigation.getParam('profileSigninConfirmation') != 'done') {
+
+                                console.log("Profile Signin Confirmation message is not done ")
+
+                                this.setState({signinConfirmation: 'not signed in'});
+                                this.setState({username: ''});
+                                this.setState({gotoPage : "Register"})
+
+                        }
+                        else {
+                                console.log("You're signed in and profileSigninConfirmation message is done");
+                                // this.setState({gotoPage : "Profile"})
+                        }
+                }
+                catch (e) {
+                        console.log("Inside catch")
+                        console.log("Not signed in or just started the app");
+
+                        this.setState({signinConfirmation: 'not signed in'});
+                        this.setState({username: ''});
+                        this.setState({gotoPage : "RegisterPage"})
+                }
+        }
+
 	render() {
     		const state = this.state;
 		const {navigate} = this.props.navigation;
@@ -54,8 +97,6 @@ constructor(props) {
 	<Row  data={[<Image style={{flex: 1, resizeMode: 'contain'}} source={iconSignIn}/>, <Image style={{flex: 1, resizeMode: 'contain'}} source={iconBest}/>]}/>
         </Table>
 	*/}
-          {/*<Rows data={state.tableData} textStyle={styles.text}/>*/}
-          {/*<Row data={state.tableHead} style={styles.head} textStyle={styles.text}/>*/}
 	{/*<Row data={['1', '2']}/>*/}
 	{/*
 	<Image source={iconSignIn}/>
@@ -81,14 +122,14 @@ constructor(props) {
 
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
-		<TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})} >
+		<TouchableHighlight onPress={() =>this.onSubmit(this.state.gotoPage)} >
 			<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/>
 		</TouchableHighlight>
 
 	</View>
 
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
-		<TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})} >
+		<TouchableHighlight onPress={() => this.onSubmit("Intikhab")}>
 			<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconBest}/>
 		</TouchableHighlight>
 	</View>
