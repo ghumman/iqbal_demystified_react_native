@@ -44,7 +44,7 @@ class SherPage extends React.Component {
 	    mySelectedWord: "",
 	    mySelectedId: "-99",
 	    
-	    userMessageSher: "testing",
+	    userMessageSher: "",
 	    userMessageWord: "",
 
             key: 'home'
@@ -122,8 +122,8 @@ async send_sher_message(){
 		// });	// ajax call ends
 
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	
@@ -176,8 +176,8 @@ async send_word_message(){
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 
@@ -187,12 +187,12 @@ async send_word_message(){
 	}	// if not logged in empty
 	else{
 
-		alert("Please login first to add comments.");
+		Alert.alert("Please login first to add comments.");
 	}
 	}	// if message is empty ends
 	
 	else {
-		alert("Comments can not be empty");
+		Alert.alert("Comments can not be empty");
 	}
 
 }
@@ -333,8 +333,8 @@ async send_word_message(){
       // })     // ajax call ends
 
     }catch(err){
-    	alert("inside catch err");
-    	alert(err);
+    	Alert.alert("inside catch err");
+    	Alert.alert(err);
     	that.message = err;
     }
   } // async getSherGeneralDiscussion ends
@@ -400,8 +400,8 @@ async send_word_message(){
 		 	// });     // ajax call ends
     }  // try ends
     catch(err){
-			alert("inside catch err");
-     	alert(err);
+			Alert.alert("inside catch err");
+     	Alert.alert(err);
       // this.message = err;
   	}  // catch ends
 	}
@@ -482,7 +482,7 @@ async send_word_message(){
 				if (data == "vote registered")
 					this.getSherWordDiscussion(this.state.sherId);	
 				else if (data == "vote already registered") {
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle_word(idx);
 				}
 	
@@ -490,13 +490,13 @@ async send_word_message(){
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -536,7 +536,7 @@ async send_word_message(){
 				if (data == "vote registered")
 					this.getSherWordDiscussion(this.state.sherId);	
 				else if (data == "vote already registered"){
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle_word(idx);
 					
 
@@ -546,13 +546,13 @@ async send_word_message(){
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -590,23 +590,23 @@ async send_word_message(){
 				if (data == "vote removed"){
 					// this.toggle_word(idx);
 					this.getSherWordDiscussion(this.state.sherId);	
-					alert("Your vote is removed");
+					Alert.alert("Your vote is removed");
 				}
 				else if (data == "invalid is_cancel value") {
-					alert("You have not liked or disliked it yet.");
+					Alert.alert("You have not liked or disliked it yet.");
 				}
 	
 
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -619,15 +619,21 @@ async send_word_message(){
 	///////////////////////////////////////////////////////////
 	
     vote_like(comment_general_id) {
+	
+
+	console.log("Inside vote_like")
 
 
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
 
+	var that = this;
+
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-		// $.ajax({
+		// $.ajax({ fetch(
+		localTestString = "sher=002_001_001&discussion_type=general&comment_id=319&username=agent3&password=agent&is_like=1&is_cancel=0"
 		fetch(
 			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
 			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
@@ -635,32 +641,37 @@ async send_word_message(){
 			method: 'POST',
 			// dataType: 'text',
 			headers: {
-            'Content-Type': 'text/plain',
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
         },
 			// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
-			body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
-		}).then(function(data){ 
+			// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=1&is_cancel=0"
+			// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
 			// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherGeneralDiscussion(this.state.sherId);	
+					that.getSherGeneralDiscussion(that.state.sherId);	
 				else if (data == "vote already registered") {
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
-					// this.toggle(idx);
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 				}
+		});	// data.text.then.func ends
 	
 
 			})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -674,8 +685,12 @@ async send_word_message(){
 		
     vote_dislike(comment_general_id){
 
+	console.log("Inside vote_dislike")
+
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
+
+	var that = this;
 
 	if (this.state.username != ""){
 	try{
@@ -688,34 +703,40 @@ async send_word_message(){
                 	method: 'POST',
                  	// dataType: 'text',
 			headers: {
-            'Content-Type': 'text/plain',
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
         },
 		 	// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
-		 	body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0}
-		}).then(function(data){ 
+		 	// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=0"
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
                  	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherGeneralDiscussion(this.state.sherId);	
+					that.getSherGeneralDiscussion(that.state.sherId);	
 				else if (data == "vote already registered"){
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle(idx);
 					
 
 				}
 	
+		
+		});	// data.text.then.func ends
 
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -728,8 +749,12 @@ async send_word_message(){
 
     vote_unregister(comment_general_id) {
 
+	console.log("Inside vote_unregister")
+
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
+
+	var that = this;
 
 	if (this.state.username != ""){
 	try{
@@ -742,34 +767,39 @@ async send_word_message(){
                 	method: 'POST',
                  	// dataType: 'text',
 			headers: {
-            'Content-Type': 'text/plain',
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
         },
 		 	// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
-		 	body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
-		}).then(function(data){ 
+		 	// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=1"
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
                  	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote removed"){
 					// this.toggle(idx);
-					this.getSherGeneralDiscussion(this.state.sherId);	
-					alert("Your vote is removed");
+					that.getSherGeneralDiscussion(that.state.sherId);	
+					Alert.alert("Your vote is removed");
 				}
 				else if (data == "invalid is_cancel value") {
-					alert("You have not liked or disliked it yet.");
+					Alert.alert("You have not liked or disliked it yet.");
 				}
 	
+		});	// data.text.then.func ends
 
                  	})	// success function ends
 		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -810,8 +840,16 @@ async send_word_message(){
 */
 
 
+/*
 		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
-	  <View><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><TouchableHighlight onPress={() => this.vote_like(item.id)}><View><Button title='LIKE'/></View></TouchableHighlight><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+		);
+*/
+
+
+
+		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={() => this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={() => this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
 		);
 		
 
@@ -932,13 +970,11 @@ async send_word_message(){
 				</Text>
 			</View>
 			<View>
-				{/*
 				<TextInput
 				  style={{height: 40}}
 				  placeholder="Comments..."
-				  onChangeText={(text) => this.setState({text})}
+				  onChangeText={(text) => this.setState({userMessageSher: text})}
 				/>
-				*/}
 			
 			{/*onChangeText={this.handleUserMessageSher}*/}
 			
