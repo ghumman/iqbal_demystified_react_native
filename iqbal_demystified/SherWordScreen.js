@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 // import Tabs from './Tabs';
 
@@ -66,6 +66,10 @@ class SherPage extends React.Component {
 
 
 	handleSubmitSher(event) {
+	console.log("username: ")
+	console.log(this.state.username)
+	console.log("password: ")
+	console.log(this.state.password)
 		this.send_sher_message()
 		event.preventDefault()
 	}
@@ -77,6 +81,12 @@ class SherPage extends React.Component {
 
 async send_sher_message(){
 	console.log("Inside send_sher_message");
+	console.log("username: ")
+	console.log(this.state.username)
+	console.log("password: ")
+	console.log(this.state.password)
+
+	var that = this;
 
 	// do not try pushing comment if message is empty
 	if (this.state.userMessageSher.trim() != ""){
@@ -94,23 +104,26 @@ async send_sher_message(){
                 	method: 'POST',
                  	// dataType: 'text',
 			headers: {
-            'Content-Type': 'text/plain',
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
         },
 		 	// data: {sher: this.state.sherId, discussion_type: "general", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageSher},
-		 	body: {sher: this.state.sherId, discussion_type: "general", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageSher}
-		}).then(function(data){ 
+		 	// body: [{sher: this.state.sherId, discussion_type: "general", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageSher}]
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&username=" + that.state.username + "&password=" + that.state.password + "&comment_text=" + that.state.userMessageSher
+		}).then(async function(data){ 
                  	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
-				this.getSherGeneralDiscussion(this.state.sherId);	
+				console.log("Inside then async func")
+				that.getSherGeneralDiscussion(that.state.sherId);	
 	
 
                  	})	// success function ends
 		// });	// ajax call ends
 
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	
@@ -120,12 +133,12 @@ async send_sher_message(){
 	}	// if not logged in empty
 	else{
 
-		alert("Please login first to add comments.");
+		Alert.alert("Please login first to add comments.");
 	}
 	}	// if message is empty ends
 	
 	else {
-		alert("Comments can not be empty");
+		Alert.alert("Comments can not be empty");
 	}
 }
 
@@ -134,6 +147,7 @@ async send_word_message(){
 	// console.log("messageWord sent to send word message function");
 	// console.log(this.messageWord);
 	// do not try pushing comment if message is empty
+	var that = this;
 	if (this.state.userMessageWord.trim() != ""){
 	
 	// if user is not signed in, ask user to sign in
@@ -141,24 +155,32 @@ async send_word_message(){
 	
 	try{
 		// var element = this;
-		/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/post-comment.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "word-meanings", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageWord, word_position: this.state.mySelectedId+1},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/post-comment.php',
+			'https://icanmakemyownapp.com/iqbal/v3/post-comment.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageWord, word_position: this.state.mySelectedId+1},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageWord, word_position: this.state.mySelectedId+1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&username=" + that.state.username + "&password=" + that.state.password + "&comment_text=" + that.state.userMessageSher + "&word_position=" + this.state.mySelectedId+1
+			}).then(async function(data){
+                 	// success: (data) => {	// success funciton starts
 
 				console.log("data");
 				console.log(data);
-				this.getSherWordDiscussion(this.state.sherId);
+				that.getSherWordDiscussion(that.state.sherId);
 	
-                 	}	// success function ends
-		});	// ajax call ends
-		*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 
@@ -168,12 +190,12 @@ async send_word_message(){
 	}	// if not logged in empty
 	else{
 
-		alert("Please login first to add comments.");
+		Alert.alert("Please login first to add comments.");
 	}
 	}	// if message is empty ends
 	
 	else {
-		alert("Comments can not be empty");
+		Alert.alert("Comments can not be empty");
 	}
 
 }
@@ -187,27 +209,58 @@ async send_word_message(){
 	}
 
   async getSherGeneralDiscussion(sherName) {
+    var that = this;
     try{
-	/*
-	     $.ajax({
-       url: 'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',
-	     type: 'POST',
-	     dataType: 'text',
-	     data: {sher: sherName, discussion_type: "general"},
-	     success: (data) => {    // success funciton starts
+	console.log("sherName: ")
+	console.log(sherName)
+	var localData = { sher: sherName, discussion_type: "general"}
+	     // $.ajax({
+	     fetch(
+       // url: 'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',
+       	     'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',{
+	     // type: 'POST',
+	     method: 'POST',
+	     // dataType: 'text',
+	    		headers: {
+            // 'Content-Type': 'text/plain',
+            // 'Content-Type': 'application/json'
+	    'Content-Type': 'application/x-www-form-urlencoded'
+
+            },
+	     // data: {sher: sherName, discussion_type: "general"},
+	     // body: JSON.stringify({ sher: sherName, discussion_type: "general"})
+	     body: "sher=" + sherName + "&discussion_type=general"
+	     // body: localData
+	     }).then(async function(data){
+	     // success: (data) => {    // success funciton starts
+		// data = data.text();
+
+		// console.log("data: ")
+		// console.log(data)
+		// console.log("data.text(): ")
+		// console.log(data.json())
+
+		data.json().then(async function(data) {
+
+		console.log("data: ")
+		console.log(data)
+
+
+		// console.log("data.json(): ")
+		// console.log(data.json())
 	        var sherArray = sherName.split("_");
 
           // const yamlFile = require('!raw-loader!./assets/poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml');
 
           const path = RNFS.MainBundlePath + '/assets/poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml';
-	  const yamlFile = RNFS.readFile(path, "utf8");
+	  const yamlFile = await RNFS.readFile(path, "utf8");
 
           console.log("After calling yamlFiles");
           console.log("Value of yamlFile");
           console.log(yamlFile);
 
           var sherIndex = sherArray[2] - 1;
-          var yamlObject = YAML.parse(yamlFile.default);
+          var yamlObject = YAML.parse(yamlFile);
 
           console.log("this is the sher text");
           console.log(yamlObject.sher[sherIndex].sherContent[0].text);
@@ -215,12 +268,12 @@ async send_word_message(){
           var sherTextTemp = yamlObject.sher[sherIndex].sherContent[0].text;
 
           var sherTextLocal = sherTextTemp.split('|');
-          this.setState({sherText : sherTextLocal});
+          that.setState({sherText : sherTextLocal});
 
-          console.log("this.state.sherText");
-          console.log(this.state.sherText);
+          console.log("that.state.sherText");
+          console.log(that.state.sherText);
 
-	        var wordTextLocal = this.state.sherText[0].split(" ").concat(this.state.sherText[1].split(" "));
+	        var wordTextLocal = that.state.sherText[0].split(" ").concat(that.state.sherText[1].split(" "));
 	        var ii;
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            console.log("Original array: ")
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            for (ii=0; ii<wordTextLocal.length;ii++)
@@ -261,7 +314,7 @@ async send_word_message(){
 	        }
 
       	  // make wordTextLocal equal to this.state.wordText
-      	  this.setState({wordText: wordTextLocal});
+      	  that.setState({wordText: wordTextLocal});
 
 
       	  // this.sherText = yamlObject.sher[sherIndex].sherContent[0].text;
@@ -274,26 +327,30 @@ async send_word_message(){
       	  console.log("sherGeneralDiscussionServerResponseLocal");
       	  console.log(sherGeneralDiscussionServerResponseLocal);
 
-      	  this.setState({poemText: poemTextLocal});
-      	  this.setState({sherGeneralDiscussionServerResponse : sherGeneralDiscussionServerResponseLocal});
+      	  that.setState({poemText: poemTextLocal});
+      	  that.setState({sherGeneralDiscussionServerResponse : sherGeneralDiscussionServerResponseLocal});
 
-          this.getSherDiscussion(sherGeneralDiscussionServerResponseLocal);
-      	}       // success function ends
-      })     // ajax call ends
-	*/
+          that.getSherDiscussion(sherGeneralDiscussionServerResponseLocal);
+	});	// data.json().then ends
+      	})       // success function ends
+      // })     // ajax call ends
 
     }catch(err){
-    	alert("inside catch err");
-    	alert(err);
-    	this.message = err;
+    	Alert.alert("inside catch err");
+    	Alert.alert(err);
+    	that.message = err;
     }
   } // async getSherGeneralDiscussion ends
 
 
   getSherDiscussion(sherGeneralDiscussionServerResponse) {
-    var response = StaticContentService.getSherDiscussion(sherGeneralDiscussionServerResponse)
+	var that = this;
+    // var response = StaticContentService.getSherDiscussion(sherGeneralDiscussionServerResponse)
+    StaticContentService.getSherDiscussion(sherGeneralDiscussionServerResponse).then(function(response){
 
-    var sherDiscussionDetailLocal = JSON.parse(response)
+    // var sherDiscussionDetailLocal = JSON.parse(response)
+    // var sherDiscussionDetailLocal = JSON.parse(sherGeneralDiscussionServerResponse)
+    var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse
 
     console.log("Value of sherDiscussionDetailLocal:")
     console.log(sherDiscussionDetailLocal)
@@ -312,49 +369,72 @@ async send_word_message(){
       console.log(sherDiscussionDetailLocal[i].text)
 
     }
-    this.setState({sherDiscussionDetail : sherDiscussionDetailLocal })
+    that.setState({sherDiscussionDetail : sherDiscussionDetailLocal })
+
+	})	// .then(func res) ends
+
  	}
 
 
   async getSherWordDiscussion( sherName ) {
+    var that = this;
     try{
-/*
-			$.ajax({
-				url: 'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',
-			  type: 'POST',
-			  dataType: 'text',
-			 	// data: {sher: this.$route.query.sherId, discussion_type: "word-meanings"},
-			 	data: {sher: sherName, discussion_type: "word-meanings"},
-			  success: (data) => {    // success funciton starts
+			// $.ajax({
+			fetch(
+				// url: 'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',
+				'https://icanmakemyownapp.com/iqbal/v3/get-discussion.php',{
+			  // type: 'POST',
+			  method: 'POST',
+			  // dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+			 	// data: {sher: sherName, discussion_type: "word-meanings"},
+			 	// body: {sher: sherName, discussion_type: "word-meanings"}
+	     body: "sher=" + sherName + "&discussion_type=word-meanings"
+			}).then(async function(data){
+			  // success: (data) => {    // success funciton starts
+		data.json().then(async function(data) {
+				
+		console.log("data: ")
+		console.log(data)
+
 
 				  var sherWordDiscussionServerResponse = data;
 				  console.log("sherWordDiscussionServerResponse");
 				  console.log(sherWordDiscussionServerResponse);
 
-				  this.getWordDiscussion(sherWordDiscussionServerResponse);
+				  that.getWordDiscussion(sherWordDiscussionServerResponse);
+			
+	});	// data.json().then ends
 
-		  	}       // success function ends
-		 	});     // ajax call ends
-*/
+		  	})       // success function ends
+		 	// });     // ajax call ends
     }  // try ends
     catch(err){
-			alert("inside catch err");
-     	alert(err);
+			Alert.alert("inside catch err");
+     	Alert.alert(err);
       // this.message = err;
   	}  // catch ends
 	}
 
 	getWordDiscussion(sherWordDiscussionServerResponse) {
-    var wordDiscussionDetailLocal = JSON.parse(sherWordDiscussionServerResponse)
+    // var wordDiscussionDetailLocal = JSON.parse(sherWordDiscussionServerResponse)
+    var wordDiscussionDetailLocal = sherWordDiscussionServerResponse;
     console.log("wordDiscussionDetailLocal");
     console.log(wordDiscussionDetailLocal);
 
     for (var i=0; i<wordDiscussionDetailLocal.length; i++){
 
+      console.log(wordDiscussionDetailLocal[i].text)
+      console.log(decodeURI(wordDiscussionDetailLocal[i].text))
     	wordDiscussionDetailLocal[i].text = decodeURI(wordDiscussionDetailLocal[i].text);
 
     }
+	console.log("Before setState")
    	this.setState({wordDiscussionDetail : wordDiscussionDetailLocal});
+	console.log("After setState")
 
 	}
 
@@ -371,8 +451,8 @@ async send_word_message(){
   		console.log("In poempage.js inside componentdidmount");
   		console.log("sherName: ");
   		console.log(sherName);
-			// this.getSherGeneralDiscussion(sherName);
-			// this.getSherWordDiscussion(sherName);
+			this.getSherGeneralDiscussion(sherName);
+			this.getSherWordDiscussion(sherName);
 		}  // try ends
 	  catch (e) {
 			console.log("Inside catch");
@@ -398,37 +478,48 @@ async send_word_message(){
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
 
+	var that = this;
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=1&is_cancel=0"
+			}).then(async function(data){
+			data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherWordDiscussion(this.state.sherId);	
+					that.getSherWordDiscussion(that.state.sherId);	
 				else if (data == "vote already registered") {
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle_word(idx);
 				}
 	
+		});	// data.text.then.func ends
 
-                 	}	// success function ends
-		});	// ajax call ends
-*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -445,40 +536,51 @@ async send_word_message(){
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
 
+	var that = this;
 
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=0"
+		}).then(function(data){ 
+		data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherWordDiscussion(this.state.sherId);	
+					that.getSherWordDiscussion(that.state.sherId);	
 				else if (data == "vote already registered"){
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle_word(idx);
 					
 
 				}
 	
+		});	// data.text.then.func ends
 
-                 	}	// success function ends
-		});	// ajax call ends
-*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -494,39 +596,52 @@ async send_word_message(){
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
 
+	var that = this;
+
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=1"
+		}).then(async function(data){ 
+		data.text().then(async function(data) {
+
+                 	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote removed"){
 					// this.toggle_word(idx);
-					this.getSherWordDiscussion(this.state.sherId);	
-					alert("Your vote is removed");
+					that.getSherWordDiscussion(that.state.sherId);	
+					Alert.alert("Your vote is removed");
 				}
 				else if (data == "invalid is_cancel value") {
-					alert("You have not liked or disliked it yet.");
+					Alert.alert("You have not liked or disliked it yet.");
 				}
 	
+		});	// data.text.then.func ends
 
-                 	}	// success function ends
-		});	// ajax call ends
-*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -539,42 +654,59 @@ async send_word_message(){
 	///////////////////////////////////////////////////////////
 	
     vote_like(comment_general_id) {
+	
+
+	console.log("Inside vote_like")
 
 
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
 
+	var that = this;
+
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-			type: 'POST',
-			dataType: 'text',
-			data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
-			success: (data) => {	// success funciton starts
+		// $.ajax({ fetch(
+		localTestString = "sher=002_001_001&discussion_type=general&comment_id=319&username=agent3&password=agent&is_like=1&is_cancel=0"
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+			// type: 'POST',
+			method: 'POST',
+			// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+			// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
+			// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=1&is_cancel=0"
+			// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
+			// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherGeneralDiscussion(this.state.sherId);	
+					that.getSherGeneralDiscussion(that.state.sherId);	
 				else if (data == "vote already registered") {
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
-					// this.toggle(idx);
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 				}
+		});	// data.text.then.func ends
 	
 
-			}	// success function ends
-		});	// ajax call ends
-*/
+			})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -588,42 +720,58 @@ async send_word_message(){
 		
     vote_dislike(comment_general_id){
 
+	console.log("Inside vote_dislike")
+
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
+
+	var that = this;
 
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php', {
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
+		 	// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=0"
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote registered")
-					this.getSherGeneralDiscussion(this.state.sherId);	
+					that.getSherGeneralDiscussion(that.state.sherId);	
 				else if (data == "vote already registered"){
-					alert("Vote is already registerd. Unregister vote first and then you can revote");
+					Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
 					// this.toggle(idx);
 					
 
 				}
 	
+		
+		});	// data.text.then.func ends
 
-                 	}	// success function ends
-		});	// ajax call ends
-*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -636,42 +784,57 @@ async send_word_message(){
 
     vote_unregister(comment_general_id) {
 
+	console.log("Inside vote_unregister")
+
 	console.log("Value of comment_general_id");
 	console.log(comment_general_id);
+
+	var that = this;
 
 	if (this.state.username != ""){
 	try{
 		// var element = this;
-/*
-		$.ajax({
-			url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
-                	type: 'POST',
-                 	dataType: 'text',
-		 	data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
-                 	success: (data) => {	// success funciton starts
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
+		 	// body: {sher: this.state.sherId, discussion_type: "general", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=general&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=1"
+		}).then(async function(data){ 
+
+		data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
 				console.log("data");
 				console.log(data);
 				if (data == "vote removed"){
 					// this.toggle(idx);
-					this.getSherGeneralDiscussion(this.state.sherId);	
-					alert("Your vote is removed");
+					that.getSherGeneralDiscussion(that.state.sherId);	
+					Alert.alert("Your vote is removed");
 				}
 				else if (data == "invalid is_cancel value") {
-					alert("You have not liked or disliked it yet.");
+					Alert.alert("You have not liked or disliked it yet.");
 				}
 	
+		});	// data.text.then.func ends
 
-                 	}	// success function ends
-		});	// ajax call ends
-*/
+                 	})	// success function ends
+		// });	// ajax call ends
 	}catch(err){
-		alert("inside catch err");
-		alert(err);
+		Alert.alert("inside catch err");
+		Alert.alert(err);
 		// this.message = err;
 	}
 	}	// if username not empty ends
 	else{
-		alert("You are you not logged in. Please Login to give your feedback.");
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
 	}
 
 	console.log("messageSher sent to send sher message function");
@@ -688,30 +851,61 @@ async send_word_message(){
 
 	render() {
 		var item4 = this.state.sherText.map( (item, index) =>
-			<p key={item.index}> {item}</p>
+			<Text key={item.index}> {item}</Text>
+			/*<p key={item.index}> {item}</p>*/
 		);
-
+/*
 		var item5 = this.state.wordText.map( (item, index) =>
 			<span key={item.index}><button type="button" class="btn btn-primary"onClick={() => this.selectedWord(item, index)}> {item} </button>  </span>
-			/*<span key={item.index}> {item}: {index}</span>*/
 		);
+*/
+		var item5 = this.state.wordText.map( (item, index) =>
+			<Button key={item.index} onPress={() => this.selectedWord(item, index)} title={item}/>  
+		);
+
+/*
+
+			<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/><br/> <button type="button" class="btn btn-primary px-2"onClick={() => this.vote_like(item.id)}> LIKE </button> <span class="px-2">SCORE: {item.score}</span><button type="button" class="btn btn-primary"onClick={() => this.vote_dislike(item.id)} >DISLIKE</button><p></p><button type="button" class="btn btn-primary"onClick={() => this.vote_unregister(item.id)} >UNREGISTER</button></p><Divider/></div>
+			<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/> {item.islike} <button type="button" class="btn btn-primary" onClick={() => this.vote_like({item.id})}>LIKE</button> SCORE: {item.score} <button type="button" class="btn btn-primary" onClick={() => this.vote_like({item.id})}>DISLIKE</button> </p><Divider/></div>
+
+*/
+		
+/*
 
 		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
-			<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/><br/> <button type="button" class="btn btn-primary px-2"onClick={() => this.vote_like(item.id)}> LIKE </button> <span class="px-2">SCORE: {item.score}</span><button type="button" class="btn btn-primary"onClick={() => this.vote_dislike(item.id)} >DISLIKE</button><p></p><button type="button" class="btn btn-primary"onClick={() => this.vote_unregister(item.id)} >UNREGISTER</button></p><Divider/></div>
-			/*<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/> {item.islike} <button type="button" class="btn btn-primary" onClick={() => this.vote_like({item.id})}>LIKE</button> SCORE: {item.score} <button type="button" class="btn btn-primary" onClick={() => this.vote_like({item.id})}>DISLIKE</button> </p><Divider/></div>*/
+	  <View><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+			<View> <View><Text> {item.username}</Text></View> <View><Text>  {item.timestamp}</Text> </View><View><Text>{item.text}</Text></View> <View><Button onPress=this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
 		);
+*/
 
+
+/*
+		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><TouchableHighlight onPress={() => this.vote_like(item.id)}><View><Button title='LIKE'/></View></TouchableHighlight><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+		);
+*/
+
+
+
+		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={() => this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={() => this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+		);
+		
+/*
+		var item7 = this.state.wordDiscussionDetail.map( (item, index) =>
+			{
+				if ((item.wordposition-1) == this.state.mySelectedId)
+				return (
+			<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/><br/> <button type="button" class="btn btn-primary"onClick={() => this.vote_like_word(item.id)}> LIKE </button><span class="px-2"> SCORE: {item.score}</span><button type="button" class="btn btn-primary"onClick={() => this.vote_dislike_word(item.id)} >DISLIKE</button><p></p><button type="button" class="btn btn-primary"onClick={() => this.vote_unregister_word(item.id)} >UNREGISTER</button></p></div>
+		)}
+		)
+*/
 
 		var item7 = this.state.wordDiscussionDetail.map( (item, index) =>
 			{
-				// console.log("this.state.mySelectedId")
-				// console.log(this.state.mySelectedId)
-				// console.log("item.wordposition")
-				// console.log(item.wordposition)
 				if ((item.wordposition-1) == this.state.mySelectedId)
 				return (
-			<div key={item.id}> <div  class="float-left"><p> {item.username}</p></div> <div class="float-right"><p>  {item.timestamp}</p> </div><br/> <p>{item.text}<br/><br/> <button type="button" class="btn btn-primary"onClick={() => this.vote_like_word(item.id)}> LIKE </button><span class="px-2"> SCORE: {item.score}</span><button type="button" class="btn btn-primary"onClick={() => this.vote_dislike_word(item.id)} >DISLIKE</button><p></p><button type="button" class="btn btn-primary"onClick={() => this.vote_unregister_word(item.id)} >UNREGISTER</button></p><Divider/></div>
-			/*<p key={item.id}> {item.id}: {item.islike} : {item.score} : {item.text} : {item.timestamp} : {item.username} : {item.wordposition}</p>*/
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
 		)}
 		)
 
@@ -786,6 +980,57 @@ async send_word_message(){
 */
     return (
 		<View>
+			<View>
+				<Text>
+				 {this.state.poemText}
+				</Text>
+			</View>
+			<ScrollView>
+			<View>	
+			       {item5}
+			</View>
+			
+	    			<Text>Selected Word: {this.state.mySelectedWord}</Text>
+			<View>
+
+			       {item7}
+			</View>
+
+	{/*
+
+        <FlatList
+          data={
+		this.state.sherDiscussionDetail
+          }
+	  renderItem={({item}) => <View><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>}
+	/>
+
+	*/}
+
+			<View>
+				<Text>
+					Comments:
+				</Text>
+			</View>
+			<View>
+				<TextInput
+				  style={{height: 40}}
+				  placeholder="Comments..."
+				  onChangeText={(text) => this.setState({userMessageWord: text})}
+				/>
+			
+			{/*onChangeText={this.handleUserMessageSher}*/}
+			
+			</View>
+				<Button onPress={this.handleSubmitWord} title='SUBMIT'/>
+			<View>
+				<Text>
+
+				</Text>
+				
+			</View>
+			</ScrollView>
+
 		</View>
 		
 		);// return ends
