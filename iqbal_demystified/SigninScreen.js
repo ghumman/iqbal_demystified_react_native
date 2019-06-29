@@ -1,14 +1,15 @@
 import React from 'react'
+import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 
-import RegisterPage from './RegisterPage'
+// import RegisterPage from './RegisterPage'
 
-import ForgotPasswordPage from './ForgotPasswordPage'
+// import ForgotPasswordPage from './ForgotPasswordPage'
 
 // for formatting
-import './TabView1.css';
+// import './TabView1.css';
 
-var $ = require('jquery')
-window.jQuery = $
+// var $ = require('jquery')
+// window.jQuery = $
 
 class Signin extends React.Component {
 
@@ -33,43 +34,64 @@ class Signin extends React.Component {
 		if(this.state.username != "" && this.state.password != "") {
 			this.try_login(this.state.username, this.state.password);
 		} else {
-			       	alert("A username and password must be present");
-			       	this.setState({errorMessage : "A username and password must be present"});
+			       	Alert.alert("A username and password must be present");
+			       	// this.setState({errorMessage : "A username and password must be present"});
 		}       // else if user or password are empty ends
 	}      // function login ends
 
 	async try_login (inputUsername, inputPassword) {
+	var that = this;
   	try{
-	    $.ajax({
-	      url: 'https://www.icanmakemyownapp.com/iqbal/v3/login.php',
-	      type: 'POST',
-	      dataType: 'text',
-	      data: {username: inputUsername, password: inputPassword},
+	    // $.ajax({
+	fetch(
+	      // url: 'https://www.icanmakemyownapp.com/iqbal/v3/login.php',
+	      'https://www.icanmakemyownapp.com/iqbal/v3/login.php',{
+	      // type: 'POST',
+	      method: 'POST',
+	      // dataType: 'text',
+		headers: {
+		    // 'Content-Type': 'text/plain',
+		    'Content-Type': 'application/x-www-form-urlencoded'
+		},
+	      // data: {username: inputUsername, password: inputPassword},
+		body: "username=" + that.state.username + "&password=" + that.state.password
+		}).then(async function(data){ 
+		data.text().then(async function(data) {
 
-	      success: (data, status, username, message) => {
+	      // success: (data, status, username, message) => {
 	        console.log("data");
 	        console.log(data);
 	        if (data == "done")     {
 	      		console.log("Successfully Logged in");
-						this.setState({errorMessage : "Successfully Logged in"});
-						this.setState({signinConfirmation: data})
+						that.setState({errorMessage : "Successfully Logged in"});
+						that.setState({signinConfirmation: data})
+						
+						/*
 
-						this.props.history.push({
+						that.props.history.push({
 						pathname: '/',
 						state: { profileUsername: this.state.username, profilePassword: this.state.password, profileSigninConfirmation: this.state.signinConfirmation }
 						})
+						
+						*/
+						
+						that.props.navigation.navigate('Home', { profileUsername: that.state.username, profilePassword: that.state.password, profileSigninConfirmation: that.state.signinConfirmation });
 	        }
 	        else {
-						this.setState({errorMessage : data});
+						// this.setState({errorMessage : data});
+						Alert.alert(data);
 	        }
-	      }	// success function ends
-			})	// ajax call ends
+		
+		});	// data.text().then ends
+		})       // then async func ends
+	      // }	// success function ends
+	// 		})	// ajax call ends
 
 		}	// try ends
 		catch(err){
-			this.setState({errorMessage : "API call not successful"});
-	    alert("inside catch err");
-	    alert(err);
+			// this.setState({errorMessage : "API call not successful"});
+	   		Alert.alert("inside catch err");
+	    		Alert.alert(err);
     }	// catch ends
 	}	// async try_login ends
 
@@ -88,22 +110,31 @@ class Signin extends React.Component {
 	}
 
 	onSubmitRegister = () => {
+		/*
 		this.props.history.push({
 			pathname: 'RegisterPage'
 		})
+		*/
+		this.props.navigation.navigate('Register');
+		
 	}
 
 	onSubmitForgot = () => {
+		/*
 		this.props.history.push({
 			pathname: 'ForgotPasswordPage'
 		})
+		*/
+		this.props.navigation.navigate('ForgotPassword');
+		
 	}
 	componentDidMount() {
-		window.scrollTo(0, 0)
+		// window.scrollTo(0, 0)
 	}
 
 	render() {
-		return (
+/*
+
 			<div class="text-center">
 				<h1>Sign In</h1>
 				<form onSubmit={this.handleSubmit}>
@@ -133,6 +164,47 @@ class Signin extends React.Component {
 				</p>
 				{this.state.errorMessage}
 			</div>
+
+
+*/
+		return (
+			<View>
+				<Text>
+					SIGN IN
+				</Text>
+				<TextInput
+				  autoCapitalize= 'none'
+				  autoCorrect= {false}
+				  autoCompleteType='username'
+				  style={{height: 40}}
+				  placeholder="Username"
+				  onChangeText={(text) => this.setState({username: text})}
+				/>
+				<TextInput
+				  autoCapitalize= 'none'
+				  autoCorrect= {false}
+				  autoCompleteType='password'
+				  secureTextEntry={true}
+				  style={{height: 40}}
+				  placeholder="Password"
+				  onChangeText={(text) => this.setState({password: text})}
+				/>
+
+				<Button onPress={this.handleSubmit} title='SIGN IN'/>
+				<TouchableHighlight onPress={() => this.onSubmitForgot()}>					
+					<Text>
+						I Forgot My Password!
+					</Text>
+		
+				</TouchableHighlight>
+				<TouchableHighlight onPress={() => this.onSubmitRegister()}>					
+					<Text>
+						Do not have an account? {"\n"}
+						Register Here
+					</Text>
+		
+				</TouchableHighlight>
+			</View>
 		)
 	}
 }

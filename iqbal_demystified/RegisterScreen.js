@@ -70,6 +70,7 @@ class Register extends React.Component {
 		})
 */
 
+		console.log("Inside onSubmitSignin");
 		this.props.navigation.navigate('Signin');
 	}
 
@@ -216,6 +217,9 @@ class Register extends React.Component {
 	render() {
 		return (
 			<View>
+				<Text>
+					REGISTER
+				</Text>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}

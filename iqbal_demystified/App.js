@@ -9,10 +9,10 @@ import ListPoemScreen from './ListPoemScreen';
 import PoemScreen from './PoemScreen';
 import DetailsScreen from './DetailsScreen';
 
-// import SigninScreen from './SigninScreen';
+import SigninScreen from './SigninScreen';
 import RegisterScreen from './RegisterScreen';
 // import ChangePasswordScreen from './ChangePasswordScreen';
-// import ForgotPasswordScreen from './ForgotPasswordScreen';
+import ForgotPasswordScreen from './ForgotPasswordScreen';
 // import ProfileScreen from './ProfileScreen';
 
 import TabNavigator from './TabScreen';
@@ -27,10 +27,10 @@ const AppNavigator = createStackNavigator(
     TabFunction: TabNavigator,
     SherTabs: SherNavigator,
     Poem: PoemScreen,
-//     Signin: SigninScreen,
+    Signin: SigninScreen,
     Register: RegisterScreen,
 //     ChangePassword: ChangePasswordScreen,
-//     ForgotPassword: ForgotPasswordScreen,
+    ForgotPassword: ForgotPasswordScreen,
 //     ProfileScreen: ProfileScreen,
     Details: DetailsScreen
   },
