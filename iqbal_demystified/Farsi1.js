@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import { TouchableHighlight, Alert, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
 import {createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 
@@ -12,17 +12,82 @@ import farsi1Book4 from './assets/android_app_assets/book_zabur_ae_ajam_persian_
 
 
 class Farsi1 extends React.Component {
+
+	constructor(props) {
+	    super(props);
+	    this.state = {
+	      signinConfirmation: "",
+	      username: "", 
+	      password: ""
+	    }
+	  }
+
+
+    onSubmit = (bookNumber) => {
+	  const { navigate } = this.props.navigation;
+	
+	  console.log('You are inside onSubmit Going to ListPoem');
+	  // Alert.alert('You are inside onSubmit Going to ListPoem');
+	  // Alert.alert('Value of this.state.username');
+	  console.log('Value of this.state.username');
+	  const localUsername = 'test2'
+	  // Alert.alert(localUsername);
+	  console.log(localUsername);
+	  console.log('Value of this.state.signinConfirmation');
+	  console.log(this.state.signinConfirmation);
+	  navigate('ListPoem', {detailBook: bookNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
+	  // Alert.alert('You are inside onSubmit');
+	/*
+          this.props.navigation({
+                    pathname: '/ListPoem',
+                    state: { detailBook: bookNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password }
+          })
+	*/
+        }
+
+        componentDidMount() {
+                try {
+                        this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+                        this.setState({username: this.props.navigation.getParam('profileUsername')});
+                        this.setState({password: this.props.navigation.getParam('profilePassword')});
+                }
+                catch(e) {
+                        // Alert.alert("Inside catch");
+                        console.log("Inside catch");
+                        console.log("Error");
+                        console.log(e);
+                }
+        }
+
   render() {
     return (
 
       <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi1Book1}/></View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book2}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_006")}>	
+<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi1Book1}/>
+		</TouchableHighlight>
+</View>
+
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_005")}>	
+<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book2}/>
+		</TouchableHighlight>
+</View>
       </View>
+
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book3}/></View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book4}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_007")}>	
+<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book3}/>
+		</TouchableHighlight>
+</View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={()=> this.onSubmit("List_008")}>	
+<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book4}/>
+		</TouchableHighlight>
+</View>
       </View>
       </View>
     );

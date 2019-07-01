@@ -1,18 +1,27 @@
 import React from 'react'
+import {Picker, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
+import { Table, TableWrapper, Row, Rows, Col } from 'react-native-table-component';
+
+import AsyncStorage from '@react-native-community/async-storage';
+
 // for formatting
-import './TabView1.css';
+// import './TabView1.css';
 
-import PoemPage from './PoemPage';
+// import PoemPage from './PoemPage';
 
-import ReactTable from 'react-table'
-import 'react-table/react-table.css'
+// import ReactTable from 'react-table'
+// import 'react-table/react-table.css'
 
-var $ = require('jquery')
-window.jQuery = $
+// var $ = require('jquery')
+// window.jQuery = $
 
 var  YAML = require('yaml');
+
+const USERNAME = "username";
+const PASSWORD = "password";
+const MESSAGE = "message";
 
 class ProfilePage extends React.Component {
 
@@ -52,7 +61,15 @@ class ProfilePage extends React.Component {
 			      	    leaderBoardTextOddWordName: [],
 			      	    leaderBoardTextWordConcat: [],
 
-			      	    dropdownState: 'discussion'
+			      	    dropdownState: 'discussion',
+tableHead: ['', 'Head1', 'Head2', 'Head3'],
+      tableTitle: ['Title', 'Title2', 'Title3', 'Title4'],
+      tableData: [
+        ['1', '2', '3'],
+        ['a', 'b', 'c'],
+        ['1', '2', '3'],
+        ['a', 'b', 'c']
+      ]
 
 			          };
 		this.dropChange = this.dropChange.bind(this);
@@ -87,7 +104,7 @@ class ProfilePage extends React.Component {
 	}
 
 	  componentDidMount() {
-		  window.scrollTo(0, 0)
+		  // window.scrollTo(0, 0)
 
 	      this.get_leader_board()	      
 	      // retrive the data
@@ -133,18 +150,30 @@ class ProfilePage extends React.Component {
 	  }
 
 	  changePassword = () => {
+		/*
 	  	this.props.history.push({
 	  		pathname: '/ChangePasswordPage',
 			state: { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password}
 	  	})
+		*/
+		this.props.navigation.navigate('ChangePassword', { profileUsername: this.state.username, profilePassword: this.state.password, profileSigninConfirmation: this.state.signinConfirmation });
 
 	  }
 
 	  signOut = () => {
+		/*
+		
 	  	this.props.history.push({
 	  		pathname: '/',
 			state: { profileSigninConfirmation : "", profileUsername : "", profilePassword: ""}
 	  	})
+		*/
+AsyncStorage.removeItem(USERNAME);
+AsyncStorage.removeItem(PASSWORD);
+AsyncStorage.removeItem(MESSAGE);
+	console.log("All store variables are removed");
+
+		this.props.navigation.navigate('Home', { profileUsername: "", profilePassword: "", profileSigninConfirmation: "" });
 
 	  }
 
@@ -160,13 +189,23 @@ class ProfilePage extends React.Component {
 	var leaderBoardTextOddWordLocal = []
 
 	           console.log("Inside get_leaser_board")
+		var that = this;
 			           try{
 
-					                   $.ajax({
-								                           url: 'https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php',
-								                           type: 'GET',
-								                           dataType: 'text',
-								                           success: (data) => {    
+					                   // $.ajax({
+							fetch(
+							// url: 'https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php',
+							'https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php',{
+								                           // type: 'GET',
+								                           method: 'GET',
+								                           // dataType: 'text',
+							headers: {
+							    // 'Content-Type': 'text/plain',
+							    'Content-Type': 'application/x-www-form-urlencoded'
+							}
+						}).then(async function(data){ 
+							data.text().then(async function(data) {
+								                           // success: (data) => {    
 												                                   console.log("data");
 												                                   console.log(data);
 
@@ -190,41 +229,43 @@ class ProfilePage extends React.Component {
 																	                                           if(i < 10 ) { 
 																							                                                   leaderBoardTextEvenDiscussionLocal.push(leaderBoardTextEvenLocal[i]);
 																							                                                   leaderBoardTextOddDiscussionLocal.push(leaderBoardTextOddLocal[i]);
-																							                                                   this.state.leaderBoardTextEvenDiscussionName.push({"name" : leaderBoardTextEvenLocal[i]});
-																							                                                   this.state.leaderBoardTextOddDiscussionName.push({"points": leaderBoardTextOddLocal[i]});
-																							                                                   this.state.leaderBoardTextDiscussionConcat.push({"name" : leaderBoardTextEvenLocal[i], "points": leaderBoardTextOddLocal[i]});
+																							                                                   that.state.leaderBoardTextEvenDiscussionName.push({"name" : leaderBoardTextEvenLocal[i]});
+																							                                                   that.state.leaderBoardTextOddDiscussionName.push({"points": leaderBoardTextOddLocal[i]});
+																							                                                   that.state.leaderBoardTextDiscussionConcat.push({"name" : leaderBoardTextEvenLocal[i], "points": leaderBoardTextOddLocal[i]});
 																							                                           }
 																	                                           else {
 																							                                                   leaderBoardTextEvenWordLocal.push(leaderBoardTextEvenLocal[i]);
 																							                                                   leaderBoardTextOddWordLocal.push(leaderBoardTextOddLocal[i]);
-																							                                                   this.state.leaderBoardTextEvenWordName.push({"name": leaderBoardTextEvenLocal[i]});
-																							                                                   this.state.leaderBoardTextOddWordName.push({"points": leaderBoardTextOddLocal[i]});
-																							                                                   this.state.leaderBoardTextWordConcat.push({"name" : leaderBoardTextEvenLocal[i], "points": leaderBoardTextOddLocal[i]});
+																							                                                   that.state.leaderBoardTextEvenWordName.push({"name": leaderBoardTextEvenLocal[i]});
+																							                                                   that.state.leaderBoardTextOddWordName.push({"points": leaderBoardTextOddLocal[i]});
+																							                                                   that.state.leaderBoardTextWordConcat.push({"name" : leaderBoardTextEvenLocal[i], "points": leaderBoardTextOddLocal[i]});
 																							                                           }
 	        }
 
 
-					   this.setState({leaderBoardText: leaderBoardTextLocal})
-					   this.setState({leaderBoardTextEven: leaderBoardTextEvenLocal})
-					   this.setState({leaderBoardTextOdd: leaderBoardTextOddLocal})
-					   this.setState({leaderBoardTextEvenDiscussion: leaderBoardTextEvenDiscussionLocal})
-					   this.setState({leaderBoardTextOddDiscussion: leaderBoardTextOddDiscussionLocal})
-					   this.setState({leaderBoardTextEvenWord: leaderBoardTextEvenWordLocal})
-					   this.setState({leaderBoardTextOddWord: leaderBoardTextOddWordLocal})
+					   that.setState({leaderBoardText: leaderBoardTextLocal})
+					   that.setState({leaderBoardTextEven: leaderBoardTextEvenLocal})
+					   that.setState({leaderBoardTextOdd: leaderBoardTextOddLocal})
+					   that.setState({leaderBoardTextEvenDiscussion: leaderBoardTextEvenDiscussionLocal})
+					   that.setState({leaderBoardTextOddDiscussion: leaderBoardTextOddDiscussionLocal})
+					   that.setState({leaderBoardTextEvenWord: leaderBoardTextEvenWordLocal})
+					   that.setState({leaderBoardTextOddWord: leaderBoardTextOddWordLocal})
 					   // this.setState({leaderBoardTextDiscussionConcat: [leaderBoardTextEvenDiscussionLocal,leaderBoardTextOddDiscussionLocal]})
 
 												   
-	} // success finishes 
-}) 
+	});	// data.text().then ends
+      	})       // then async func ends
+	// } // success finishes 
+// }) 
 																									           }catch(err){
-																										                   alert("inside catch err");
-																												                   alert(err);
-																														                   this.message = err;
+																										                   Alert.alert("inside catch err");
+																												                   Alert.alert(err);
+																														                   // this.message = err;
 																																           }
 																																						           console.log("messageSher sent to send sher message function");
         // console.log(this.messageSher);
-												                                   console.log("ajax: this.state.leaderBoardTextEvenDiscussion");
-												                                   console.log(this.state.leaderBoardTextEvenDiscussion);
+												                                   console.log("ajax: that.state.leaderBoardTextEvenDiscussion");
+												                                   console.log(that.state.leaderBoardTextEvenDiscussion);
 
 	    }
 
@@ -246,61 +287,38 @@ class ProfilePage extends React.Component {
 	  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
 	}
 
-					/*	
-				const data = [{
-					    name: 'Tanner Linsley',
-					    age: 26,
-					    friend: {
-						          name: 'Jason Maurer',
-						          age: 23,
-						        }
-					  }
-						    ]
-				 
-				  const columns = [{
-					      Header: 'Name',
-					      accessor: 'name' // String-based value accessors!
-					    }, {
-						        Header: 'Age',
-						        accessor: 'age',
-						        Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-						      }, {
-							          id: 'friendName', // Required because our accessor is not a string
-							          Header: 'Friend Name',
-							          accessor: d => d.friend.name // Custom value accessors!
-							        }, {
-									    Header: props => <span>Friend Age</span>, // Custom header components!
-									    accessor: 'friend.age'
-									  }]
-
-									  */
 				var itemOddWord = this.state.leaderBoardTextOddWord.map( (item) =>
 					// <li key={item.index}> {item.text} : {item.id}</li>
-					<li key={item}> {item}</li>
+					// <li key={item}> {item}</li>
+					<Text key={item}> {item}</Text>
 					// txt => <p>{txt}</p>	
 				);
 
 				var itemEvenWord = this.state.leaderBoardTextEvenWord.map( (item) =>
 					// <li key={item.index}> {item.text} : {item.id}</li>
-					<li key={item}> {item}</li>
+					// <li key={item}> {item}</li>
+					<Text key={item}> {item}</Text>
 					// txt => <p>{txt}</p>	
 				);
 
 				var itemOddDiscussion = this.state.leaderBoardTextOddDiscussion.map( (item) =>
 					// <li key={item.index}> {item.text} : {item.id}</li>
-					<li key={item}> {item}</li>
+					// <li key={item}> {item}</li>
+					<Text key={item}> {item}</Text>
 					// txt => <p>{txt}</p>	
 				);
 
 				var itemEvenDiscussion = this.state.leaderBoardTextEvenDiscussion.map( (item) =>
 					// <li key={item.index}> {item.text} : {item.id}</li>
-					<li key={item}> {item}</li>
+					// <li key={item}> {item}</li>
+					<Text key={item}> {item}</Text>
 					// txt => <p>{txt}</p>	
 				);
 
 				var itemEvenDiscussionName = this.state.leaderBoardTextEvenDiscussionName.map( (item) =>
 					// <li key={item.index}> {item.text} : {item.id}</li>
-					<li key={item}> {item.name}</li>
+					// <li key={item}> {item.name}</li>
+					<Text key={item}> {item.name}</Text>
 					// txt => <p>{txt}</p>	
 				);
 
@@ -311,10 +329,36 @@ class ProfilePage extends React.Component {
 					    Header: 'Points',
 					    accessor: 'points' // String-based value accessors!
 					  }]
+				const tableHeader = ['Leaderboard Name', 'Points']
 const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.leaderBoardTextOddDiscussionName]
 
-const data = [{
-	    name: 'Tanner Linsley'}]
+	var myTable = "" 
+	
+	if (this.state.dropdownState === 'discussion') {
+	myTable = 
+        <Table>
+ <Row data={tableHeader} flexArr={[1, 1]} style={styles.head} textStyle={styles.text}/>
+<TableWrapper style={styles.wrapper}>
+		
+
+            <Col data={itemEvenDiscussion} style={styles.title} heightArr={[28,28,28,28,28,28,28,28,28,28]} textStyle={styles.text}  />
+            <Col data={itemOddDiscussion} style={styles.title} heightArr={[28,28,28,28,28,28,28,28,28,28]} textStyle={styles.text}  />
+</TableWrapper>
+        </Table>
+	}
+	else {
+	myTable = 
+        <Table>
+ <Row data={tableHeader} flexArr={[1, 1]} style={styles.head} textStyle={styles.text}/>
+<TableWrapper style={styles.wrapper}>
+
+            <Col data={itemEvenWord} style={styles.title} heightArr={[28,28,28,28,28,28,28,28,28,28]} textStyle={styles.text}  />
+            <Col data={itemOddWord} style={styles.title} heightArr={[28,28,28,28,28,28,28,28,28,28]} textStyle={styles.text}  />
+</TableWrapper>
+        </Table>
+	}
+
+/*
 
 	var myTable = "" 
 	
@@ -324,7 +368,11 @@ const data = [{
 	else {
 		myTable = <ReactTable data={this.state.leaderBoardTextWordConcat} columns={columns} />
 	}
-				return (
+*/
+
+
+/*
+
 					<div>
 
 						
@@ -344,14 +392,6 @@ const data = [{
 						
 						<button onClick={() => this.signOut()} > SIGN OUT </button>	
 						</div>
-					{/*data={this.state.leaderBoardTextEvenDiscussionName, this.state.leaderBoardTextOddDiscussionName}*/}
-					{/*
-					<ReactTable
-					
-					    data={this.state.leaderBoardTextWordConcat}
-					    columns={columns}
-					  />
-					  */}
 					<p>
 					<select value={this.state.dropdownState} onChange={this.dropChange}>
 					  <option selected value="discussion">Discussion</option>
@@ -361,76 +401,57 @@ const data = [{
 
 					{myTable}
 
-					{/*
-					<p>Value of itemEvenDiscussion: </p>
-					{itemEvenDiscussion}
-
-					<p>Value of itemOddDiscussion: </p>
-					{itemOddDiscussion}
-
-					<p>Value of itemEvenWord: </p>
-					{itemEvenWord}
-
-					<p>Value of itemOddWord: </p>
-					{itemOddWord}
-					*/}
-
-					{/*
-
-				<ReactTable
-					
-					    data={this.state.leaderBoardTextEvenDiscussion}
-					    columns={this.state.leaderBoardTextOddDiscussion}
-					  />
-					  */}
-
-					{/*{item1}*/}
-					
-					   {/*
-					   <table>
-					        <tr><th>Leaderboard</th><th> <!-- <div>
-						  <b-dropdown id="ddown1" text="Select Contribution Type" class="m-md-2">
-						      <b-dropdown-item v-on:click="show_discussion_leader()">Discussions</b-dropdown-item>
-						          <b-dropdown-item v-on:click="show_word_leader()">Word Meanings</b-dropdown-item>
-							    </b-dropdown>
-							    </div> -->
-							    <select v-model="selected" @change="show_leader()">
-					  <option value="discussion">Discussion</option>
-					  <option value="word-meanings">Word Meanings</option>
-					</select>
-					        </th> <!-- <th>{{dropdownText}}</th> --> </tr>
-					        <tr><th>Name</th> <th>Points</th></tr>
-					        </br></br>
-
-					  <tr class="columns" v-for="(leader_entry,index) in leaderBoardTextEvenDiscussion" >
-					        <!-- <td v-if="selectBoard == 0">{{leaderBorardTextEvenDiscussion[index]}}</td> <td v-if="selectBoard == 0">{{leaderBoardTextOddDiscussion[index]}}</td> -->
-					        <td v-show="selectBoard == 0">{{leader_entry}}</td> <td v-show="selectBoard == 0">{{leaderBoardTextOddDiscussion[index]}}</td>
-					        <td v-show="selectBoard == 1">{{leaderBoardTextEvenWord[index]}}</td> <td v-show="selectBoard == 1">{{leaderBoardTextOddWord[index]}}</td>
-					  </tr>
-
-					   </table>
-					   */}
-					{/*
-					<ReactTable
-					    data={item1}
-					    columns={item3}
-					  />
-					  */}
 
 
-
-						{/*
-
-					        <router-link :to="{ name: 'ChangePasswordPage', query: {messageFromSigninPage:profileSigninMessage}}"><button>CHANGE PASSWORD</button></router-link>
-
-
-					        <button v-on:click="sign_out()">SIGN OUT</button></br></br>
-						*/}
 
 					</div>
+*/
+const state = this.state;
+				return (
+				<View>
+       	   			<Text>My Profile</Text>
+					        <Text>Now you can write comments!</Text>
+					        <Text>You can also vote to others' comments!</Text>
+					        <Text>More profile features coming soon!</Text>
+
+					<View>	
+						<Button onPress={() => this.changePassword()}  title='CHANGE PASSWORD' />	
+					</View>	
+					<View>
+						
+						<Button onPress={() => this.signOut()} title= 'SIGN OUT' />	
+					</View>
+
+						<View>
+
+						<Picker he
+						  selectedValue={this.state.dropdownState}
+						  // style={{height: 50, width: 100}}
+						  onValueChange={(itemValue, itemIndex) =>
+						    this.setState({dropdownState: itemValue})
+						  }>
+						<Picker.Item label="Discussion" value="discussion" />
+						<Picker.Item label="Word Meanings" value="word" />
+						</Picker>
+						</View>
+					{myTable}
+
+				
+
+
+				</View>
+
 				)
 			}
 }
 
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
+  head: {  height: 28,  backgroundColor: '#f1f8ff'  },
+  wrapper: { flexDirection: 'row' },
+  title: { flex: 1, backgroundColor: '#f6f8fa' },
+  row: {  height: 28  },
+  text: { textAlign: 'center' }
+});
 		      // return <h1>I got following message : {this.props.location.state.detail}</h1>
 export default ProfilePage

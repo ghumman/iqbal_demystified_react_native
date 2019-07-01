@@ -1,6 +1,15 @@
 import React from "react";
 import { TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
-import {createBottomTabNavigator, createAppContainer } from "react-navigation";
+import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
+
+import AsyncStorage from '@react-native-community/async-storage';
+// import SecureStorage, { ACCESS_CONTROL, ACCESSIBLE, AUTHENTICATION_TYPE } from 'react-native-secure-storage'
+// import { AsyncStorage } from "react-native";
+
+// const USER_KEY = "";
+const USERNAME = "username";
+const PASSWORD = "password";
+const MESSAGE = "message";
 
 import logo from './assets/allam_iqbal_pic.jpg';
 
@@ -32,30 +41,69 @@ constructor(props) {
           username: "",
           password: "",
           signinConfirmation: "",
-          gotoPage: ""	
+          gotoPage: "", 
+
+
     }
   }
-	
- onSubmit = (pageName) => {
-          if (pageName === 'Intikhab'){
-                this.props.navigation.navigate('ListPoemPage',{ detailBook: "List_Editor_Pick", profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
-          }
-          else {
-                this.props.navigation.navigate(pageName,{ profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
-          }
+
+
+ onDidFocusCustomFunction = () => {
+
+    AsyncStorage.getItem(USERNAME)
+      .then(res => {
+        if (res !== null) {
+	  // console.log("res: ")
+	  // console.log(res)
+	this.setState({username: res});
+        } else {
+	  // console.log("res: ")
+	  // console.log(res)
+	this.setState({username: res});
         }
+      })
 
-        componentDidMount() {
-                try {
-			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
-			this.setState({username: this.props.navigation.getParam('profileUsername')});
-			this.setState({password: this.props.navigation.getParam('profilePassword')});
+    AsyncStorage.getItem(PASSWORD)
+      .then(res => {
+        if (res !== null) {
+	  // console.log("res: ")
+	  // console.log(res)
+	  this.setState({password: res});
+        } else {
+	  // console.log("res: ")
+	  // console.log(res)
+	  this.setState({password: res});
+        }
+      })
 
-                // this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
-                // this.setState({username: this.props.location.state.profileUsername});
-                // this.setState({password: this.props.location.state.profilePassword});
+    AsyncStorage.getItem(MESSAGE)
+      .then(res => {
+        // if (res !== null) {
+	  // console.log("res: ")
+	  // console.log(res)
+	  this.setState({signinConfirmation: res});
+	  if (res != 'done') {
+		
+                                console.log("Profile Signin Confirmation message is not done ")
 
-      if (this.props.navigation.getParam('profileSigninConfirmation') != 'done') {
+                                this.setState({signinConfirmation: 'not signed in'});
+                                this.setState({username: ''});
+                                this.setState({gotoPage : "Register"})
+}	else {
+                                console.log("You're signed in and profileSigninConfirmation message is done");
+                                this.setState({gotoPage : "Profile"})
+
+}
+
+        // } else {
+	  // console.log("res: ")
+	  // console.log(res)
+	  // this.setState({signinConfirmation: res});
+        // }
+      })
+
+/*
+      if (this.state.signinConfirmation != 'done') {
 
                                 console.log("Profile Signin Confirmation message is not done ")
 
@@ -66,7 +114,60 @@ constructor(props) {
                         }
                         else {
                                 console.log("You're signed in and profileSigninConfirmation message is done");
-                                // this.setState({gotoPage : "Profile"})
+                                this.setState({gotoPage : "Profile"})
+                        }
+*/
+
+ }
+	
+ onSubmit = (pageName) => {
+
+	  console.log("Inside onSubmit, pageName: ")
+	  console.log(pageName)
+
+	  console.log("Inside onSubmit, this.state.signinConfirmation: ")
+	  console.log(this.state.signinConfirmation)
+
+	  console.log("Inside onSubmit, this.state.username: ")
+	  console.log(this.state.username)
+
+	  console.log("Inside onSubmit, this.state.password: ")
+	  console.log(this.state.password)
+
+          if (pageName === 'Intikhab'){
+                this.props.navigation.navigate('ListPoem',{ detailBook: "List_Editor_Pick", profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+          }
+          else {
+                this.props.navigation.navigate(pageName,{ profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+          }
+        }
+
+        componentDidMount() {
+                try {
+			this.onDidFocusCustomFunction();
+
+			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+			this.setState({username: this.props.navigation.getParam('profileUsername')});
+			this.setState({password: this.props.navigation.getParam('profilePassword')});
+
+                // this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
+                // this.setState({username: this.props.location.state.profileUsername});
+                // this.setState({password: this.props.location.state.profilePassword});
+
+
+      // if (this.props.navigation.getParam('profileSigninConfirmation') != 'done') {
+      if (this.state.signinConfirmation != 'done') {
+
+                                console.log("Profile Signin Confirmation message is not done ")
+
+                                this.setState({signinConfirmation: 'not signed in'});
+                                this.setState({username: ''});
+                                this.setState({gotoPage : "Register"})
+
+                        }
+                        else {
+                                console.log("You're signed in and profileSigninConfirmation message is done");
+                                this.setState({gotoPage : "Profile"})
                         }
                 }
                 catch (e) {
@@ -80,10 +181,12 @@ constructor(props) {
         }
 
 	render() {
+		
     		const state = this.state;
 		const {navigate} = this.props.navigation;
 		return (
 			<View style={{flex: 1}}>
+<NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
 		<View style={{flex: 1}}>
         {/*<Text style={styles.appTitle}>ALLAMA IQBAL</Text>*/}
 	{/*<Image source={logo}/>*/}
@@ -134,7 +237,11 @@ constructor(props) {
 		</TouchableHighlight>
 	</View>
 
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconDiscussion}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+		<TouchableHighlight onPress={() => this.onSubmit("DiscussionTabs")}>
+<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconDiscussion}/>
+		</TouchableHighlight>
+</View>
       </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/></View>
@@ -156,7 +263,7 @@ constructor(props) {
 		{navigate('TabFunction')}
 		*/}
 		{/*<DetailsScreen/>*/}
-		<Button onPress={() => navigate('TabFunction')} title='BOOKS'/>
+		<Button onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} title='BOOKS'/>
 	</View>
 			</View>
 

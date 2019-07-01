@@ -1,12 +1,13 @@
 import React from 'react'
+import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 
-import SigninPage from './SigninPage'
+// import SigninPage from './SigninPage'
 
 // for formatting
-import './TabView1.css';
+// import './TabView1.css';
 
-var $ = require('jquery')
-window.jQuery = $
+// var $ = require('jquery')
+// window.jQuery = $
 
 class ChangePassword extends React.Component {
 
@@ -49,10 +50,13 @@ class ChangePassword extends React.Component {
 
 	onSubmitSignin = () => {
 
+		/*
 		this.props.history.push({
 			pathname: 'SigninPage',
 			state: {none: 'none'}
 		})
+		*/
+		this.props.navigation.navigate('Signin');
 
 	}
 
@@ -67,57 +71,76 @@ class ChangePassword extends React.Component {
   	if(this.state.currentPassword != "" && this.state.newPassword1 != "" && this.state.newPassword2 != "") {
 			if (this.state.newPassword1.trim() == this.state.newPassword2.trim()){
 				this.setState({newPassword: this.state.newPassword1})
+			
 				try{
-					$.ajax({
-						url: 'https://www.icanmakemyownapp.com/iqbal/v3/change-password.php',
-    				type: 'POST',
-     				dataType: 'text',
-		 				data: {username: this.state.username, old_password: this.state.currentPassword, new_password: this.state.newPassword},
-     				success: (data) => {	// success funciton starts
+					// $.ajax({
+					fetch(
+						// url: 'https://www.icanmakemyownapp.com/iqbal/v3/change-password.php',
+						'https://www.icanmakemyownapp.com/iqbal/v3/change-password.php',{
+    				// type: 'POST',
+    				method: 'POST',
+     				// dataType: 'text',
+				headers: {
+				    // 'Content-Type': 'text/plain',
+				    'Content-Type': 'application/x-www-form-urlencoded'
+				},
+		 				// data: {username: this.state.username, old_password: this.state.currentPassword, new_password: this.state.newPassword},
+						body: "username=" + that.state.username + "&old_password=" + that.state.currentPassword + "&new_password=" + that.state.newPassword
+
+     				// success: (data) => {	// success funciton starts
+				}).then(async function(data){ 
+				data.text().then(async function(data) {
 							console.log("data");
 							console.log(data);
 							if (data.trim() == "done")	{
-								alert("Password Successfully Changed");
+								Alert.alert("Password Successfully Changed");
 								console.log("Password Successfully Changed");
-								this.setState({errorMessage : "Password Successfully Changed"});
-								this.setState({signinConfirmation: data})
+								// this.setState({errorMessage : "Password Successfully Changed"});
+								that.setState({signinConfirmation: data})
 
+						/*
 		    				this.props.history.push({
     	    					pathname: '/',
     	    					state: { profileUsername: this.state.username, profilePassword: this.state.newPassword, profileSigninConfirmation: this.state.signinConfirmation }
 		    				})
+						*/
+					
+						that.props.navigation.navigate('Home', { profileUsername: that.state.username, profilePassword: that.state.password, profileSigninConfirmation: that.state.signinConfirmation });
 
 							}	// if data is equal to done ends
 							else {
-								alert("Unable to register your account:" + data);
-								this.setState({errorMessage : "Unable to register your account:" + data});
+								Alert.alert("Unable to register your account:" + data);
+								// this.setState({errorMessage : "Unable to register your account:" + data});
 							}
-     				}	// success function ends
-					});	// ajax call ends
+
+				});	// data.text().then ends
+				})       // then async func ends
+     				// }	// success function ends
+				// 	});	// ajax call ends
 
 				}	// try ends
 				catch(err){
-					alert("inside catch err");
-					alert(err);
-					this.setState({errorMessage : err});
+					Alert.alert("inside catch err");
+					Alert.alert(err);
+					// this.setState({errorMessage : err});
 				}	// catch finishes
 			}	// if passwords are same ends
 			else {	// passwords are not same
 
-				alert("Passwords do not match");
-				this.setState({errorMessage : "Passwords do not match"});
+				Alert.alert("Passwords do not match");
+				// this.setState({errorMessage : "Passwords do not match"});
 
 			}	// if email not empty ends
 		}	// if fields  are not empty ends
 
 		else {
-    	alert("All fields are required");
-			this.setState({errorMessage: "All fields are required"})
+    	Alert.alert("All fields are required");
+			// this.setState({errorMessage: "All fields are required"})
 		}
 	}
 
 	componentDidMount() {
-		window.scrollTo(0, 0)
+		// window.scrollTo(0, 0)
 	  // retrive the data
 		try {
 	  		this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
@@ -137,7 +160,7 @@ class ChangePassword extends React.Component {
 
 
 	render() {
-		return (
+			/*
 			<div class="text-center">
 				<h1>CHANGE PASSWORD</h1>
 				<form onSubmit={this.handleSubmit}>
@@ -173,6 +196,49 @@ class ChangePassword extends React.Component {
 					{this.state.errorMessage}
 				</p>
 			</div>
+			*/
+		return (
+			<View>
+				<Text>
+					CHANGE PASSWORD
+				</Text>
+				<TextInput
+				  autoCapitalize= 'none'
+				  autoCorrect= {false}
+				  autoCompleteType='password'
+				  secureTextEntry={true}
+				  style={{height: 40}}
+				  placeholder="Current Password"
+				  onChangeText={(text) => this.setState({currentPassword: text})}
+				/>
+				<TextInput
+				  autoCapitalize= 'none'
+				  autoCorrect= {false}
+				  autoCompleteType='password'
+				  secureTextEntry={true}
+				  style={{height: 40}}
+				  placeholder="New Password"
+				  onChangeText={(text) => this.setState({newPassword1: text})}
+				/>
+				<TextInput
+				  autoCapitalize= 'none'
+				  autoCorrect= {false}
+				  autoCompleteType='password'
+				  secureTextEntry={true}
+				  style={{height: 40}}
+				  placeholder="New Password(again)"
+				  onChangeText={(text) => this.setState({newPassword2: text})}
+				/>
+
+				<Button onPress={this.handleSubmit} title='CHANGE PASSWORD!'/>
+				<TouchableHighlight onPress={() => this.onSubmitSignin()}>					
+					<Text>
+						Already Registered?{"\n"}
+						Login Here
+					</Text>
+		
+				</TouchableHighlight>
+			</View>
 		)	// return ends
 	}	// render function ends
 }	// class ends

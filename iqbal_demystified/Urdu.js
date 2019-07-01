@@ -44,8 +44,20 @@ class Urdu extends React.Component {
 	*/
         }
 
+        componentDidMount() {
+                try {
+                        this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+                        this.setState({username: this.props.navigation.getParam('profileUsername')});
+                        this.setState({password: this.props.navigation.getParam('profilePassword')});
+                }
+                catch(e) {
+                        // Alert.alert("Inside catch");
+                        console.log("Inside catch");
+                        console.log("Error");
+                        console.log(e);
+                }
+        }
   render() {
-	const {navigate} = this.props.navigation;
     return (
 	<View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
@@ -55,7 +67,6 @@ class Urdu extends React.Component {
 		</TouchableHighlight>
 	</View>
 
-        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><TouchableHighlight onPress={() => navigate('ListPoem', {name: 'Hello'})}><Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} /></TouchableHighlight></View>*/}
 
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_001")}>	

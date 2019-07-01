@@ -1,5 +1,7 @@
 import React from 'react'
 import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
+// import SecureStorage, { ACCESS_CONTROL, ACCESSIBLE, AUTHENTICATION_TYPE } from 'react-native-secure-storage'
 
 // import RegisterPage from './RegisterPage'
 
@@ -10,6 +12,14 @@ import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList,
 
 // var $ = require('jquery')
 // window.jQuery = $
+
+const USERNAME = "username";
+const PASSWORD = "password";
+const MESSAGE = "message";
+
+// const onSignIn = () => AsyncStorage.setItem(USER_KEY, "true");
+
+// const onSignOut = () => AsyncStorage.removeItem(USER_KEY);
 
 class Signin extends React.Component {
 
@@ -75,6 +85,14 @@ class Signin extends React.Component {
 						
 						*/
 						
+						console.log("navigating to home with following parameters")
+						console.log("that.state.signinConfirmation")
+						console.log(that.state.signinConfirmation)
+
+
+AsyncStorage.setItem(USERNAME, that.state.username);
+AsyncStorage.setItem(PASSWORD, that.state.password);
+AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 						that.props.navigation.navigate('Home', { profileUsername: that.state.username, profilePassword: that.state.password, profileSigninConfirmation: that.state.signinConfirmation });
 	        }
 	        else {

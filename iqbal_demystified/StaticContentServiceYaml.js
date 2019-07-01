@@ -50,14 +50,16 @@ export default {
         		path[i-1] = RNFS.MainBundlePath + '/assets/lists/List_00' + i + '.yaml';
 			yamlFile[i-1] = await RNFS.readFile(path[i-1], "utf8");
 
-      			yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
+      			// yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
+      			yamlObject[i-1] = YAML.parse(yamlFile[i-1]);
 		}
 		else{
 	       		// yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
 	       		path[i-1] = RNFS.MainBundlePath + '/assets/lists/List_0' + i + '.yaml';
 			yamlFile[i-1] = await RNFS.readFile(path[i-1], "utf8");
 
-      			yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
+      			// yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
+      			yamlObject[i-1] = YAML.parse(yamlFile[i-1]);
 		}
 			
 
@@ -237,20 +239,23 @@ return newList;
         		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_00' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
 
-      			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 		else if (i <= 99){
 	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_0' + i + '.yaml');
 	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_0' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
-      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 		else {
 	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/00' + l + '/00' + l + '_' + i + '.yaml');
 	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/00' + l + '/00' + l + '_' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
 
-      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 		}	// if l <= 9 ends
 		else {	// else if l/books nubmer is between 10-11
@@ -260,20 +265,23 @@ return newList;
         		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_00' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
 
-      			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1 + sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 		else if (i <= 99){
 	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_0' + i + '.yaml');
 	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_0' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
-      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 		else {
 	       		// yamlFile[i-1 + sumOfFiles[l-1]] = require('!raw-loader!./assets/poems/0' + l + '/0' + l + '_' + i + '.yaml');
 	       		path[i-1 + sumOfFiles[l-1]] = RNFS.MainBundlePath + '/assets/poems/0' + l + '/0' + l + '_' + i + '.yaml';
 			yamlFile[i-1 + sumOfFiles[l-1]] = await RNFS.readFile(path[i-1 + sumOfFiles[l-1]], "utf8");
 
-      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			// yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]].default);
+      			yamlObject[i-1+sumOfFiles[l-1]] = YAML.parse(yamlFile[i-1+sumOfFiles[l-1]]);
 		}
 
 		}	// else if l > 9 ends
@@ -450,7 +458,8 @@ return newList;
 	console.log("sherIndex");
 	console.log(sherIndex);
 
-	var yamlObject = YAML.parse(yamlFile.default);
+	// var yamlObject = YAML.parse(yamlFile.default);
+	var yamlObject = YAML.parse(yamlFile);
 
 	newList['sher'].push(yamlObject.sher[sherIndex]);
 	}	// for number of total shers ends
