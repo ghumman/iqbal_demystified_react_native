@@ -14,6 +14,7 @@ import RegisterScreen from './RegisterScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import ProfileScreen from './ProfileScreen';
+import InfoScreen from './InfoScreen';
 
 import TabNavigator from './TabScreen';
 import SherNavigator from './SherTabsScreen';
@@ -34,6 +35,7 @@ const AppNavigator = createStackNavigator(
     ChangePassword: ChangePasswordScreen,
     ForgotPassword: ForgotPasswordScreen,
     Profile: ProfileScreen,
+    Info: InfoScreen,
     Details: DetailsScreen
   },
   {
