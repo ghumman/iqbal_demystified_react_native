@@ -1,5 +1,6 @@
 import React from 'react'
 import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 
 // import SigninPage from './SigninPage'
 
@@ -8,6 +9,10 @@ import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList,
 
 // var $ = require('jquery')
 // window.jQuery = $
+
+const USERNAME = "username";
+const PASSWORD = "password";
+const MESSAGE = "message";
 
 class ChangePassword extends React.Component {
 
@@ -67,12 +72,30 @@ class ChangePassword extends React.Component {
 
 	// handleSubmit
 	handleSubmit(event) {
+		var that = this; 
 		event.preventDefault()
+		console.log("Inside Change Password: inside handleSubmit")
+		console.log("this.state.username")
+		console.log(this.state.username)
+
+		console.log("this.state.password")
+		console.log(this.state.password)
+
+		console.log("this.state.currentPassword")
+		console.log(this.state.currentPassword)
+
+		console.log("this.state.newPassword1")
+		console.log(this.state.newPassword1)
+	
+		console.log("this.state.newPassword2")
+		console.log(this.state.newPassword2)
+
   	if(this.state.currentPassword != "" && this.state.newPassword1 != "" && this.state.newPassword2 != "") {
 			if (this.state.newPassword1.trim() == this.state.newPassword2.trim()){
 				this.setState({newPassword: this.state.newPassword1})
 			
 				try{
+					console.log("Inside try inside chnagepasswordscreen inside trying to change password")
 					// $.ajax({
 					fetch(
 						// url: 'https://www.icanmakemyownapp.com/iqbal/v3/change-password.php',
@@ -85,7 +108,7 @@ class ChangePassword extends React.Component {
 				    'Content-Type': 'application/x-www-form-urlencoded'
 				},
 		 				// data: {username: this.state.username, old_password: this.state.currentPassword, new_password: this.state.newPassword},
-						body: "username=" + that.state.username + "&old_password=" + that.state.currentPassword + "&new_password=" + that.state.newPassword
+						body: "username=" + that.state.username.trim() + "&old_password=" + that.state.currentPassword.trim() + "&new_password=" + that.state.newPassword1.trim()
 
      				// success: (data) => {	// success funciton starts
 				}).then(async function(data){ 
@@ -97,6 +120,7 @@ class ChangePassword extends React.Component {
 								console.log("Password Successfully Changed");
 								// this.setState({errorMessage : "Password Successfully Changed"});
 								that.setState({signinConfirmation: data})
+								that.setState({password: that.state.newPassword})
 
 						/*
 		    				this.props.history.push({
@@ -105,6 +129,9 @@ class ChangePassword extends React.Component {
 		    				})
 						*/
 					
+AsyncStorage.setItem(USERNAME, that.state.username);
+AsyncStorage.setItem(PASSWORD, that.state.password);
+AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 						that.props.navigation.navigate('Home', { profileUsername: that.state.username, profilePassword: that.state.password, profileSigninConfirmation: that.state.signinConfirmation });
 
 							}	// if data is equal to done ends
@@ -120,6 +147,8 @@ class ChangePassword extends React.Component {
 
 				}	// try ends
 				catch(err){
+					console.log("Inside catch err inside ChangePasswordScreen inside trying to change password, err: ")
+					console.log(err)
 					Alert.alert("inside catch err");
 					Alert.alert(err);
 					// this.setState({errorMessage : err});
@@ -143,9 +172,15 @@ class ChangePassword extends React.Component {
 		// window.scrollTo(0, 0)
 	  // retrive the data
 		try {
+			/*
 	  		this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
 	  		this.setState({username: this.props.location.state.profileUsername});
 	  		this.setState({password: this.props.location.state.profilePassword});
+			*/
+
+                        this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+                        this.setState({username: this.props.navigation.getParam('profileUsername')});
+                        this.setState({password: this.props.navigation.getParam('profilePassword')});
 		}
 
 		catch (e) {

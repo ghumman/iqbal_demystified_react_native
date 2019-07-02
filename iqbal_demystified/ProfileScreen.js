@@ -106,13 +106,20 @@ tableHead: ['', 'Head1', 'Head2', 'Head3'],
 	  componentDidMount() {
 		  // window.scrollTo(0, 0)
 
-	      this.get_leader_board()	      
 	      // retrive the data
 		   		try {
-		  console.log(this.state.leaderBoardTextOddWord)
+					/*
 	  				this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
 	  				this.setState({username: this.props.location.state.profileUsername});
 	  				this.setState({password: this.props.location.state.profilePassword});
+					*/
+
+					this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+					this.setState({username: this.props.navigation.getParam('profileUsername')});
+					this.setState({password: this.props.navigation.getParam('profilePassword')});
+
+	      				this.get_leader_board()	      
+		  			console.log(this.state.leaderBoardTextOddWord)
 		  		}
 
 				catch(e) {
@@ -150,6 +157,11 @@ tableHead: ['', 'Head1', 'Head2', 'Head3'],
 	  }
 
 	  changePassword = () => {
+		console.log("this.state.username")
+		console.log(this.state.username)
+
+		console.log("this.state.password")
+		console.log(this.state.password)
 		/*
 	  	this.props.history.push({
 	  		pathname: '/ChangePasswordPage',

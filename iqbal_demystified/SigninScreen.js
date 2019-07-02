@@ -64,7 +64,7 @@ class Signin extends React.Component {
 		    'Content-Type': 'application/x-www-form-urlencoded'
 		},
 	      // data: {username: inputUsername, password: inputPassword},
-		body: "username=" + that.state.username + "&password=" + that.state.password
+		body: "username=" + that.state.username.trim() + "&password=" + that.state.password.trim()
 		}).then(async function(data){ 
 		data.text().then(async function(data) {
 

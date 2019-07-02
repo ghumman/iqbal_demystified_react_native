@@ -1,5 +1,6 @@
 import React from 'react'
 import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import AsyncStorage from '@react-native-community/async-storage';
 
 // import SigninPage from './SigninPage'
 
@@ -8,6 +9,10 @@ import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList,
 
 // var $ = require('jquery')
 // window.jQuery = $
+
+const USERNAME = "username";
+const PASSWORD = "password";
+const MESSAGE = "message";
 
 class Register extends React.Component {
 
@@ -115,7 +120,7 @@ class Register extends React.Component {
 							},
 		 					// data: {first_name: this.state.firstName, last_name: this.state.lastName, username: this.state.username, password: this.state.password, email: this.state.email},
 		 					// data: {first_name: this.state.firstName, last_name: this.state.lastName, username: this.state.username, password: this.state.password, email: this.state.email},
-		 					body: "first_name=" + that.state.firstName + "&last_name=" + that.state.lastName + "&username=" + that.state.username + "&password=" + that.state.password + "&email=" + that.state.email
+		 					body: "first_name=" + that.state.firstName.trim() + "&last_name=" + that.state.lastName.trim() + "&username=" + that.state.username.trim() + "&password=" + that.state.password.trim() + "&email=" + that.state.email.trim()
 						}).then(async function(data){ 
 							data.text().then(async function(data) {
                  					// success: (data, status, username, message) => {	// success funciton starts
@@ -125,6 +130,9 @@ class Register extends React.Component {
 									console.log("Successfully Registered");
 															that.setState({signinConfirmation: "done"})
 
+AsyncStorage.setItem(USERNAME, that.state.username);
+AsyncStorage.setItem(PASSWORD, that.state.password);
+AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 						    that.props.navigation.navigate('Home', { profileUsername: that.state.username, profilePassword: that.state.password, profileSigninConfirmation: that.state.signinConfirmation });
 /*
 				  		    this.props.history.push({
