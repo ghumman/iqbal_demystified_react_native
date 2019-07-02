@@ -98,12 +98,16 @@ class CommentsPage extends React.Component {
     }
 
     getRecentSher(sherRecentList) {
-        var response = StaticContentService.getRecentSher(sherRecentList)
+	var that = this;
+        // var response = StaticContentService.getRecentSher(sherRecentList)
+        StaticContentService.getRecentSher(sherRecentList).then(function(response){
+		console.log("Back from Static Content Service.sherRecentList call, response: ")
+		console.log(response)
         let newArr = [response.sher]
-        console.log("Value of newArr")
+        console.log("Value of newArr inside getRecentSher inside then function responseafter newArr = response.sher")
         console.log(newArr)
-        console.log("newArr.sherContent[0].text")
-        console.log(response.sher[0].sherContent[0].text)
+        // console.log("newArr.sherContent[0].text")
+        // console.log(response.sher[0].sherContent[0].text)
 
         response.sher.map(el => {
             el.sherContent[0].text = el.sherContent[0].text.split('|')
@@ -111,10 +115,17 @@ class CommentsPage extends React.Component {
             try {
                 el.sherContent[1].text = el.sherContent[1].text.split('|')
                 console.log(el.sherContent[1].text)
-            } catch (err) {}
+            } catch (err) {
+
+	    el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
+
+	    }
             try {
                 el.sherContent[2].text = el.sherContent[2].text.split('|')
-            } catch (err) {}
+            } catch (err) {
+	    el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
+
+	    }
             return el.sherContent = el.sherContent
         })
 
@@ -130,9 +141,10 @@ class CommentsPage extends React.Component {
         console.log("Value of newArr.length")
         console.log(newArr[0].length)
 
-        this.setState({
+        that.setState({
             recentData: newArr[0]
         })
+	})	// then func response ends
 
     }
     ////////////////////////////////////////////////////////////////////
@@ -238,7 +250,7 @@ class CommentsPage extends React.Component {
 			this.setState({password: this.props.navigation.getParam('profilePassword')});
 
             this.getSherRecentListFromServer()
-            this.getSherPopularListFromServer()
+            // this.getSherPopularListFromServer()
             console.log("In poempage.js inside componentdidmount");
 
         } catch (e) {
@@ -272,6 +284,7 @@ class CommentsPage extends React.Component {
 
 */
     render() {
+/*
             var itemsRecent = this.state.recentData.map((item, index) =>
                 <
                 span key = {
@@ -318,6 +331,7 @@ class CommentsPage extends React.Component {
 			signinMessageLocal = "Sign In"
 		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
 		}
+*/
 /*
 
               <div >
@@ -346,11 +360,30 @@ class CommentsPage extends React.Component {
 
             return (
 		<View>
+        <FlatList
+          data={
+		this.state.recentData
+          }
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.item}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+        />
 		</View>
 
             )
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  item: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+})
 
 // return <h1>I got following message : {this.props.location.state.detail}</h1>
 export default CommentsPage

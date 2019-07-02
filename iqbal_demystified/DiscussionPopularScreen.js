@@ -100,21 +100,35 @@ class CommentsPage extends React.Component {
     getRecentSher(sherRecentList) {
         var response = StaticContentService.getRecentSher(sherRecentList)
         let newArr = [response.sher]
-        console.log("Value of newArr")
+        console.log("Value of newArr which is response.sher")
         console.log(newArr)
         console.log("newArr.sherContent[0].text")
         console.log(response.sher[0].sherContent[0].text)
-
+/*
         response.sher.map(el => {
+	    try {
             el.sherContent[0].text = el.sherContent[0].text.split('|')
             console.log(el.sherContent[0].text)
+	    } catch (err) {
+
+		console.log("Inside catch 0, err: ")
+		console.log(err)
+		}
             try {
                 el.sherContent[1].text = el.sherContent[1].text.split('|')
                 console.log(el.sherContent[1].text)
-            } catch (err) {}
+            } catch (err) {
+
+		console.log("Inside catch 1, err: ")
+		console.log(err)
+		}
             try {
                 el.sherContent[2].text = el.sherContent[2].text.split('|')
-            } catch (err) {}
+            } catch (err) {
+
+		console.log("Inside catch 2, err: ")
+		console.log(err)
+		}
             return el.sherContent = el.sherContent
         })
 
@@ -133,6 +147,7 @@ class CommentsPage extends React.Component {
         this.setState({
             recentData: newArr[0]
         })
+*/
 
     }
     ////////////////////////////////////////////////////////////////////
@@ -179,7 +194,9 @@ class CommentsPage extends React.Component {
     }
 
     getPopularSher(sherPopularList) {
-        var response = StaticContentService.getRecentSher(sherPopularList)
+	var that = this;
+        // var response = StaticContentService.getRecentSher(sherPopularList)
+        StaticContentService.getRecentSher(sherPopularList).then(function(response){
         let newArrPopular = [response.sher]
         console.log("Value of newArrPopular")
         console.log(newArrPopular)
@@ -191,16 +208,24 @@ class CommentsPage extends React.Component {
             try {
                 el.sherContent[1].text = el.sherContent[1].text.split('|')
                 console.log(el.sherContent[1].text)
-            } catch (err) {}
+            } catch (err) {
+	    	el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
+
+	    }
             try {
                 el.sherContent[2].text = el.sherContent[2].text.split('|')
-            } catch (err) {}
+            } catch (err) {
+
+	    	el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
+	    }
             return el.sherContent = el.sherContent
         })
 
-        this.setState({
+        that.setState({
             popularData: newArrPopular[0]
         })
+	})	// then func response ends
+	
     }
 
     ////////////////////////////////////////////////////////////////////
@@ -237,13 +262,14 @@ class CommentsPage extends React.Component {
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
 			this.setState({password: this.props.navigation.getParam('profilePassword')});
 
-            this.getSherRecentListFromServer()
+            // this.getSherRecentListFromServer()
+	    console.log("passed setState going to getSherPopularListFromServer")
             this.getSherPopularListFromServer()
             console.log("In poempage.js inside componentdidmount");
 
         } catch (e) {
 
-            console.log("Inside catch");
+            console.log("Inside catch componentDidMount");
 
         }
     }
@@ -272,6 +298,7 @@ class CommentsPage extends React.Component {
 
 */
     render() {
+/*
             var itemsRecent = this.state.recentData.map((item, index) =>
                 <
                 span key = {
@@ -318,6 +345,7 @@ class CommentsPage extends React.Component {
 			signinMessageLocal = "Sign In"
 		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
 		}
+*/
 /*
 
               <div >
@@ -346,11 +374,30 @@ class CommentsPage extends React.Component {
 
             return (
 		<View>
+        <FlatList
+          data={
+		this.state.popularData
+          }
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.item}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+        />
 		</View>
 
             )
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  item: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+})
 
 // return <h1>I got following message : {this.props.location.state.detail}</h1>
 export default CommentsPage

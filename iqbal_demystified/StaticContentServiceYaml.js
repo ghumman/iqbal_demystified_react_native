@@ -434,42 +434,49 @@ return newList;
 	console.log(sherList);
 
 	var newList =  {sher: []};
+	// console.log("newList");
+	// console.log(newList);
 	var i;
 	var sherArray = sherList.split(",");
+	console.log("sherArray");
+	console.log(sherArray);
 	// for (i=0; i < (sherArray.length); i++){
 	for (i=0; i < (sherArray.length - 1); i++){
 
-	console.log("sherArray");
-	console.log(sherArray);
+		// console.log("sherArray");
+		// console.log(sherArray);
 
-	// var arr = sherList.split("_");
-	// var arr = sherArray[0].split("_");
-	var arr = sherArray[i].split("_");
+		// var arr = sherList.split("_");
+		// var arr = sherArray[0].split("_");
+		var arr = sherArray[i].split("_");
 
-        // const yamlFile = require('raw-loader!./../assets/poems/' + arr[0] + '/' + sherList + '.yaml');
+		// const yamlFile = require('raw-loader!./../assets/poems/' + arr[0] + '/' + sherList + '.yaml');
 
-        // const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml');
+		// const yamlFile = require('!raw-loader!./assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml');
 
-        const path = RNFS.MainBundlePath + '/assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml';
-	const yamlFile = await RNFS.readFile(path, "utf8");
+		const path = RNFS.MainBundlePath + '/assets/poems/' + arr[0] + '/' + arr[0] + '_' + arr[1] + '.yaml';
+		const yamlFile = await RNFS.readFile(path, "utf8");
 
-	var sherIndex = arr[2] - 1;
+		var sherIndex = arr[2] - 1;
 
-	console.log("sherIndex");
-	console.log(sherIndex);
+		// console.log("sherIndex");
+		// console.log(sherIndex);
 
-	// var yamlObject = YAML.parse(yamlFile.default);
-	var yamlObject = YAML.parse(yamlFile);
+		// var yamlObject = YAML.parse(yamlFile.default);
+		var yamlObject = YAML.parse(yamlFile);
 
-	newList['sher'].push(yamlObject.sher[sherIndex]);
+		newList['sher'].push(yamlObject.sher[sherIndex]);
 	}	// for number of total shers ends
 	
-	console.log("newList");
+	console.log("newList at the end of Static getRecentSher sending it back to function call");
 	console.log(newList);
+
+
 
 	return newList;
 	
         } catch (e) {
+	  console.log("Inside catch inside StaticContentServiceYaml inside getRecentSher")
           console.log("" + e);
         }
 
