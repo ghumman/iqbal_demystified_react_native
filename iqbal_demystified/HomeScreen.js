@@ -244,7 +244,13 @@ constructor(props) {
 </View>
       </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/></View>
+        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+
+		<TouchableHighlight onPress={() => this.onSubmit("Search")}>
+<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/>
+		</TouchableHighlight>
+
+</View>
         <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
 
 		<TouchableHighlight onPress={() => this.onSubmit("Info")}>
