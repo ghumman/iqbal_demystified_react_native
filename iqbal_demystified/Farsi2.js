@@ -57,21 +57,24 @@ class Farsi2 extends React.Component {
     return (
       <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_009")}>	
-<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi2Book1}/>
+{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi2Book1}/>*/}
+<Image style={styles.RowImage} source={farsi2Book1}/>
 		</TouchableHighlight>
 </View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_010")}>	
-<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book2}/>
+{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book2}/>*/}
+<Image style={styles.RowImage} source={farsi2Book2}/>
 		</TouchableHighlight>
 </View>
       </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_011")}>	
-<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book3}/>
+{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book3}/>*/}
+<Image style={styles.RowImage} source={farsi2Book3}/>
 		</TouchableHighlight>
 </View>
       </View>
@@ -80,5 +83,25 @@ class Farsi2 extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  RowSpace: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    margin: 15 
+
+  },
+
+  RowImage: {
+    margin: 30,
+    width: 120, 
+    height: 200, 
+    resizeMode: 'contain'
+  }
+})
+
+
 
 export default Farsi2;

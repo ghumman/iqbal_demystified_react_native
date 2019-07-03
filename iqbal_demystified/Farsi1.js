@@ -64,28 +64,32 @@ class Farsi1 extends React.Component {
 
       <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_006")}>	
-<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi1Book1}/>
+{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi1Book1}/>*/}
+<Image style={styles.RowImage} source={farsi1Book1}/>
 		</TouchableHighlight>
 </View>
 
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_005")}>	
-<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book2}/>
+{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book2}/>*/}
+<Image style={styles.RowImage} source={farsi1Book2}/>
 		</TouchableHighlight>
 </View>
       </View>
 
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_007")}>	
-<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book3}/>
+{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book3}/>*/}
+<Image style={styles.RowImage} source={farsi1Book3}/>
 		</TouchableHighlight>
 </View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_008")}>	
-<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book4}/>
+{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book4}/>*/}
+<Image style={styles.RowImage} source={farsi1Book4}/>
 		</TouchableHighlight>
 </View>
       </View>
@@ -93,5 +97,23 @@ class Farsi1 extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  RowSpace: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    margin: 15 
+
+  },
+
+  RowImage: {
+    margin: 30,
+    width: 120, 
+    height: 200, 
+    resizeMode: 'contain'
+  }
+})
 
 export default Farsi1;

@@ -61,28 +61,36 @@ class Urdu extends React.Component {
     return (
 	<View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_002")}>	
-			<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={urduBook1} />
+			{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={urduBook1} />*/}
+			<Image style={styles.RowImage} source={urduBook1} />
 		</TouchableHighlight>
 	</View>
 
 
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_001")}>	
-			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} />
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} />*/}
+			<Image style={styles.RowImage} source={urduBook2} />
 		</TouchableHighlight>
 	</View>
 	</View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_004")}>	
-			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook3}/>
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook3}/>*/}
+			<Image style={styles.RowImage} source={urduBook3}/>
 		</TouchableHighlight>
 	</View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_003")}>	
-			<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook4}/>
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook4}/>*/}
+			<Image style={styles.RowImage} source={urduBook4}/>
 		</TouchableHighlight>
 	
 	</View>
@@ -92,5 +100,26 @@ class Urdu extends React.Component {
     );
   }
 }
+
+
+
+const styles = StyleSheet.create({
+  RowSpace: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    margin: 15 
+
+  },
+
+  RowImage: {
+    margin: 30,
+    width: 120, 
+    height: 200, 
+    resizeMode: 'contain'
+  }
+})
+
 
 export default Urdu;

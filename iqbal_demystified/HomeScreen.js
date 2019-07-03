@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import {TouchableOpacity,  TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
 import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -18,6 +18,8 @@ import iconBest from './assets/android_app_assets/icon_best.png';
 import iconDiscussion from './assets/android_app_assets/icon_discussion.png';
 import iconSearch from './assets/android_app_assets/icon_search.png';
 import iconInfo from './assets/android_app_assets/icon_info.png';
+
+import booksLogo from './assets/android_app_assets/books_logo.png';
 
 import DetailsScreen from './DetailsScreen';
 
@@ -187,6 +189,35 @@ constructor(props) {
 		return (
 			<View style={{flex: 1}}>
 <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
+	{/*<View style={{flex: 2}}>*/}
+	<View style={{flex: 1}}>
+			{/*<TabFunction/>*/}
+		{/*
+		{navigate('TabFunction')}
+		*/}
+		{/*<DetailsScreen/>*/}
+	<Image style={styles.image} source={logo}/>
+	</View>
+      <View style={styles.MainContainer}>
+		{/*<Button onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} title='BOOKS'/>*/}
+	
+        <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} >
+          {/*We can use any component which is used to shows something inside 
+             TouchableOpacity. It shows the item inside in horizontal orientation */}
+          <Image
+            //We are showing the Image from online
+            source={
+		booksLogo
+           }
+            //You can also show the image from you project directory like below
+            //source={require('./Images/facebook.png')}
+            //Image Style
+            style={styles.ImageIconStyle}
+          />
+          <View style={styles.SeparatorLine} />
+          <Text style={styles.TextStyle}> BOOKS </Text>
+        </TouchableOpacity>
+      </View>
 		<View style={{flex: 1}}>
         {/*<Text style={styles.appTitle}>ALLAMA IQBAL</Text>*/}
 	{/*<Image source={logo}/>*/}
@@ -223,42 +254,58 @@ constructor(props) {
 </TouchableHighlight>
 */}
 
+
+
+
+
+
+
+
+
+
+
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={() =>this.onSubmit(this.state.gotoPage)} >
-			<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSignIn}/>
+			<Image style={styles.RowImage} source={iconSignIn}/>
 		</TouchableHighlight>
 
 	</View>
 
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={() => this.onSubmit("Intikhab")}>
-			<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconBest}/>
+			<Image style={styles.RowImage} source={iconBest}/>
 		</TouchableHighlight>
 	</View>
 
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+        <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={() => this.onSubmit("DiscussionTabs")}>
-<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconDiscussion}/>
+<Image style={styles.RowImage} source={iconDiscussion}/>
 		</TouchableHighlight>
 </View>
       </View>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        <View style={styles.RowSpace}>
 
 		<TouchableHighlight onPress={() => this.onSubmit("Search")}>
-<Image style={{width: 90, height:90, resizeMode: 'contain'}} source={iconSearch}/>
+<Image style={styles.RowImage} source={iconSearch}/>
 		</TouchableHighlight>
 
 </View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>
+        <View style={styles.RowSpace}>
 
 		<TouchableHighlight onPress={() => this.onSubmit("Info")}>
-<Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/>
+<Image style={styles.RowImage} source={iconInfo}/>
 		</TouchableHighlight>
 
 </View>
-        <View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}><Image style={{width: 90, height: 90, resizeMode: 'contain'}} source={iconInfo}/></View>
+        <View style={styles.RowSpace}>
+		{/*<Image style={styles.RowImage} source={iconInfo}/>*/}
+	</View>
+
 
 	
       </View>
@@ -269,14 +316,6 @@ constructor(props) {
 	*/}
 	</View>
 			
-	<View style={{flex: 2}}>
-			{/*<TabFunction/>*/}
-		{/*
-		{navigate('TabFunction')}
-		*/}
-		{/*<DetailsScreen/>*/}
-		<Button onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} title='BOOKS'/>
-	</View>
 			</View>
 
 
@@ -296,6 +335,55 @@ const instructions = Platform.select({
 
 // Styling
 const styles = StyleSheet.create({
+  MainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20,
+  },
+  GooglePlusStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#dc4e41',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    height: 40,
+    width: 220,
+    borderRadius: 5,
+    margin: 5,
+  },
+  FacebookStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // backgroundColor: '#485a96',
+    backgroundColor: '#808000',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    height: 200,
+    width: 300,
+    borderRadius: 5,
+    margin: 5,
+  },
+  ImageIconStyle: {
+    padding: 20,
+    margin: 20,
+    height: 150,
+    width: 150,
+    resizeMode: 'stretch',
+  },
+  TextStyle: {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 4,
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  SeparatorLine: {
+    backgroundColor: '#fff',
+    width: 5,
+    height: 120,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -318,6 +406,29 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  image: {
+        flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain'
+
+  },
+
+  RowSpace: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'contain',
+    margin: 15 
+
+  },
+
+  RowImage: {
+    width: 90, 
+    height: 90, 
+    resizeMode: 'contain'
+  },
+
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
   text: { margin: 6 }
