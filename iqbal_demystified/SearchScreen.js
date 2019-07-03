@@ -252,7 +252,7 @@ class SearchPage extends React.Component {
 					if (this.state.poemList.length != 0) {
 
 					var itemsPoemOrSher = this.state.poemList.map((item, key) =>
-						<Text key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text} {item.poemName[1].text} </Text>
+						<View><Text key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text onPress={() =>this.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View>
 					);
 					}
 					else {
@@ -263,7 +263,7 @@ class SearchPage extends React.Component {
 		else {
 			if (this.state.sherList.length != 0){
 				var itemsPoemOrSher = this.state.sherList.map((item, key) =>
-					<View><View><Text key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text></View> <View><Text>{item.sherContent[0].text[1]} </Text></View><View><Text> {item.sherContent[1].text[0]} </Text></View> <View><Text>{item.sherContent[1].text[1]}</Text></View></View>
+					<View><Text key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View>
 				);
 			}
 			else {
