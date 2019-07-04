@@ -816,7 +816,7 @@ async send_word_message(){
 
 	render() {
 		var item4 = this.state.sherText.map( (item, index) =>
-			<Text key={item.index}> {item}</Text>
+			<Text key={item.index} style={styles.RenderedText}> {item}</Text>
 			/*<p key={item.index}> {item}</p>*/
 		);
 
@@ -849,7 +849,7 @@ async send_word_message(){
 
 
 		var item6 = this.state.sherDiscussionDetail.map( (item, index) =>
-	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={() => this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={() => this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
+	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{item.timestamp}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>
 		);
 		
 
@@ -941,57 +941,126 @@ async send_word_message(){
 			</div>
 */
     return (
-		<View>
-			<View>
-				<Text>
+		<View style={{flex: 1}}>
+			<View  style={styles.RenderedView}>
+				<Text style={styles.UrduTitle}>
 				 {this.state.poemText}
 				</Text>
 			</View>
-			<ScrollView>
-			<View>	
-			       {item4}
-			       {item6}
+			<View style={styles.MainScrollView}>
+				<ScrollView>
+				<View >	
+					<View style={styles.RenderedView}>
+				       {item4}
+					</View>
+					<View sytle={styles.RenderedItem6View}>
+				       {item6}
+					</View>
+				</View>
+				</ScrollView>
 			</View>
 
-	{/*
-
-        <FlatList
-          data={
-		this.state.sherDiscussionDetail
-          }
-	  renderItem={({item}) => <View><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>}
-	/>
-
-	*/}
-
-			<View>
-				<Text>
-					Comments:
-				</Text>
-			</View>
-			<View>
-				<TextInput
-				  style={{height: 40}}
-				  placeholder="Comments..."
-				  onChangeText={(text) => this.setState({userMessageSher: text})}
-				/>
-			
-			{/*onChangeText={this.handleUserMessageSher}*/}
-			
-			</View>
-				<Button onPress={this.handleSubmitSher} title='SUBMIT'/>
-			<View>
-				<Text>
-
-				</Text>
+			<View style={{flex: 1}}>
+				<View>
+					<Text>
+						Comments:
+					</Text>
+				</View>
+				<View>
+					<TextInput
+					  style={{height: 40}}
+					  placeholder="Comments..."
+					  onChangeText={(text) => this.setState({userMessageSher: text})}
+					/>
 				
+				
+				</View>
+					<Button onPress={this.handleSubmitSher} title='SUBMIT'/>
+				<View>
+					<Text>
+
+					</Text>
+					
+				</View>
 			</View>
-			</ScrollView>
+
 
 		</View>
 		
 		);// return ends
 	}  // render function ends
 } // class ends
+
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  RenderedView: {
+    // height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    // height: 44,
+    // borderRadius: 4,
+    // borderWidth: 0.5,
+    // borderColor: '#d6d7da',
+  },
+  CommentsText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedItem6View: {
+   backgroundColor: 'skyblue',
+   margin: 20,
+   borderRadius: 10,
+   borderWidth: 1,
+  },
+    NavBar: {
+        // height: 60,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+
+  UrduTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+    padding: 5,
+    margin: 5,
+  },
+
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+
+  MainScrollView: {
+   flex: 3,
+   borderWidth: 1,
+  },
+
+  
+})
+
 
 export default SherPage

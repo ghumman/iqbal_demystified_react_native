@@ -202,15 +202,15 @@ class PoemPage extends React.Component {
 */
 
 		return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.MainContainer}>
 			<View>
-                                <Text>
+                                <Text style={styles.UrduTitle}>
 					{this.state.poemNameUrdu}
 
                                 </Text>
 			</View>
 			<View>
-                                <Text>
+                                <Text style={styles.EnglishTitle}>
 					{this.state.poemNameEnglish}
                                 </Text>
 			</View>
@@ -219,7 +219,7 @@ class PoemPage extends React.Component {
 		this.state.poemTextNew
           }
           // renderItem={({item}) => <View><Text style={styles.item} onClick={() => this.onSubmit(item.id)}>{item.sherContent[0].text[0]}</Text><Text>{item.sherContent[0].text[1]}</Text><Text>{item.sherContent[1].text[0]}</Text><Text>{item.sherContent[1].text[1]}</Text>}
-          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View ><View><Text style={styles.item}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView} ><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
         />
 
       </View>
@@ -235,13 +235,43 @@ const styles = StyleSheet.create({
    flex: 1,
    paddingTop: 22
   },
-  item: {
+  RenderedView: {
+    // height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+
+  RenderedText: {
     textAlign: 'center',
     padding: 10,
     fontSize: 18,
-    height: 44,
+    // height: 44,
+    // borderRadius: 4,
+    // borderWidth: 0.5,
+    // borderColor: '#d6d7da',
   },
-})
 
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  }
+  
+})
 
 export default PoemPage

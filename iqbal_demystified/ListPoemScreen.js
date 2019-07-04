@@ -201,28 +201,27 @@ that.setState({poemList: yamlObject.sections});
                         <Text key={item.index} onClick={() => this.onSubmit(item.id)}> {item.text}</Text> 
                 );
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.MainContainer}>
 			<View>
-                                <Text>
+                                <Text style={styles.UrduTitle}>
                                         {this.state.bookNameUrdu}
                                 </Text>
 			</View>
 			<View>
-                                <Text>
+                                <Text style={styles.EnglishTitle}>
                                         {this.state.bookNameEnglish}
                                 </Text>
 			</View>
 
 				{/*
-                                <Text>
-                                        {item3}
+                                <Text > {item3}
                                 </Text>
 				*/}
         <FlatList
           data={
 		this.state.poemText
           }
-          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><Text style={styles.item}>{item.text}</Text></TouchableHighlight>}
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><Text style={styles.RenderedText}>{item.text}</Text></TouchableHighlight>}
         />
 
         {/*<Text>{this.state.navigation.getParam(profileUsername)}</Text>*/}
@@ -236,12 +235,35 @@ const styles = StyleSheet.create({
    flex: 1,
    paddingTop: 22
   },
-  item: {
+  RenderedText: {
     textAlign: 'center',
     padding: 10,
     fontSize: 18,
     height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
   },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  }
+  
 })
 
 

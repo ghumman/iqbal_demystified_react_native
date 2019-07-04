@@ -860,7 +860,7 @@ async send_word_message(){
 		);
 */
 		var item5 = this.state.wordText.map( (item, index) =>
-			<View style={styles.button}><Button key={item.index} onPress={() => this.selectedWord(item, index)} title={item}/></View>
+			<Button buttonStyle={styles.WordButtons} key={item.index} onPress={() => this.selectedWord(item, index)} title={item}/>  
 		);
 
 /*
@@ -905,7 +905,7 @@ async send_word_message(){
 			{
 				if ((item.wordposition-1) == this.state.mySelectedId)
 				return (
-	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{item.timestamp}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
+	  <View key={item.id}><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
 		)}
 		)
 
@@ -979,42 +979,34 @@ async send_word_message(){
 			</div>
 */
     return (
-		<View style={{flex:1}}>
-		<View style={styles.FirstSection}>
-			<View  style={styles.RenderedView}>
-				<Text style={styles.UrduTitle}>
-					{this.state.poemText}
+		<View>
+			<View>
+				<Text>
+				 {this.state.poemText}
 				</Text>
 			</View>
-
-			<View style={styles.container}>
+			<ScrollView>
+			<View>	
 			       {item5}
 			</View>
-			<View style={styles.container}>
-	    			<Text >
-					Selected Word: 
-				</Text>
-				
-				<View style={styles.buttonSelected}>
-	    				<Text style={{justifyContent: 'center', textAlign: 'center', flex: 1, marginTop: 5, fontSize:15, fontWeight: 'bold'}}>
-						{this.state.mySelectedWord}
-					</Text>
-				</View>
-			</View>
-		</View>
-		<View style={styles.SecondSection}>
-			<ScrollView>
 			
+	    			<Text>Selected Word: {this.state.mySelectedWord}</Text>
 			<View>
 
 			       {item7}
 			</View>
 
-			</ScrollView>
-		</View>
+	{/*
 
+        <FlatList
+          data={
+		this.state.sherDiscussionDetail
+          }
+	  renderItem={({item}) => <View><Text>{item.username}</Text><View></View><View><Text>{item.timestamp}</Text></View><View><Text>{item.text}</Text></View><View><Button onPress={this.vote_like(item.id)} title='LIKE'/></View><View><Text>SCORE: {item.score}</Text></View><View><Button onPress={this.vote_dislike(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={this.vote_unregister(item.id)} title='UNREGISTER'/></View></View>}
+	/>
 
-		<View style={{flex: 1}}>
+	*/}
+
 			<View>
 				<Text>
 					Comments:
@@ -1031,7 +1023,13 @@ async send_word_message(){
 			
 			</View>
 				<Button onPress={this.handleSubmitWord} title='SUBMIT'/>
-		</View>
+			<View>
+				<Text>
+
+				</Text>
+				
+			</View>
+			</ScrollView>
 
 		</View>
 		
@@ -1043,34 +1041,8 @@ async send_word_message(){
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap'
-  },
-  button: {
-    // backgroundColor: 'green',
-    // flex: 2,
-    borderRadius: 10,
-    borderWidth: 1,
-    // width: '40%',
-    height: 40
-  },
-  FirstSection: {
-    flex: 3,
-    borderWidth: 1,
-  },
-  SecondSection: {
-    flex: 2,
-    borderWidth: 1,
-  },
-  buttonSelected: {
-    backgroundColor: 'red',
-    // flex: 2,
-    borderRadius: 10,
-    borderWidth: 1,
-    width: '25%',
-    height: 40
+   flex: 1,
+   paddingTop: 22
   },
   RenderedView: {
     // height: 44,
