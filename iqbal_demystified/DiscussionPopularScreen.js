@@ -378,7 +378,7 @@ class CommentsPage extends React.Component {
           data={
 		this.state.popularData
           }
-          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.item}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.item}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
         />
 		</View>
 
@@ -397,6 +397,44 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+
+  RenderedView: {
+    // height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    // height: 44,
+    // borderRadius: 4,
+    // borderWidth: 0.5,
+    // borderColor: '#d6d7da',
+  },
+
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  }
+
 })
 
 // return <h1>I got following message : {this.props.location.state.detail}</h1>

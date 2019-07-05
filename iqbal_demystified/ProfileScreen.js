@@ -421,10 +421,16 @@ const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.lea
 const state = this.state;
 				return (
 				<View>
-       	   			<Text>My Profile</Text>
-					        <Text>Now you can write comments!</Text>
-					        <Text>You can also vote to others' comments!</Text>
-					        <Text>More profile features coming soon!</Text>
+       	   			<Text style={styles.EnglishTitle}>My Profile</Text>
+				<View style={styles.UsernameView}>
+					<View style={styles.UsernameViewInner}>
+						<Text style={styles.Username}>{this.state.username}</Text>
+					</View>
+				</View>
+				
+					        <Text style={styles.Message}>Now you can write comments!</Text>
+					        <Text style={styles.Message}>You can also vote to others' comments!</Text>
+					        <Text style={styles.Message}>More profile features coming soon!</Text>
 
 					<View>	
 						<Button onPress={() => this.changePassword()}  title='CHANGE PASSWORD' />	
@@ -463,7 +469,60 @@ const styles = StyleSheet.create({
   wrapper: { flexDirection: 'row' },
   title: { flex: 1, backgroundColor: '#f6f8fa' },
   row: {  height: 28  },
-  text: { textAlign: 'center' }
+  text: { textAlign: 'center' },
+
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  Message: {
+    textAlign: 'center'
+  },
+  UsernameView: {
+    // flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    // borderWidth:4
+  },
+  UsernameViewInner: {
+    borderWidth:2,
+    borderRadius: 4,
+    borderColor: '#d6d7da',
+  },
+  Username : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+    
+  },
+
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  }
+
 });
 		      // return <h1>I got following message : {this.props.location.state.detail}</h1>
+
 export default ProfilePage

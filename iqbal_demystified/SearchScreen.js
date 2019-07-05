@@ -252,7 +252,7 @@ class SearchPage extends React.Component {
 					if (this.state.poemList.length != 0) {
 
 					var itemsPoemOrSher = this.state.poemList.map((item, key) =>
-						<View><Text key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text onPress={() =>this.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View>
+						<View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View>
 					);
 					}
 					else {
@@ -263,7 +263,7 @@ class SearchPage extends React.Component {
 		else {
 			if (this.state.sherList.length != 0){
 				var itemsPoemOrSher = this.state.sherList.map((item, key) =>
-					<View><Text key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View>
+					<View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View>
 				);
 			}
 			else {
@@ -297,22 +297,12 @@ class SearchPage extends React.Component {
 
 		let keyboardTag
 		if (this.state.inputBoxClicked  === true) {
-  		keyboardTag = <View><View>
-				  <Button  onPress={() => this.handleAlphabet("Back")} title='->'/>
-				  <Button  onPress={() => this.handleAlphabet("خ")} title='خ'/>
-				  <Button  onPress={() => this.handleAlphabet("ح")} title='ح'/>
-				  <Button  onPress={() => this.handleAlphabet("چ")} title='چ'/>
-				  <Button  onPress={() => this.handleAlphabet("ج")} title='ج'/>
-				  <Button  onPress={() => this.handleAlphabet("ث")} title='ث'/>
-				  <Button  onPress={() => this.handleAlphabet("ٹ")} title='ٹ'/>
-				  <Button  onPress={() => this.handleAlphabet("ت")} title='ت'/>
-				  <Button  onPress={() => this.handleAlphabet("پ")} title='پ'/>
-				  <Button  onPress={() => this.handleAlphabet("ب")} title='ب'/>
-				  <Button  onPress={() => this.handleAlphabet("ا")} title='ا'/>
-				  <Button  onPress={() => this.handleAlphabet("آ")} title='آ'/>
-				</View>
+  		keyboardTag = <View><View style={styles.container}><View style={styles.button}><Button  onPress={() => this.handleAlphabet("Back")} title='->'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ح")} title='ح'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("چ")} title='چ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ج")} title='ج'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ث")} title='ث'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ٹ")} title='ٹ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ت")} title='ت'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("پ")} title='پ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ب")} title='ب'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ا")} title='ا'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("آ")} title='آ'/></View></View><View style={styles.container}><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ص")} title='ص'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ش")} title='ش'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("س")} title='س'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ژ")} title='ژ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ز")} title='ز'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ڑ")} title='ڑ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ر")} title='ر'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ز")} title='ز'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ڈ")} title='ڈ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("د")} title='د'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("خ")} title='خ'/></View></View><View style={styles.container}><View style={styles.button}><Button  onPress={() => this.handleAlphabet("م")} title='م'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ل")} title='ل'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("گ")} title='گ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ک")} title='ک'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ق")} title='ق'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ف")} title='ف'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("غ")} title='غ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ع")} title='ع'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ظ")} title='ظ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ط")} title='ط'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ض")} title='ض'/></View></View><View style={styles.container}><View style={styles.button}><Button  onPress={() => this.handleAlphabet(" ")} title='Space'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ے")} title='ے'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ي")} title='ي'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ء")} title='ء'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ھ")} title='ھ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ہ")} title='ہ'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("و")} title='و'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ں")} title='ں'/></View><View style={styles.button}><Button  onPress={() => this.handleAlphabet("ن")} title='ن'/></View></View></View>
+
+				{/*</View>
 				<Text></Text>
-				<View>
+				<View>*/}
+{/*<View style={styles.button}><Button  onPress={() => this.handleAlphabet("خ")} title='خ'/></View>
 				  <Button  onPress={() => this.handleAlphabet("ض")} title='ض'/>
 				  <Button  onPress={() => this.handleAlphabet("ص")} title='ص'/>
 				  <Button  onPress={() => this.handleAlphabet("ش")} title='ش'/>
@@ -324,9 +314,11 @@ class SearchPage extends React.Component {
 				  <Button  onPress={() => this.handleAlphabet("ذ")} title='ذ'/>
 				  <Button  onPress={() => this.handleAlphabet("ڈ")} title='ڈ'/>
 				  <Button  onPress={() => this.handleAlphabet("د")} title='د'/>
-				</View>
+*/}
+				{/*</View>
 				<Text></Text>
-				<View>
+				<View>*/}
+{/*
 				  <Button  onPress={() => this.handleAlphabet("ں")} title='ں'/>
 				  <Button  onPress={() => this.handleAlphabet("ن")} title='ن'/>
 				  <Button  onPress={() => this.handleAlphabet("م")} title='م'/>
@@ -339,9 +331,11 @@ class SearchPage extends React.Component {
 				  <Button  onPress={() => this.handleAlphabet("ع")} title='ع'/>
 				  <Button  onPress={() => this.handleAlphabet("ظ")} title='ظ'/>
 				  <Button  onPress={() => this.handleAlphabet("ط")} title='ط'/>
-				</View>
+*/}
+				{/*</View>
 				<Text></Text>
-				<View>
+				<View>*/}
+{/*
 				  <Button  onPress={() => this.handleAlphabet(" ")} title='Space'/>
 				  <Button  onPress={() => this.handleAlphabet("ے")} title='ے'/>
 				  <Button  onPress={() => this.handleAlphabet("ي")} title='ي'/>
@@ -350,7 +344,7 @@ class SearchPage extends React.Component {
 				  <Button  onPress={() => this.handleAlphabet("ہ")} title='ہ'/>
 				  <Button  onPress={() => this.handleAlphabet("و")} title='و'/>
 				</View>
-				</View>
+*/}
 				{/*
 				<ButtonToolbar class="text-center">
 				  <Button variant="primary" onPress={() => this.handleAlphabet("Back")} class="text-center">->/>
@@ -469,7 +463,7 @@ class SearchPage extends React.Component {
 */
 		return (
 			<View>
-				<Text>Allama Iqbal Search Engine</Text>
+				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text>
      <View>
         <RadioForm
           radio_props={radio_props}
@@ -478,7 +472,7 @@ class SearchPage extends React.Component {
         />
       </View>
 
-			<View>
+			<View style={styles.RenderedView}>
 				<TextInput
 				  style={{height: 40}}
 				  placeholder="Search Text..."
@@ -492,12 +486,71 @@ class SearchPage extends React.Component {
 				<Button onPress={this.handleSubmit} title='SEARCH'/>
 
 			<ScrollView>
-				{keyboardTag}
+					{keyboardTag}
 				{itemsPoemOrSher}
 			</ScrollView>
 	</View>
 		)	// return ends
 	}	// render function ends
 }	// class ends
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+  },
+
+  RenderedView: {
+    // height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    // height: 44,
+    // borderRadius: 4,
+    // borderWidth: 0.5,
+    // borderColor: '#d6d7da',
+  },
+
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+    padding: 3,
+   
+  },
+
+  button: {
+    // backgroundColor: 'green',
+    // flex: 2,
+    borderRadius: 10,
+    borderWidth: 1,
+    // width: '40%',
+    height: 40
+  },
+  
+})
+
 
 export default SearchPage
