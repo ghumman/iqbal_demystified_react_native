@@ -187,9 +187,10 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 */
 		return (
 			<View>
-				<Text>
+				<Text style={styles.EnglishTitle}>
 					SIGN IN
 				</Text>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -198,6 +199,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Username"
 				  onChangeText={(text) => this.setState({username: text})}
 				/>
+				</View>
+
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -207,24 +211,75 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Password"
 				  onChangeText={(text) => this.setState({password: text})}
 				/>
+				</View>
 
 				<Button onPress={this.handleSubmit} title='SIGN IN'/>
 				<TouchableHighlight onPress={() => this.onSubmitForgot()}>					
-					<Text>
+					<View style={styles.RenderedView}>
+					<Text style={styles.BottomLines}>
 						I Forgot My Password!
 					</Text>
+					</View>
 		
 				</TouchableHighlight>
 				<TouchableHighlight onPress={() => this.onSubmitRegister()}>					
-					<Text>
+					<View style={styles.RenderedView}>
+					<Text style={styles.BottomLines}>
 						Do not have an account? {"\n"}
 						Register Here
 					</Text>
+					</View>
 		
 				</TouchableHighlight>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  RenderedView: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  },
+  BottomLines : {
+    textAlign: 'center',
+    fontSize: 15, 
+    fontWeight: 'bold',
+    color: 'blue',
+   
+  }
+  
+})
 
 export default Signin

@@ -225,9 +225,10 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 	render() {
 		return (
 			<View>
-				<Text>
+				<Text style={styles.EnglishTitle}>
 					REGISTER
 				</Text>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -236,7 +237,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="First Name"
 				  onChangeText={(text) => this.setState({firstName: text})}
 				/>
+				</View>
 			
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -245,7 +248,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Last Name"
 				  onChangeText={(text) => this.setState({lastName: text})}
 				/>
+				</View>
 
+				<View style={styles.RenderedView}>
 
 				<TextInput
 				  autoCapitalize= 'none'
@@ -255,7 +260,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Username"
 				  onChangeText={(text) => this.setState({username: text})}
 				/>
+				</View>
 			
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -264,7 +271,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Email"
 				  onChangeText={(text) => this.setState({email: text})}
 				/>
+				</View>
 
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -274,7 +283,9 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Password"
 				  onChangeText={(text) => this.setState({password1: text})}
 				/>
+				</View>
 
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -283,9 +294,10 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Password (again)"
 				  onChangeText={(text) => this.setState({password2: text})}
 				/>
+				</View>
 				<Button onPress={this.handleSubmit} title='REGISTER'/>
 				<TouchableHighlight onPress={() => this.onSubmitSignin()}>					
-					<Text>
+					<Text style={styles.BottomLines}>
 						Already Registered?{"\n"}
 						Login Here
 					</Text>
@@ -296,5 +308,53 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 		)	// return ends
 	}	// render function ends
 }
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  RenderedView: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  },
+  BottomLines : {
+    textAlign: 'center',
+    fontSize: 15, 
+    fontWeight: 'bold',
+    color: 'blue',
+   
+  }
+  
+})
 
 export default Register

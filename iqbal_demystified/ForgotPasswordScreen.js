@@ -134,9 +134,10 @@ class ForgotPassword extends React.Component {
 */
 		return (
 			<View>
-				<Text>
+				<Text style={styles.EnglishTitle}>
 					FORGOT PASSWORD
 				</Text>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -144,9 +145,10 @@ class ForgotPassword extends React.Component {
 				  style={{height: 40}}
 				  placeholder="Email" onChangeText={(text) => this.setState({email: text})}
 				/>
+				</View>
 				<Button onPress={this.handleSubmit} title='RESET MY PASSWORD'/>
 				<TouchableHighlight onPress={() => this.onSubmitSignin()}>					
-					<Text>
+					<Text style={styles.BottomLines}>
 						Already Registered?{"\n"}
 						Login Here
 					</Text>
@@ -156,5 +158,53 @@ class ForgotPassword extends React.Component {
 		)	// return ends
 	}	// render ends
 }	// class ends
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  RenderedView: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  },
+  BottomLines : {
+    textAlign: 'center',
+    fontSize: 15, 
+    fontWeight: 'bold',
+    color: 'blue',
+   
+  }
+  
+})
 
 export default ForgotPassword

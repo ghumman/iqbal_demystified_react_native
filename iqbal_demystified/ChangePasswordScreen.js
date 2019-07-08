@@ -234,9 +234,10 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 			*/
 		return (
 			<View>
-				<Text>
+				<Text style={styles.EnglishTitle}>
 					CHANGE PASSWORD
 				</Text>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -246,6 +247,8 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="Current Password"
 				  onChangeText={(text) => this.setState({currentPassword: text})}
 				/>
+				</View>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -255,6 +258,8 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="New Password"
 				  onChangeText={(text) => this.setState({newPassword1: text})}
 				/>
+				</View>
+				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'
 				  autoCorrect= {false}
@@ -264,10 +269,11 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 				  placeholder="New Password(again)"
 				  onChangeText={(text) => this.setState({newPassword2: text})}
 				/>
+				</View>
 
 				<Button onPress={this.handleSubmit} title='CHANGE PASSWORD!'/>
 				<TouchableHighlight onPress={() => this.onSubmitSignin()}>					
-					<Text>
+					<Text style={styles.BottomLines}>
 						Already Registered?{"\n"}
 						Login Here
 					</Text>
@@ -277,5 +283,53 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 		)	// return ends
 	}	// render function ends
 }	// class ends
+
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22
+  },
+  RenderedView: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  RenderedText: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+  },
+  MainContainer: {
+   flex: 1,
+   alignItems: 'center',
+   justifyContent: 'center'
+  }, 
+  UrduTitle : {
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+   
+  },
+  EnglishTitle : {
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+   
+  },
+  BottomLines : {
+    textAlign: 'center',
+    fontSize: 15, 
+    fontWeight: 'bold',
+    color: 'blue',
+   
+  }
+  
+})
 
 export default ChangePassword
