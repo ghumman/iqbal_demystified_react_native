@@ -66,7 +66,7 @@ class PoemPage extends React.Component {
 	console.log("yamlObject.sher.length")
 	console.log(yamlObject.sher.length)
 
-       that.read_bookmarks().then(function(result)	{
+       that.readBookmarks().then(function(result)	{
 	
 		
 		console.log("result");
@@ -172,19 +172,17 @@ class PoemPage extends React.Component {
 
 	}
 	
-  // async testing_rnfs(){
-  testing_rnfs = (sherNumber) => {
+  starToggling = (sherNumber) => {
 
 	var that = this;
 
 
-       this.read_bookmarks().then(function(result)	{
+       this.readBookmarks().then(function(result)	{
 	
 		
 		console.log("result");
 		console.log(result);
 
-	// console.log("testing_rnfs");
 	// create a path you want to write to
 	// :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
 	// but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
@@ -220,7 +218,7 @@ class PoemPage extends React.Component {
 		  });
 
 		  let poemName = that.props.navigation.getParam('detailPoem');
-		  console.log("In poempage.js inside testingRNFS if");
+		  console.log("In poempage.js inside starToggling if");
 		  that.getPoem(poemName);
 			
 
@@ -242,7 +240,7 @@ class PoemPage extends React.Component {
 		
 		
 		  let poemName = that.props.navigation.getParam('detailPoem');
-		  console.log("In poempage.js inside testingRNFS else");
+		  console.log("In poempage.js inside starToggling else");
 		  that.getPoem(poemName);
 	}
 	})
@@ -250,19 +248,21 @@ class PoemPage extends React.Component {
 
   }
 
-	async read_bookmarks() { 
+	async readBookmarks() { 
 
 		const path = RNFS.DocumentDirectoryPath + '/test3.txt';
-		const yamlFile = await RNFS.readFile(path, "utf8")
-		var partsOfStr = yamlFile.split(',');
-		return partsOfStr;
+		try {
+			const yamlFile = await RNFS.readFile(path, "utf8")
+			var partsOfStr = yamlFile.split(',');
+			return partsOfStr;
+		}
+		catch(e) {
+			return "";
+		}
 
 	}
 
 	componentDidMount() {
-		// testing RNFS
-		// this.testing_rnfs();
-		// window.scrollTo(0, 0)
 	  // retrive the data
 	 	try {
 
@@ -341,9 +341,9 @@ class PoemPage extends React.Component {
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
           		 if (item.star) 
-				return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.testing_rnfs(item.id)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
+				return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
 			else 
-          			return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.testing_rnfs(item.id)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
+          			return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
 			
 		});
 
