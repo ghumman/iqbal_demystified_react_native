@@ -15,6 +15,7 @@ import logo from './assets/allam_iqbal_pic.jpg';
 
 import iconSignIn from './assets/android_app_assets/icon_signed_in.png';
 import iconBest from './assets/android_app_assets/icon_best.png';
+import iconBookmarks from './assets/android_app_assets/icon_bookmark.png';
 import iconDiscussion from './assets/android_app_assets/icon_discussion.png';
 import iconSearch from './assets/android_app_assets/icon_search.png';
 import iconInfo from './assets/android_app_assets/icon_info.png';
@@ -280,14 +281,20 @@ constructor(props) {
 		</TouchableHighlight>
 	</View>
 
+        <View style={styles.RowSpace}>
+		<TouchableHighlight onPress={() => this.onSubmit("BookmarksTabs")}>
+			<Image style={styles.RowImage} source={iconBookmarks}/>
+		</TouchableHighlight>
+	</View>
+
         {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
+      </View>
+      <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={() => this.onSubmit("DiscussionTabs")}>
 <Image style={styles.RowImage} source={iconDiscussion}/>
 		</TouchableHighlight>
 </View>
-      </View>
-      <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={styles.RowSpace}>
 
 		<TouchableHighlight onPress={() => this.onSubmit("Search")}>
@@ -302,9 +309,6 @@ constructor(props) {
 		</TouchableHighlight>
 
 </View>
-        <View style={styles.RowSpace}>
-		{/*<Image style={styles.RowImage} source={iconInfo}/>*/}
-	</View>
 
 
 	

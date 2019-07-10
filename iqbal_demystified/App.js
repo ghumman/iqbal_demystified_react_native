@@ -19,6 +19,7 @@ import SearchScreen from './SearchScreen';
 
 import TabNavigator from './TabScreen';
 import SherNavigator from './SherTabsScreen';
+import BookmarksNavigator from './BookmarksTabsScreen';
 import DiscussionNavigator from './DiscussionTabsScreen';
 
 
@@ -29,6 +30,7 @@ const AppNavigator = createStackNavigator(
     ListPoem: ListPoemScreen,
     TabFunction: TabNavigator,
     SherTabs: SherNavigator,
+    BookmarksTabs: BookmarksNavigator,
     DiscussionTabs: DiscussionNavigator,
     Poem: PoemScreen,
     Signin: SigninScreen,
