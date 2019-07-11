@@ -40,7 +40,7 @@ class ListPoemScreen extends React.Component {
     }   // this.state ends
         }       // constructor ends
 
-  starToggling = (sherNumber) => {
+  starToggling = (poem) => {
 
 	var that = this;
 
@@ -57,24 +57,23 @@ class ListPoemScreen extends React.Component {
 
 
        
-	if (result.includes(sherNumber)){
-		console.log("sherNumber is in the file")
-		var index = result.indexOf(sherNumber);
+	if (result.includes(poem.id)){
+		console.log("poem is in the file")
+		var index = result.indexOf(poem.id);
 		if (index > -1)	{
-			result.splice(index, 1);
+			result.splice(index, 3);
 		}
 
 		console.log("result");
 		console.log(result);
 		
-		var newData = result.join(',');
+		var newData = result.join('@');
 
 		console.log("newData");
 		console.log(newData);
 
-		var path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
 
-		// var sherNumberComma = sherNumber + ',';
 
 
 		// write the file
@@ -95,10 +94,11 @@ class ListPoemScreen extends React.Component {
 	}
 	else{
 
-		console.log("sherNumber is not in the file")
-		var path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		console.log("poem is not in the file")
+		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
 
-		var sherNumberComma = sherNumber + ',';
+		// var sherNumberComma = sherNumber + ',';
+		var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
 
 
 		// write the file
@@ -122,10 +122,10 @@ class ListPoemScreen extends React.Component {
 
 	async readBookmarks() { 
 
-		const path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		const path = RNFS.DocumentDirectoryPath + '/test07.txt';
 		try {
 			const yamlFile = await RNFS.readFile(path, "utf8")
-			var partsOfStr = yamlFile.split(',');
+			var partsOfStr = yamlFile.split('@');
 			return partsOfStr;
 		}
 		catch(e) {
@@ -184,7 +184,7 @@ class ListPoemScreen extends React.Component {
     console.log(yamlObject)
 
 
-that.setState({poemList: yamlObject.sections});
+		that.setState({poemList: yamlObject.sections});
     
 
     console.log("that.state.poemList : ")
@@ -357,9 +357,9 @@ renderItem = ({item}) => {
 
           		 if (item.id != 0 ) {
 				if (item.star)
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
+					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
 				else
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
+					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
 			
 			}
 			else 

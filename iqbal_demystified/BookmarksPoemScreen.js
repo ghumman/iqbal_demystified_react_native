@@ -40,7 +40,7 @@ class ListPoemScreen extends React.Component {
     }   // this.state ends
         }       // constructor ends
 
-  starToggling = (sherNumber) => {
+  starToggling = (poem) => {
 
 	var that = this;
 
@@ -57,24 +57,23 @@ class ListPoemScreen extends React.Component {
 
 
        
-	if (result.includes(sherNumber)){
-		console.log("sherNumber is in the file")
-		var index = result.indexOf(sherNumber);
+	if (result.includes(poem.id)){
+		console.log("poem is in the file")
+		var index = result.indexOf(poem.id);
 		if (index > -1)	{
-			result.splice(index, 1);
+			result.splice(index, 3);
 		}
 
 		console.log("result");
 		console.log(result);
 		
-		var newData = result.join(',');
+		var newData = result.join('@');
 
 		console.log("newData");
 		console.log(newData);
 
-		var path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
 
-		// var sherNumberComma = sherNumber + ',';
 
 
 		// write the file
@@ -95,10 +94,11 @@ class ListPoemScreen extends React.Component {
 	}
 	else{
 
-		console.log("sherNumber is not in the file")
-		var path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		console.log("poem is not in the file")
+		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
 
-		var sherNumberComma = sherNumber + ',';
+		// var sherNumberComma = sherNumber + ',';
+		var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
 
 
 		// write the file
@@ -122,10 +122,10 @@ class ListPoemScreen extends React.Component {
 
 	async readBookmarks() { 
 
-		const path = RNFS.DocumentDirectoryPath + '/test4.txt';
+		const path = RNFS.DocumentDirectoryPath + '/test07.txt';
 		try {
 			const yamlFile = await RNFS.readFile(path, "utf8")
-			var partsOfStr = yamlFile.split(',');
+			var partsOfStr = yamlFile.split('@');
 			return partsOfStr;
 		}
 		catch(e) {
@@ -147,10 +147,11 @@ class ListPoemScreen extends React.Component {
 	console.log('setState username passed')
                         this.setState({password: this.props.navigation.getParam('profilePassword')});
 	console.log('setState password passed')
-                        let bookName = this.props.navigation.getParam('detailBook');
-	console.log('setState bookName passed')
-                        this.getPoemList(bookName);
-	console.log('setState getPoemList passed')
+                        // let bookName = this.props.navigation.getParam('detailBook');
+	// console.log('setState bookName passed')
+                        // this.getPoemList(bookName);
+                        this.getPoemList();
+	// console.log('setState getPoemList passed')
                 }
                 catch(e) {
                         // Alert.alert("Inside catch");
@@ -160,182 +161,81 @@ class ListPoemScreen extends React.Component {
                 }
         }
 
-	getPoemList(listId) {
+	getPoemList() {
 
 	this.setState({poemText: []});
 		
 		// Alert.alert('bookName reaceived is {bookname}')
-		console.log('Inside getPoemList')
-		console.log('bookName reaceived is {listId}')
+		// console.log('Inside getPoemList')
+		// console.log('bookName reaceived is {listId}')
 		// Alert.alert(bookname)
-		console.log(listId)
+		// console.log(listId)
 
+    // var response = StaticContentService.getPoemList(listId).then(function(result)){
 
     var that = this;
+    // StaticContentService.getPoemList(listId).then(function(response){
+
+    	// console.log("response: ");
+    	//console.log(response);
+		
+    // var yamlObject = YAML.parse(response)
+        
+    // console.log("yamlObject : ")
+    // console.log(yamlObject)
+
+
+		// that.setState({poemList: yamlObject.sections});
+    
+
+    // console.log("that.state.poemList : ")
+    // console.log(that.state.poemList);
+
+    // that.setState({poemListName: that.state.poemList.poems});
+
+    // console.log("that.state.poemListName : ")
+    // console.log(that.state.poemListName);
+
+    // console.log("yamlObject.name.text[0]")
+    // console.log(yamlObject.name[0].text)
+
+
+    // console.log("checkValueVar");
+
+    // var checkValueVar = [];
+
+    // console.log("Value of yamlObject.sections.length");
+    // console.log(yamlObject.sections.length);
+
+    // console.log("Value of yamlObject.sections[0].sectionName.length");
+    // console.log(yamlObject.sections[0].sectionName.length);
+
+
 
        that.readBookmarks().then(function(result)	{
 		console.log("result");
 		console.log(result);
 		
-		var set = new Set(result);
+		// var set = new Set(result);
 
-	// Calculate response 
-
-
-
-	
-
-
-    StaticContentService.getPoemList(listId).then(function(response){
-
-    	console.log("response: ");
-    	console.log(response);
+		for (i=0; i<((result.length-1)/3); i++ ) {
+			console.log("Inside for loop for putting result")
 		
-    var yamlObject = YAML.parse(response)
-        
-    console.log("yamlObject : ")
-    console.log(yamlObject)
+			that.state.poemText.push({'id': i})
+			that.state.poemText.push({'textUrdu': i})
+			that.state.poemText.push({'textEnglish': i})
+			
+
+		}
+			
 
 
-that.setState({poemList: yamlObject.sections});
-    
-
-    console.log("that.state.poemList : ")
-    console.log(that.state.poemList);
-
-    that.setState({poemListName: that.state.poemList.poems});
-
-    console.log("that.state.poemListName : ")
-    console.log(that.state.poemListName);
-
-    console.log("yamlObject.name.text[0]")
-    console.log(yamlObject.name[0].text)
-
-
-    console.log("checkValueVar");
-
-    var checkValueVar = [];
-
-    console.log("Value of yamlObject.sections.length");
-    console.log(yamlObject.sections.length);
-
-    console.log("Value of yamlObject.sections[0].sectionName.length");
-    console.log(yamlObject.sections[0].sectionName.length);
-
-
-
-
-    for (var i=0; i<yamlObject.sections.length; i++) {
-        try {
-                if (yamlObject.sections[i].sectionName[0]) {
-                        console.log(" sectionName exists" );
-                        // for (var j=0; j<yamlObject.sections[i].sectionName.length; j++)
-                        that.state.poemText.push({"textUrdu" : yamlObject.sections[i].sectionName[0].text, "textEnglish" : yamlObject.sections[i].sectionName[1].text, "id" : '0'});
-                                        }
-                }
-        catch(e) {
-                if (yamlObject.sections[i].poems[0].poemName[0]) {
-                        console.log(" poems[0].poemName[0] exists" );
-                        for (var j=0; j<yamlObject.sections[i].poems.length; j++){
-                                // for (var k=0; k<yamlObject.sections[i].poems[j].poemName.length; k++) {
-
-				// if (result.includes(yamlObject.sections[i].poems[j].id))
-				if (set.has(yamlObject.sections[i].poems[j].id)){
-                                                        that.state.poemText.push({"textUrdu" : yamlObject.sections[i].poems[j].poemName[0].text, "textEnglish" : yamlObject.sections[i].poems[j].poemName[1].text, "id" : yamlObject.sections[i].poems[j].id, "star": true})
-				}
-				else
-                                                        that.state.poemText.push({"textUrdu" : yamlObject.sections[i].poems[j].poemName[0].text, "textEnglish" : yamlObject.sections[i].poems[j].poemName[1].text, "id" : yamlObject.sections[i].poems[j].id, "star": false})
-                                                        // that.state.poemText.push({"text" : yamlObject.sections[i].poems[j].poemName[k].text, "id" : yamlObject.sections[i].poems[j].id, "star": false})
-	
-				// }
-                                                that.setState({poemObject: yamlObject.sections[i].poems[j]})
-                                        }
-                                }       // if yamlObject.... ends
-                        }       // catch ends
-                }       // for ends
-
-    // console.log("that.state.poemText.length")
-    // console.log(that.state.poemText.length)
-
-	
-		
-
-	// 	console.log("that.state.poemText.length");
-	// 	console.log(that.state.poemText.length);
-
-/*
-	  for (var i=0; i<that.state.poemText.length; i++) {
-
-		  try {
-			console.log("that.state.poemText.id[" + i + "]")
-			console.log(that.state.poemText[i].id)
-			if (that.state.poemText[i].id != 0) {
-				if (result.includes(that.state.poemText[i].id))
-                                        that.state.poemText.push({"star" : true})
-				else
-                                        that.state.poemText.push({"star" : false})
-			}
-		  }
-			catch(e) {
-		    console.log("catch caught an error");
-			}
-	  }
-*/
-
-    console.log("that.state.poemText")
-    console.log(that.state.poemText)
-
-
-    console.log("Value of poemObject: ");
-    console.log(that.state.poemObject);
-
-    console.log("checkValueVar");
-    console.log(checkValueVar);
-    console.log("yamlObject.sections[0].sectionName[0].text");
-    console.log(yamlObject.sections[0].sectionName[0].text);
-
-/*
-    try {
-                  that.state.bookName = yamlObject.sections[0].sectionName.map((item, key) =>
-                        <li key={item.text}>{item.text}</li>
-                  )
-    }
-    catch(e) {
-            console.log("caught error");
-    }
-    console.log("bookName: ");
-    console.log(that.state.bookName);
-*/
-
-    that.setState({bookNameUrdu: yamlObject.name[0].text});
-    that.setState({bookNameEnglish: yamlObject.name[1].text});
     that.setState({poemTextFinal: that.state.poemText});
 
-    // that.setState({bookSections: yamlObject.sections});
+	console.log("that.setState.poemTextFinal")
+	console.log(that.setState.poemTextFinal)
 
-    console.log("bookNameUrdu: ");
-    // console.log(that.state.bookNameUrdu + "");
-    console.log(yamlObject.name[0].text);
-    console.log("bookNameEnglish: ");
-    // console.log(that.state.bookNameEnglish + "");
-    console.log(yamlObject.name[1].text);
 
-    console.log("yamlObject.sections[1].poems[0].poemName[0].text: ");
-    console.log(yamlObject.sections[1].poems[0].poemName[0].text);
-
-    // that.setState({onePoem: yamlObject.sections[1].poems[0].poemName[0].text});
-
-    
-
-	});
-
-    // console.log("response.name: ");
-    // console.log(response.default);
-
-    // var yamlObject = YAML.parse(response)
-        
-    // console.log("yamlObject : ")
-    // console.log(yamlObject)
 
 		
 	})
@@ -363,15 +263,8 @@ renderItem = ({item}) => {
 
 // 	return  (<TouchableHighlight onPress={() => this.onSubmit(item.id)}><Text style={styles.RenderedText}>{item.text}</Text></TouchableHighlight>)
 
-          		 if (item.id != 0 ) {
-				if (item.star)
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
-				else
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
+					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View></View>
 			
-			}
-			else 
-				return <View><Text style={styles.RenderedText}>{item.textUrdu}</Text><Text style={styles.RenderedText}>{item.textEnglish}</Text></View>
 
 }
 
@@ -401,7 +294,7 @@ renderItem = ({item}) => {
       <View style={styles.MainContainer}>
 			<View>
                                 <Text style={styles.UrduTitle}>
-					BOOKMARKED POEMS
+                                        Bookmarked Poems
                                 </Text>
 			</View>
 			{/*
