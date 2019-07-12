@@ -81,9 +81,7 @@ class ListPoemScreen extends React.Component {
 		  .then((success) => {
 		    console.log('FILE WRITTEN!');
 
-                        let bookName = that.props.navigation.getParam('detailBook');
-		  	console.log("In listPoemScreen.js inside starToggling if");
-                        that.getPoemList(bookName);
+                        that.getPoemList();
 		  })
 		  .catch((err) => {
 		    console.log(err.message);
@@ -105,9 +103,7 @@ class ListPoemScreen extends React.Component {
 		RNFS.appendFile(path, sherNumberComma, 'utf8')
 		  .then((success) => {
 		    console.log('FILE WRITTEN!');
-                        let bookName = that.props.navigation.getParam('detailBook');
-		  	console.log("In listPoemScreen.js inside starToggling else");
-                        that.getPoemList(bookName);
+                        that.getPoemList();
 		  })
 		  .catch((err) => {
 		    console.log(err.message);
@@ -149,7 +145,6 @@ class ListPoemScreen extends React.Component {
 	console.log('setState password passed')
                         // let bookName = this.props.navigation.getParam('detailBook');
 	// console.log('setState bookName passed')
-                        // this.getPoemList(bookName);
                         this.getPoemList();
 	// console.log('setState getPoemList passed')
                 }
@@ -171,10 +166,8 @@ class ListPoemScreen extends React.Component {
 		// Alert.alert(bookname)
 		// console.log(listId)
 
-    // var response = StaticContentService.getPoemList(listId).then(function(result)){
 
     var that = this;
-    // StaticContentService.getPoemList(listId).then(function(response){
 
     	// console.log("response: ");
     	//console.log(response);
@@ -221,11 +214,7 @@ class ListPoemScreen extends React.Component {
 		for (i=0; i<((result.length-1)/3); i++ ) {
 			console.log("Inside for loop for putting result")
 		
-			that.state.poemText.push({'id': i})
-			that.state.poemText.push({'textUrdu': i})
-			that.state.poemText.push({'textEnglish': i})
-			
-
+			that.state.poemText.push({'id': result[i * 3], 'textUrdu': result[(i*3)+1], 'textEnglish': result[(i*3)+2]})
 		}
 			
 

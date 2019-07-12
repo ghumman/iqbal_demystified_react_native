@@ -41,133 +41,29 @@ class PoemPage extends React.Component {
 	*/
 	}
 
-	getPoem (listId) {
+	getPoem () {
 
-		console.log("listId: " + listId);
 
     	var that = this;
-	  // var response = StaticContentService.getPoem(listId);
-	  StaticContentService.getPoem(listId).then(function(response){
 
-	  console.log("response: ");
-	  console.log(response);
-
-
-	  var yamlObject = YAML.parse(response)
-	  // this.poemList = yamlObject
-	  // this.setState({poemList: yamlObject.name});
-	    //
-	  console.log("yamlObject : ")
-	  console.log(yamlObject)
-	
-	console.log("yamlObject.sher")
-	console.log(yamlObject.sher)
-
-	console.log("yamlObject.sher.length")
-	console.log(yamlObject.sher.length)
+	this.setState({poemText: []});
 
        that.readBookmarks().then(function(result)	{
 	
 		
 		console.log("result");
 		console.log(result);
+
+		for (i=0; i<((result.length-1)/5); i++ ) {
+			console.log("Inside for loop for putting result")
+		
+			that.state.poemText.push({'id': result[i * 5], 'textUrdu1': result[(i*5)+1], 'textUrdu2': result[(i*5)+2], 'textEnglish1': result[(i*5)+3], 'textEnglish2': result[(i*5)+4]})
+		}
+
+
+    that.setState({poemTextNew: that.state.poemText});
 	
-	  for (var i=0; i<yamlObject.sher.length; i++) {
 
-		  try {
-			if (result.includes(yamlObject.sher[i].id))
-				yamlObject.sher[i].star = true;
-			else
-				yamlObject.sher[i].star = false;
-		  }
-			catch(e) {
-		    console.log("catch caught an error");
-			}
-	  }
-
-
-	console.log("yamlObject.sher")
-	console.log(yamlObject.sher)
-
-        let newArr = [yamlObject.sher]
-        console.log("Value of newArr")
-        console.log(newArr)
-
-	console.log("newArr[0].length");
-	console.log(newArr[0].length);
-
-
-        console.log("Value of newArr")
-        console.log(newArr)
-
-        // console.log("newArr.sherContent[0].text")
-        // console.log(yamlObject.sher[0].sherContent[0].text)
-
-          yamlObject.sher.map(el => {
-	     try{
-		    el.sherContent[0].text = el.sherContent[0].text.split('|')
-		    console.log(el.sherContent[0].text)
-	    }catch (err) {
-		    		console.log("zero catch")
-	    }
-            try {
-                el.sherContent[1].text = el.sherContent[1].text.split('|')
-                console.log(el.sherContent[1].text)
-            } catch (err) { 
-		    		console.log("first catch")
-				el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
-
-				console.log(el.sherContent[1].text)
-	  }
-            try {
-                el.sherContent[2].text = el.sherContent[2].text.split('|')
-            } catch (err) {
-		    		console.log("second catch")
-				el.sherContent.push({"text": ["#translation missing", "#translation missing"]})
-				console.log(el.sherContent[2].text)
-	    
-	    }
-            return el.sherContent = el.sherContent
-          })
-
-
-        console.log("Value of newArr")
-        console.log(newArr)
-
-        console.log("Value of newArr[0]")
-        console.log(newArr[0])
-
-        console.log("Value of newArr[1]")
-        console.log(newArr[1])
-
-        console.log("Value of newArr.length")
-        console.log(newArr[0].length)
-
-        that.setState({
-            poemTextNew: newArr[0]
-        })
-		/*
-	  for (var i=0; i<yamlObject.sher.length; i++) {
-
-		  try {
-		  	for (var j=0; j<yamlObject.sher[i].sherContent.length; j++){
-					that.state.poemText.push({"text" : yamlObject.sher[i].sherContent[j].text[0], "id" : yamlObject.sher[i].id});
-					that.state.poemText.push({"text" : yamlObject.sher[i].sherContent[j].text[1], "id" : yamlObject.sher[i].id});
-				}
-		  }
-			catch(e) {
-		    console.log("catch caught an error");
-			}
-	  }
-	  	*/
-	  that.setState({poemNameUrdu: yamlObject.heading[0].text});
-	  that.setState({poemNameEnglish: yamlObject.heading[1].text});
-
-	  console.log("poemNameUrdu: ");
-	  console.log(yamlObject.heading[0].text);
-	  console.log("poemNameEnglish: ");
-	  console.log(yamlObject.heading[1].text);
-	});
 	})
 
 	}
@@ -212,14 +108,13 @@ class PoemPage extends React.Component {
 		RNFS.writeFile(path, newData, 'utf8')
 		  .then((success) => {
 		    console.log('FILE WRITTEN!');
+		  	
+			that.getPoem();
 		  })
 		  .catch((err) => {
 		    console.log(err.message);
 		  });
 
-		  let poemName = that.props.navigation.getParam('detailPoem');
-		  console.log("In poempage.js inside starToggling if");
-		  that.getPoem(poemName);
 			
 
 	}
@@ -234,15 +129,13 @@ class PoemPage extends React.Component {
 		RNFS.appendFile(path, sherAt, 'utf8')
 		  .then((success) => {
 		    console.log('FILE WRITTEN!');
+		  	that.getPoem();
 		  })
 		  .catch((err) => {
 		    console.log(err.message);
 		  });
 		
 		
-		  let poemName = that.props.navigation.getParam('detailPoem');
-		  console.log("In poempage.js inside starToggling else");
-		  that.getPoem(poemName);
 	}
 	})
 
@@ -264,16 +157,13 @@ class PoemPage extends React.Component {
 	}
 
 	componentDidMount() {
-	  // retrive the data
 	 	try {
 
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
 			this.setState({password: this.props.navigation.getParam('profilePassword')});
 
-			let poemName = this.props.navigation.getParam('detailPoem');
-			console.log("In poempage.js inside componentdidmount");
-			this.getPoem(poemName);
+			this.getPoem();
 		}
 		catch(e) {
 			console.log("Inside catch");
@@ -341,10 +231,7 @@ class PoemPage extends React.Component {
 		var that = this
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
-          		 if (item.star) 
-				return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
-			else 
-          			return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
+				return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu1}</Text></View><View><Text style={styles.RenderedText}>{item.textUrdu2}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish1}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View></View>
 			
 		});
 
@@ -358,13 +245,8 @@ class PoemPage extends React.Component {
       <View style={styles.MainContainer}>
 			<View>
                                 <Text style={styles.UrduTitle}>
-					{this.state.poemNameUrdu}
 
-                                </Text>
-			</View>
-			<View>
-                                <Text style={styles.EnglishTitle}>
-					{this.state.poemNameEnglish}
+					Bookmarked Shers
                                 </Text>
 			</View>
 			
