@@ -231,7 +231,7 @@ class PoemPage extends React.Component {
 		var that = this
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
-				return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu1}</Text></View><View><Text style={styles.RenderedText}>{item.textUrdu2}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish1}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View></View>
+				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu1}</Text></View><View><Text style={styles.RenderedText}>{item.textUrdu2}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish1}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View>
 			
 		});
 
