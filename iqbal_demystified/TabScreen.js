@@ -26,8 +26,7 @@ tabBarOptions: {
     justifyContent: 'center',
   },
 }
-}
-    );
+});
 
 // const TabFunction = createAppContainer(TabNavigator);
 

@@ -462,9 +462,9 @@ class SearchPage extends React.Component {
 			</div>
 */
 		return (
-			<View>
+			<View style={{flex: 1}}>
 				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text>
-     <View>
+     <View style={{flex: 1}}>
         <RadioForm
           radio_props={radio_props}
           initial={0}
@@ -484,11 +484,13 @@ class SearchPage extends React.Component {
 			
 			</View>
 				<Button onPress={this.handleSubmit} title='SEARCH'/>
+			<View style={{flex: 5}}>
 
 			<ScrollView>
-					{keyboardTag}
+				{keyboardTag}
 				{itemsPoemOrSher}
 			</ScrollView>
+			</View>
 	</View>
 		)	// return ends
 	}	// render function ends
@@ -505,6 +507,7 @@ const styles = StyleSheet.create({
 
   RenderedView: {
     // height: 44,
+    flex: 0.5, 
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',

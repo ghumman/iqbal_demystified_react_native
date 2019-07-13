@@ -10,6 +10,20 @@ import DiscussionPopularScreen from './DiscussionPopularScreen';
 const DiscussionNavigator = createBottomTabNavigator({
   Recent: DiscussionRecentScreen,
   Popular: DiscussionPopularScreen
+}, 
+{
+tabBarOptions: {
+  labelStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20, 
+   
+  },
+  style: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}
 });
 
 

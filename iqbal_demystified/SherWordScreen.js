@@ -56,6 +56,11 @@ class SherPage extends React.Component {
 		this.handleSubmitWord = this.handleSubmitWord.bind(this);
 	}
 
+
+   static navigationOptions = {
+        title: 'Word Meanings',
+    };
+
 	handleUserMessageSher(event) {
 		this.setState({userMessageSher: event.target.value})
 	}

@@ -9,7 +9,21 @@ import SherWordScreen from './SherWordScreen';
 
 const SherNavigator = createBottomTabNavigator({
   SherDiscussion: SherDiscussionScreen,
-  SherWord: SherWordScreen
+  SherWordMeanings: SherWordScreen
+  }, 
+  {
+tabBarOptions: {
+  labelStyle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 20, 
+   
+  },
+  style: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}
 });
 
 

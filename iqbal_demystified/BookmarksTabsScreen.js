@@ -10,6 +10,20 @@ import BookmarksSherScreen from './BookmarksSherScreen';
 const BookmarksNavigator = createBottomTabNavigator({
   POEMS: BookmarksPoemScreen,
   SHERS: BookmarksSherScreen
+}, 
+{
+tabBarOptions: {
+  labelStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20, 
+   
+  },
+  style: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}
 });
 
 
