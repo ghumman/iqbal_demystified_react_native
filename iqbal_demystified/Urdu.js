@@ -21,7 +21,6 @@ class Urdu extends React.Component {
 	    }
 	  }
 
-
     onSubmit = (bookNumber) => {
 	  const { navigate } = this.props.navigation;
 	

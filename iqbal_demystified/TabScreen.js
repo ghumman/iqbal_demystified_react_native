@@ -12,7 +12,22 @@ const TabNavigator = createBottomTabNavigator({
   Urdu: Urdu,
   Farsi1: Farsi1,
   Farsi2: Farsi2
-});
+}, 
+{
+tabBarOptions: {
+  labelStyle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20, 
+   
+  },
+  style: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}
+}
+    );
 
 // const TabFunction = createAppContainer(TabNavigator);
 

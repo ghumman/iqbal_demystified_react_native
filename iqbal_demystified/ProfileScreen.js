@@ -452,7 +452,9 @@ const state = this.state;
 						<Picker.Item label="Word Meanings" value="word" />
 						</Picker>
 						</View>
+				<ScrollView>
 					{myTable}
+				</ScrollView>
 
 				
 
