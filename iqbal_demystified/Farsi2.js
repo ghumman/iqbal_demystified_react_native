@@ -17,6 +17,9 @@ class Farsi2 extends React.Component {
 	    }
 	  }
 
+   static navigationOptions = {
+        title: 'Farsi (2)',
+    };
 
     onSubmit = (bookNumber) => {
 	  const { navigate } = this.props.navigation;

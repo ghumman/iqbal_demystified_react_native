@@ -213,7 +213,8 @@ constructor(props) {
 		<View style={{flex: 2}}>
 
 
-      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
+      <View style={{flex: 1, flexDirection: 'row', padding: 10,  justifyContent: 'space-around'}}>
+
 		<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit(this.state.gotoPage)} >
 			<Image style={styles.RowImage} resizeMode='contain' source={iconSignIn}/>
 		</TouchableHighlight>
@@ -228,26 +229,20 @@ constructor(props) {
 		</TouchableHighlight>
 
       </View>
-      <View style={{flex: 1, flexDirection: 'row', padding: 1, justifyContent: 'space-around'}}>
-        <View style={styles.HightlightProperties}>
+      <View style={{flex: 1, flexDirection: 'row', padding: 10, justifyContent: 'space-around'}}>
 		<TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("DiscussionTabs")}>
 <Image style={styles.RowImage} resizeMode="contain"  source={iconDiscussion}/>
 		</TouchableHighlight>
-</View>
-        <View style={styles.HightlightProperties}>
 
 		<TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("Search")}>
 <Image style={styles.RowImage} resizeMode="contain"  source={iconSearch}/>
 		</TouchableHighlight>
 
-</View>
-        <View style={styles.HightlightProperties}>
 
 		<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onSubmit("Info")}>
 <Image style={styles.RowImage} resizeMode="contain"  source={iconInfo}/>
 		</TouchableHighlight>
 
-</View>
 
 
 	
@@ -388,7 +383,7 @@ const styles = StyleSheet.create({
 	overflow: 'hidden', 
 	alignItems: 'center', 
 	// position: 'relative', 
-	margin: 11
+	margin: 10
 },
 
   container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
