@@ -438,6 +438,7 @@ const styles = StyleSheet.create({
    justifyContent: 'center'
   }, 
   UrduTitle : {
+    textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',

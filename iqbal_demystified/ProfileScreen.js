@@ -420,7 +420,8 @@ const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.lea
 */
 const state = this.state;
 				return (
-				<View>
+			<View style={{flex: 1}}>
+			<View style={{flex: 3}}>
        	   			<Text style={styles.EnglishTitle}>My Profile</Text>
 				<View style={styles.UsernameView}>
 					<View style={styles.UsernameViewInner}>
@@ -439,8 +440,9 @@ const state = this.state;
 						
 						<Button onPress={() => this.signOut()} title= 'SIGN OUT' />	
 					</View>
+			   </View>
 
-						<View>
+			   <View style={{flex: 3}}>
 
 						<Picker he
 						  selectedValue={this.state.dropdownState}
@@ -451,10 +453,12 @@ const state = this.state;
 						<Picker.Item label="Discussion" value="discussion" />
 						<Picker.Item label="Word Meanings" value="word" />
 						</Picker>
-						</View>
-				<ScrollView>
-					{myTable}
-				</ScrollView>
+				</View>
+				<View style={{flex: 3}}>
+					<ScrollView>
+						{myTable}
+					</ScrollView>
+				</View>
 
 				
 
