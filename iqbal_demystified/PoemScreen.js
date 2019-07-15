@@ -1,5 +1,5 @@
 import React from 'react'
-import {ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import starLiked from './assets/android_app_assets/star_liked.png';
@@ -34,6 +34,7 @@ class PoemPage extends React.Component {
 
 		  listId: "List_001",
 		  poemList: [],
+		  poemAudioUrl: "",
 		  poemNameUrdu: "",
 		  poemNameEnglish: "",
 		  poemText: [],
@@ -75,6 +76,10 @@ class PoemPage extends React.Component {
 	    //
 	  console.log("yamlObject : ")
 	  console.log(yamlObject)
+	
+	that.setState({poemAudioUrl:  yamlObject.audioUrl});
+	console.log("that.state.poemAudioUrl")
+	console.log(that.state.poemAudioUrl)
 	
 	console.log("yamlObject.sher")
 	console.log(yamlObject.sher)
@@ -309,13 +314,22 @@ class PoemPage extends React.Component {
 */
 
 soundForward = () => {
-
+	if ((this.state.duration - this.state.currentTime) > 6)
+		this.player.seek(this.state.currentTime + 5);
+	else
+		this.player.seek(0);
+	/*
+	console.log("this.state.duration")
+	console.log(this.state.duration)
+	console.log("this.state.currentTime")
+	console.log(this.state.currentTime)
+	*/
 }
 
 soundBackward = () => {
-
-
+	this.player.seek(this.state.currentTime -  5);
 } 
+
 // playTrack = () => {
 playTrack(){
 		console.log("Inside playTrack");
@@ -357,6 +371,27 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
       }
       return 0;
     };	
+
+    resumeIfUrlPresent() {
+    // resumeIfUrlPresent = ()  => {
+	if (this.state.poemAudioUrl != "")
+		this.setState({paused: !this.state.paused})
+	else {
+		Alert.alert(
+  'Upload a Recording!',
+  'We need your recording of this poem. Please upload an audio recording on SoundCloud and share with us on our Facebook Page. If your recording is selected, we will include it in the next version of the app!',
+  [
+    {
+      text: 'CANCEL',
+      onPress: () => console.log('Cancel Pressed'),
+      style: 'cancel',
+    },
+    {text: 'GO TO SOUNDCLOUD', onPress: () => Linking.openURL('https://soundcloud.com')},
+  ],
+  {cancelable: true},
+);
+	}
+     }
 
 	render() {
 	/*
@@ -421,10 +456,15 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 
 
 		var soundIcon;
-		if (this.state.paused)
-			soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPlay}/>
+		if (this.state.poemAudioUrl != "") {
+			if (this.state.paused)
+				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPlay}/>
+			else
+				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPause}/>
+		}
 		else
-			soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPause}/>
+				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconAddSound}/>
+
 
       const flexCompleted = Math.round(this.getCurrentTimePercentage() * 100);
       const flexRemaining = Math.round((1 - this.getCurrentTimePercentage()) * 100); 
@@ -432,7 +472,7 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 		return (
       <View style={styles.MainContainer}>
 
-		<Video source={{uri: "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3"}}   // Can be a URL or a local file.
+		<Video source={{uri: this.state.poemAudioUrl}}   // Can be a URL or a local file.
 		       ref={(ref) => {
 			 this.player = ref
 		       }}                                      // Store reference
@@ -468,21 +508,15 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.soundBackward()}>
 					<Image style={styles.RowImage} resizeMode="contain" source={iconBackward}/>
 				</TouchableHighlight>
-				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => {this.setState({paused: !this.state.paused})}}>
+
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.resumeIfUrlPresent()}>
 				{soundIcon}
-		{/*<Video source={{uri: "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3"}}   // Can be a URL or a local file.
-		       ref={(ref) => {
-			 this.player = ref
-		       }}                                      // Store reference
-		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
-		       audioOnly={true}
-		       poster='./assets/android_app_assets/audio_player_play.png'
-		       onError={this.videoError} />
-			*/}
 				</TouchableHighlight>
+
 				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.soundForward()}>
 					<Image style={styles.RowImage} resizeMode="contain" source={iconForward}/>
 				</TouchableHighlight>
+
 				{/*
 				<TouchableHighlight  style={styles.HighlightProperties}>
 					
@@ -494,8 +528,10 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 			</View>
 			<View style={styles.controls}>
 			    <View style={styles.progress}>
+				<Text>0.0</Text>
 			    	<View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
 			    	<View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+				<Text>{this.state.duration}</Text>
 			    </View>
 			 </View>
 
