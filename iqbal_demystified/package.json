@@ -17,8 +17,10 @@
     "react-native-secure-storage": "^0.1.2",
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-table-component": "^1.2.0",
+    "react-native-video": "^4.4.4",
     "react-navigation": "^3.11.0",
     "read-yaml": "^1.1.0",
+    "rn-fetch-blob": "^0.10.16",
     "yaml": "^1.6.0"
   },
   "devDependencies": {

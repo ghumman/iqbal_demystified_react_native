@@ -1,14 +1,25 @@
 import React from 'react'
-import {ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import starLiked from './assets/android_app_assets/star_liked.png';
 import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
+import iconAddSound from './assets/android_app_assets/audio_player_add_sound.png';
+import iconBackward from './assets/android_app_assets/audio_player_backward.png';
+import iconForward from './assets/android_app_assets/audio_player_forward.png';
+import iconPause from './assets/android_app_assets/audio_player_pause.png';
+import iconPlay from './assets/android_app_assets/audio_player_play.png';
+
 // for formatting
 // import './TabView1.css';
 
 // import Divider from '@material-ui/core/Divider';
+
+import Video from 'react-native-video';
+import RNFetchBlob from 'rn-fetch-blob'
+
+
 
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
@@ -27,7 +38,12 @@ class PoemPage extends React.Component {
 		  poemNameEnglish: "",
 		  poemText: [],
 		  poemTextNew: [],
-		  poemObjects: []
+		  poemObjects: [],
+		
+		  paused: true,
+		  duration: 0.0,
+		  currentTime: 0.0,
+
 		}
 	}
 
@@ -292,6 +308,55 @@ class PoemPage extends React.Component {
 	}
 */
 
+soundForward = () => {
+
+}
+
+soundBackward = () => {
+
+
+} 
+// playTrack = () => {
+playTrack(){
+		console.log("Inside playTrack");
+		// var that = this;
+		let localSong = RNFS.CachesDirectoryPath + '/song-name.mp3';
+RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3', localSong).then(() => {
+  let song = new Sound(localSong, '', (error) =>  {
+    song.play();
+  });
+});
+
+		{/*
+		return <Video source={{uri: "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3"}}   // Can be a URL or a local file.
+		       ref={(ref) => {
+			 this.player = ref
+		       }}                                      // Store reference
+		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
+		       onError={this.videoError} />
+		*/}
+
+}
+
+    onLoad = (data) => {
+      this.setState({ duration: data.duration });
+    }
+
+    onProgress = (data) => {
+      this.setState({ currentTime: data.currentTime });
+    }
+
+    onEnd = () => {
+      this.setState({ paused: true });
+      this.video.seek(0);
+    }
+
+    getCurrentTimePercentage() {
+      if (this.state.currentTime > 0) {
+        return parseFloat(this.state.currentTime) / parseFloat(this.state.duration);
+      }
+      return 0;
+    };	
 
 	render() {
 	/*
@@ -354,24 +419,85 @@ class PoemPage extends React.Component {
 			
 		);
 
+
+		var soundIcon;
+		if (this.state.paused)
+			soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPlay}/>
+		else
+			soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPause}/>
+
+      const flexCompleted = Math.round(this.getCurrentTimePercentage() * 100);
+      const flexRemaining = Math.round((1 - this.getCurrentTimePercentage()) * 100); 
+
 		return (
       <View style={styles.MainContainer}>
-			<View>
+
+		<Video source={{uri: "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3"}}   // Can be a URL or a local file.
+		       ref={(ref) => {
+			 this.player = ref
+		       }}                                      // Store reference
+		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
+		       paused={this.state.paused}
+		       onLoad={this.onLoad}
+		       onProgress={this.onProgress}
+		       onEnd={this.onEnd}
+		       onError={this.videoError} />
+
+
+			<View style={{flex: 0.1}}>
                                 <Text style={styles.UrduTitle}>
 					{this.state.poemNameUrdu}
 
                                 </Text>
 			</View>
-			<View>
+			<View style={{flex: 0.1}}>
                                 <Text style={styles.EnglishTitle}>
 					{this.state.poemNameEnglish}
                                 </Text>
 			</View>
 			
-			<ScrollView style={{flex: 1}} contentContainerStyle={{alignItems: 'center'}}>
+			<View style={{flex: 1}}>
+			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
 				{itemScroll}
 				{/*{testItem}*/}
 			</ScrollView>
+			</View>
+		
+		
+			<View style={{flex: 0.2, flexDirection: 'row',borderWidth: 0.5, borderColor: 'black'}}>
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.soundBackward()}>
+					<Image style={styles.RowImage} resizeMode="contain" source={iconBackward}/>
+				</TouchableHighlight>
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => {this.setState({paused: !this.state.paused})}}>
+				{soundIcon}
+		{/*<Video source={{uri: "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3"}}   // Can be a URL or a local file.
+		       ref={(ref) => {
+			 this.player = ref
+		       }}                                      // Store reference
+		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
+		       audioOnly={true}
+		       poster='./assets/android_app_assets/audio_player_play.png'
+		       onError={this.videoError} />
+			*/}
+				</TouchableHighlight>
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.soundForward()}>
+					<Image style={styles.RowImage} resizeMode="contain" source={iconForward}/>
+				</TouchableHighlight>
+				{/*
+				<TouchableHighlight  style={styles.HighlightProperties}>
+					
+					<Text>{flexRemaining}:{flexCompleted}</Text>					
+
+				</TouchableHighlight>
+				*/}
+				
+			</View>
+			<View style={styles.controls}>
+			    <View style={styles.progress}>
+			    	<View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+			    	<View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+			    </View>
+			 </View>
 
 {/*
         <FlatList
@@ -434,7 +560,7 @@ const styles = StyleSheet.create({
 
   MainContainer: {
    flex: 1,
-   alignItems: 'center',
+   alignItems: 'stretch',
    justifyContent: 'center'
   }, 
   UrduTitle : {
@@ -451,7 +577,55 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FF0000',
    
-  }
+  },
+
+backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+
+  HighlightProperties: {
+    flex: 1,
+    overflow: 'hidden', 
+    alignItems: 'center', 
+    margin: 1
+},
+
+  RowImage: {
+    flex: 1,
+  },
+
+      controls: {
+        flexDirection: 'row',
+        backgroundColor: 'transparent',
+        borderRadius: 5,
+        position: 'absolute',
+        bottom: 20,
+        left: 20,
+        right: 20,
+        alignItems: 'center'
+      },
+      progress: {
+        flex: 1,
+        flexDirection: 'row',
+        borderRadius: 3,
+        overflow: 'hidden',
+        marginLeft: 10
+      },
+
+      innerProgressCompleted: {
+        height: 10,
+        backgroundColor: '#f1a91b',
+      },
+
+      innerProgressRemaining: {
+        height: 10,
+        backgroundColor: '#2C2C2C',
+      }
+
   
 })
 

@@ -138,6 +138,9 @@ android {
 }
 
 dependencies {
+    implementation project(':rn-fetch-blob')
+    implementation project(':react-native-track-player')
+    implementation project(':react-native-video')
     implementation project(':react-native-secure-storage')
     implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-fs')
