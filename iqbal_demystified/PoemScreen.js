@@ -44,6 +44,8 @@ class PoemPage extends React.Component {
 		  paused: true,
 		  duration: 0.0,
 		  currentTime: 0.0,
+		
+		  showAudioBox: true,
 
 		}
 	}
@@ -361,8 +363,8 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
     }
 
     onEnd = () => {
+      // this.player.seek(0);
       this.setState({ paused: true });
-      this.video.seek(0);
     }
 
     getCurrentTimePercentage() {
@@ -469,42 +471,29 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
       const flexCompleted = Math.round(this.getCurrentTimePercentage() * 100);
       const flexRemaining = Math.round((1 - this.getCurrentTimePercentage()) * 100); 
 
-		return (
-      <View style={styles.MainContainer}>
 
-		<Video source={{uri: this.state.poemAudioUrl}}   // Can be a URL or a local file.
-		       ref={(ref) => {
-			 this.player = ref
-		       }}                                      // Store reference
-		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
-		       paused={this.state.paused}
-		       onLoad={this.onLoad}
-		       onProgress={this.onProgress}
-		       onEnd={this.onEnd}
-		       onError={this.videoError} />
+     var totalMinutes = Math.floor(this.state.duration / 60);
+     var totalSeconds = Math.round(this.state.duration - totalMinutes * 60);
+
+     var currentMinutes = Math.floor(this.state.currentTime / 60);
+     var currentSeconds = Math.round(this.state.currentTime - currentMinutes * 60);
+
+     var formattedTotalMinutes = ("0" + totalMinutes).slice(-2);
+     var formattedTotalSeconds = ("0" + totalSeconds).slice(-2);
+     var formattedCurrentMinutes = ("0" + currentMinutes).slice(-2);
+     var formattedCurrentSeconds = ("0" + currentSeconds).slice(-2);
 
 
-			<View style={{flex: 0.1}}>
-                                <Text style={styles.UrduTitle}>
-					{this.state.poemNameUrdu}
+     var audioBox; 
+     if (this.state.showAudioBox)
+	audioBox = <Text style={{backgroundColor: 'skyblue'}}>Hide Audio Box</Text>	
+     else
+	audioBox = <Text style={{backgroundColor: 'skyblue'}}>Show Audio Box</Text>	
 
-                                </Text>
-			</View>
-			<View style={{flex: 0.1}}>
-                                <Text style={styles.EnglishTitle}>
-					{this.state.poemNameEnglish}
-                                </Text>
-			</View>
-			
-			<View style={{flex: 1}}>
-			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
-				{itemScroll}
-				{/*{testItem}*/}
-			</ScrollView>
-			</View>
-		
-		
-			<View style={{flex: 0.2, flexDirection: 'row',borderWidth: 0.5, borderColor: 'black'}}>
+
+     var audioSystem1; 
+     if (this.state.showAudioBox)
+     audioSystem1 = <View style={{flex: 0.2, flexDirection: 'row',borderWidth: 0.5, borderColor: 'black'}}>
 				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.soundBackward()}>
 					<Image style={styles.RowImage} resizeMode="contain" source={iconBackward}/>
 				</TouchableHighlight>
@@ -517,23 +506,75 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 					<Image style={styles.RowImage} resizeMode="contain" source={iconForward}/>
 				</TouchableHighlight>
 
-				{/*
-				<TouchableHighlight  style={styles.HighlightProperties}>
-					
-					<Text>{flexRemaining}:{flexCompleted}</Text>					
-
-				</TouchableHighlight>
-				*/}
 				
 			</View>
-			<View style={styles.controls}>
-			    <View style={styles.progress}>
-				<Text>0.0</Text>
-			    	<View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
-			    	<View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
-				<Text>{this.state.duration}</Text>
-			    </View>
-			 </View>
+
+	else 
+		audioSystem1 = <View></View>;
+
+     var audioSystem2; 
+     if (this.state.showAudioBox)
+
+     audioSystem2 = <View style={{flex:0.2}}>
+				<View style={styles.controls}>
+				    <View style={styles.progress}>
+					<Text>{formattedCurrentMinutes}:{formattedCurrentSeconds}</Text>
+					<View style={[styles.innerProgressCompleted, { flex: flexCompleted }]} />
+					<View style={[styles.innerProgressRemaining, { flex: flexRemaining }]} />
+					<Text>{formattedTotalMinutes}:{formattedTotalSeconds}</Text>
+				    </View>
+				 </View>
+			</View>
+
+     else 
+		audioSystem2 = <View></View>;
+
+
+		return (
+      <View style={styles.MainContainer}>
+
+		<Video source={{uri: this.state.poemAudioUrl}}   // Can be a URL or a local file.
+		       ref={(ref) => {
+			 this.player = ref
+		       }}                                      // Store reference
+		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
+		       paused={this.state.paused}
+		       onLoad={this.onLoad}
+		       onProgress={this.onProgress}
+		       onEnd={this.onEnd}
+		       repeat={true}
+		       onError={this.videoError} />
+
+
+			<View style={{flex: 0.2}}>
+                                <Text style={styles.UrduTitle}>
+					{this.state.poemNameUrdu}
+
+                                </Text>
+			</View>
+			<View style={{flex: 0.2}}>
+                                <Text style={styles.EnglishTitle}>
+					{this.state.poemNameEnglish}
+                                </Text>
+			</View>
+			
+			<View style={{flex: 2}}>
+			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
+				{itemScroll}
+				{/*{testItem}*/}
+			</ScrollView>
+			</View>
+
+			<View style={{flex: 0.1, alignItems: 'flex-end'}}>
+				<TouchableHighlight onPress={() => this.setState({showAudioBox: !this.state.showAudioBox})}>
+					{audioBox}
+				</TouchableHighlight>
+			</View>
+
+			{audioSystem1}
+			{audioSystem2}
+		
+		
 
 {/*
         <FlatList

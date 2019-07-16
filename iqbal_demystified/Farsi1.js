@@ -63,20 +63,17 @@ class Farsi1 extends React.Component {
         }
 
   render() {
-    return (
-
+/*
       <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_006")}>	
-{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi1Book1}/>*/}
 <Image style={styles.RowImage} source={farsi1Book1}/>
 		</TouchableHighlight>
 </View>
 
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_005")}>	
-{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book2}/>*/}
 <Image style={styles.RowImage} source={farsi1Book2}/>
 		</TouchableHighlight>
 </View>
@@ -85,23 +82,72 @@ class Farsi1 extends React.Component {
       <View style={{flex: 1, flexDirection: 'row'}}>
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_007")}>	
-{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book3}/>*/}
 <Image style={styles.RowImage} source={farsi1Book3}/>
 		</TouchableHighlight>
 </View>
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_008")}>	
-{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi1Book4}/>*/}
 <Image style={styles.RowImage} source={farsi1Book4}/>
 		</TouchableHighlight>
 </View>
       </View>
       </View>
+
+*/
+    return (
+			<View style={{flex: 1}}>
+				<View style={{flex: 1}}>
+	<View style={{flex: 1, flexDirection: 'column'}}>
+
+	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
+
+			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_006")} >
+				<Image style={styles.RowImage} resizeMode='contain' source={farsi1Book1}/>
+			</TouchableHighlight>
+
+
+			<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("List_005")}>
+				<Image style={styles.RowImage} resizeMode="contain" source={farsi1Book2}/>
+			</TouchableHighlight>
+
+
+      </View>
+	
+	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
+
+			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_007")} >
+				<Image style={styles.RowImage} resizeMode='contain' source={farsi1Book3}/>
+			</TouchableHighlight>
+
+
+			<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("List_008")}>
+				<Image style={styles.RowImage} resizeMode="contain" source={farsi1Book4}/>
+			</TouchableHighlight>
+
+      </View>
+	</View>
+      </View>
+      </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
+  HighlightProperties: {
+    flex: 1,
+    // alignItems: 'center',
+    // width: 80, 
+    // height: 80, 
+    // width: undefined, 
+    // height: undefined, 
+    // width: null, 
+    // height: null, 
+	overflow: 'hidden', 
+	alignItems: 'center', 
+	// position: 'relative', 
+	margin: 10
+},
   RowSpace: {
     flex: 1,
     width: null,
@@ -112,10 +158,11 @@ const styles = StyleSheet.create({
   },
 
   RowImage: {
-    margin: 30,
-    width: 100, 
-    height: 200, 
-    resizeMode: 'contain'
+    flex: 1,
+    // margin: 30,
+    // width: 100, 
+    // height: 200, 
+    // resizeMode: 'contain'
   }
 })
 

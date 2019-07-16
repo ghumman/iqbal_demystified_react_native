@@ -57,18 +57,16 @@ class Farsi2 extends React.Component {
                 }
         }
   render() {
-    return (
+/*
       <View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_009")}>	
-{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={farsi2Book1}/>*/}
 <Image style={styles.RowImage} source={farsi2Book1}/>
 		</TouchableHighlight>
 </View>
         <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_010")}>	
-{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book2}/>*/}
 <Image style={styles.RowImage} source={farsi2Book2}/>
 		</TouchableHighlight>
 </View>
@@ -76,10 +74,42 @@ class Farsi2 extends React.Component {
       <View style={{flex: 1, flexDirection: 'row'}}>
         <View style={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_011")}>	
-{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={farsi2Book3}/>*/}
 <Image style={styles.RowImage} source={farsi2Book3}/>
 		</TouchableHighlight>
 </View>
+      </View>
+      </View>
+*/
+    return (
+			<View style={{flex: 1}}>
+				<View style={{flex: 1}}>
+	<View style={{flex: 1, flexDirection: 'column'}}>
+
+	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
+
+			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_009")} >
+				<Image style={styles.RowImage} resizeMode='contain' source={farsi2Book1}/>
+			</TouchableHighlight>
+
+
+			<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("List_010")}>
+				<Image style={styles.RowImage} resizeMode="contain" source={farsi2Book2}/>
+			</TouchableHighlight>
+
+
+      </View>
+	
+	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
+
+			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_011")} >
+				<Image style={styles.RowImage} resizeMode='contain' source={farsi2Book3}/>
+			</TouchableHighlight>
+			<View style={{flex: 1}}></View>
+
+
+
+      </View>
+	</View>
       </View>
       </View>
 	
@@ -88,6 +118,21 @@ class Farsi2 extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  HighlightProperties: {
+    flex: 1,
+    // alignItems: 'center',
+    // width: 80, 
+    // height: 80, 
+    // width: undefined, 
+    // height: undefined, 
+    // width: null, 
+    // height: null, 
+	overflow: 'hidden', 
+	alignItems: 'center', 
+	// position: 'relative', 
+	margin: 10
+},
+
   RowSpace: {
     flex: 1,
     width: null,
@@ -98,10 +143,11 @@ const styles = StyleSheet.create({
   },
 
   RowImage: {
-    margin: 30,
-    width: 100, 
-    height: 200, 
-    resizeMode: 'contain'
+    flex: 1,
+    // margin: 30,
+    // width: 100, 
+    // height: 200, 
+    // resizeMode: 'contain'
   }
 })
 

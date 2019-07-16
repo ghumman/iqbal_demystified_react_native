@@ -58,71 +58,45 @@ class Urdu extends React.Component {
                 }
         }
   render() {
-/*
-
+    return (
 	<View style={{flex: 1, flexDirection: 'column'}}>
       <View style={{flex: 1, flexDirection: 'row'}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_002")}>	
+			{/*<Image style={{width: 180, height:180, resizeMode: 'contain'}} source={urduBook1} />*/}
 			<Image style={styles.RowImage} source={urduBook1} />
 		</TouchableHighlight>
 	</View>
+
+
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_001")}>	
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook2} />*/}
 			<Image style={styles.RowImage} source={urduBook2} />
 		</TouchableHighlight>
 	</View>
 	</View>
       <View style={{flex: 1, flexDirection: 'row'}}>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_004")}>	
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook3}/>*/}
 			<Image style={styles.RowImage} source={urduBook3}/>
 		</TouchableHighlight>
 	</View>
+        {/*<View style={{flex: 1, alignSelf: 'stretch', width: undefined, height: undefined}}>*/}
 	<View sytle={styles.RowSpace}>
 		<TouchableHighlight onPress={()=> this.onSubmit("List_003")}>	
+			{/*<Image style={{width: 180, height: 180, resizeMode: 'contain'}} source={urduBook4}/>*/}
 			<Image style={styles.RowImage} source={urduBook4}/>
 		</TouchableHighlight>
-	</View>
-      </View>
-	</View>
-
-*/
-    return (
-			<View style={{flex: 1}}>
-				<View style={{flex: 1}}>
-	<View style={{flex: 1, flexDirection: 'column'}}>
-
-	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
-
-			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_002")} >
-				<Image style={styles.RowImage} resizeMode='contain' source={urduBook1}/>
-			</TouchableHighlight>
-
-
-			<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("List_001")}>
-				<Image style={styles.RowImage} resizeMode="contain" source={urduBook2}/>
-			</TouchableHighlight>
-
-
-      </View>
 	
-	      <View style={{flex: 1, flexDirection: 'row', padding: 1,  justifyContent: 'space-around'}}>
-
-			<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit("List_004")} >
-				<Image style={styles.RowImage} resizeMode='contain' source={urduBook3}/>
-			</TouchableHighlight>
-
-
-			<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("List_003")}>
-				<Image style={styles.RowImage} resizeMode="contain" source={urduBook4}/>
-			</TouchableHighlight>
+	</View>
 
       </View>
 	</View>
-      </View>
-      </View>
-	
     );
   }
 }
@@ -130,22 +104,6 @@ class Urdu extends React.Component {
 
 
 const styles = StyleSheet.create({
-
-  HighlightProperties: {
-    flex: 1,
-    // alignItems: 'center',
-    // width: 80, 
-    // height: 80, 
-    // width: undefined, 
-    // height: undefined, 
-    // width: null, 
-    // height: null, 
-	overflow: 'hidden', 
-	alignItems: 'center', 
-	// position: 'relative', 
-	margin: 10
-},
-
   RowSpace: {
     flex: 1,
     width: null,
@@ -156,11 +114,10 @@ const styles = StyleSheet.create({
   },
 
   RowImage: {
-    flex: 1,
-    // margin: 30,
-    // width: 100, 
-    // height: 200, 
-    // resizeMode: 'contain'
+    margin: 30,
+    width: 100, 
+    height: 200, 
+    resizeMode: 'contain'
   }
 })
 
