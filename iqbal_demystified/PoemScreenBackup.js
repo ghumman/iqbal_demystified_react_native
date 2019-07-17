@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import starLiked from './assets/android_app_assets/star_liked.png';
@@ -33,7 +33,6 @@ class PoemPage extends React.Component {
 		  signinConfirmation: "",
 
 		  listId: "List_001",
-		  poemNumber: "",
 		  poemList: [],
 		  poemAudioUrl: "",
 		  poemNameUrdu: "",
@@ -47,9 +46,6 @@ class PoemPage extends React.Component {
 		  currentTime: 0.0,
 		
 		  showAudioBox: true,
-		  isDownloadDone: false, 
-		  modalVisible: false,
-		  progressDownloadPercent: 0.0,
 
 		}
 	}
@@ -297,7 +293,6 @@ class PoemPage extends React.Component {
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
 			this.setState({password: this.props.navigation.getParam('profilePassword')});
-			this.setState({poemNumber: this.props.navigation.getParam('detailPoem')});
 
 			let poemName = this.props.navigation.getParam('detailPoem');
 			console.log("In poempage.js inside componentdidmount");
@@ -321,12 +316,10 @@ class PoemPage extends React.Component {
 */
 
 soundForward = () => {
-	if (!this.state.paused)	{
-		if ((this.state.duration - this.state.currentTime) > 6)
-			this.player.seek(this.state.currentTime + 5);
-		else
-			this.player.seek(0);
-	}
+	if ((this.state.duration - this.state.currentTime) > 6)
+		this.player.seek(this.state.currentTime + 5);
+	else
+		this.player.seek(0);
 	/*
 	console.log("this.state.duration")
 	console.log(this.state.duration)
@@ -336,9 +329,7 @@ soundForward = () => {
 }
 
 soundBackward = () => {
-	if (!this.state.paused)	{
-		this.player.seek(this.state.currentTime -  5);
-	}
+	this.player.seek(this.state.currentTime -  5);
 } 
 
 // playTrack = () => {
@@ -403,114 +394,6 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 );
 	}
      }
-
-onDownloadAudio() {
-
-	console.log("Inside onDownloadAudio")
-
-	let path = RNFS.DocumentDirectoryPath + '/' + this.state.poemNumber + '.mp3';
-	var that = this;
-
-	if (this.state.poemAudioUrl != "")	{
-	RNFS.exists(path)
-    .then( (exists) => {
-        if (exists) {
-            console.log("BLAH EXISTS");
-       	    this.setState({ isDownloadDone: true })
-        } else {
-            console.log("BLAH DOES NOT EXIST");
-	try {
-      RNFS.downloadFile({
-        // fromUrl: 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3',
-        fromUrl: that.state.poemAudioUrl,
-        // toFile: `${RNFS.DocumentDirectoryPath}/001_004.mp3`,
-        toFile: `${RNFS.DocumentDirectoryPath}/${that.state.poemNumber}.mp3`,
-	progress: (res: DownloadProgressCallbackResult) => {
-
-       		that.setState({ modalVisible: true })
-
-		console.log("res: ")	
-		console.log(res)	
-		let progressPercent = (res.bytesWritten / res.contentLength)*100;
-		console.log("progressPercent")
-		console.log(Math.round(progressPercent));
-       		that.setState({ progressDownloadPercent: Math.round(progressPercent) })
-	}
-      }).promise.then((r) => {
-		console.log("r: ")	
-		console.log(r)	
-       that.setState({ modalVisible: false })
-	console.log("Download completed")
-       this.setState({ isDownloadDone: true })
-      }).catch(err => {
-	    console.log("inside .catch(err...")
-            console.log("err: ")
-            console.log(err)
-	    Alert.alert("There was error downloading the audio. Please check internet connection.");
-       	    that.setState({ modalVisible: false })
-       	    this.setState({ isDownloadDone: false })
-      	    this.setState({ paused: true });
-	    return;
-      }).catch(err => {
-        });
-	}	// try ends
-	catch(error) { 
-		console.log("error: ")	
-		console.log(error)	
-		that.setState({ modalVisible: false })
-		this.setState({ isDownloadDone: false })
-		this.setState({ paused: true });
-		return;
-	} 
-	
-        }
-    });
-		this.setState({paused: !this.state.paused})
-	}
-	else {
-		Alert.alert(
-  'Upload a Recording!',
-  'We need your recording of this poem. Please upload an audio recording on SoundCloud and share with us on our Facebook Page. If your recording is selected, we will include it in the next version of the app!',
-  [
-    {
-      text: 'CANCEL',
-      onPress: () => console.log('Cancel Pressed'),
-      style: 'cancel',
-    },
-    {text: 'GO TO SOUNDCLOUD', onPress: () => Linking.openURL('https://soundcloud.com')},
-  ],
-  {cancelable: true},
-);
-	}
-
-
-
-}
-
-onCheckFileExists() {
-	// let path = '${RNFS.DocumentDirectoryPath}/001_001.mp3'
-	// let path = './001_001.mp3'
-	// let path = '001_001.mp3'
-	// let path = 'Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3'
-	// let path = RNFS.DocumentDirectoryPath + '/test14.txt';
-	// let path = RNFS.DocumentDirectoryPath + '/001_001';
-	// let path = RNFS.DocumentDirectoryPath + '/001_001.mp3';
-	let path = RNFS.DocumentDirectoryPath + '/' + this.state.poemNumber + '.mp3';
-	// RNFS.exists('RNFS.DocumentDirectoryPath/001_001.mp3')
-	RNFS.exists(path)
-    .then( (exists) => {
-        if (exists) {
-            console.log("BLAH EXISTS");
-        } else {
-            console.log("BLAH DOES NOT EXIST");
-        }
-    });
-
-}
-
-videoError() {
-	console.log("Inside videoError")
-}
 
 	render() {
 	/*
@@ -615,7 +498,7 @@ videoError() {
 					<Image style={styles.RowImage} resizeMode="contain" source={iconBackward}/>
 				</TouchableHighlight>
 
-				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onDownloadAudio()}>
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.resumeIfUrlPresent()}>
 				{soundIcon}
 				</TouchableHighlight>
 
@@ -646,56 +529,21 @@ videoError() {
      else 
 		audioSystem2 = <View></View>;
 
-// var path = 'file://' + RNFS.DocumentDirectoryPath + '/001_001.mp3';
-// let path = RNFS.DocumentDirectoryPath + '/001_004.mp3';
-let path = RNFS.DocumentDirectoryPath + '/' + this.state.poemNumber + '.mp3';
-// var requirePath = require
 
-var videoSetup; 
-if (this.state.isDownloadDone)
-	videoSetup = <Video source={{uri:path}} 		
+		return (
+      <View style={styles.MainContainer}>
+
+		<Video source={{uri: this.state.poemAudioUrl}}   // Can be a URL or a local file.
 		       ref={(ref) => {
 			 this.player = ref
-		       }}         
-		       onBuffer={this.onBuffer}        
+		       }}                                      // Store reference
+		       onBuffer={this.onBuffer}                // Callback when remote video is buffering
 		       paused={this.state.paused}
 		       onLoad={this.onLoad}
 		       onProgress={this.onProgress}
 		       onEnd={this.onEnd}
 		       repeat={true}
 		       onError={this.videoError} />
-else
-	videoSetup = null;
-
-		return (
-      <View style={styles.MainContainer}>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-  <View style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center'}}>
-    <View style={{
-            justifyContent: 'center',
-    	    backgroundColor: 'skyblue',
-            alignItems: 'center',
-            width: 180,
-            height: 50}}>
-              <Text >Download Percentage: {this.state.progressDownloadPercent}</Text>
-    </View>
-  </View>
-
-        </Modal>
-
-	{videoSetup}
-
 
 
 			<View style={{flex: 0.2}}>
@@ -757,16 +605,6 @@ const styles = StyleSheet.create({
    flex: 1,
    paddingTop: 22
   },
-
- OuterCircle: {
-    backgroundColor: 'skyblue',
-    width: 150,
-    height: 150,
-    // borderRadius: 100/2,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
   StarImage: {
 
     width: 30,
