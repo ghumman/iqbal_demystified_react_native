@@ -230,7 +230,7 @@ class PoemPage extends React.Component {
 		console.log("newData");
 		console.log(newData);
 
-		var path = RNFS.DocumentDirectoryPath + '/test14.txt';
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
 
 		// var sherNumberComma = sherNumber + ',';
 
@@ -251,7 +251,7 @@ class PoemPage extends React.Component {
 
 	}
 	else{
-		var path = RNFS.DocumentDirectoryPath + '/test14.txt';
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
 
 		// var sherNumberComma = sherNumber + ',';
 		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@';
@@ -278,7 +278,7 @@ class PoemPage extends React.Component {
 
 	async readBookmarks() { 
 
-		const path = RNFS.DocumentDirectoryPath + '/test14.txt';
+		const path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
 		try {
 			const yamlFile = await RNFS.readFile(path, "utf8")
 			var partsOfStr = yamlFile.split('@');
@@ -492,7 +492,6 @@ onCheckFileExists() {
 	// let path = './001_001.mp3'
 	// let path = '001_001.mp3'
 	// let path = 'Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3'
-	// let path = RNFS.DocumentDirectoryPath + '/test14.txt';
 	// let path = RNFS.DocumentDirectoryPath + '/001_001';
 	// let path = RNFS.DocumentDirectoryPath + '/001_001.mp3';
 	let path = RNFS.DocumentDirectoryPath + '/' + this.state.poemNumber + '.mp3';

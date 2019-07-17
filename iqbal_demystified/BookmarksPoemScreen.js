@@ -72,7 +72,7 @@ class ListPoemScreen extends React.Component {
 		console.log("newData");
 		console.log(newData);
 
-		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
 
 
 
@@ -93,7 +93,7 @@ class ListPoemScreen extends React.Component {
 	else{
 
 		console.log("poem is not in the file")
-		var path = RNFS.DocumentDirectoryPath + '/test07.txt';
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
 
 		// var sherNumberComma = sherNumber + ',';
 		var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
@@ -118,7 +118,7 @@ class ListPoemScreen extends React.Component {
 
 	async readBookmarks() { 
 
-		const path = RNFS.DocumentDirectoryPath + '/test07.txt';
+		const path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
 		try {
 			const yamlFile = await RNFS.readFile(path, "utf8")
 			var partsOfStr = yamlFile.split('@');

@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "چو موج از بحر خود بالیدہ ام من"
+  'text': "\uFEFFچو موج از بحر خود بالیدہ ام من"
 - 'lang': 'en'
   'text': 'I-II'
 'description': []

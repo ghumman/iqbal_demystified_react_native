@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "غریبم در میان محفل خویش"
+  'text': "\uFEFFغریبم در میان محفل خویش"
 - 'lang': 'en'
   'text': 'XI-XLII'
 'description': []

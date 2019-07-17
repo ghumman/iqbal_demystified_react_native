@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "نوای غالب"
+  'text': "\uFEFFنوای غالب"
 - 'lang': 'en'
   'text': 'THE SONG OF GHALIB'
 'description': []

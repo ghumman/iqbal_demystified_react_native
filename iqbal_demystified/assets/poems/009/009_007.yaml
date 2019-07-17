@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "فلک قمر"
+  'text': "\uFEFFفلک قمر"
 - 'lang': 'en'
   'text': 'THE SPHERE OF THE MOON'
 'description': []

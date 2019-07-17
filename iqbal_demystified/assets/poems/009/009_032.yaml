@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "اہل مریخ"
+  'text': "\uFEFFاہل مریخ"
 - 'lang': 'en'
   'text': 'The Martians'
 'description': []

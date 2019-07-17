@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "’’ الوقت سیف‘‘"
+  'text': "\uFEFF’’ الوقت سیف‘‘"
 - 'lang': 'en'
   'text': 'TIME IS A SWORD'
 'description': []

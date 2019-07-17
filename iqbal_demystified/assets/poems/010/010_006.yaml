@@ -3,7 +3,7 @@
 'audioUrl': ''
 'heading':
 - 'lang': 'ur'
-  'text': "لا الہ الا اﷲ"
+  'text': "\uFEFFلا الہ الا اﷲ"
 - 'lang': 'en'
   'text': 'THERE IS NO DEITY EXCEPT GOD'
 'description': []
