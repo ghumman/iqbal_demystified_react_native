@@ -5,11 +5,11 @@ import StaticContentService from './StaticContentServiceYaml'
 import starLiked from './assets/android_app_assets/star_liked.png';
 import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
-import iconAddSound from './assets/android_app_assets/audio_player_add_sound.png';
 import iconBackward from './assets/android_app_assets/audio_player_backward.png';
 import iconForward from './assets/android_app_assets/audio_player_forward.png';
 import iconPause from './assets/android_app_assets/audio_player_pause.png';
 import iconPlay from './assets/android_app_assets/audio_player_play.png';
+import iconGarbage from './assets/android_app_assets/garbage_icon.png';
 
 // for formatting
 // import './TabView1.css';
@@ -50,6 +50,9 @@ class PoemPage extends React.Component {
 		  isDownloadDone: false, 
 		  modalVisible: false,
 		  progressDownloadPercent: 0.0,
+	
+		  downloadedData: [],
+		  downloadedDataFinal: [],
 
 		}
 	}
@@ -297,11 +300,13 @@ class PoemPage extends React.Component {
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
 			this.setState({password: this.props.navigation.getParam('profilePassword')});
-			this.setState({poemNumber: this.props.navigation.getParam('detailPoem')});
+			this.readDirectory();
 
-			let poemName = this.props.navigation.getParam('detailPoem');
-			console.log("In poempage.js inside componentdidmount");
-			this.getPoem(poemName);
+			// this.setState({poemNumber: this.props.navigation.getParam('detailPoem')});
+
+			// let poemName = this.props.navigation.getParam('detailPoem');
+			// console.log("In poempage.js inside componentdidmount");
+			// this.getPoem(poemName);
 		}
 		catch(e) {
 			console.log("Inside catch");
@@ -404,8 +409,116 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 	}
      }
 
+videoSelection(audioFile) {
+	console.log("Inside videoSelection");
+	console.log("audioFile: ", audioFile)
+	return <View><Text>Hello</Text></View>
 
-  saveToDownloadedAudioFile = (poem) => {
+}
+
+onDownloadAudio(audioFile) {
+
+	console.log("Inside onDownloadAudio")
+
+	let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + audioFile;
+
+		return this.videoSelection(audioFile);
+       	// this.setState({ isDownloadDone: true })
+	// this.setState({paused: !this.state.paused})
+	console.log("isDonwloadDone set to true and paused is toggled")
+}
+
+onCheckFileExists() {
+	// let path = '${RNFS.DocumentDirectoryPath}/001_001.mp3'
+	// let path = './001_001.mp3'
+	// let path = '001_001.mp3'
+	// let path = 'Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3'
+	// let path = RNFS.DocumentDirectoryPath + '/001_001';
+	// let path = RNFS.DocumentDirectoryPath + '/001_001.mp3';
+	let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + this.state.poemNumber + '.mp3';
+	// RNFS.exists('RNFS.DocumentDirectoryPath/001_001.mp3')
+	RNFS.exists(path)
+    .then( (exists) => {
+        if (exists) {
+            console.log("BLAH EXISTS");
+        } else {
+            console.log("BLAH DOES NOT EXIST");
+        }
+    });
+
+}
+
+videoError() {
+	console.log("Inside videoError")
+}
+
+
+readDirectory() { 
+	
+	var that = this;
+	that.state.downloadedData = []
+
+	// read the directory and give me stats like total number of files and names of files
+	// RNFS.readDir(RNFS.DocumentDirectoryPath/Iqbal-Demystified/) 
+	// path = $(RNFS.DocumentDirectoryPath)/Iqbal-Demystified
+	RNFS.readDir(RNFS.DocumentDirectoryPath + '/Iqbal-Demystified') 
+	// RNFS.readDir(path) 
+	  .then((result) => {
+	    console.log('GOT RESULT', result);
+	    console.log('result.length', result.length)
+			// that.state.downloadedData.push({"audioFile" : result[i].name});
+	var previousResult = result;	
+
+       that.readDownloadedAudioFile().then(function(result1){
+	    for (i=0; i < previousResult.length; i++){
+		if (previousResult[i].isFile()){
+			console.log('prevousResult[i].name', previousResult[i].name);	
+		console.log("result1");
+		console.log(result1);
+		
+		console.log("previousResult");
+		console.log(previousResult);
+
+
+		try {
+			if (result1.includes(previousResult[i].name))	{
+				console.log("found the mp3 file inside saved yaml file")
+				var index = result1.indexOf(previousResult[i].name);
+				that.state.downloadedData.push({"audioFile": previousResult[i].name,  "urduTitle" : result1[index+1], "englishTitle" : result1[index+2]});
+			}
+			else {
+				console.log("printing this line means, we have mp3 file in Iqbal-demystified directory but it is not saved in downloaded-audio.yaml file")
+				that.state.downloadedData.push({"audioFile": previousResult[i].name,  "urduTitle" : "#missing title", "englishTitle" : "#missing translation" });
+			}
+
+		}catch(e) { 
+			console.log("Inside catch, error: ")
+			console.log(e)
+		}
+		}	// if the selected file in the directory isFile ends
+	    }	// for loop for all the files inside Iqbal-Demystified folder ends
+
+    		that.setState({downloadedDataFinal: that.state.downloadedData});
+
+		console.log("that.setState.downloadedData")
+		console.log(that.setState.downloadedData)
+
+		console.log("that.setState.downloadedDataFinal")
+		console.log(that.setState.downloadedDataFinal)
+
+	})	// readDownloadedAudioFile.then ends
+
+	  })	// RNFS.readDir.then ends
+
+	// put names in array after removing file extention .mp3
+	
+	// Open yaml poem files one by one inside array 
+
+	// fetch the Urdu title and English title
+
+}
+
+  readFromDownloadedAudioFile = (poem) => {
 
 	var that = this;
 
@@ -418,7 +531,6 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 
 	if (result.includes(poem)){
 		console.log("poem is in the file")
-		return null;
 		/*
 		var index = result.indexOf(poem);
 		if (index > -1)	{
@@ -484,6 +596,70 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 
 
   }
+	
+
+deleteDownloadEntry(audioFile) {
+
+	var that = this;
+		
+       this.readDownloadedAudioFile().then(function(result){
+		console.log("result");
+		console.log(result);
+       
+	if (result.includes(audioFile)){
+		console.log("poem is in the file")
+		var index = result.indexOf(audioFile);
+		if (index > -1)	{
+			result.splice(index, 3);
+		}
+
+		console.log("result");
+		console.log(result);
+		
+		var newData = result.join('@');
+
+		console.log("newData");
+		console.log(newData);
+
+		var path = RNFS.DocumentDirectoryPath + '/downloaded-poems.yaml';
+
+
+
+		// write the file
+		RNFS.writeFile(path, newData, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+
+                        that.readDirectory();
+		  })	// writeFile.then ends
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+}	// if entry was available in yaml file finished
+			
+})	// readDownloadedAudioFile.then ends
+
+}
+
+deleteDownload(audioFile) {
+	var that = this;
+	var path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + audioFile;
+
+
+	RNFS.unlink(path).then(() => {
+	    console.log('FILE DELETED');
+	    that.deleteDownloadEntry(audioFile);
+	    // readDirectory() function is called inside deleteDownloadEntry function after removing, restructuring and writing to file
+	
+	  })
+	  // `unlink` will throw an error, if the item to unlink does not exist
+	  .catch((err) => {
+	    console.log("Inside catch error")
+	    console.log(err.message);
+	  });
+	
+
+}
 
 	async readDownloadedAudioFile() { 
 
@@ -499,160 +675,13 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 
 	}
 
-onDownloadAudio() {
-
-	console.log("Inside onDownloadAudio")
-
-	let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + this.state.poemNumber + '.mp3';
-	var that = this;
-
-	if (this.state.poemAudioUrl != "")	{
-	RNFS.exists(path)
-    .then( (exists) => {
-        if (exists) {
-            console.log("BLAH EXISTS");
-       	    this.setState({ isDownloadDone: true })
-        } else {
-            console.log("BLAH DOES NOT EXIST");
-	try {
-      RNFS.downloadFile({
-        // fromUrl: 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3',
-        fromUrl: that.state.poemAudioUrl,
-        // toFile: `${RNFS.DocumentDirectoryPath}/001_004.mp3`,
-        toFile: `${RNFS.DocumentDirectoryPath}/Iqbal-Demystified/${that.state.poemNumber}.mp3`,
-	progress: (res: DownloadProgressCallbackResult) => {
-
-       		that.setState({ modalVisible: true })
-
-		console.log("res: ")	
-		console.log(res)	
-		let progressPercent = (res.bytesWritten / res.contentLength)*100;
-		console.log("progressPercent")
-		console.log(Math.round(progressPercent));
-       		that.setState({ progressDownloadPercent: Math.round(progressPercent) })
-	}
-      }).promise.then((r) => {
-		console.log("r: ")	
-		console.log(r)	
-       that.setState({ modalVisible: false })
-	console.log("Download completed")
-	that.saveToDownloadedAudioFile(that.state.poemNumber + '.mp3')	
-       this.setState({ isDownloadDone: true })
-      }).catch(err => {
-	    console.log("inside .catch(err...")
-            console.log("err: ")
-            console.log(err)
-	    Alert.alert("There was error downloading the audio. Please check internet connection.");
-       	    that.setState({ modalVisible: false })
-       	    this.setState({ isDownloadDone: false })
-      	    this.setState({ paused: true });
-	    return;
-      }).catch(err => {
-        });
-	}	// try ends
-	catch(error) { 
-		console.log("error: ")	
-		console.log(error)	
-		that.setState({ modalVisible: false })
-		this.setState({ isDownloadDone: false })
-		this.setState({ paused: true });
-		return;
-	} 
-	
-        }
-    });
-		this.setState({paused: !this.state.paused})
-	}
-	else {
-		Alert.alert(
-  'Upload a Recording!',
-  'We need your recording of this poem. Please upload an audio recording on SoundCloud and share with us on our Facebook Page. If your recording is selected, we will include it in the next version of the app!',
-  [
-    {
-      text: 'CANCEL',
-      onPress: () => console.log('Cancel Pressed'),
-      style: 'cancel',
-    },
-    {text: 'GO TO SOUNDCLOUD', onPress: () => Linking.openURL('https://soundcloud.com')},
-  ],
-  {cancelable: true},
-);
-	}
-
-
-
-}
-
-onCheckFileExists() {
-	// let path = '${RNFS.DocumentDirectoryPath}/001_001.mp3'
-	// let path = './001_001.mp3'
-	// let path = '001_001.mp3'
-	// let path = 'Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3'
-	// let path = RNFS.DocumentDirectoryPath + '/001_001';
-	// let path = RNFS.DocumentDirectoryPath + '/001_001.mp3';
-	let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + this.state.poemNumber + '.mp3';
-	// RNFS.exists('RNFS.DocumentDirectoryPath/001_001.mp3')
-	RNFS.exists(path)
-    .then( (exists) => {
-        if (exists) {
-            console.log("BLAH EXISTS");
-        } else {
-            console.log("BLAH DOES NOT EXIST");
-        }
-    });
-
-}
-
-videoError() {
-	console.log("Inside videoError")
-}
 
 	render() {
-	/*
-		var item3 = this.state.poemTextNew.map( (item, index) =>
-			<p key={item.index} onClick={() => this.onSubmit(item.id)}> {item.sherContent[0].text[0]}<br/>{item.sherContent[0].text[1]}<br/>{item.sherContent[1].text[0]}<br/>{item.sherContent[1].text[1]}</p>
-		)
-		let signinTag
-		var signinMessageLocal = ""
-		if (this.state.signinConfirmation  === "done") {
-			signinMessageLocal = this.state.username.charAt(0).toUpperCase()
-		  signinTag = <button type="button" class="btn btn-success btn-circle btn-lg"> {signinMessageLocal} </button>
-		}
-		else {
-			signinMessageLocal = "Sign In"
-		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
-		}
-	*/
-/*
-
-			<div>
-			<div class="text-right">
-				{signinTag}
-			</div>
-			<div class="tabTitle">
-
-
-				<p>
-					{this.state.poemNameUrdu}
-				</p>
-
-				<p>
-					{this.state.poemNameEnglish}
-				</p>
-			</div>
-
-				<div class="text-center listPoemPageText">
-				{item3}
-				</div>
-			</div>
-*/
-/*
-		var itemScroll = this.state.poemTextNew.map( (item, index) =>
-          		<View style={{flex: 1, flexDirection: "row", alignItems: 'flex-start'}}><View  style={{flex: 0.2, justifyContent: 'center', }}><Image source={star} style={{width: 30, height: 30}} /></View><View style={{flex: 0.8}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
-			
-		);
-*/
 		var that = this
+		var itemDownload = this.state.downloadedDataFinal.map( function (item, index) {
+				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.deleteDownload(item.audioFile)} ><Image resizeMode='cover' source={iconGarbage} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onDownloadAudio(item.audioFile)}><View><View><Text style={styles.RenderedText}>{item.audioFile}</Text></View><View><Text style={styles.RenderedText}>{item.urduTitle}</Text></View><View><Text style={styles.RenderedText}>{item.englishTitle}</Text></View></View></TouchableHighlight></View></View>
+			
+		});
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
           		 if (item.star) 
@@ -670,14 +699,10 @@ videoError() {
 
 
 		var soundIcon;
-		if (this.state.poemAudioUrl != "") {
 			if (this.state.paused)
 				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPlay}/>
 			else
 				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconPause}/>
-		}
-		else
-				soundIcon = <Image style={styles.RowImage} resizeMode="contain" source={iconAddSound}/>
 
 
       const flexCompleted = Math.round(this.getCurrentTimePercentage() * 100);
@@ -763,7 +788,20 @@ else
 	videoSetup = null;
 
 		return (
+
       <View style={styles.MainContainer}>
+
+
+	{/*
+      <View>
+
+	<TouchableHighlight onPress={() => this.readDirectory()}>
+		<Text>Read Directory</Text>
+	</TouchableHighlight>
+      </View>
+	*/}
+
+
 
         <Modal
           animationType="slide"
@@ -795,19 +833,14 @@ else
 
 			<View style={{flex: 0.2}}>
                                 <Text style={styles.UrduTitle}>
-					{this.state.poemNameUrdu}
-
-                                </Text>
-			</View>
-			<View style={{flex: 0.2}}>
-                                <Text style={styles.EnglishTitle}>
-					{this.state.poemNameEnglish}
+					MY Downloads
                                 </Text>
 			</View>
 			
 			<View style={{flex: 2}}>
 			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
-				{itemScroll}
+				{itemDownload}
+				{/*{itemScroll}*/}
 				{/*{testItem}*/}
 			</ScrollView>
 			</View>

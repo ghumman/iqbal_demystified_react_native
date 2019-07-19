@@ -156,6 +156,16 @@ tableHead: ['', 'Head1', 'Head2', 'Head3'],
 
 	  }
 
+	  myDownloads = () => {
+		console.log("this.state.username")
+		console.log(this.state.username)
+
+		console.log("this.state.password")
+		console.log(this.state.password)
+		this.props.navigation.navigate('DownloadAudios', { profileUsername: this.state.username, profilePassword: this.state.password, profileSigninConfirmation: this.state.signinConfirmation });
+
+	  }
+
 	  changePassword = () => {
 		console.log("this.state.username")
 		console.log(this.state.username)
@@ -370,54 +380,8 @@ const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.lea
         </Table>
 	}
 
-/*
-
-	var myTable = "" 
-	
-	if (this.state.dropdownState === 'discussion') {
-		myTable = <ReactTable data={this.state.leaderBoardTextDiscussionConcat} columns={columns} />
-	}
-	else {
-		myTable = <ReactTable data={this.state.leaderBoardTextWordConcat} columns={columns} />
-	}
-*/
 
 
-/*
-
-					<div>
-
-						
-						
-					
-			<div class="text-right">
-	  {signinTag}
-			</div>
-       	   <h1 class="text-center">My Profile</h1>
-						<div class="text-center">
-					        <p>Now you can write comments!</p>
-					        <p>You can also vote to others' comments!</p>
-					        <p>More profile features coming soon!</p>
-
-						
-						<button onClick={() => this.changePassword()} > CHANGE PASSWORD </button>	
-						
-						<button onClick={() => this.signOut()} > SIGN OUT </button>	
-						</div>
-					<p>
-					<select value={this.state.dropdownState} onChange={this.dropChange}>
-					  <option selected value="discussion">Discussion</option>
-					  <option value="word">Word Meanings</option>
-					</select>
-					</p>
-
-					{myTable}
-
-
-
-
-					</div>
-*/
 const state = this.state;
 				return (
 			<View style={{flex: 1}}>
@@ -433,9 +397,14 @@ const state = this.state;
 					        <Text style={styles.Message}>You can also vote to others' comments!</Text>
 					        <Text style={styles.Message}>More profile features coming soon!</Text>
 
+					<View style={{flexDirection: 'row'}}>
+					<View>	
+						<Button onPress={() => this.myDownloads()}  title='MY DOWNLOADS' />	
+					</View>	
 					<View>	
 						<Button onPress={() => this.changePassword()}  title='CHANGE PASSWORD' />	
 					</View>	
+					</View>
 					<View>
 						
 						<Button onPress={() => this.signOut()} title= 'SIGN OUT' />	

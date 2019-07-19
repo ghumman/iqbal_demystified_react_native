@@ -6,6 +6,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import SecureStorage, { ACCESS_CONTROL, ACCESSIBLE, AUTHENTICATION_TYPE } from 'react-native-secure-storage'
 // import { AsyncStorage } from "react-native";
 
+var RNFS = require('react-native-fs');
+
 // const USER_KEY = "";
 const USERNAME = "username";
 const PASSWORD = "password";
@@ -146,7 +148,12 @@ constructor(props) {
         }
 
         componentDidMount() {
+		// try creating the directory for mp3 files
+		RNFS.mkdir( RNFS.DocumentDirectoryPath + '/Iqbal-Demystified').then(function(res) {
+			console.log("Iqbal-Demystified directory exists now");
+		})
                 try {
+			
 			this.onDidFocusCustomFunction();
 
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});

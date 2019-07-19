@@ -12,6 +12,7 @@ import DetailsScreen from './DetailsScreen';
 import SigninScreen from './SigninScreen';
 import RegisterScreen from './RegisterScreen';
 import ChangePasswordScreen from './ChangePasswordScreen';
+import DownloadAudiosScreen from './DownloadAudiosScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import ProfileScreen from './ProfileScreen';
 import InfoScreen from './InfoScreen';
@@ -36,6 +37,7 @@ const AppNavigator = createStackNavigator(
     Signin: SigninScreen,
     Register: RegisterScreen,
     ChangePassword: ChangePasswordScreen,
+    DownloadAudios: DownloadAudiosScreen,
     ForgotPassword: ForgotPasswordScreen,
     Profile: ProfileScreen,
     Info: InfoScreen,
