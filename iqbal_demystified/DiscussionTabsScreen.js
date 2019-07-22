@@ -5,11 +5,13 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 
 import DiscussionRecentScreen from './DiscussionRecentScreen';
 import DiscussionPopularScreen from './DiscussionPopularScreen';
+import DiscussionMyPoemsScreen from './DiscussionMyPoemsScreen';
 
 
 const DiscussionNavigator = createBottomTabNavigator({
   Recent: DiscussionRecentScreen,
-  Popular: DiscussionPopularScreen
+  Popular: DiscussionPopularScreen,
+  MyPoems: DiscussionMyPoemsScreen,
 }, 
 {
 tabBarOptions: {

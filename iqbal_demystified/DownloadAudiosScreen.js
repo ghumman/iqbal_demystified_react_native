@@ -53,6 +53,8 @@ class PoemPage extends React.Component {
 	
 		  downloadedData: [],
 		  downloadedDataFinal: [],
+		
+		  audioPath: "",
 
 		}
 	}
@@ -409,10 +411,16 @@ RNFS.downloadFile('http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20
 	}
      }
 
-videoSelection(audioFile) {
-	console.log("Inside videoSelection");
-	console.log("audioFile: ", audioFile)
-	return <View><Text>Hello</Text></View>
+
+onPlayPause() {
+
+	console.log("Inside onPlayPause")
+
+	if (this.state.isDownloadDone){	
+		this.setState({paused: !this.state.paused})
+	}
+	else
+		Alert.alert("Please select a poem first.");
 
 }
 
@@ -421,11 +429,11 @@ onDownloadAudio(audioFile) {
 	console.log("Inside onDownloadAudio")
 
 	let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + audioFile;
+	this.setState({audioPath: path});
+	
+	this.setState({paused: false});
+	this.setState({isDownloadDone: true});
 
-		return this.videoSelection(audioFile);
-       	// this.setState({ isDownloadDone: true })
-	// this.setState({paused: !this.state.paused})
-	console.log("isDonwloadDone set to true and paused is toggled")
 }
 
 onCheckFileExists() {
@@ -641,6 +649,23 @@ deleteDownloadEntry(audioFile) {
 
 }
 
+confirmDeleteDownload(audioFile) {
+	Alert.alert('Are you sure you want to delete this audio?','',
+		[
+    {
+      text: 'NO',
+      onPress: () => console.log('NO Pressed'),
+    },
+    {	
+	text: 'YES', 
+        onPress: () =>	this.deleteDownload(audioFile)
+    },
+		]
+	)
+
+}
+
+
 deleteDownload(audioFile) {
 	var that = this;
 	var path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + audioFile;
@@ -679,7 +704,7 @@ deleteDownload(audioFile) {
 	render() {
 		var that = this
 		var itemDownload = this.state.downloadedDataFinal.map( function (item, index) {
-				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.deleteDownload(item.audioFile)} ><Image resizeMode='cover' source={iconGarbage} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onDownloadAudio(item.audioFile)}><View><View><Text style={styles.RenderedText}>{item.audioFile}</Text></View><View><Text style={styles.RenderedText}>{item.urduTitle}</Text></View><View><Text style={styles.RenderedText}>{item.englishTitle}</Text></View></View></TouchableHighlight></View></View>
+				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.confirmDeleteDownload(item.audioFile)} ><Image resizeMode='cover' source={iconGarbage} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onDownloadAudio(item.audioFile)}><View><View><Text style={styles.RenderedText}>{item.audioFile}</Text></View><View><Text style={styles.RenderedText}>{item.urduTitle}</Text></View><View><Text style={styles.RenderedText}>{item.englishTitle}</Text></View></View></TouchableHighlight></View></View>
 			
 		});
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
@@ -735,7 +760,7 @@ deleteDownload(audioFile) {
 					<Image style={styles.RowImage} resizeMode="contain" source={iconBackward}/>
 				</TouchableHighlight>
 
-				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onDownloadAudio()}>
+				<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onPlayPause()}>
 				{soundIcon}
 				</TouchableHighlight>
 
@@ -773,7 +798,8 @@ let path = RNFS.DocumentDirectoryPath + '/Iqbal-Demystified/' + this.state.poemN
 
 var videoSetup; 
 if (this.state.isDownloadDone)
-	videoSetup = <Video source={{uri:path}} 		
+	// videoSetup = <Video source={{uri:path}} 		
+	videoSetup = <Video source={{uri:this.state.audioPath}} 		
 		       ref={(ref) => {
 			 this.player = ref
 		       }}         
