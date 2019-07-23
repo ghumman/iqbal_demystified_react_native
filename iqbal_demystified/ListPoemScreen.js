@@ -478,18 +478,20 @@ const styles = StyleSheet.create({
    justifyContent: 'center'
   }, 
   UrduTitle : {
+    // fontFamily: 'nastaleeq',
+    // fontFamily: 'NotoNastaliqUrdu-Regular',
     textAlign: 'center',
     fontSize: 20, 
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#FF0000',
-   
-   
   },
+
   EnglishTitle : {
     textAlign: 'center',
-    fontSize: 20, 
-    fontWeight: 'bold',
-    color: '#FF0000',
+    fontFamily: 'NafeesNastaleeq',
+    // fontSize: 20, 
+    // fontWeight: 'bold',
+    // color: '#FF0000',
    
   }
   

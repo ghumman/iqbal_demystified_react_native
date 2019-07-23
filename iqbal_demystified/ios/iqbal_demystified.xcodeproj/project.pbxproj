@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -49,6 +48,11 @@
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		F6065504159840E29C590914 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD9D809C41E460596D0BA06 /* libRNFetchBlob.a */; };
+		661FAA9BA825482A884F6B32 /* asunaskh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */; };
+		A461C1F3EEAF49D9AB9A88BD /* nastaleeq.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C220B5194054D4BB423BC2E /* nastaleeq.ttf */; };
+		E3BEAA08B6E845E4A28D8309 /* NotoNastaliqUrdu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */; };
+		99A27E51DFD44C6DA27068A3 /* Pak Nastaleeq (Beta Release).ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */; };
+		86C694A0B49C40A5977D5EE9 /* Nafees Nastaleeq v1.02.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -434,6 +438,11 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F1CB7E99A0AC4E1C912643AC /* RNSecureStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureStorage.xcodeproj; path = "../node_modules/react-native-secure-storage/ios/RNSecureStorage.xcodeproj"; sourceTree = "<group>"; };
+		2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */ = {isa = PBXFileReference; name = "asunaskh.ttf"; path = "../assets/fonts/asunaskh.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C220B5194054D4BB423BC2E /* nastaleeq.ttf */ = {isa = PBXFileReference; name = "nastaleeq.ttf"; path = "../assets/fonts/nastaleeq.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */ = {isa = PBXFileReference; name = "NotoNastaliqUrdu-Regular.ttf"; path = "../assets/fonts/NotoNastaliqUrdu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */ = {isa = PBXFileReference; name = "Pak Nastaleeq (Beta Release).ttf"; path = "../assets/fonts/Pak Nastaleeq (Beta Release).ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */ = {isa = PBXFileReference; name = "Nafees Nastaleeq v1.02.ttf"; path = "../assets/fonts/Nafees Nastaleeq v1.02.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -753,6 +762,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				33360B5222BB6C890035D426 /* Recovered References */,
+				690134C1ED6047998225055F /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -778,6 +788,19 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		690134C1ED6047998225055F /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */,
+				6C220B5194054D4BB423BC2E /* nastaleeq.ttf */,
+				2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */,
+				56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */,
+				8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1318,6 +1341,11 @@
 				33809C2D22C1D8FF00403CA2 /* assets in Resources */,
 				3380902022C0E26F00403CA2 /* test_text_file.strings in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				661FAA9BA825482A884F6B32 /* asunaskh.ttf in Resources */,
+				A461C1F3EEAF49D9AB9A88BD /* nastaleeq.ttf in Resources */,
+				E3BEAA08B6E845E4A28D8309 /* NotoNastaliqUrdu-Regular.ttf in Resources */,
+				99A27E51DFD44C6DA27068A3 /* Pak Nastaleeq (Beta Release).ttf in Resources */,
+				86C694A0B49C40A5977D5EE9 /* Nafees Nastaleeq v1.02.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,7 +40,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMainNibFile~ipad</key>
 	<string>LaunchScreen</string>
 	<key>UILaunchStoryboardName</key>
@@ -57,5 +57,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>asunaskh.ttf</string>
+		<string>nastaleeq.ttf</string>
+		<string>NotoNastaliqUrdu-Regular.ttf</string>
+		<string>Pak Nastaleeq (Beta Release).ttf</string>
+		<string>Nafees Nastaleeq v1.02.ttf</string>
+	</array>
 </dict>
 </plist>
