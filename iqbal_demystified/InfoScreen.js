@@ -1,5 +1,7 @@
 import React from 'react'
 import {Image, ScrollView, Linking, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import AsyncStorage from '@react-native-community/async-storage';
 // import StaticContentService from './StaticContentServiceYaml'
 
 // for formatting
@@ -12,28 +14,113 @@ import iconIis from './assets/android_app_assets/iqbal_com_pk.png';
 
 // var  YAML = require('yaml');
 
+const FONT = "Normal";
+const TEXT = "Urdu";
+
+var radio_props_font = [
+  {label: 'Normal', value: 'Normal' },
+  {label: 'Nafees', value: 'Nafees' },
+  {label: 'Kasheeda', value: 'Kasheeda' },
+  {label: 'Fajer', value: 'Fajer' }
+];
+
+var radio_props_text = [
+  {label: 'Urdu', value: 'Urdu' },
+  {label: 'Roman English', value: 'Roman' }
+];
+
 class InfoPage extends React.Component {
 
 	constructor(props) {
 	  super(props);
+ 				
+
+
 	  this.state = {
 
 	    username: "",
 	    password: "",
-	    signinConfirmation: ""
+	    signinConfirmation: "",
+	    font: "Normal",
+	    text: "Urdu",
+	    fontIndex: -1,
+	    textIndex: -1,
+
+	    fontIndexReady: false, 
+	    textIndexReady: false,
 		}
 	}
 
+ onDidFocusCustomFunction = () => {
+    console.log("Inside onDidFocusCustomFunction")
+
+    AsyncStorage.getItem(FONT)
+      .then(res => {
+        if (res !== null) {
+		console.log("res is not equal to null: ")
+		console.log(res)
+		this.setState({font: res});
+		switch(res) { 
+		case 'Normal': 
+			console.log("case is Normal")
+			this.setState({fontIndex: 0})
+			break;
+		case 'Nafees': 
+			console.log("case is Nafees")
+			this.setState({fontIndex: 1})
+			break;
+		case 'Kasheeda': 
+			console.log("case is Kasheeda")
+			this.setState({fontIndex: 2})
+			break;
+		case 'Fajer': 
+			console.log("case is Fajer")
+			this.setState({fontIndex: 3})
+			break;
+
+		}
+	console.log("this.state.fontIndex")
+	console.log(this.state.fontIndex)
+	this.setState({fontIndexReady: true})
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	this.setState({font: res});
+        }
+      })
+
+    AsyncStorage.getItem(TEXT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not null: ")
+	  console.log(res)
+	  this.setState({text: res});
+		switch(res) { 
+		case 'Urdu': 
+			this.setState({textIndex: 0})
+			break;
+		case 'Roman': 
+			this.setState({textIndex: 1})
+			break;
+		}
+	console.log("this.state.textIndex")
+	console.log(this.state.textIndex)
+	this.setState({textIndexReady: true})
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	  this.setState({text: res});
+        }
+      })
+}
 
 		componentDidMount() {
 			// window.scrollTo(0, 0)
       // retrive the data
 	   		try {
-				/*
-  				this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
-  				this.setState({username: this.props.location.state.profileUsername});
-  				this.setState({password: this.props.location.state.profilePassword});
-				*/
+
+
+				this.onDidFocusCustomFunction();			
 
 				this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 				this.setState({username: this.props.navigation.getParam('profileUsername')});
@@ -99,10 +186,38 @@ class InfoPage extends React.Component {
 			</div>
 
 */
+	var showFontRadioForm
+	if (this.state.fontIndexReady)
+		showFontRadioForm = <RadioForm
+		  radio_props={radio_props_font}
+		  initial= {this.state.fontIndex}
+		  onPress={(value) => AsyncStorage.setItem(FONT, value)}
+		/>
+	else 
+		showFontRadioForm = null;
+			
+	var showTextRadioForm
+	if (this.state.textIndexReady)
+		showTextRadioForm = <RadioForm
+		  radio_props={radio_props_text}
+		  initial={this.state.textIndex}
+		  onPress={(value) => {AsyncStorage.setItem(TEXT, value)}}
+		/>
+	else 
+		showTextRadioForm = null;
 
 		return (
 			<View>
 				<ScrollView>
+				<Text style={styles.EnglishTitle}>Settings</Text>	
+				<Text style={styles.RenderedText}>Choose Font</Text>
+	{showFontRadioForm}
+
+				<Text>Warning: Fonts may not show up properly on some mobile devices</Text>
+				<Text style={styles.RenderedText}>Choose Text Type</Text>
+	{showTextRadioForm}
+
+
 				{/*{infoTextTokens}*/}
 				<Text style={styles.RenderedText}>Created By</Text>
 				<Text style={styles.EnglishTitle}>International Iqbal Society</Text>

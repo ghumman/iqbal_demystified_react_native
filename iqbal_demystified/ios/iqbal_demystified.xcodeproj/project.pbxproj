@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -40,19 +41,20 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3380902022C0E26F00403CA2 /* test_text_file.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3380901F22C0E26F00403CA2 /* test_text_file.strings */; };
 		33809C2D22C1D8FF00403CA2 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 33809C2C22C1D8FF00403CA2 /* assets */; };
+		661FAA9BA825482A884F6B32 /* asunaskh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */; };
 		6F42BFD3798E4284B7DE8215 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8767B58A9B3428A999B15CF /* libRNCAsyncStorage.a */; };
+		738F43CD68C146CA8896BC40 /* Fajer Noori Nastalique 15-12-2006.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B80EB4985D9E472BADCD4843 /* Fajer Noori Nastalique 15-12-2006.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		86C694A0B49C40A5977D5EE9 /* Nafees Nastaleeq v1.02.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */; };
+		97FFB1AB16E4414B926115FC /* Jameel Noori Kasheeda.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70E55317FEBC4D1BBF1C99F7 /* Jameel Noori Kasheeda.ttf */; };
+		99A27E51DFD44C6DA27068A3 /* Pak Nastaleeq (Beta Release).ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		AFCB19A47A1446B283C5E408 /* Jameel Noori Nastaleeq.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD6407A427CF4D4E97C7CD8B /* Jameel Noori Nastaleeq.ttf */; };
 		B1DEF1A0E4C04DEFB3788FD1 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82846965EC864D97870A7ECE /* libRNGestureHandler.a */; };
 		E6111C28B9BE48BFBE11DEF0 /* libRNSecureStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CCED8D88DEF4A38A04E96B3 /* libRNSecureStorage.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		F6065504159840E29C590914 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD9D809C41E460596D0BA06 /* libRNFetchBlob.a */; };
-		661FAA9BA825482A884F6B32 /* asunaskh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */; };
-		A461C1F3EEAF49D9AB9A88BD /* nastaleeq.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C220B5194054D4BB423BC2E /* nastaleeq.ttf */; };
-		E3BEAA08B6E845E4A28D8309 /* NotoNastaliqUrdu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */; };
-		99A27E51DFD44C6DA27068A3 /* Pak Nastaleeq (Beta Release).ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */; };
-		86C694A0B49C40A5977D5EE9 /* Nafees Nastaleeq v1.02.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -418,31 +420,32 @@
 		2D02E47B1E0B4A5D006451C7 /* iqbal_demystified-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iqbal_demystified-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* iqbal_demystified-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iqbal_demystified-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = asunaskh.ttf; path = ../assets/fonts/asunaskh.ttf; sourceTree = "<group>"; };
 		3380901622C0D78C00403CA2 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		3380901F22C0E26F00403CA2 /* test_text_file.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = test_text_file.strings; sourceTree = "<group>"; };
 		33809C2C22C1D8FF00403CA2 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../assets; sourceTree = "<group>"; };
 		35F7DCC26DD441F69B12DB22 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		3BD9D809C41E460596D0BA06 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
+		56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Pak Nastaleeq (Beta Release).ttf"; path = "../assets/fonts/Pak Nastaleeq (Beta Release).ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		69B182E374D14D208EEDEB76 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
+		70E55317FEBC4D1BBF1C99F7 /* Jameel Noori Kasheeda.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jameel Noori Kasheeda.ttf"; path = "../assets/fonts/Jameel Noori Kasheeda.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		8076FF9AF15445BB946A6157 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		82846965EC864D97870A7ECE /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nafees Nastaleeq v1.02.ttf"; path = "../assets/fonts/Nafees Nastaleeq v1.02.ttf"; sourceTree = "<group>"; };
 		914C5D4623BA46EBB0D3BD7A /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		9CCED8D88DEF4A38A04E96B3 /* libRNSecureStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSecureStorage.a; sourceTree = "<group>"; };
+		AD6407A427CF4D4E97C7CD8B /* Jameel Noori Nastaleeq.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jameel Noori Nastaleeq.ttf"; path = "../assets/fonts/Jameel Noori Nastaleeq.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		B80EB4985D9E472BADCD4843 /* Fajer Noori Nastalique 15-12-2006.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Fajer Noori Nastalique 15-12-2006.ttf"; path = "../assets/fonts/Fajer Noori Nastalique 15-12-2006.ttf"; sourceTree = "<group>"; };
 		D8767B58A9B3428A999B15CF /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		EAE202774BB44CD7B8A6B7B0 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		EB320E17D9E94DB9A30060F2 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F1CB7E99A0AC4E1C912643AC /* RNSecureStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureStorage.xcodeproj; path = "../node_modules/react-native-secure-storage/ios/RNSecureStorage.xcodeproj"; sourceTree = "<group>"; };
-		2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */ = {isa = PBXFileReference; name = "asunaskh.ttf"; path = "../assets/fonts/asunaskh.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6C220B5194054D4BB423BC2E /* nastaleeq.ttf */ = {isa = PBXFileReference; name = "nastaleeq.ttf"; path = "../assets/fonts/nastaleeq.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */ = {isa = PBXFileReference; name = "NotoNastaliqUrdu-Regular.ttf"; path = "../assets/fonts/NotoNastaliqUrdu-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */ = {isa = PBXFileReference; name = "Pak Nastaleeq (Beta Release).ttf"; path = "../assets/fonts/Pak Nastaleeq (Beta Release).ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */ = {isa = PBXFileReference; name = "Nafees Nastaleeq v1.02.ttf"; path = "../assets/fonts/Nafees Nastaleeq v1.02.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -709,6 +712,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		690134C1ED6047998225055F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */,
+				56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */,
+				8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */,
+				B80EB4985D9E472BADCD4843 /* Fajer Noori Nastalique 15-12-2006.ttf */,
+				70E55317FEBC4D1BBF1C99F7 /* Jameel Noori Kasheeda.ttf */,
+				AD6407A427CF4D4E97C7CD8B /* Jameel Noori Nastaleeq.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -788,19 +804,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		690134C1ED6047998225055F /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				2DF3DE5E9D62410793712DE3 /* asunaskh.ttf */,
-				6C220B5194054D4BB423BC2E /* nastaleeq.ttf */,
-				2D53CF53343E42BDA7206C1B /* NotoNastaliqUrdu-Regular.ttf */,
-				56E3C28A72494B4BA40929CB /* Pak Nastaleeq (Beta Release).ttf */,
-				8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -1342,10 +1345,11 @@
 				3380902022C0E26F00403CA2 /* test_text_file.strings in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				661FAA9BA825482A884F6B32 /* asunaskh.ttf in Resources */,
-				A461C1F3EEAF49D9AB9A88BD /* nastaleeq.ttf in Resources */,
-				E3BEAA08B6E845E4A28D8309 /* NotoNastaliqUrdu-Regular.ttf in Resources */,
 				99A27E51DFD44C6DA27068A3 /* Pak Nastaleeq (Beta Release).ttf in Resources */,
 				86C694A0B49C40A5977D5EE9 /* Nafees Nastaleeq v1.02.ttf in Resources */,
+				738F43CD68C146CA8896BC40 /* Fajer Noori Nastalique 15-12-2006.ttf in Resources */,
+				97FFB1AB16E4414B926115FC /* Jameel Noori Kasheeda.ttf in Resources */,
+				AFCB19A47A1446B283C5E408 /* Jameel Noori Nastaleeq.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
