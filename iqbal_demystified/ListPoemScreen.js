@@ -395,16 +395,16 @@ renderItem = ({item}) => {
 	var fontFamilyTextVariable;
 	switch(this.state.font) {
 		case 'Normal': 
-			var fontFamilyTextVariable = styles.RenderedTextNormal;
+			fontFamilyTextVariable = styles.RenderedTextNormal;
 			break;
 		case 'Nafees': 
-			var fontFamilyTextVariable = styles.RenderedTextNafees;
+			fontFamilyTextVariable = styles.RenderedTextNafees;
 			break;
 		case 'Kasheeda': 
-			var fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
 			break;
 		case 'Fajer': 
-			var fontFamilyTextVariable = styles.RenderedTextFajer;
+			fontFamilyTextVariable = styles.RenderedTextFajer;
 			break;
 	}
 
@@ -426,27 +426,21 @@ renderItem = ({item}) => {
 
 }
 
-fontFamilyFunction = function(options) {
-	return {
-    		fontFamily: 'JameelNooriKasheeda',
-	}	
-}
-
 
   render() {
-
+	var fontFamilyTitleVariable;
 	switch(this.state.font) {
 		case 'Normal': 
-			var fontFamilyTitleVariable = styles.UrduTitleNormal;
+			fontFamilyTitleVariable = styles.UrduTitleNormal;
 			break;
 		case 'Nafees': 
-			var fontFamilyTitleVariable = styles.UrduTitleNafees;
+			fontFamilyTitleVariable = styles.UrduTitleNafees;
 			break;
 		case 'Kasheeda': 
-			var fontFamilyTitleVariable = styles.UrduTitleKasheeda;
+			fontFamilyTitleVariable = styles.UrduTitleKasheeda;
 			break;
 		case 'Fajer': 
-			var fontFamilyTitleVariable = styles.UrduTitleFajer;
+			fontFamilyTitleVariable = styles.UrduTitleFajer;
 			break;
 	}
 // var fontFamilyTitleVariable = styles.UrduTitleNafees;

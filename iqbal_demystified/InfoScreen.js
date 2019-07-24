@@ -54,6 +54,7 @@ class InfoPage extends React.Component {
  onDidFocusCustomFunction = () => {
     console.log("Inside onDidFocusCustomFunction")
 
+    try {
     AsyncStorage.getItem(FONT)
       .then(res => {
         if (res !== null) {
@@ -85,9 +86,18 @@ class InfoPage extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	this.setState({font: res});
+
+	this.setState({font: "Normal"})
+	this.setState({fontIndex: 0})
+	this.setState({fontIndexReady: true})
+
         }
       })
+	}catch (err) { 
+	  console.log("err: ")
+	  console.log(err)
+	this.setState({font: "Normal"});
+	}
 
     AsyncStorage.getItem(TEXT)
       .then(res => {
@@ -109,7 +119,10 @@ class InfoPage extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	  this.setState({text: res});
+
+	this.setState({text: "Urdu"})
+	this.setState({textIndex: 0})
+	this.setState({textIndexReady: true})
         }
       })
 }
@@ -213,7 +226,8 @@ class InfoPage extends React.Component {
 				<Text style={styles.RenderedText}>Choose Font</Text>
 	{showFontRadioForm}
 
-				<Text>Warning: Fonts may not show up properly on some mobile devices</Text>
+				<Text style={{color: '#FF0000',}}>Warning: Fonts may not show up properly on some mobile devices.</Text>
+    
 				<Text style={styles.RenderedText}>Choose Text Type</Text>
 	{showTextRadioForm}
 

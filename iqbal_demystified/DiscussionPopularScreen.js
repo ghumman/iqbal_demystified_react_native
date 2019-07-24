@@ -1,6 +1,8 @@
 import React from 'react'
 import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
+
+import AsyncStorage from '@react-native-community/async-storage';
 // import Tabs from './Tabs'
 
 // for formatting
@@ -12,6 +14,9 @@ import StaticContentService from './StaticContentServiceYaml'
 // import PoemPage from './PoemPage';
 
 var YAML = require('yaml')
+
+const FONT = "Normal";
+const TEXT = "Urdu";
 
 // var $ = require('jquery')
 // window.jQuery = $
@@ -39,7 +44,9 @@ class CommentsPage extends React.Component {
             popularData: [],
 
             testString: "",
-	    key: 'home'
+	    key: 'home',
+		  font: "Normal",
+		  text: "Urdu",
 
         }
 
@@ -241,10 +248,41 @@ class CommentsPage extends React.Component {
     }
 */
 
+ onDidFocusCustomFunction = () => {
+    console.log("Inside onDidFocusCustomFunction")
+
+    AsyncStorage.getItem(FONT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not equal to null: ")
+	  console.log(res)
+	this.setState({font: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	this.setState({font: res});
+        }
+      })
+
+    AsyncStorage.getItem(TEXT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not null: ")
+	  console.log(res)
+	  this.setState({text: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	  this.setState({text: res});
+        }
+      })
+}
+
     componentDidMount() {
 	    // window.scrollTo(0, 0)
         // retrive the data
         try {
+			this.onDidFocusCustomFunction();
 
 /*
             this.setState({
@@ -297,88 +335,43 @@ class CommentsPage extends React.Component {
     }
 
 */
+
+renderItem = ({item}) => {
+
+	var that = this;
+	var fontFamilyTextVariable;
+	switch(this.state.font) {
+		case 'Normal': 
+			fontFamilyTextVariable = styles.RenderedTextNormal;
+			break;
+		case 'Nafees': 
+			fontFamilyTextVariable = styles.RenderedTextNafees;
+			break;
+		case 'Kasheeda': 
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			break;
+		case 'Fajer': 
+			fontFamilyTextVariable = styles.RenderedTextFajer;
+			break;
+	}
+		if (that.state.text == 'Urdu') {
+          		return  <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>
+		}
+		else if (that.state.text == 'Roman') {
+          		return  <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>
+		}
+
+}
+
     render() {
-/*
-            var itemsRecent = this.state.recentData.map((item, index) =>
-                <
-                span key = {
-                    item.index
-                }
-                onClick = {
-                    () => this.onSubmit(item.id)
-                } > {
-                    item.sherContent[0].text[0]
-                } < br / > {
-                    item.sherContent[0].text[1]
-                } < br / > {
-                    item.sherContent[1].text[0]
-                } < br / > {
-                    item.sherContent[1].text[1]
-                } < br / > < br / > < /span>
-            );
-
-            var itemsPopular = this.state.popularData.map((item, index) =>
-                <
-                span key = {
-                    item.index
-                }
-                onClick = {
-                    () => this.onSubmit(item.id)
-                } > {
-                    item.sherContent[0].text[0]
-                } < br / > {
-                    item.sherContent[0].text[1]
-                } < br / > {
-                    item.sherContent[1].text[0]
-                } < br / > {
-                    item.sherContent[1].text[1]
-                } < br / > < br / > < /span>
-            );
-
-		let signinTag
-		var signinMessageLocal = ""
-		if (this.state.signinConfirmation  === "done") {
-			signinMessageLocal = this.state.username.charAt(0).toUpperCase()
-		  signinTag = <button type="button" class="btn btn-success btn-circle btn-lg"> {signinMessageLocal} </button>
-		}
-		else {
-			signinMessageLocal = "Sign In"
-		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
-		}
-*/
-/*
-
-              <div >
-		<div class="text-right">
-                {signinTag}
-		</div>
-
-		<div class="tabTitle">
-		<Tabs
-			id="controlled-tab-example"
-			activeKey={this.state.key}
-			onSelect={key => this.setState({ key })}
-			class="nav-tabs"
-		>
-			<Tab eventKey="home"  title="RECENT">
-                    {itemsRecent}
-		    	</Tab>
-			<Tab eventKey="profile"  title="POPULAR">
-                    {itemsPopular}
-		    	</Tab>
-                  </Tabs>
-	       </div>
-              </div>
-*/
-
-
             return (
 		<View>
         <FlatList
           data={
 		this.state.popularData
           }
-          renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+          // renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>}
+	  renderItem={this.renderItem}
         />
 		</View>
 
@@ -415,6 +408,42 @@ const styles = StyleSheet.create({
     // borderColor: '#d6d7da',
   },
 
+  RenderedTextNormal: {
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextNafees: {
+    fontFamily: 'NafeesNastaleeq',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextKasheeda: {
+    fontFamily: 'JameelNooriKasheeda',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextFajer: {
+    fontFamily: 'FajerNooriNastalique',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+
   MainContainer: {
    flex: 1,
    alignItems: 'center',
@@ -426,6 +455,37 @@ const styles = StyleSheet.create({
     color: '#FF0000',
    
    
+  },
+
+  UrduTitleNormal: { 
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+
+  UrduTitleNafees: { 
+    fontFamily: 'NafeesNastaleeq',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+
+  UrduTitleKasheeda: { 
+    fontFamily: 'JameelNooriKasheeda',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+  
+  UrduTitleFajer: { 
+    fontFamily: 'FajerNooriNastalique',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
   },
   EnglishTitle : {
     textAlign: 'center',

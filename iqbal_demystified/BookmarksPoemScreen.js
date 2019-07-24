@@ -12,8 +12,13 @@ import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 // import StaticContentService from './StaticContentServiceYamlTest';
 import StaticContentService from './StaticContentServiceYaml';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
+
+const FONT = "Normal";
+const TEXT = "Urdu";
 
 class ListPoemScreen extends React.Component {
         constructor(props) {
@@ -36,7 +41,11 @@ class ListPoemScreen extends React.Component {
             onePoem: "",
             poemText: [],
             poemTextFinal: [],
-            poemObjects: []
+            poemObjects: [],
+
+	    font: "Normal",
+	    text: "Urdu",
+
     }   // this.state ends
         }       // constructor ends
 
@@ -130,11 +139,45 @@ class ListPoemScreen extends React.Component {
 
 	}
 
+ onDidFocusCustomFunction = () => {
+    console.log("Inside onDidFocusCustomFunction")
+
+    AsyncStorage.getItem(FONT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not equal to null: ")
+	  console.log(res)
+	this.setState({font: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	this.setState({font: res});
+        }
+      })
+
+    AsyncStorage.getItem(TEXT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not null: ")
+	  console.log(res)
+	  this.setState({text: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	  this.setState({text: res});
+        }
+      })
+}
+
+
         componentDidMount() {
 	// Alert.alert('inside componentDidMount')
 	console.log('inside componentDidMount')
         // retrive the data
                 try {
+
+			this.onDidFocusCustomFunction();
+
 			console.log('value of this.props.navigation.getParam(profileSigninConfirmation)')
 			console.log(this.props.navigation.getParam('profileSigninConfirmation'))
                         this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
@@ -249,14 +292,30 @@ class ListPoemScreen extends React.Component {
 renderItem = ({item}) => {
 
 	var that = this;
+	var fontFamilyTextVariable;
+	switch(this.state.font) {
+		case 'Normal': 
+			fontFamilyTextVariable = styles.RenderedTextNormal;
+			break;
+		case 'Nafees': 
+			fontFamilyTextVariable = styles.RenderedTextNafees;
+			break;
+		case 'Kasheeda': 
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			break;
+		case 'Fajer': 
+			fontFamilyTextVariable = styles.RenderedTextFajer;
+			break;
+	}
 
 
-					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View>
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.textUrdu}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textEnglish}</Text></View></View></TouchableHighlight></View></View>
 			
 
 }
 
   render() {
+
 
     var item3 = this.state.poemText.map( (item) => 
                         <Text key={item.index} onClick={() => this.onSubmit(item.id)}> {item.textUrdu}</Text> 
@@ -354,6 +413,41 @@ const styles = StyleSheet.create({
     // borderRadius: 4,
     // borderWidth: 0.5,
     // borderColor: '#d6d7da',
+  },
+
+  RenderedTextNormal: {
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextNafees: {
+    fontFamily: 'NafeesNastaleeq',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextKasheeda: {
+    fontFamily: 'JameelNooriKasheeda',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextFajer: {
+    fontFamily: 'FajerNooriNastalique',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
   },
 
 

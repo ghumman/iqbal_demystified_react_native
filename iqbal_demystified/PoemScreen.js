@@ -2,6 +2,8 @@ import React from 'react'
 import {Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import starLiked from './assets/android_app_assets/star_liked.png';
 import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
@@ -23,6 +25,9 @@ import RNFetchBlob from 'rn-fetch-blob'
 
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
+
+const FONT = "Normal";
+const TEXT = "Urdu";
 
 class PoemPage extends React.Component {
 	constructor(props) {
@@ -51,6 +56,8 @@ class PoemPage extends React.Component {
 		  modalVisible: false,
 		  progressDownloadPercent: 0.0,
 
+		  font: "Normal",
+		  text: "Urdu",
 		}
 	}
 
@@ -219,7 +226,7 @@ class PoemPage extends React.Component {
 	if (result.includes(sher.id)){
 		var index = result.indexOf(sher.id);
 		if (index > -1)	{
-			result.splice(index, 5);
+			result.splice(index, 7);
 		}
 
 		console.log("result");
@@ -254,7 +261,7 @@ class PoemPage extends React.Component {
 		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
 
 		// var sherNumberComma = sherNumber + ',';
-		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@';
+		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@' + sher.sherContent[2].text[0] + '@' + sher.sherContent[2].text[1] + '@';
 
 
 		// write the file
@@ -290,9 +297,41 @@ class PoemPage extends React.Component {
 
 	}
 
+ onDidFocusCustomFunction = () => {
+    console.log("Inside onDidFocusCustomFunction")
+
+    AsyncStorage.getItem(FONT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not equal to null: ")
+	  console.log(res)
+	this.setState({font: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	this.setState({font: res});
+        }
+      })
+
+    AsyncStorage.getItem(TEXT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not null: ")
+	  console.log(res)
+	  this.setState({text: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	  this.setState({text: res});
+        }
+      })
+}
+
 	componentDidMount() {
 	  // retrive the data
 	 	try {
+
+			this.onDidFocusCustomFunction();
 
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
@@ -608,58 +647,48 @@ videoError() {
 }
 
 	render() {
-	/*
-		var item3 = this.state.poemTextNew.map( (item, index) =>
-			<p key={item.index} onClick={() => this.onSubmit(item.id)}> {item.sherContent[0].text[0]}<br/>{item.sherContent[0].text[1]}<br/>{item.sherContent[1].text[0]}<br/>{item.sherContent[1].text[1]}</p>
-		)
-		let signinTag
-		var signinMessageLocal = ""
-		if (this.state.signinConfirmation  === "done") {
-			signinMessageLocal = this.state.username.charAt(0).toUpperCase()
-		  signinTag = <button type="button" class="btn btn-success btn-circle btn-lg"> {signinMessageLocal} </button>
-		}
-		else {
-			signinMessageLocal = "Sign In"
-		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
-		}
-	*/
-/*
 
-			<div>
-			<div class="text-right">
-				{signinTag}
-			</div>
-			<div class="tabTitle">
+	var fontFamilyTextVariable;
+	var fontFamilyTitleVariable;
+	switch(this.state.font) {
+		case 'Normal': 
+			fontFamilyTitleVariable = styles.UrduTitleNormal;
+			fontFamilyTextVariable = styles.RenderedTextNormal;
+			break;
+		case 'Nafees': 
+			fontFamilyTitleVariable = styles.UrduTitleNafees;
+			fontFamilyTextVariable = styles.RenderedTextNafees;
+			break;
+		case 'Kasheeda': 
+			fontFamilyTitleVariable = styles.UrduTitleKasheeda;
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			break;
+		case 'Fajer': 
+			fontFamilyTitleVariable = styles.UrduTitleFajer;
+			fontFamilyTextVariable = styles.RenderedTextFajer;
+			break;
+	}
 
-
-				<p>
-					{this.state.poemNameUrdu}
-				</p>
-
-				<p>
-					{this.state.poemNameEnglish}
-				</p>
-			</div>
-
-				<div class="text-center listPoemPageText">
-				{item3}
-				</div>
-			</div>
-*/
-/*
-		var itemScroll = this.state.poemTextNew.map( (item, index) =>
-          		<View style={{flex: 1, flexDirection: "row", alignItems: 'flex-start'}}><View  style={{flex: 0.2, justifyContent: 'center', }}><Image source={star} style={{width: 30, height: 30}} /></View><View style={{flex: 0.8}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
-			
-		);
-*/
 		var that = this
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
-          		 if (item.star) 
-				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
-			else 
-          			return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
-			
+          		 if (item.star) {
+				if (that.state.text == 'Urdu') {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+				}
+				else if (that.state.text == 'Roman'){
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+				}
+			}
+			else { 
+				if (that.state.text == 'Urdu') {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+				}
+		
+				else if (that.state.text == 'Roman') {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+				}
+			}
 		});
 
 
@@ -794,7 +823,7 @@ else
 
 
 			<View style={{flex: 0.2}}>
-                                <Text style={styles.UrduTitle}>
+                                <Text style={fontFamilyTitleVariable}>
 					{this.state.poemNameUrdu}
 
                                 </Text>
@@ -892,6 +921,41 @@ const styles = StyleSheet.create({
     // borderColor: '#d6d7da',
   },
 
+  RenderedTextNormal: {
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextNafees: {
+    fontFamily: 'NafeesNastaleeq',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextKasheeda: {
+    fontFamily: 'JameelNooriKasheeda',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextFajer: {
+    fontFamily: 'FajerNooriNastalique',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
   MainContainer: {
    flex: 1,
    alignItems: 'stretch',
@@ -904,6 +968,37 @@ const styles = StyleSheet.create({
     color: '#FF0000',
    
    
+  },
+
+  UrduTitleNormal: { 
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+
+  UrduTitleNafees: { 
+    fontFamily: 'NafeesNastaleeq',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+
+  UrduTitleKasheeda: { 
+    fontFamily: 'JameelNooriKasheeda',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
+  
+  UrduTitleFajer: { 
+    fontFamily: 'FajerNooriNastalique',
+    textAlign: 'center',
+    fontSize: 20, 
+    fontWeight: 'bold',
+    color: '#FF0000',
   },
   EnglishTitle : {
     textAlign: 'center',

@@ -10,8 +10,13 @@ import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
 // import Divider from '@material-ui/core/Divider';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
+
+const FONT = "Normal";
+const TEXT = "Urdu";
 
 class PoemPage extends React.Component {
 	constructor(props) {
@@ -27,7 +32,10 @@ class PoemPage extends React.Component {
 		  poemNameEnglish: "",
 		  poemText: [],
 		  poemTextNew: [],
-		  poemObjects: []
+		  poemObjects: [],
+
+		  font: "Normal",
+		  text: "Urdu",
 		}
 	}
 
@@ -54,10 +62,10 @@ class PoemPage extends React.Component {
 		console.log("result");
 		console.log(result);
 
-		for (i=0; i<((result.length-1)/5); i++ ) {
+		for (i=0; i<((result.length-1)/7); i++ ) {
 			console.log("Inside for loop for putting result")
 		
-			that.state.poemText.push({'id': result[i * 5], 'textUrdu1': result[(i*5)+1], 'textUrdu2': result[(i*5)+2], 'textEnglish1': result[(i*5)+3], 'textEnglish2': result[(i*5)+4]})
+			that.state.poemText.push({'id': result[i * 7], 'textUrdu1': result[(i*7)+1], 'textUrdu2': result[(i*7)+2], 'textEnglish1': result[(i*7)+3], 'textEnglish2': result[(i*7)+4], 'textRoman1': result[(i*7)+5], 'textRoman2': result[(i*7)+6]})
 		}
 
 
@@ -88,7 +96,7 @@ class PoemPage extends React.Component {
 	if (result.includes(sher.id)){
 		var index = result.indexOf(sher.id);
 		if (index > -1)	{
-			result.splice(index, 5);
+			result.splice(index, 7);
 		}
 
 		console.log("result");
@@ -122,7 +130,7 @@ class PoemPage extends React.Component {
 		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
 
 		// var sherNumberComma = sherNumber + ',';
-		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@';
+		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@' + sher.sherContent[2].text[0] + '@' + sher.sherContent[2].text[1] + '@';
 
 
 		// write the file
@@ -156,8 +164,41 @@ class PoemPage extends React.Component {
 
 	}
 
+ onDidFocusCustomFunction = () => {
+    console.log("Inside onDidFocusCustomFunction")
+
+    AsyncStorage.getItem(FONT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not equal to null: ")
+	  console.log(res)
+	this.setState({font: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	this.setState({font: res});
+        }
+      })
+
+    AsyncStorage.getItem(TEXT)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not null: ")
+	  console.log(res)
+	  this.setState({text: res});
+        } else {
+	  console.log("res: ")
+	  console.log(res)
+	  this.setState({text: res});
+        }
+      })
+}
+
+
 	componentDidMount() {
 	 	try {
+
+			this.onDidFocusCustomFunction();
 
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
@@ -184,54 +225,34 @@ class PoemPage extends React.Component {
 
 
 	render() {
-	/*
-		var item3 = this.state.poemTextNew.map( (item, index) =>
-			<p key={item.index} onClick={() => this.onSubmit(item.id)}> {item.sherContent[0].text[0]}<br/>{item.sherContent[0].text[1]}<br/>{item.sherContent[1].text[0]}<br/>{item.sherContent[1].text[1]}</p>
-		)
-		let signinTag
-		var signinMessageLocal = ""
-		if (this.state.signinConfirmation  === "done") {
-			signinMessageLocal = this.state.username.charAt(0).toUpperCase()
-		  signinTag = <button type="button" class="btn btn-success btn-circle btn-lg"> {signinMessageLocal} </button>
-		}
-		else {
-			signinMessageLocal = "Sign In"
-		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
-		}
-	*/
-/*
-
-			<div>
-			<div class="text-right">
-				{signinTag}
-			</div>
-			<div class="tabTitle">
 
 
-				<p>
-					{this.state.poemNameUrdu}
-				</p>
+	var fontFamilyTextVariable;
+	switch(this.state.font) {
+		case 'Normal': 
+			fontFamilyTextVariable = styles.RenderedTextNormal;
+			break;
+		case 'Nafees': 
+			fontFamilyTextVariable = styles.RenderedTextNafees;
+			break;
+		case 'Kasheeda': 
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			break;
+		case 'Fajer': 
+			fontFamilyTextVariable = styles.RenderedTextFajer;
+			break;
+	}
 
-				<p>
-					{this.state.poemNameEnglish}
-				</p>
-			</div>
-
-				<div class="text-center listPoemPageText">
-				{item3}
-				</div>
-			</div>
-*/
-/*
-		var itemScroll = this.state.poemTextNew.map( (item, index) =>
-          		<View style={{flex: 1, flexDirection: "row", alignItems: 'flex-start'}}><View  style={{flex: 0.2, justifyContent: 'center', }}><Image source={star} style={{width: 30, height: 30}} /></View><View style={{flex: 0.8}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => this.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[0].text[1]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[0]}</Text></View><View><Text style={styles.RenderedText}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View></View>
-			
-		);
-*/
 		var that = this
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
-				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={styles.RenderedText}>{item.textUrdu1}</Text></View><View><Text style={styles.RenderedText}>{item.textUrdu2}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish1}</Text></View><View><Text style={styles.RenderedText}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View>
+				if (that.state.text == 'Urdu') {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.textUrdu1}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textUrdu2}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textEnglish1}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View>
+				}
+
+				else if (that.state.text == 'Roman'){
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.textRoman1}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textRoman2}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textEnglish1}</Text></View><View><Text style={fontFamilyTextVariable}>{item.textEnglish2}</Text></View></View></TouchableHighlight></View></View>
+				}
 			
 		});
 
@@ -312,6 +333,41 @@ const styles = StyleSheet.create({
     // borderRadius: 4,
     // borderWidth: 0.5,
     // borderColor: '#d6d7da',
+  },
+
+  RenderedTextNormal: {
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextNafees: {
+    fontFamily: 'NafeesNastaleeq',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextKasheeda: {
+    fontFamily: 'JameelNooriKasheeda',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+  },
+
+  RenderedTextFajer: {
+    fontFamily: 'FajerNooriNastalique',
+    flexShrink: 1,
+    flexWrap: 'wrap',
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
   },
 
   MainContainer: {
