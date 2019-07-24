@@ -1,6 +1,10 @@
 import React from 'react'
-import {Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {TouchableOpacity, Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
+
+import ActionBar from 'react-native-action-bar';
+import DrawerLayout from 'react-native-drawer-layout';
+import Menu from './Menu';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -19,8 +23,9 @@ import iconPlay from './assets/android_app_assets/audio_player_play.png';
 // import Divider from '@material-ui/core/Divider';
 
 import Video from 'react-native-video';
-import RNFetchBlob from 'rn-fetch-blob'
+// import RNFetchBlob from 'rn-fetch-blob'
 
+const menuList = require('./Constants.js');
 
 
 var RNFS = require('react-native-fs');
@@ -28,6 +33,10 @@ var  YAML = require('yaml');
 
 const FONT = "Normal";
 const TEXT = "Urdu";
+const FONT_SIZE = 18;
+const FONT_MAX_SIZE = 30;
+const FONT_MIN_SIZE = 10;
+const FONT_DEFAULT_SIZE = 18;
 
 class PoemPage extends React.Component {
 	constructor(props) {
@@ -58,7 +67,13 @@ class PoemPage extends React.Component {
 
 		  font: "Normal",
 		  text: "Urdu",
-		}
+		  fontGlobalSize: "18",
+
+		  drawerClosed: true,
+
+		} 
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.setDrawerState = this.setDrawerState.bind(this);
 	}
 
   onSubmit = (sherNumber) => {
@@ -332,6 +347,8 @@ class PoemPage extends React.Component {
 	 	try {
 
 			this.onDidFocusCustomFunction();
+			this.setFontSizeIfNotSet(0);
+			
 
 			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
 			this.setState({username: this.props.navigation.getParam('profileUsername')});
@@ -646,8 +663,98 @@ videoError() {
 	console.log("Inside videoError")
 }
 
+  setDrawerState() {
+    this.setState({
+      drawerClosed: !this.state.drawerClosed,
+    });
+  }
+
+  toggleDrawer = () => {
+    if (this.state.drawerClosed) {
+      this.DRAWER.openDrawer();
+    } else {
+      this.DRAWER.closeDrawer();
+    }
+  }
+
+setFontSizeIfNotSet = (appendment) => {
+
+    AsyncStorage.getItem(FONT_SIZE)
+      .then(res => {
+        if (res !== null) {
+	  console.log("res is not equal to null, res:  ")
+	  console.log(res)
+
+	  // if appendment is -1 i.e. you have pressed Zoom Out, it will check if FONT_SIZE is set to minimum it will give alert otherwise it will increse the decrese FONT_SIZE and state variable fontGlobalSize
+	  if (appendment == -1){
+		  console.log("You have pressed Zoom Out")
+		  console.log("FONT_MIN_SIZE: ")		  
+		  console.log(FONT_MIN_SIZE)		  
+
+		  if (res <= (FONT_MIN_SIZE))
+			Alert.alert("This is the smallest font size")
+		  else {
+			AsyncStorage.setItem(FONT_SIZE, (res - 1))
+	  		this.setState({fontGlobalSize: (res-1)});
+		  }
+	  }
+	  // if appendment is 1 i.e. you have pressed Zoom In, it will check if FONT_SIZE is set to maximum it will give alert otherwise it will increse the global FONT_SIZE and state variable fontGlobalSize
+	  else if (appendment == 1) {
+		  console.log("You have pressed Zoom In")
+		  console.log("FONT_MAX_SIZE: ")		  
+		  console.log(FONT_MAX_SIZE)		  
+
+		  if (res >= (FONT_MAX_SIZE))
+			Alert.alert("This is the largest font size")
+		  else {
+			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 1))
+	  		this.setState({fontGlobalSize: (parseInt(res)+1)});
+		  }
+	  }
+
+	  // if appendment is 0, meaning you have set the FONT_SIZE before on this phone, and now you have come to this Screen to set fontGlobalSize
+	  else if (appendment == 0) {
+	  		this.setState({fontGlobalSize: res});
+
+	  }
+
+		
+	 
+        } else {
+	  console.log("FONT_SIZE is never set before, res")
+	  AsyncStorage.setItem(FONT_SIZE, FONT_DEFAULT_SIZE)
+	  
+	  this.setState({fontGlobalSize: FONT_DEFAULT_SIZE});
+        }
+      })
+
+
+}
+
+menuItemClicked = (item) => {
+
+		console.log('item: ')
+		console.log(item)
+
+		console.log('item.index: ')
+		console.log(item.index)
+
+		if (item.index == 1){
+			this.setFontSizeIfNotSet(1)
+		}
+		else if (item.index == 2){
+			this.setFontSizeIfNotSet(-1)
+		}
+		else if (item.index == 3){
+	  		this.props.navigation.navigate('Info', {profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
+		}
+		this.toggleDrawer();
+
+}
+
 	render() {
 
+	var that = this
 	var fontFamilyTextVariable;
 	var fontFamilyTitleVariable;
 	switch(this.state.font) {
@@ -669,24 +776,56 @@ videoError() {
 			break;
 	}
 
-		var that = this
+fontSizeVariable = function(argument) {
+   argument = parseInt(argument);
+	switch(that.state.font) {
+		case 'Normal': 
+			// fontFamilyTitleVariable = styles.UrduTitleNormal;
+			// fontFamilyTextVariable = styles.RenderedTextNormal;
+			   return {
+			     fontSize: argument,
+			    flexShrink: 1,
+			    flexWrap: 'wrap',
+			    textAlign: 'center',
+			    padding: 10,
+			   }
+			break;
+		case 'Nafees': 
+			fontFamilyTitleVariable = styles.UrduTitleNafees;
+			fontFamilyTextVariable = styles.RenderedTextNafees;
+			break;
+		case 'Kasheeda': 
+			fontFamilyTitleVariable = styles.UrduTitleKasheeda;
+			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			break;
+		case 'Fajer': 
+			fontFamilyTitleVariable = styles.UrduTitleFajer;
+			fontFamilyTextVariable = styles.RenderedTextFajer;
+			break;
+	}
+   return {
+     fontSize: argument,
+   }
+ }
+	
+
 		var itemScroll = this.state.poemTextNew.map( function (item, index) {
 			
           		 if (item.star) {
 				if (that.state.text == 'Urdu') {
-					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 				}
 				else if (that.state.text == 'Roman'){
-					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 				}
 			}
 			else { 
 				if (that.state.text == 'Urdu') {
-          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 				}
 		
 				else if (that.state.text == 'Roman') {
-          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 				}
 			}
 		});
@@ -790,9 +929,65 @@ if (this.state.isDownloadDone)
 		       onError={this.videoError} />
 else
 	videoSetup = null;
+	/*
+	var drawerLogic; 
+
+	if (this.state.drawerClosed)
+		drawerLogic = null
+	else
+		drawerLogic = <DrawerLayout
+		drawerWidth={300}
+		ref={drawerElement => {
+		  this.DRAWER = drawerElement;
+		}}
+		drawerPosition={DrawerLayout.positions.left}
+		onDrawerOpen={this.setDrawerState}
+		onDrawerClose={this.setDrawerState}
+		renderNavigationView={() => <Menu />}
+	      >
+	      </DrawerLayout>
+	*/
 
 		return (
+
+
+
+
+		<DrawerLayout
+		drawerWidth={300}
+		ref={drawerElement => {
+		  this.DRAWER = drawerElement;
+		}}
+		drawerPosition={DrawerLayout.positions.left}
+		onDrawerOpen={this.setDrawerState}
+		onDrawerClose={this.setDrawerState}
+		// renderNavigationView={() => <Menu />}
+		renderNavigationView={() => 
+
+      <View style={styles.wrapper}>
+        <ScrollView>
+          {menuList.MENU_LIST.map(item => (
+            <TouchableOpacity
+              key={item.index}
+              onPress={() => that.menuItemClicked(item)}
+            >
+              <Text style={styles.listMenu}>{item.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+	}
+	      >
       <View style={styles.MainContainer}>
+
+	      <View style={{flex: 0.3}}>
+		<ActionBar
+		  containerStyle={styles.bar}
+		  backgroundColor="#33cc33"
+		  leftIconName={'menu'}
+		  onLeftPress={this.toggleDrawer}/>
+		</View>
 
         <Modal
           animationType="slide"
@@ -823,7 +1018,7 @@ else
 
 
 			<View style={{flex: 0.2}}>
-                                <Text style={fontFamilyTitleVariable}>
+                                <Text style={ fontSizeVariable(this.state.fontGlobalSize)}>
 					{this.state.poemNameUrdu}
 
                                 </Text>
@@ -868,6 +1063,7 @@ else
 */}
 
 	</View>
+	      </DrawerLayout>
 
 
 		)
@@ -880,6 +1076,11 @@ const styles = StyleSheet.create({
   container: {
    flex: 1,
    paddingTop: 22
+  },
+
+
+  bar: {
+   // flex: 0.2,
   },
 
  OuterCircle: {
@@ -1053,7 +1254,21 @@ backgroundVideo: {
       innerProgressRemaining: {
         height: 10,
         backgroundColor: '#2C2C2C',
-      }
+      },
+
+  wrapper: {
+    backgroundColor: '#33cc33',
+    marginTop: 50,
+
+  },
+
+  listMenu: {
+    color: 'white', 
+    fontSize: 16, 
+    paddingLeft: 20, 
+    paddingTop: 12,
+    paddingBottom: 12,
+  }
 
   
 })

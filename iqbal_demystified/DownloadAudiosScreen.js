@@ -17,7 +17,7 @@ import iconGarbage from './assets/android_app_assets/garbage_icon.png';
 // import Divider from '@material-ui/core/Divider';
 
 import Video from 'react-native-video';
-import RNFetchBlob from 'rn-fetch-blob'
+// import RNFetchBlob from 'rn-fetch-blob'
 
 
 
