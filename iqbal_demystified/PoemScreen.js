@@ -776,6 +776,60 @@ menuItemClicked = (item) => {
 			break;
 	}
 
+fontSizeVariableTitle = function(argument) {
+   argument = parseInt(argument);
+	switch(that.state.font) {
+		case 'Normal': 
+			// fontFamilyTitleVariable = styles.UrduTitleNormal;
+			// fontFamilyTextVariable = styles.RenderedTextNormal;
+			   return {
+			    flexWrap: 'wrap',
+			     fontSize: argument,
+			    textAlign: 'center',
+			    fontWeight: 'bold',
+			    color: '#FF0000',
+			   }
+			break;
+		case 'Nafees': 
+			// fontFamilyTitleVariable = styles.UrduTitleNafees;
+			// fontFamilyTextVariable = styles.RenderedTextNafees;
+			   return {
+			    flexWrap: 'wrap',
+    			    fontFamily: 'NafeesNastaleeq',
+			    fontSize: argument,
+			    textAlign: 'center',
+			    fontWeight: 'bold',
+			    color: '#FF0000',
+			   }
+			break;
+		case 'Kasheeda': 
+			// fontFamilyTitleVariable = styles.UrduTitleKasheeda;
+			// fontFamilyTextVariable = styles.RenderedTextKasheeda;
+
+			   return {
+			    flexWrap: 'wrap',
+    			    fontFamily: 'JameelNooriKasheeda',
+			    fontSize: argument,
+			    textAlign: 'center',
+			    fontWeight: 'bold',
+			    color: '#FF0000',
+			   }
+			break;
+		case 'Fajer': 
+			// fontFamilyTitleVariable = styles.UrduTitleFajer;
+			// fontFamilyTextVariable = styles.RenderedTextFajer;
+			   return {
+			    flexWrap: 'wrap',
+    			    fontFamily: 'FajerNooriNastalique',
+			    fontSize: argument,
+			    textAlign: 'center',
+			    fontWeight: 'bold',
+			    color: '#FF0000',
+			   }
+			break;
+	}
+}
+
 fontSizeVariable = function(argument) {
    argument = parseInt(argument);
 	switch(that.state.font) {
@@ -791,21 +845,48 @@ fontSizeVariable = function(argument) {
 			   }
 			break;
 		case 'Nafees': 
-			fontFamilyTitleVariable = styles.UrduTitleNafees;
-			fontFamilyTextVariable = styles.RenderedTextNafees;
+			// fontFamilyTitleVariable = styles.UrduTitleNafees;
+			// fontFamilyTextVariable = styles.RenderedTextNafees;
+			   return {
+    			    fontFamily: 'NafeesNastaleeq',
+			    fontSize: argument,
+			    flexShrink: 1,
+			    flexWrap: 'wrap',
+			    textAlign: 'center',
+			    padding: 10,
+			   }
 			break;
 		case 'Kasheeda': 
-			fontFamilyTitleVariable = styles.UrduTitleKasheeda;
-			fontFamilyTextVariable = styles.RenderedTextKasheeda;
+			// fontFamilyTitleVariable = styles.UrduTitleKasheeda;
+			// fontFamilyTextVariable = styles.RenderedTextKasheeda;
+
+			   return {
+    			    fontFamily: 'JameelNooriKasheeda',
+			    fontSize: argument,
+			    flexShrink: 1,
+			    flexWrap: 'wrap',
+			    textAlign: 'center',
+			    padding: 10,
+			   }
 			break;
 		case 'Fajer': 
-			fontFamilyTitleVariable = styles.UrduTitleFajer;
-			fontFamilyTextVariable = styles.RenderedTextFajer;
+			// fontFamilyTitleVariable = styles.UrduTitleFajer;
+			// fontFamilyTextVariable = styles.RenderedTextFajer;
+			   return {
+    			    fontFamily: 'FajerNooriNastalique',
+			    fontSize: argument,
+			    flexShrink: 1,
+			    flexWrap: 'wrap',
+			    textAlign: 'center',
+			    padding: 10,
+			   }
 			break;
 	}
+	/*
    return {
      fontSize: argument,
    }
+	*/
  }
 	
 
@@ -1017,20 +1098,21 @@ else
 
 
 
+			
+			<View style={{flex: 2}}>
+			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
 			<View style={{flex: 0.2}}>
-                                <Text style={ fontSizeVariable(this.state.fontGlobalSize)}>
+                                <Text style={ fontSizeVariableTitle(this.state.fontGlobalSize)}>
 					{this.state.poemNameUrdu}
 
                                 </Text>
 			</View>
 			<View style={{flex: 0.2}}>
-                                <Text style={styles.EnglishTitle}>
+                                {/*<Text style={styles.EnglishTitle}>*/}
+                                <Text style={ fontSizeVariableTitle(this.state.fontGlobalSize)}>
 					{this.state.poemNameEnglish}
                                 </Text>
 			</View>
-			
-			<View style={{flex: 2}}>
-			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
 				{itemScroll}
 				{/*{testItem}*/}
 			</ScrollView>
