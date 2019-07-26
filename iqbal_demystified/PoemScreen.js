@@ -324,7 +324,7 @@ class PoemPage extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	this.setState({font: res});
+	this.setState({font: "Normal"});
         }
       })
 
@@ -337,7 +337,7 @@ class PoemPage extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	  this.setState({text: res});
+	  this.setState({text: "Urdu"});
         }
       })
 }
@@ -788,6 +788,7 @@ fontSizeVariableTitle = function(argument) {
 			    textAlign: 'center',
 			    fontWeight: 'bold',
 			    color: '#FF0000',
+			    // color: 'blue',
 			   }
 			break;
 		case 'Nafees': 
@@ -800,6 +801,7 @@ fontSizeVariableTitle = function(argument) {
 			    textAlign: 'center',
 			    fontWeight: 'bold',
 			    color: '#FF0000',
+			    // color: 'blue',
 			   }
 			break;
 		case 'Kasheeda': 
@@ -813,6 +815,7 @@ fontSizeVariableTitle = function(argument) {
 			    textAlign: 'center',
 			    fontWeight: 'bold',
 			    color: '#FF0000',
+			    // color: 'blue',
 			   }
 			break;
 		case 'Fajer': 
@@ -825,6 +828,7 @@ fontSizeVariableTitle = function(argument) {
 			    textAlign: 'center',
 			    fontWeight: 'bold',
 			    color: '#FF0000',
+			    // color: 'blue',
 			   }
 			break;
 	}
@@ -1065,7 +1069,8 @@ else
 	      <View style={{flex: 0.3}}>
 		<ActionBar
 		  containerStyle={styles.bar}
-		  backgroundColor="#33cc33"
+		  // backgroundColor="#33cc33"
+		  backgroundColor="#606060"
 		  leftIconName={'menu'}
 		  onLeftPress={this.toggleDrawer}/>
 		</View>
@@ -1339,7 +1344,9 @@ backgroundVideo: {
       },
 
   wrapper: {
-    backgroundColor: '#33cc33',
+    // backgroundColor: '#33cc33',
+    // backgroundColor: 'skyblue',
+    backgroundColor: 'lightgray',
     marginTop: 50,
 
   },

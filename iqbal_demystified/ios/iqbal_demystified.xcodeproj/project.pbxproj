@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -189,13 +190,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
-		};
-		331754A422DC6B6D00F4200B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8076FF9AF15445BB946A6157 /* RNFetchBlob.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A15C300E1CD25C330074CB35;
-			remoteInfo = RNFetchBlob;
 		};
 		3325BF7522C9D03600DF08A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -430,7 +424,6 @@
 		69B182E374D14D208EEDEB76 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
 		70E55317FEBC4D1BBF1C99F7 /* Jameel Noori Kasheeda.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Jameel Noori Kasheeda.ttf"; path = "../assets/fonts/Jameel Noori Kasheeda.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		8076FF9AF15445BB946A6157 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/rn-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		82846965EC864D97870A7ECE /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8D6AF51474EC4D6289F9974B /* Nafees Nastaleeq v1.02.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nafees Nastaleeq v1.02.ttf"; path = "../assets/fonts/Nafees Nastaleeq v1.02.ttf"; sourceTree = "<group>"; };
@@ -637,14 +630,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		331754A122DC6B6C00F4200B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				331754A522DC6B6D00F4200B /* libRNFetchBlob.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		3325BF4B22C9D03500DF08A4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -753,7 +738,6 @@
 				0A66A2E9EF644B29B3176662 /* RNCAsyncStorage.xcodeproj */,
 				F1CB7E99A0AC4E1C912643AC /* RNSecureStorage.xcodeproj */,
 				35F7DCC26DD441F69B12DB22 /* RCTVideo.xcodeproj */,
-				8076FF9AF15445BB946A6157 /* RNFetchBlob.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -976,10 +960,6 @@
 					ProjectRef = 0A66A2E9EF644B29B3176662 /* RNCAsyncStorage.xcodeproj */;
 				},
 				{
-					ProductGroup = 331754A122DC6B6C00F4200B /* Products */;
-					ProjectRef = 8076FF9AF15445BB946A6157 /* RNFetchBlob.xcodeproj */;
-				},
-				{
 					ProductGroup = 3380901722C0D78C00403CA2 /* Products */;
 					ProjectRef = 3380901622C0D78C00403CA2 /* RNFS.xcodeproj */;
 				},
@@ -1120,13 +1100,6 @@
 			fileType = archive.ar;
 			path = "libdouble-conversion.a";
 			remoteRef = 2DF0FFE82056DD460020B375 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		331754A522DC6B6D00F4200B /* libRNFetchBlob.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFetchBlob.a;
-			remoteRef = 331754A422DC6B6D00F4200B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3325BF7622C9D03600DF08A4 /* libRNCAsyncStorage.a */ = {

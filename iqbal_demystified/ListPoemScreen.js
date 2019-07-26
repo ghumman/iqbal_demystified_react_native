@@ -154,7 +154,7 @@ class ListPoemScreen extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	this.setState({font: res});
+	this.setState({font: "Normal"});
         }
       })
 
@@ -167,7 +167,7 @@ class ListPoemScreen extends React.Component {
         } else {
 	  console.log("res: ")
 	  console.log(res)
-	  this.setState({text: res});
+	  this.setState({text: "Urdu"});
         }
       })
 }
@@ -572,6 +572,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
   },
 
   UrduTitleNormal: { 
@@ -579,6 +580,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
   },
 
   UrduTitleNafees: { 
@@ -587,6 +589,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
   },
 
   UrduTitleKasheeda: { 
@@ -595,6 +598,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
   },
   
   UrduTitleFajer: { 
@@ -603,6 +607,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
   },
 
   EnglishTitle : {
@@ -611,6 +616,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: 'bold',
     color: '#FF0000',
+    // color: 'blue',
    
   }
   

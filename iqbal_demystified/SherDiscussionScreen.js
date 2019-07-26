@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Share, Image, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 // import Tabs from './Tabs';
 
@@ -15,6 +15,8 @@ import StaticContentService from './StaticContentServiceYaml'
 // import Divider from '@material-ui/core/Divider';
 
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
+import iconShare from './assets/android_app_assets/share.png';
 
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
@@ -818,6 +820,31 @@ async send_word_message(){
 	console.log(this.state.mySelectedId)
   }
 
+onShare = async () => {
+    var that = this;
+    try {
+      const result = await Share.share({
+	title: 
+	'Iqbal Demystified',
+        message:
+          // 'React Native | A framework for building native apps using React',
+	  that.state.sherText[0] + '\n' +  that.state.sherText[1] + '\n' + '(Iqbal Demystified by International Iqbal Society)'
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
 	render() {
 		var item4 = this.state.sherText.map( (item, index) =>
 			<Text key={item.index} style={styles.RenderedText}> {item}</Text>
@@ -979,13 +1006,17 @@ async send_word_message(){
 				
 				
 				</View>
-					<Button onPress={this.handleSubmitSher} title='SUBMIT'/>
+				<View style={{flex: 0.5, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
 				<View>
-					<Text>
-
-					</Text>
-					
+					<Button onPress={this.handleSubmitSher} title='SUBMIT'/>
 				</View>
+				<View>
+					<TouchableHighlight  onPress={() =>this.onShare()} >
+						<Image  resizeMode='contain' source={iconShare}/>
+					</TouchableHighlight>
+				</View>
+				</View>
+
 			</View>
 
 
