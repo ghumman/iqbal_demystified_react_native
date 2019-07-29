@@ -322,8 +322,8 @@ class PoemPage extends React.Component {
 	  console.log(res)
 	this.setState({font: res});
         } else {
-	  console.log("res: ")
-	  console.log(res)
+	  // console.log("res: ")
+	  // console.log(res)
 	this.setState({font: "Normal"});
         }
       })
@@ -335,8 +335,8 @@ class PoemPage extends React.Component {
 	  console.log(res)
 	  this.setState({text: res});
         } else {
-	  console.log("res: ")
-	  console.log(res)
+	  // console.log("res: ")
+	  // console.log(res)
 	  this.setState({text: "Urdu"});
         }
       })
@@ -595,7 +595,7 @@ onDownloadAudio() {
 	that.saveToDownloadedAudioFile(that.state.poemNumber + '.mp3')	
        this.setState({ isDownloadDone: true })
       }).catch(err => {
-	    console.log("inside .catch(err...")
+	    console.log("inside .catch err...")
             console.log("err: ")
             console.log(err)
 	    Alert.alert("There was error downloading the audio. Please check internet connection.");
@@ -603,8 +603,7 @@ onDownloadAudio() {
        	    this.setState({ isDownloadDone: false })
       	    this.setState({ paused: true });
 	    return;
-      }).catch(err => {
-        });
+      })
 	}	// try ends
 	catch(error) { 
 		console.log("error: ")	
@@ -615,10 +614,10 @@ onDownloadAudio() {
 		return;
 	} 
 	
-        }
-    });
+        }	// else file does not exists ends
+    });	// RNFS.exists . then ends
 		this.setState({paused: !this.state.paused})
-	}
+	}	// if url is not empty ends
 	else {
 		Alert.alert(
   'Upload a Recording!',

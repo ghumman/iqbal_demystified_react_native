@@ -245,9 +245,9 @@ class CommentsPage extends React.Component {
 	  console.log(res)
 	this.setState({font: res});
         } else {
-	  console.log("res: ")
-	  console.log(res)
-	this.setState({font: res});
+	  // console.log("res: ")
+	  // console.log(res)
+	this.setState({font: "Normal"});
         }
       })
 
@@ -258,9 +258,9 @@ class CommentsPage extends React.Component {
 	  console.log(res)
 	  this.setState({text: res});
         } else {
-	  console.log("res: ")
-	  console.log(res)
-	  this.setState({text: res});
+	  // console.log("res: ")
+	  // console.log(res)
+	  this.setState({text: "Urdu"});
         }
       })
 }
