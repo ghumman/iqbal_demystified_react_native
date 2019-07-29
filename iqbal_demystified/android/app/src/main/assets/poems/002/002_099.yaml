@@ -1,0 +1,28 @@
+---
+'id': '002_099'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/313-%20Rubaaiyyaat%20(Chaman%20Mein%20Rakht-e-Gul%20Shabnam%20Say%20Tar%20Hai).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'چمن ميں رخت گل شبنم سے تر ہے'
+- 'lang': 'en'
+  'text': 'Dew—drops glisten on flowers that bloom in the spring'
+'description': []
+'sher':
+- 'id': '002_099_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'چمن ميں رخت گل شبنم سے تر ہے | سمن ہے ، سبزہ ہے ، باد سحر ہے'
+  - 'lang': 'en'
+    'text': 'Dew—drops glisten on flowers that bloom in the spring; | The breeze, the jasmine, and the rose have failed'
+  - 'lang': 'ro'
+    'text': 'Chaman Mein Rakht-e-Gul Se Tar Hai | Saman Hai, Sabza Hai, Bad-e-Sehar Hai'
+- 'id': '002_099_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'مگر ہنگامہ ہو سکتا نہيں گرم | يہاں کا لالہ بے سوز جگر ہے'
+  - 'lang': 'en'
+    'text': 'To raise the tumult of joy and liveliness, | For flowers here lack the spark and fire of life.'
+  - 'lang': 'ro'
+    'text': 'Magar Hangama Ho Sakta Nahin Garam | Yahan Ka Lala Be-Souz-e-Jigar Hai'

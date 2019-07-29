@@ -1,0 +1,28 @@
+---
+'id': '002_107'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/222-%20Rubaaiyyaat%20(Ata%20Aslaaf%20ka%20Jazb-e-Droon%20Ker).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'عطا اسلاف کا جذب دروں کر'
+- 'lang': 'en'
+  'text': 'Grant me the absorption of souls of the past'
+'description': []
+'sher':
+- 'id': '002_107_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'عطا اسلاف کا جذب دروں کر | شريک زمرئہ لا يحزنوں ، کر'
+  - 'lang': 'en'
+    'text': 'Grant me the absorption of souls of the past, | And let me be of those who never grieve;'
+  - 'lang': 'ro'
+    'text': 'Atta Islaf Ka Jazb-e-Daroon Kar | Shareek-e-Zamarahu La Yahzanoon, Kar'
+- 'id': '002_107_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'خرد کي گتھياں سلجھا چکا ميں | !مرے مولا مجھے صاحب جنوں کر'
+  - 'lang': 'en'
+    'text': 'The riddles of reason I have solved, but now, | O Lord! Give me a life of ecstasy.'
+  - 'lang': 'ro'
+    'text': 'Khirad Ki Ghuthiyan Suljha Chuka Main | Mere Moula Mujhe Sahib-e-Junoon Kar!'

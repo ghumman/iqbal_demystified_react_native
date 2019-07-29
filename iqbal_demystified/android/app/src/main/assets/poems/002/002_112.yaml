@@ -1,0 +1,28 @@
+---
+'id': '002_112'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/316-%20Rubaaiyyaat%20(Dam-e-Aarif%20Naseem-e-Subhdam%20Hai).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'دم عارف نسيم صبح دم ہے'
+- 'lang': 'en'
+  'text': 'The mystic''s soul is like the morning breeze'
+'description': []
+'sher':
+- 'id': '002_112_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'دم عارف نسيم صبح دم ہے | اسي سے ريشہ معني ميں نم ہے'
+  - 'lang': 'en'
+    'text': 'The mystic''s soul is like the morning breeze; | It freshens and renews life''s inner meaning'
+  - 'lang': 'ro'
+    'text': 'Dam-e-Arif Naseem-e-Subahdam Hai | Issi Se Resha-e-Ma’ani Mein Nam Hai'
+- 'id': '002_112_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'اگر کوئي شعيب آئے ميسر | شباني سے کليمي دو قدم ہے'
+  - 'lang': 'en'
+    'text': 'An illumined soul can be a shepherd''s, who | Could hear the Voice of God at God''s command.'
+  - 'lang': 'ro'
+    'text': 'Agar Koi Shoaib Aye Mayassar | Shabani* Se Kaleemi Do Kadam Hai'

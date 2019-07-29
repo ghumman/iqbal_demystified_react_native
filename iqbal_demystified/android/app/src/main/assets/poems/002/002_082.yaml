@@ -1,0 +1,28 @@
+---
+'id': '002_082'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/296-%20Rubaaiyyaat%20(Khudi%20Ki%20Khalwaton%20Mein%20Gum%20Raha%20Mein).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'خودي کي خلوتوں ميں گم رہا ميں'
+- 'lang': 'en'
+  'text': 'I was in the solitude of Selfhood lost'
+'description': []
+'sher':
+- 'id': '002_082_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'خودي کي خلوتوں ميں گم رہا ميں | خدا کے سامنے گويا نہ تھا ميں'
+  - 'lang': 'en'
+    'text': 'I was in the solitude of Selfhood lost, | And was, it seemed, unaware of the Presence;'
+  - 'lang': 'ro'
+    'text': 'Khudi Ki Khalwaton Mein Gum Raha Main | Khuda Ke Samne Goya Na Tha Main'
+- 'id': '002_082_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'نہ ديکھا آنکھ اٹھا کر جلوہ دوست | !قيامت ميں تماشا بن گيا ميں'
+  - 'lang': 'en'
+    'text': 'I lifted not my eyes to see my Friend, | And, on the Day of Judgement, shamed myself'
+  - 'lang': 'ro'
+    'text': 'Na Dekha Ankh Utha Kar Jalwa-e-Dost | Qayamat Mein Tamasha Ban Gya Main!'

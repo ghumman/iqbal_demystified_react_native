@@ -1,0 +1,28 @@
+---
+'id': '002_106'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/220-%20Rubaaiyyaat%20(Kabhi%20Tanhai-e-Koh-o-Daman%20Ishq).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'کبھي تنہائي کوہ و دمن عشق'
+- 'lang': 'en'
+  'text': 'Love seeks sometimes the solitude of hills'
+'description': []
+'sher':
+- 'id': '002_106_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'کبھي تنہائي کوہ و دمن عشق | کبھي سوز و سرور و انجمن عشق'
+  - 'lang': 'en'
+    'text': 'Love seeks sometimes the solitude of hills; | At other times, the tuneful chords of life;'
+  - 'lang': 'ro'
+    'text': 'Kabhi Tanhai-e-Koh-o-Daman Ishq | Kabhi Souz-o-Suroor-o-Anjuman Ishq'
+- 'id': '002_106_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'کبھي سرمايہ محراب و منبر | !کبھي مولا علي خيبر شکن عشق'
+  - 'lang': 'en'
+    'text': 'Sometimes pent in the corner of a mosque, | At other times it fights like the Tiger of God.'
+  - 'lang': 'ro'
+    'text': 'Kabhi Sarmaya-E-Mehrab-o-Manbar | Kabhi Moula Ali (R.A.) Khaybar Shikan Ishq!'

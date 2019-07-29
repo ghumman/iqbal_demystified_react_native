@@ -1,0 +1,28 @@
+---
+'id': '002_098'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/312-%20Rubaaiyyaat%20(Khudi%20Kay%20Zoor%20Say%20Dunya%20Peh%20Cha%20Ja).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'خودي کے زور سے دنيا پہ چھا جا'
+- 'lang': 'en'
+  'text': 'Conquer the world with the power of Selfhood'
+'description': []
+'sher':
+- 'id': '002_098_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'خودي کے زور سے دنيا پہ چھا جا | مقام رنگ و بو کا راز پا جا'
+  - 'lang': 'en'
+    'text': 'Conquer the world with the power of Selfhood, | And solve the riddle of the universe;'
+  - 'lang': 'ro'
+    'text': 'Khudi Ke Zor Se Dunya Pe Chha Ja | Maqam-e-Rang-o-Boo Ka Raaz Pa Ja'
+- 'id': '002_098_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'برنگ بحر ساحل آشنا رہ | کف ساحل سے دامن کھينچتا جا'
+  - 'lang': 'en'
+    'text': 'Be intimate with thy shores, like the sea, | But avoid the surf around the boundless deep.'
+  - 'lang': 'ro'
+    'text': 'Barang-e-Behar Sahil Aashna Reh | Kaf-e-Sahil Se Daman Khenchta Ja'

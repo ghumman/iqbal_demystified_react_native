@@ -1,0 +1,370 @@
+
+/*@font-face {*/
+/*font-family: 'nastaleeq';*/
+/*!*src: url('webfont.eot'); !* IE9 Compat Modes *!*!*/
+/*src: url('vendor/fonts/nastaleeq.ttf') format('truetype'); !* Safari, Android, iOS *!*/
+/*}*/
+
+@font-face {
+    font-family: 'NotoNastaliqUrdu';
+    /*src: url('webfont.eot'); !* IE9 Compat Modes *!*/
+    /*src: url('https://rekhtacdn.azureedge.net/content/3.5/fonts/NotoNastaliqUrdu-Regular.ttf')  format('truetype'); !* Safari, Android, iOS *!*/
+    src: url('../fonts/NotoNastaliqUrdu-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'nastaleeq';
+    /*src: url('webfont.eot'); !* IE9 Compat Modes *!*/
+    /*src: url('https://rekhtacdn.azureedge.net/content/3.5/fonts/NotoNastaliqUrdu-Regular.ttf')  format('truetype'); !* Safari, Android, iOS *!*/
+    src: url('../fonts/nastaleeq.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Jameel Noori Nastaleeq';
+    src: url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.eot'); /* IE9 Compat Modes */
+    src: url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.woff2') format('woff2'), /* Modern Browsers */
+    url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.woff') format('woff'), /* Modern Browsers */
+    url('https://rekhtacdn.azureedge.net/Content/Fonts/JameelNooriNastaleeq.otf') format('opentype');
+}
+
+
+@font-face {
+    font-family: 'urdu_test';
+    /*src: url('webfont.eot'); !* IE9 Compat Modes *!*/
+    src: url('../fonts/asunaskh.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Noto Sans Devanagari';
+    font-style: normal;
+    font-weight: 400;
+    src: url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Regular.eot);
+    src: url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Regular.eot?#iefix) format('embedded-opentype'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Regular.woff2) format('woff2'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Regular.woff) format('woff'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Noto Sans Devanagari';
+    font-style: normal;
+    font-weight: 700;
+    src: url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Bold.eot);
+    src: url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Bold.eot?#iefix) format('embedded-opentype'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Bold.woff2) format('woff2'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Bold.woff) format('woff'),
+    url(//fonts.gstatic.com/ea/notosansdevanagari/v3/NotoSansDevanagari-Bold.ttf) format('truetype');
+}
+
+body{
+    background-color:#F7FFF7;
+    font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif
+}
+h1,h2,h3,h4,h5,h6{
+    font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight:700
+}
+header.masthead{
+    position:relative;
+    /*background-color: #9370DB;*/
+    background:url(http://static.trudbox.by/static/img/theme/main/cyan.png) no-repeat center center;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    padding-top:8rem;
+    padding-bottom:8rem
+    /*color:#eeeeee;*/
+}
+header.masthead .overlay{
+    position:absolute;
+    background-color:#212529;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    opacity:1;
+}
+header.masthead h1{
+    font-size:2rem
+}
+@media (min-width:768px){
+    header.masthead{
+        padding-top:12rem;
+        padding-bottom:12rem
+    }
+    header.masthead h1{
+        font-size:3rem
+    }
+}
+
+#mainNav{
+    /*background-color: #101010;*/
+    background-color: #FF6B6B;
+    color:#eeeeee !important;
+}
+
+#mainNav a{
+    color:#eeeeee !important;
+}
+#mainNav i{
+    color:#eeeeee !important;
+}
+
+
+*[class*='primary']{
+    background-color: #1A535C !important;
+    border-color:#1A535C !important;
+
+}
+
+*[class*='outline-primary']{
+    background-color: #1A535C !important;
+}
+
+#banner{
+    position: relative;
+}
+
+#banner .skew{
+
+    background: #FF6B6B;
+    height: 80px;
+    transform: skew(0, -1.0deg);
+    transform-origin: top right;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+}
+
+#banner .overlay{
+    background-color: #eeeeee;
+    opacity:0.1;
+}
+
+.header-text{
+    color: black;
+}
+
+.header-text p{
+    font-size: 1.25rem;
+}
+
+
+.card-body{
+    background-color:white;
+}
+
+
+.card
+{
+    margin-bottom: 40px;
+    border:none;
+    box-shadow: 2px 6px 25px rgba(0, 0, 0, 0.1);
+    transition: all .3s ease;
+}
+
+.card:hover {
+    box-shadow: 2px 6px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top{
+    border-bottom-left-radius: calc(.25rem - 1px);
+    border-bottom-right-radius: calc(.25rem - 1px);
+}
+
+
+.overlay{
+    position: relative;
+}
+
+
+.overlay .test-link:after{
+    opacity: 0;
+    position: absolute;
+    /*width: 100%; height: 100%;*/
+    /*cursor: pointer;*/
+    /*background: rgba(255,255,255,0.6) url("http://wptf.com/wp-content/uploads/2014/05/play-button.png") no-repeat scroll center center / 50px 50px;*/
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    content: "\f028";
+    font-family: FontAwesome;
+    font-size: 2.0rem;
+    color: #eee;
+    opacity: 1;
+}
+
+.overlay:hover .test-link:hover{
+    opacity:1;
+}
+
+.card-body
+{
+    padding: 1.25rem 0.75rem 0.75rem;
+}
+
+.card-body > a
+{
+    text-decoration: none ;
+}
+
+.card-body > a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+
+.card-body h4
+{
+    margin:0px;
+    line-height: 1.1;
+    font-size: 1.15rem;
+    font-weight: bold;
+    /*text-align: left;*/
+    padding: 10px;
+}
+
+.urdu_text{
+    font-family: 'NotoNastaliqUrdu';
+    /*font-family: 'urdu_test';*/
+    /*font-family: 'nastaleeq';*/
+    /*font-family: 'Jameel Noori Nastaleeq';*/
+
+    /*font-family: 'Noto Nastaliq Urdu Draft',serif;*/
+    font-style: normal;
+    word-spacing: 10px;
+    line-height: 30px !important;
+
+}
+
+p.urdu_text{
+    font-family: 'NotoNastaliqUrdu';
+    /*font-family: 'urdu_test';*/
+    /*font-family: 'nastaleeq';*/
+    /*font-family: 'Jameel Noori Nastaleeq';*/
+
+    /*font-family: 'Noto Nastaliq Urdu Draft',serif;*/
+    font-style: normal;
+    word-spacing: 10px;
+    line-height: 30px !important;
+
+}
+
+.card-body .author
+{
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+
+
+.card-body p
+{
+    line-height: 1.2rem;
+    font-size: 0.85rem;
+}
+
+
+.card-details
+{
+    /*border-top: 0.5px solid #325D88;*/
+    margin-top: 1rem;
+    padding-top:1rem;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.social-links{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.link-visit-parent{
+    padding: 1rem 0.5rem 0rem;
+}
+
+.link-visit-parent > a{
+    padding-right: 1rem;
+    color: white;
+}
+
+
+.sharing-links{
+    padding: 1rem 0.5rem 0rem;
+    flex: none;
+    display: flex;
+}
+
+
+.social-twitter{
+    width: 40px;
+    background-color: #1e99e6;
+    color:white;
+}
+
+.social-twitter:hover{
+    background-color: #2279BB;
+    color:white;
+}
+
+
+
+.social-facebook{
+    width: 40px;
+    background-color: #3b5998;
+    color:white;
+}
+
+.social-facebook:hover{
+    background-color: #082665;
+    color:white;
+}
+
+.like-this
+{
+    padding: 1rem 0.5rem 0rem;
+}
+
+.like-btn
+{
+    background-color: red;
+    color:white;
+}
+
+.like-btn:hover{
+    background-color: #B30000;
+    color:white;
+}
+
+#detail-comments .card{
+    margin-bottom: 40px;
+}
+
+
+
+
+
+.form-control {
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.6);
+    border-color: transparent;
+    border-radius: 20px 0 0 20px; }
+.form-control:focus {
+    box-shadow: none;
+    border-color: #243c4f;
+}
+.form-inline .btn-primary {
+    min-height: 50px;
+    border-radius: 0 20px 20px 0;
+    background: #243c4f;
+    color: #fff;
+}

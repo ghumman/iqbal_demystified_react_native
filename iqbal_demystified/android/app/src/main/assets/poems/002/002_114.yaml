@@ -1,0 +1,28 @@
+---
+'id': '002_114'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/322-%20Rubaaiyyaat%20(Khulay%20Jaatay%20Hein%20Asraar-e-Nahani).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'کھلے جاتے ہيں اسرار نہاني'
+- 'lang': 'en'
+  'text': '# title missing'
+'description': []
+'sher':
+- 'id': '002_114_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'کھلے جاتے ہيں اسرار نہاني | ''گيا دور حديث ''لن تراني'
+  - 'lang': 'en'
+    'text': '# translation missing | # translation missing'
+  - 'lang': 'ro'
+    'text': 'Khule Jate Hain Asrar-e-Nihani | Gya Dour-e-Hadees-e-‘Lan Tarani’'
+- 'id': '002_114_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'ہوئي جس کي خودي پہلے نمودار | !وہي مہدي ، وہي آخر زماني'
+  - 'lang': 'en'
+    'text': '# translation missing | # translation missing'
+  - 'lang': 'ro'
+    'text': 'Huwi Jis Ki Khudi Pehle Namoodar | Wohi Mehdi, Wohi Akhir Zamani!'

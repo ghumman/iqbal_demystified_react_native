@@ -1,0 +1,28 @@
+---
+'id': '002_085'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/299-%20Rubaaiyyaat%20(Arab%20Kay%20Sooz%20Mein%20Saaz-e-Ajam%20Hai).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'عرب کے سوز ميں ساز عجم ہے'
+- 'lang': 'en'
+  'text': 'Observe the strains of'' lily song'
+'description': []
+'sher':
+- 'id': '002_085_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'عرب کے سوز ميں ساز عجم ہے | حرم کا راز توحيد امم ہے'
+  - 'lang': 'en'
+    'text': 'Observe the strains of'' lily song: | An Indian voice a theme Arabian.,'
+  - 'lang': 'ro'
+    'text': 'Arab Ke Souz Mein Saaz-e-Ajam Hai | Haram Ka Raaz Touheed-e-Umam Hai'
+- 'id': '002_085_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'تہي وحدت سے ہے انديشہ غرب | کہ تہذيب فرنگي بے حرم ہے'
+  - 'lang': 'en'
+    'text': 'An ear attuned to Western harmonies; | A royal temper, and the fate of a slave.'
+  - 'lang': 'ro'
+    'text': 'Tehi Wahdat Se Hai Andaisha-e-Ghareeb | Ke Tehzeeb-e-Farangi Be Haram Hai'

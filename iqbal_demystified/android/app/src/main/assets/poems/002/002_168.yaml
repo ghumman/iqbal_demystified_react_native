@@ -1,0 +1,37 @@
+---
+'id': '002_168'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/375-%20Sheikh-e-Maktab%20Say.mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'شيخ مکتب سے'
+- 'lang': 'en'
+  'text': 'TO THE HEADMASTER'
+'description': []
+'sher':
+- 'id': '002_168_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'شيخ مکتب ہے اک عمارت گر | جس کي صنعت ہے روح انساني'
+  - 'lang': 'en'
+    'text': 'The headmaster is an architect | Whose material is the human soul.'
+  - 'lang': 'ro'
+    'text': 'Sheikh-e-Maktab Hai Ek Amarat Gar | Jis Ki San’at Hai Rooh-e-Insani'
+- 'id': '002_168_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'نکتہء دلپذير تيرے ليے | کہہ گيا ہے حکيم قاآني'
+  - 'lang': 'en'
+    'text': 'A good advice has been left for you | By the sage Qa‘ani:'
+  - 'lang': 'ro'
+    'text': 'Nukta-e-Dilpazeer Tere Liye | Keh Gaya Hai Hakeem-e-Qa’ani'
+- 'id': '002_168_003'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'پيش خورشيد بر مکش ديوار '''' | ''''خواہي ار صحن خانہ نوراني'
+  - 'lang': 'en'
+    'text': 'Do not raise a wall against the Sun | If you wish the courtyard illuminated.”'
+  - 'lang': 'ro'
+    'text': '“Paish-e-Khurshid Barmaksh Diwar | Khawahi Ar Sehan-e-Khana Noorani”'

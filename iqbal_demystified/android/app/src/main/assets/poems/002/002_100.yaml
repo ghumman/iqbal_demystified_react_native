@@ -1,0 +1,28 @@
+---
+'id': '002_100'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/314-%20Rubaaiyyaat%20(Khirad%20Say%20Rahrou%20Roshan%20Basar%20Hai).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'خرد سے راہرو روشن بصر ہے'
+- 'lang': 'en'
+  'text': 'Reason is but a wayside lamp that gives'
+'description': []
+'sher':
+- 'id': '002_100_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'خرد سے راہرو روشن بصر ہے | خرد کيا ہے ، چراغ رہ گزر ہے'
+  - 'lang': 'en'
+    'text': 'Reason is but a wayside lamp that gives | Eyes to the wayfarer on a dark night;'
+  - 'lang': 'ro'
+    'text': 'Khirad Se Rahru Roshan Basar Hai | Khirad Kya Hai, Charagh-e-Rah Guzar Hai'
+- 'id': '002_100_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'درون خانہ ہنگامے ہيں کيا کيا | !چراغ رہ گزر کو کيا خبر ہے'
+  - 'lang': 'en'
+    'text': 'But what does this lamp on the wayside know | About the storms raging in the house?'
+  - 'lang': 'ro'
+    'text': 'Duroon-e-Khana Hangame Hain Kya Kya | Charagh-e-Rah Guzar Ko Kya Khabar Hai!'

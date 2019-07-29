@@ -3,8 +3,6 @@ package com.iqbal_demystified;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.guichaguri.trackplayer.TrackPlayer;
 import com.brentvatne.react.ReactVideoPackage;
 import li.yunqi.rnsecurestorage.RNSecureStoragePackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -30,8 +28,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
-            new TrackPlayer(),
             new ReactVideoPackage(),
             new RNSecureStoragePackage(),
             new AsyncStoragePackage(),

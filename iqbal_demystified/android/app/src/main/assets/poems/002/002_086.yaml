@@ -1,0 +1,28 @@
+---
+'id': '002_086'
+'audioUrl': 'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bal%20e%20Jibreel/300-%20Rubaaiyyaat%20(Koi%20Deikhay%20Tou%20Meri%20Nay%20Nawazi).mp3'
+'heading':
+- 'lang': 'ur'
+  'text': 'کوئي ديکھے تو ميري نے نوازي'
+- 'lang': 'en'
+  'text': 'My nature is like the fresh breeze of morn'
+'description': []
+'sher':
+- 'id': '002_086_001'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'کوئي ديکھے تو ميري نے نوازي | نفس ہندي ، مقام نغمہ تازي'
+  - 'lang': 'en'
+    'text': 'My nature is like the fresh breeze of morn: | Gentle sometimes, at other times strong;'
+  - 'lang': 'ro'
+    'text': 'Koi Dekhe Tau Meri Ne Nawazi | Nafs Hindi, Maqam-e-Naghma Tazi'
+- 'id': '002_086_002'
+  'meta': !!bool 'false'
+  'sherContent':
+  - 'lang': 'ur'
+    'text': 'نگہ آلودہ انداز افرنگ | !طبيعت غزنوي ، قسمت ايازي'
+  - 'lang': 'en'
+    'text': 'I give a velvet mantle to flower petals, | And to prickly tborns, the sharpness of the needle.'
+  - 'lang': 'ro'
+    'text': 'Nigah Aaloodah Andaz-e-Afrang | Tabiyat Ghaznavi, Qismat Ayyazi'
