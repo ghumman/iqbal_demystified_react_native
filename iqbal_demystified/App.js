@@ -2,7 +2,8 @@
 
 import React from "react";
 import { View, Text } from "react-native";
-import { createBottomTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
+// import { createBottomTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
+import { createMaterialTopTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 
 import HomeScreen from './HomeScreen';
 import ListPoemScreen from './ListPoemScreen';

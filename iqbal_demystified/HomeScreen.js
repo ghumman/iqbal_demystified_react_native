@@ -1,6 +1,7 @@
 import React from "react";
 import {TouchableOpacity,  TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
-import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
+// import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import {NavigationEvents, createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 
 import AsyncStorage from '@react-native-community/async-storage';
 // import SecureStorage, { ACCESS_CONTROL, ACCESSIBLE, AUTHENTICATION_TYPE } from 'react-native-secure-storage'
