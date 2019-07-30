@@ -1,5 +1,5 @@
 import React from 'react'
-import {Share, Image, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Platform, Share, Image, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 // import Tabs from './Tabs';
 
@@ -253,10 +253,20 @@ async send_word_message(){
 		// console.log(data.json())
 	        var sherArray = sherName.split("_");
 
+		var path = "";
+		var yamlFile = "";
+	
+
           // const yamlFile = require('!raw-loader!./assets/poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml');
 
-          const path = RNFS.MainBundlePath + '/assets/poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml';
-	  const yamlFile = await RNFS.readFile(path, "utf8");
+	if (Platform.OS == 'ios'){
+          path = RNFS.MainBundlePath + '/assets/poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml';
+	  yamlFile = await RNFS.readFile(path, "utf8");
+	}
+	else if (Platform.OS == 'android'){
+          path = 'poems/' + sherArray[0] + '/' + sherArray[0] + '_' + sherArray[1] + '.yaml';
+	  yamlFile = await RNFS.readFileAssets(path, "utf8");
+	}
 
           console.log("After calling yamlFiles");
           console.log("Value of yamlFile");

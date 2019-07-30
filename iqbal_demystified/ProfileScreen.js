@@ -385,7 +385,7 @@ const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.lea
 const state = this.state;
 				return (
 			<View style={{flex: 1}}>
-			<View style={{flex: 3}}>
+			<View style={{flex: 2}}>
        	   			<Text style={styles.EnglishTitle}>My Profile</Text>
 				<View style={styles.UsernameView}>
 					<View style={styles.UsernameViewInner}>
@@ -397,7 +397,7 @@ const state = this.state;
 					        <Text style={styles.Message}>You can also vote to others' comments!</Text>
 					        <Text style={styles.Message}>More profile features coming soon!</Text>
 
-					<View style={{flexDirection: 'row'}}>
+					<View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch', padding: 10}}>
 					<View>	
 						<Button onPress={() => this.myDownloads()}  title='MY DOWNLOADS' />	
 					</View>	
@@ -405,15 +405,16 @@ const state = this.state;
 						<Button onPress={() => this.changePassword()}  title='CHANGE PASSWORD' />	
 					</View>	
 					</View>
-					<View>
+					<View style={{justifyContent: 'center', alignItems: 'center', paddingTop: 15}}>
 						
 						<Button onPress={() => this.signOut()} title= 'SIGN OUT' />	
 					</View>
 			   </View>
 
-			   <View style={{flex: 3}}>
+			   <View style={{flex: 0.5}}>
+						<View style={{borderColor:'red',borderBottomWidth:1,borderTopWidth:1}}>
 
-						<Picker he
+						<Picker 
 						  selectedValue={this.state.dropdownState}
 						  // style={{height: 50, width: 100}}
 						  onValueChange={(itemValue, itemIndex) =>
@@ -422,6 +423,7 @@ const state = this.state;
 						<Picker.Item label="Discussion" value="discussion" />
 						<Picker.Item label="Word Meanings" value="word" />
 						</Picker>
+						</View>
 				</View>
 				<View style={{flex: 3}}>
 					<ScrollView>

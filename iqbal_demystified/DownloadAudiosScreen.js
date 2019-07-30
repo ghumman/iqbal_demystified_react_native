@@ -859,7 +859,7 @@ else
 
 			<View style={{flex: 0.2}}>
                                 <Text style={styles.UrduTitle}>
-					MY Downloads
+					My Downloads
                                 </Text>
 			</View>
 			

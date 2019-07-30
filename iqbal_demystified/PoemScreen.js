@@ -33,10 +33,10 @@ var  YAML = require('yaml');
 
 const FONT = "Normal";
 const TEXT = "Urdu";
-const FONT_SIZE = 18;
-const FONT_MAX_SIZE = 30;
-const FONT_MIN_SIZE = 10;
-const FONT_DEFAULT_SIZE = 18;
+const FONT_SIZE = "18";
+const FONT_MAX_SIZE = "30";
+const FONT_MIN_SIZE = "10";
+const FONT_DEFAULT_SIZE = "18";
 
 class PoemPage extends React.Component {
 	constructor(props) {
@@ -678,6 +678,8 @@ videoError() {
 
 setFontSizeIfNotSet = (appendment) => {
 
+    
+
     AsyncStorage.getItem(FONT_SIZE)
       .then(res => {
         if (res !== null) {
@@ -693,8 +695,8 @@ setFontSizeIfNotSet = (appendment) => {
 		  if (res <= (FONT_MIN_SIZE))
 			Alert.alert("This is the smallest font size")
 		  else {
-			AsyncStorage.setItem(FONT_SIZE, (res - 1))
-	  		this.setState({fontGlobalSize: (res-1)});
+			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) - 1).toString())
+	  		this.setState({fontGlobalSize: (parseInt(res)-1)});
 		  }
 	  }
 	  // if appendment is 1 i.e. you have pressed Zoom In, it will check if FONT_SIZE is set to maximum it will give alert otherwise it will increse the global FONT_SIZE and state variable fontGlobalSize
@@ -703,17 +705,21 @@ setFontSizeIfNotSet = (appendment) => {
 		  console.log("FONT_MAX_SIZE: ")		  
 		  console.log(FONT_MAX_SIZE)		  
 
+
 		  if (res >= (FONT_MAX_SIZE))
 			Alert.alert("This is the largest font size")
 		  else {
-			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 1))
+			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 1).toString())
 	  		this.setState({fontGlobalSize: (parseInt(res)+1)});
 		  }
 	  }
 
 	  // if appendment is 0, meaning you have set the FONT_SIZE before on this phone, and now you have come to this Screen to set fontGlobalSize
 	  else if (appendment == 0) {
-	  		this.setState({fontGlobalSize: res});
+		  	console.log("First time in setFontSizeIfNotSet");
+		  	console.log("res:")
+		  	console.log(res)
+	  		this.setState({fontGlobalSize: parseInt(res)});
 
 	  }
 
@@ -723,7 +729,7 @@ setFontSizeIfNotSet = (appendment) => {
 	  console.log("FONT_SIZE is never set before, res")
 	  AsyncStorage.setItem(FONT_SIZE, FONT_DEFAULT_SIZE)
 	  
-	  this.setState({fontGlobalSize: FONT_DEFAULT_SIZE});
+	  this.setState({fontGlobalSize: parseInt(FONT_DEFAULT_SIZE)});
         }
       })
 
