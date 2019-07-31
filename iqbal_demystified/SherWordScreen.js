@@ -42,7 +42,7 @@ class SherPage extends React.Component {
 	    sherDiscussionDetail: [],
 	    wordDiscussionDetail: [],
 	    mySelectedWord: "",
-	    mySelectedId: "-99",
+	    mySelectedId: "1",
 	    
 	    userMessageSher: "",
 	    userMessageWord: "",
@@ -80,6 +80,11 @@ class SherPage extends React.Component {
 	}
 
 	handleSubmitWord(event) {
+
+	console.log("Inside handleSubmitWord");
+
+
+	console.log("Going to send_word_message");
 		this.send_word_message()
 		event.preventDefault()
 	}
@@ -149,6 +154,25 @@ async send_sher_message(){
 
 // send_word_message(messageWord){
 async send_word_message(){
+	console.log("Inside send_word_message")
+
+	console.log("sending message using body: sher= + that.state.sherId + &discussion_type=word-meanings&username= + that.state.username + &password= + that.state.password + &comment_text= + that.state.userMessageSher + &word_position= + that.state.mySelectedId")
+
+	console.log("this.state.sherId: ")
+	console.log(this.state.sherId )
+
+	console.log("this.state.username: ")
+	console.log(this.state.username  )
+
+	console.log("this.state.pasword: ")
+	console.log(this.state.password  )
+
+	console.log("this.state.userMessage: ")
+	console.log(this.state.userMessageWord  )
+
+	console.log("this.state.mySelectedId: ")
+	console.log(this.state.mySelectedId  )
+
 	// console.log("messageWord sent to send word message function");
 	// console.log(this.messageWord);
 	// do not try pushing comment if message is empty
@@ -173,7 +197,7 @@ async send_word_message(){
         },
 		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageWord, word_position: this.state.mySelectedId+1},
 		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", username: this.state.username, password: this.state.password, comment_text: this.state.userMessageWord, word_position: this.state.mySelectedId+1}
-		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&username=" + that.state.username + "&password=" + that.state.password + "&comment_text=" + that.state.userMessageSher + "&word_position=" + this.state.mySelectedId+1
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&username=" + that.state.username + "&password=" + that.state.password + "&comment_text=" + that.state.userMessageWord + "&word_position=" + that.state.mySelectedId
 			}).then(async function(data){
                  	// success: (data) => {	// success funciton starts
 
@@ -856,14 +880,22 @@ async send_word_message(){
 
   selectedWord(wordText, wordId) {
 	this.setState({mySelectedWord: wordText})
-	this.setState({mySelectedId: wordId})
+	this.setState({mySelectedId: (wordId + 1)})
 	console.log("Value of mySelectedWord")
 	console.log(this.state.mySelectedWord)
 	console.log("Value of mySelectedId")
 	console.log(this.state.mySelectedId)
   }
 
+		chooseColor() {
+			   return {
+    					borderColor: 'red',
+				}
+		}
+
 	render() {
+
+
 		var item4 = this.state.sherText.map( (item, index) =>
 			<Text key={item.index}> {item}</Text>
 			/*<p key={item.index}> {item}</p>*/
@@ -873,9 +905,37 @@ async send_word_message(){
 			<span key={item.index}><button type="button" class="btn btn-primary"onClick={() => this.selectedWord(item, index)}> {item} </button>  </span>
 		);
 */
+		    const viewStylesNotSelected = {
+    					borderColor: 'black',
+    					borderWidth: 1,
+			        };
+		    const viewStylesSelected = {
+    					borderColor: 'red',
+    					borderWidth: 2,
+			        };
+
+		    const textStylesNotSelected = {
+    					color: 'black',
+    					fontWeight: 'normal',
+			        };
+		    const textStylesSelected = {
+    					color: 'red',
+    					fontWeight: 'bold',
+			        };
+/*
 		var item5 = this.state.wordText.map( (item, index) =>
-			<View style={styles.button}><Button key={item.index} onPress={() => this.selectedWord(item, index)} title={item}/></View>
+			<View style={[styles.button, colorStyles]}><TouchableHighlight key={item.index} onPress={() => this.selectedWord(item, index)}><Text style={styles.buttonText}>{item}</Text></TouchableHighlight></View>
 		);
+*/
+		var that = this;
+		var item5 = this.state.wordText.map( function(item, index) 
+			{
+			if (parseInt(that.state.mySelectedId) == (index+ 1))
+				return <View style={[styles.button, viewStylesSelected]}><TouchableHighlight key={item.index} onPress={() => that.selectedWord(item, index)}><Text style={[styles.buttonText, textStylesSelected]}>{item}</Text></TouchableHighlight></View>
+			else
+				return <View style={[styles.button, viewStylesNotSelected]}><TouchableHighlight key={item.index} onPress={() => that.selectedWord(item, index)}><Text style={[styles.buttonText, textStylesNotSelected]}>{item}</Text></TouchableHighlight></View>
+			})
+			
 
 /*
 
@@ -917,7 +977,8 @@ async send_word_message(){
 
 		var item7 = this.state.wordDiscussionDetail.map( (item, index) =>
 			{
-				if ((item.wordposition-1) == this.state.mySelectedId)
+				// if ((item.wordposition-1) == this.state.mySelectedId)
+				if ((item.wordposition) == this.state.mySelectedId)
 				return (
 	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{item.timestamp}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
 		)}
@@ -995,6 +1056,7 @@ async send_word_message(){
     return (
 		<View style={{flex:1}}>
 		<View style={styles.FirstSection}>
+			<ScrollView>
 			<View  style={styles.RenderedView}>
 				<Text style={styles.UrduTitle}>
 					{this.state.poemText}
@@ -1004,6 +1066,7 @@ async send_word_message(){
 			<View style={styles.container}>
 			       {item5}
 			</View>
+	    {/*
 			<View style={styles.container}>
 	    			<Text >
 					Selected Word: 
@@ -1015,6 +1078,8 @@ async send_word_message(){
 					</Text>
 				</View>
 			</View>
+		*/}
+			</ScrollView>
 		</View>
 		<View style={styles.SecondSection}>
 			<ScrollView>
@@ -1058,24 +1123,37 @@ async send_word_message(){
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     justifyContent: 'space-between',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   button: {
     // backgroundColor: 'green',
     // flex: 2,
+    // justifyContent: 'space-between',
+    // flexDirection: 'row-reverse',
+    padding: 5,
     borderRadius: 10,
-    borderWidth: 1,
+    // borderColor: 'red',
     // width: '40%',
-    height: 40
+    // height: 40, 
+    padding: 10,
+	
+  },
+
+
+  buttonText : { 
+    // textAlign: 'center', 
+    textAlign: 'right', 
+    textAlignVertical: 'center',
+    fontSize: 18,
   },
   FirstSection: {
-    flex: 3,
+    flex: 2,
     borderWidth: 1,
   },
   SecondSection: {
-    flex: 2,
+    flex: 4,
     borderWidth: 1,
   },
   buttonSelected: {
