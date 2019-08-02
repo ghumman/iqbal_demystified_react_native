@@ -51,6 +51,16 @@ class InfoPage extends React.Component {
 		}
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'Settings',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
  onDidFocusCustomFunction = () => {
     console.log("Inside onDidFocusCustomFunction")
 
@@ -222,7 +232,9 @@ class InfoPage extends React.Component {
 		return (
 			<View>
 				<ScrollView>
+				{/*
 				<Text style={styles.EnglishTitle}>Settings</Text>	
+				*/}
 				<Text style={styles.RenderedText}>Choose Font</Text>
 	{showFontRadioForm}
 

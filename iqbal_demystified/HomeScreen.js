@@ -1,5 +1,5 @@
 import React from "react";
-import {TouchableOpacity,  TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import {TouchableOpacity,  TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet, Alert} from 'react-native';
 // import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import {NavigationEvents, createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 
@@ -51,6 +51,7 @@ constructor(props) {
 
 
     }
+	this.example = "Home Alone";
   }
 
 
@@ -148,8 +149,11 @@ constructor(props) {
           }
         }
 
+
         componentDidMount() {
-		// try creating the directory for mp3 files
+	
+
+
 		RNFS.mkdir( RNFS.DocumentDirectoryPath + '/Iqbal-Demystified').then(function(res) {
 			console.log("Iqbal-Demystified directory exists now");
 		})

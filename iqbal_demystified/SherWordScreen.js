@@ -56,10 +56,17 @@ class SherPage extends React.Component {
 		this.handleSubmitWord = this.handleSubmitWord.bind(this);
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+        	title: 'Word Meanings',
+		headerTitle: navigation.state.params.title || '',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
 
-   static navigationOptions = {
-        title: 'Word Meanings',
-    };
 
 	handleUserMessageSher(event) {
 		this.setState({userMessageSher: event.target.value})
@@ -367,6 +374,8 @@ async send_word_message(){
 
       	  that.setState({poemText: poemTextLocal});
       	  that.setState({sherGeneralDiscussionServerResponse : sherGeneralDiscussionServerResponseLocal});
+
+    	  that.props.navigation.setParams({ title: that.state.poemText })
 
           that.getSherDiscussion(sherGeneralDiscussionServerResponseLocal);
 	});	// data.json().then ends
@@ -1057,11 +1066,13 @@ async send_word_message(){
 		<View style={{flex:1}}>
 		<View style={styles.FirstSection}>
 			<ScrollView>
+	    		{/*
 			<View  style={styles.RenderedView}>
 				<Text style={styles.UrduTitle}>
 					{this.state.poemText}
 				</Text>
 			</View>
+			*/}
 
 			<View style={styles.container}>
 			       {item5}

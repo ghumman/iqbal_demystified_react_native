@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Image,  TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Platform,  ScrollView, Image,  TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import starLiked from './assets/android_app_assets/star_liked.png';
@@ -47,6 +47,28 @@ class ListPoemScreen extends React.Component {
 	    text: "Urdu",
     }   // this.state ends
         }       // constructor ends
+
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: navigation.state.params.title || '',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+		/*
+   static navigationOptions = {
+	         // headerTitle: this.state.bookNameUrdu,
+	         headerTitle: 'this.state.bookNameUrdu',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',*/
+		       /*fontSize: 20, 
+		       textAlign:'center',
+			   },
+    };
+    */
 
   starToggling = (poem) => {
 
@@ -343,6 +365,9 @@ class ListPoemScreen extends React.Component {
     that.setState({bookNameEnglish: yamlObject.name[1].text});
     that.setState({poemTextFinal: that.state.poemText});
 
+
+    that.props.navigation.setParams({ title: that.state.bookNameUrdu })
+
     // that.setState({bookSections: yamlObject.sections});
 
     console.log("bookNameUrdu: ");
@@ -456,6 +481,7 @@ renderItem = ({item}) => {
 
     return (
       <View style={styles.MainContainer}>
+	    		{/*
 			<View>
                                 <Text style={fontFamilyTitleVariable}>
                                         {this.state.bookNameUrdu}
@@ -466,6 +492,7 @@ renderItem = ({item}) => {
                                         {this.state.bookNameEnglish}
                                 </Text>
 			</View>
+			*/}
         <FlatList
           data={
 		this.state.poemTextFinal

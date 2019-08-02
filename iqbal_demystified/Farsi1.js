@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, Alert, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import {TouchableHighlight, Alert, Button, View, Text, Image, StyleSheet } from 'react-native';
 import {createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 
@@ -24,6 +24,7 @@ class Farsi1 extends React.Component {
 
    static navigationOptions = {
         title: 'Farsi (1)',
+	headerTitle: 'farsi',
     };
 
     onSubmit = (bookNumber) => {

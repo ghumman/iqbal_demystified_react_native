@@ -5,6 +5,7 @@ import { View, Text } from "react-native";
 // import { createBottomTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 
+import SplashScreen from './SplashScreen';
 import HomeScreen from './HomeScreen';
 import ListPoemScreen from './ListPoemScreen';
 import PoemScreen from './PoemScreen';
@@ -28,12 +29,63 @@ import DiscussionNavigator from './DiscussionTabsScreen';
 
 const AppNavigator = createStackNavigator(
     {
-    Home: HomeScreen,
+    Splash: {
+	  screen: SplashScreen, 
+	  navigationOptions: {
+		  header: null,
+		}
+    } ,
+    Home: {
+	  screen: HomeScreen,
+	  navigationOptions: {
+		  header: null,
+		}
+    } ,
     ListPoem: ListPoemScreen,
-    TabFunction: TabNavigator,
-    SherTabs: SherNavigator,
-    BookmarksTabs: BookmarksNavigator,
-    DiscussionTabs: DiscussionNavigator,
+    TabFunction: {
+	    screen: TabNavigator,
+	  navigationOptions: {
+		  headerTitle: "Books",
+		  headerTintColor: 'red',
+		  headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+		}
+    },
+    SherTabs:  { 
+	    screen: SherNavigator,
+	  navigationOptions: {
+		  title: "Title set by App.js",
+		}
+    },
+
+    BookmarksTabs: {
+	    screen: BookmarksNavigator,
+	  navigationOptions: {
+		  headerTitle: "BookMarks",
+		  headerTintColor: 'red',
+		  headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+		}
+    }, 
+
+    DiscussionTabs: {
+	    screen: DiscussionNavigator,
+	  navigationOptions: {
+		  headerTitle: "Discussion",
+		  headerTintColor: 'red',
+		  headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+		}
+    },
     Poem: PoemScreen,
     Signin: SigninScreen,
     Register: RegisterScreen,
@@ -46,7 +98,8 @@ const AppNavigator = createStackNavigator(
     Details: DetailsScreen
   },
   {
-    initialRouteName: "Home"
+    // initialRouteName: "Home"
+    initialRouteName: "Splash"
     // initialRouteName: "Details"
   }
 );

@@ -57,10 +57,23 @@ class SherPage extends React.Component {
 		this.handleSubmitSher = this.handleSubmitSher.bind(this);
 		this.handleSubmitWord = this.handleSubmitWord.bind(this);
 	}
+	
+	static navigationOptions = ({ navigation }) => { 
+		return {
+        	title: 'Discussion',
+		}
+        	// tabBarLabel: 'Can you see me too',
+		/*
+		headerTitle: navigation.state.params.title || 'can you see me too',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+		 */
+	}
 
-   static navigationOptions = {
-        title: 'Discussion',
-    };
 
 	handleUserMessageSher(event) {
 		this.setState({userMessageSher: event.target.value})
@@ -342,6 +355,8 @@ async send_word_message(){
 
       	  that.setState({poemText: poemTextLocal});
       	  that.setState({sherGeneralDiscussionServerResponse : sherGeneralDiscussionServerResponseLocal});
+
+    	  that.props.navigation.setParams({ title: that.state.poemText })
 
           that.getSherDiscussion(sherGeneralDiscussionServerResponseLocal);
 	});	// data.json().then ends
@@ -983,11 +998,13 @@ onShare = async () => {
 */
     return (
 		<View style={{flex: 1}}>
+	    		{/*
 			<View  style={styles.RenderedView}>
 				<Text style={styles.UrduTitle}>
 				 {this.state.poemText}
 				</Text>
 			</View>
+			*/}
 			<View style={styles.MainScrollView}>
 				<ScrollView>
 				<View >	

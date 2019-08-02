@@ -16,6 +16,7 @@ const SherNavigator = createMaterialTopTabNavigator({
 
 	  {
 		      tabBarPosition: 'top',
+		      title: "Title set by SherTabsScreen.js",
 		      swipeEnabled: true,
 		      animationEnabled: true,
 		      tabBarOptions: {
@@ -36,6 +37,7 @@ const SherNavigator = createMaterialTopTabNavigator({
 					          },
 			          },
 		    }
+
 /*
   {
 tabBarOptions: {
@@ -53,6 +55,33 @@ tabBarOptions: {
 }
 */
 );
+
+SherNavigator.navigationOptions = ({ navigation }) => {
+	  // const { routeName } = navigation.state.routes[navigation.state.index];
+	 // const {routeName} = this.props.navigation.getParam('poemTitle');
+	 // const {routeName} = navigation.getParam('username');
+	 // const {routeName} = this.props.navigation.dangerouslyGetParent().getParam('username')
+	
+	// const {routeName} = navigation.state.params.profileUsername;
+	// const {routeName} = navigation.getParam("profileUsername");
+	// const {routeName} = "Hello world" 
+	// console.log("username from SherTabsScreen:");
+	// console.log(routeName);
+
+	// const headerTitle = routeName;
+	// const headerTitle = "Page1";
+	
+	const headerTitle = navigation.getParam("poemTitle");
+	    return {
+	        headerTitle,
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	    };
+	};
 
 
 

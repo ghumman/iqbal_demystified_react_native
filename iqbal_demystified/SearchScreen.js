@@ -59,6 +59,17 @@ class SearchPage extends React.Component {
 
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'Allama Iqbal Search Engine',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
+
 	handleAlphabet(alphabetValue) {
 		console.log("alphabetValue: ")
 		console.log(alphabetValue)
@@ -463,7 +474,8 @@ class SearchPage extends React.Component {
 */
 		return (
 			<View style={{flex: 1}}>
-				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text>
+				{/*
+				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text>*/}
      <View style={{flex: 1}}>
         <RadioForm
           radio_props={radio_props}

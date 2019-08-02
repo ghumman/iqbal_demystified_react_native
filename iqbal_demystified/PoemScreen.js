@@ -76,8 +76,19 @@ class PoemPage extends React.Component {
     this.setDrawerState = this.setDrawerState.bind(this);
 	}
 
+
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: navigation.state.params.title || '',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
   onSubmit = (sherNumber) => {
-	  this.props.navigation.navigate('SherTabs', {detailSher: sherNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
+	  this.props.navigation.navigate('SherTabs', {detailSher: sherNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password, poemTitle: this.state.poemNameUrdu });
 	/*
 	  this.props.history.push({
 		    pathname: '/SherPage',
@@ -211,6 +222,9 @@ class PoemPage extends React.Component {
 	  	*/
 	  that.setState({poemNameUrdu: yamlObject.heading[0].text});
 	  that.setState({poemNameEnglish: yamlObject.heading[1].text});
+
+
+    	  that.props.navigation.setParams({ title: that.state.poemNameUrdu })
 
 	  console.log("poemNameUrdu: ");
 	  console.log(yamlObject.heading[0].text);

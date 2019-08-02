@@ -62,23 +62,27 @@ class ProfilePage extends React.Component {
 			      	    leaderBoardTextWordConcat: [],
 
 			      	    dropdownState: 'discussion',
-tableHead: ['', 'Head1', 'Head2', 'Head3'],
-      tableTitle: ['Title', 'Title2', 'Title3', 'Title4'],
-      tableData: [
-        ['1', '2', '3'],
-        ['a', 'b', 'c'],
-        ['1', '2', '3'],
-        ['a', 'b', 'c']
-      ]
 
 			          };
 		this.dropChange = this.dropChange.bind(this);
 
 		  	}
+
+   static navigationOptions = {
+	       title: 'My Profile',
+	       headerStyle: {
+		         },
+			     	 headerTintColor: 'red',
+			         headerTitleStyle: {
+				       fontWeight: 'bold',
+	   			       fontSize: 20, 
+	   			       textAlign:'center',
+				           },
+    };
+	
   dropChange(event) {
 	      this.setState({dropdownState: event.target.value});
 	    }
-
 
 	componentDidUpdate(prevProps, prevState) {
 		
@@ -386,7 +390,7 @@ const state = this.state;
 				return (
 			<View style={{flex: 1}}>
 			<View style={{flex: 2}}>
-       	   			<Text style={styles.EnglishTitle}>My Profile</Text>
+					{/*<Text style={styles.EnglishTitle}>My Profile</Text>*/}
 				<View style={styles.UsernameView}>
 					<View style={styles.UsernameViewInner}>
 						<Text style={styles.Username}>{this.state.username}</Text>

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, Alert, Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import {TouchableHighlight, Alert, Button, View, Text, Image, StyleSheet } from 'react-native';
 import {createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 // following are books in second tab - Farsi 2
