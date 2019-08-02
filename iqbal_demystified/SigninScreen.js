@@ -40,6 +40,16 @@ class Signin extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'Sign In',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
 	login() {
 		if(this.state.username != "" && this.state.password != "") {
 			this.try_login(this.state.username, this.state.password);
@@ -187,9 +197,11 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 */
 		return (
 			<View>
+				{/*
 				<Text style={styles.EnglishTitle}>
 					SIGN IN
 				</Text>
+				*/}
 				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'

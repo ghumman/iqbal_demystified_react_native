@@ -22,6 +22,16 @@ class ForgotPassword extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'Forgot Password',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
 
 	// handlechange
 	handleChangeEmail(event) {
@@ -134,9 +144,11 @@ class ForgotPassword extends React.Component {
 */
 		return (
 			<View>
+				{/*
 				<Text style={styles.EnglishTitle}>
 					FORGOT PASSWORD
 				</Text>
+				*/}
 				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'

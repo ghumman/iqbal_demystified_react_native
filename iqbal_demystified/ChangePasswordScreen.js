@@ -39,6 +39,16 @@ class ChangePassword extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'Change Password',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
 
 	// handlechange
 	handleChangeCurrentPassword(event) {
@@ -234,9 +244,11 @@ AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
 			*/
 		return (
 			<View>
+				{/*
 				<Text style={styles.EnglishTitle}>
 					CHANGE PASSWORD
 				</Text>
+				*/}
 				<View style={styles.RenderedView}>
 				<TextInput
 				  autoCapitalize= 'none'

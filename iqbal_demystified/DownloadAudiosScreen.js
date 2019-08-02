@@ -59,6 +59,16 @@ class PoemPage extends React.Component {
 		}
 	}
 
+	static navigationOptions = ({ navigation }) => ({ 
+		headerTitle: 'My Downloads',
+		 headerTintColor: 'red',
+		 headerTitleStyle: {
+		       fontWeight: 'bold',
+		       fontSize: 20, 
+		       textAlign: 'center',
+		 },
+	})
+
   onSubmit = (sherNumber) => {
 	  this.props.navigation.navigate('SherTabs', {detailSher: sherNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
 	/*
@@ -856,12 +866,13 @@ else
 	{videoSetup}
 
 
-
+			{/*
 			<View style={{flex: 0.2}}>
                                 <Text style={styles.UrduTitle}>
 					My Downloads
                                 </Text>
 			</View>
+			*/}
 			
 			<View style={{flex: 2}}>
 			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
