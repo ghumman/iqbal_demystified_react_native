@@ -1,7 +1,7 @@
 // In App.js in a new project
 
 import React from "react";
-import { View, Text } from "react-native";
+import {Platform, View, Text } from "react-native";
 // import { createBottomTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 import { createMaterialTopTabNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 
@@ -99,7 +99,7 @@ const AppNavigator = createStackNavigator(
   },
   {
     // initialRouteName: "Home"
-    initialRouteName: "Splash"
+	  initialRouteName: Platform.OS==='ios'?'Home':'Splash',
     // initialRouteName: "Details"
   }
 );
