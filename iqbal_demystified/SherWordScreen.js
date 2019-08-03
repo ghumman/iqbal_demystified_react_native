@@ -1,5 +1,5 @@
 import React from 'react'
-import {Platform, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Image, Platform, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import Moment from 'moment';
@@ -18,6 +18,9 @@ import Moment from 'moment';
 // import Divider from '@material-ui/core/Divider';
 
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
+import iconUpVote from './assets/android_app_assets/vote_up_unselected.png';
+import iconDownVote from './assets/android_app_assets/vote_down_unselected.png';
 
 var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
@@ -523,6 +526,102 @@ async send_word_message(){
 	//	Vote Like Word
 	///////////////////////////////////////////////////////////
 
+    vote_like_word_arrow(comment_general_id) {
+
+	console.log("Value of comment_general_id");
+	console.log(comment_general_id);
+
+	var that = this;
+	if (this.state.username != ""){
+	try{
+		// var element = this;
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:1, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=1&is_cancel=0"
+			}).then(async function(data){
+			data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
+				console.log("data");
+				console.log(data);
+				if (data == "vote registered"){
+					Alert.alert("Vote registered.");
+					that.getSherWordDiscussion(that.state.sherId);	
+				}
+				else if (data == "vote already registered") {
+					// Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
+					// this.toggle_word(idx);
+					
+	try{
+		// var element = this;
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=1"
+		}).then(async function(data){ 
+		data.text().then(async function(data) {
+
+                 	// success: (data) => {	// success funciton starts
+				console.log("data");
+				console.log(data);
+				if (data == "vote removed"){
+					// this.toggle_word(idx);
+					Alert.alert("Vote removed.");
+					that.getSherWordDiscussion(that.state.sherId);	
+				}
+				else if (data == "invalid is_cancel value") {
+					Alert.alert("You have not liked or disliked it yet.");
+				}
+	
+		});	// data.text.then.func ends
+
+                 	})	// success function ends
+		// });	// ajax call ends
+	}catch(err){
+		Alert.alert("inside catch err");
+		Alert.alert(err);
+		// this.message = err;
+	}
+				}
+	
+		});	// data.text.then.func ends
+
+                 	})	// success function ends
+		// });	// ajax call ends
+	}catch(err){
+		Alert.alert("inside catch err");
+		Alert.alert(err);
+		// this.message = err;
+	}
+	}	// if username not empty ends
+	else{
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
+	}
+
+	console.log("messageSher sent to send sher message function");
+	// console.log(this.messageSher);
+    }
+
     vote_like_word(comment_general_id) {
 
 	console.log("Value of comment_general_id");
@@ -580,6 +679,105 @@ async send_word_message(){
 	//	Vote Dislike Word
 	///////////////////////////////////////////////////////////
 
+    vote_dislike_word_arrow(comment_general_id){
+
+
+	console.log("Value of comment_general_id");
+	console.log(comment_general_id);
+
+	var that = this;
+
+	if (this.state.username != ""){
+	try{
+		// var element = this;
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:0}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=0"
+		}).then(function(data){ 
+		data.text().then(async function(data) {
+                 	// success: (data) => {	// success funciton starts
+				console.log("data");
+				console.log(data);
+				if (data == "vote registered") {
+					Alert.alert("Vote registered.");
+					that.getSherWordDiscussion(that.state.sherId);	
+				}
+				else if (data == "vote already registered"){
+					// Alert.alert("Vote is already registerd. Unregister vote first and then you can revote");
+					// this.toggle_word(idx);
+					
+	try{
+		// var element = this;
+		// $.ajax({
+		fetch(
+			// url: 'https://icanmakemyownapp.com/iqbal/v3/vote.php',
+			'https://icanmakemyownapp.com/iqbal/v3/vote.php',{
+                	// type: 'POST',
+                	method: 'POST',
+                 	// dataType: 'text',
+			headers: {
+            // 'Content-Type': 'text/plain',
+	    'Content-Type': 'application/x-www-form-urlencoded'
+        },
+		 	// data: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1},
+		 	// body: {sher: this.state.sherId, discussion_type: "word-meanings", comment_id:comment_general_id, username: this.state.username, password: this.state.password, is_like:0, is_cancel:1}
+		 	body: "sher=" + that.state.sherId + "&discussion_type=word-meanings&comment_id=" + comment_general_id + "&username=" + that.state.username + "&password=" + that.state.password + "&is_like=0&is_cancel=1"
+		}).then(async function(data){ 
+		data.text().then(async function(data) {
+
+                 	// success: (data) => {	// success funciton starts
+				console.log("data");
+				console.log(data);
+				if (data == "vote removed"){
+					// this.toggle_word(idx);
+					Alert.alert("Vote removed.");
+					that.getSherWordDiscussion(that.state.sherId);	
+				}
+				else if (data == "invalid is_cancel value") {
+					Alert.alert("You have not liked or disliked it yet.");
+				}
+	
+		});	// data.text.then.func ends
+
+                 	})	// success function ends
+		// });	// ajax call ends
+	}catch(err){
+		Alert.alert("inside catch err");
+		Alert.alert(err);
+		// this.message = err;
+	}
+
+
+				}
+	
+		});	// data.text.then.func ends
+
+                 	})	// success function ends
+		// });	// ajax call ends
+	}catch(err){
+		Alert.alert("inside catch err");
+		Alert.alert(err);
+		this.message = err;
+	}
+	}	// if username not empty ends
+	else{
+		Alert.alert("You are you not logged in. Please Login to give your feedback.");
+	}
+
+	console.log("messageSher sent to send sher message function");
+	// console.log(this.messageSher);
+    }
     vote_dislike_word(comment_general_id){
 
 
@@ -992,10 +1190,18 @@ async send_word_message(){
 		var item7 = this.state.wordDiscussionDetail.map( (item, index) =>
 			{
 				// if ((item.wordposition-1) == this.state.mySelectedId)
+				/*
 				if ((item.wordposition) == this.state.mySelectedId)
 				return (
 	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{Moment(item.timestamp).format('MMM DD, YYYY')}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
-		)}
+		)
+				*/
+
+				if ((item.wordposition) == this.state.mySelectedId)
+				return (
+	 <View style={{flex:1, flexDirection: 'row'}}><View style={{flex: 0.1, flexDirection: 'column'}}><View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><TouchableHighlight onPress={() =>this.vote_like_word_arrow(item.id)} ><Image resizeMode='stretch' style={{height: 30, width: 30}}  source={iconUpVote}/></TouchableHighlight></View><View style={{flex: 0.2, alignItems: 'center', justifyContent: 'center'}}><Text style={{fontSize: 24, fontWeight: 'bold', textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>{item.score}</Text></View><View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}><TouchableHighlight onPress={() =>this.vote_dislike_word_arrow(item.id)} ><Image resizeMode='stretch' style={{height: 30, width: 30}} source={iconDownVote}/></TouchableHighlight></View></View><View key={item.id} style={[styles.RenderedItem6View, styles.flexPoint8]}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{Moment(item.timestamp).format('MMM DD, YYYY')}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View></View></View>
+		)
+			}
 		)
 
   	let signinTag
@@ -1202,6 +1408,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
+  flexPoint8: {
+   flex: 0.8,
+  },
   RenderedItem6View: {
    backgroundColor: 'skyblue',
    margin: 20,

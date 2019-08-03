@@ -1,9 +1,12 @@
 import React from 'react'
-import {ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Image, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 // import Tabs from './Tabs'
 
 import AsyncStorage from '@react-native-community/async-storage';
+
+import starLiked from './assets/android_app_assets/star_liked.png';
+import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
 // for formatting
 // import './TabView1.css';
@@ -13,6 +16,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 // import PoemPage from './PoemPage';
 
+var RNFS = require('react-native-fs');
 var YAML = require('yaml')
 
 const FONT = "Normal";
@@ -104,12 +108,125 @@ class CommentsPage extends React.Component {
 
     }
 
+  starToggling = (sher) => {
+
+	var that = this;
+
+
+       this.readBookmarks().then(function(result)	{
+	
+		
+		console.log("result");
+		console.log(result);
+
+	// create a path you want to write to
+	// :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
+	// but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
+
+
+       
+	if (result.includes(sher.id)){
+		var index = result.indexOf(sher.id);
+		if (index > -1)	{
+			result.splice(index, 7);
+		}
+
+		console.log("result");
+		console.log(result);
+		
+		var newData = result.join('@');
+
+		console.log("newData");
+		console.log(newData);
+
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+
+		// var sherNumberComma = sherNumber + ',';
+
+
+		// write the file
+		RNFS.writeFile(path, newData, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+
+		  // let poemName = that.props.navigation.getParam('detailPoem');
+		  // console.log("In poempage.js inside starToggling if");
+		  // that.getPoem(poemName);
+            	  that.getSherRecentListFromServer()
+			
+
+	}
+	else{
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+
+		// var sherNumberComma = sherNumber + ',';
+		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@' + sher.sherContent[2].text[0] + '@' + sher.sherContent[2].text[1] + '@';
+
+
+		// write the file
+		RNFS.appendFile(path, sherAt, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+		
+		
+		  // let poemName = that.props.navigation.getParam('detailPoem');
+		  // console.log("In poempage.js inside starToggling else");
+		  // that.getPoem(poemName);
+	
+            	  that.getSherRecentListFromServer()
+	}
+	})
+
+
+  }
+
+	async readBookmarks() { 
+
+		const path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+		try {
+			const yamlFile = await RNFS.readFile(path, "utf8")
+			var partsOfStr = yamlFile.split('@');
+			return partsOfStr;
+		}
+		catch(e) {
+			return "";
+		}
+
+	}
+
     getRecentSher(sherRecentList) {
 	var that = this;
         // var response = StaticContentService.getRecentSher(sherRecentList)
         StaticContentService.getRecentSher(sherRecentList).then(function(response){
 		console.log("Back from Static Content Service.sherRecentList call, response: ")
 		console.log(response)
+
+       that.readBookmarks().then(function(result)	{
+	
+		
+		console.log("result");
+		console.log(result);
+	
+	  for (var i=0; i<response.sher.length; i++) {
+
+		  try {
+			if (result.includes(response.sher[i].id))
+				response.sher[i].star = true;
+			else
+				response.sher[i].star = false;
+		  }
+			catch(e) {
+		    console.log("catch caught an error");
+			}
+	  }
         let newArr = [response.sher]
         console.log("Value of newArr inside getRecentSher inside then function responseafter newArr = response.sher")
         console.log(newArr)
@@ -151,6 +268,7 @@ class CommentsPage extends React.Component {
         that.setState({
             recentData: newArr[0]
         })
+	})	// readBookmark . then ends
 	})	// then func response ends
 
     }
@@ -340,12 +458,23 @@ renderItem = ({item}) => {
 			fontFamilyTextVariable = styles.RenderedTextFajer;
 			break;
 	}
+          if (item.star) {
 		if (that.state.text == 'Urdu') {
-          		return  <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>
+          		return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 		}
 		else if (that.state.text == 'Roman') {
-          		return  <TouchableHighlight onPress={() => this.onSubmit(item.id)}><View style={styles.RenderedView}><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight>
+          		return  <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
 		}
+	}
+	else {
+		if (that.state.text == 'Urdu') {
+          		return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+		}
+		else if (that.state.text == 'Roman') {
+          		return  <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight onPress={() => this.onSubmit(item.id)}><View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontFamilyTextVariable}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+		}
+
+	}
 
 }
 
@@ -379,7 +508,7 @@ const styles = StyleSheet.create({
   },
   RenderedView: {
     // height: 44,
-    borderRadius: 4,
+    // borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
   },
