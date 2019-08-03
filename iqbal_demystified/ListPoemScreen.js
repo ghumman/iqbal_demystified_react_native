@@ -447,7 +447,8 @@ renderItem = ({item}) => {
 			
 			}
 			else 
-				return <View><Text style={fontFamilyTextVariable}>{item.textUrdu}</Text><Text style={fontFamilyTextVariable}>{item.textEnglish}</Text></View>
+				// return <View><Text style={fontFamilyTextVariable}>{item.textUrdu}</Text><Text style={fontFamilyTextVariable}>{item.textEnglish}</Text></View>
+				return <View style={{backgroundColor: '#C0C0C0'}}><Text style={{fontSize: 14, padding: 10}}>{item.textUrdu}</Text><Text style={{fontSize: 14, padding: 10}}>{item.textEnglish}</Text></View>
 
 }
 
