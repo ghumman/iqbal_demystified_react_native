@@ -709,8 +709,10 @@ setFontSizeIfNotSet = (appendment) => {
 		  if (res <= (FONT_MIN_SIZE))
 			Alert.alert("This is the smallest font size")
 		  else {
-			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) - 1).toString())
-	  		this.setState({fontGlobalSize: (parseInt(res)-1)});
+			// AsyncStorage.setItem(FONT_SIZE, (parseInt(res) - 1).toString())
+	  		// this.setState({fontGlobalSize: (parseInt(res)-1)});
+			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) - 4).toString())
+	  		this.setState({fontGlobalSize: (parseInt(res)-4)});
 		  }
 	  }
 	  // if appendment is 1 i.e. you have pressed Zoom In, it will check if FONT_SIZE is set to maximum it will give alert otherwise it will increse the global FONT_SIZE and state variable fontGlobalSize
@@ -723,8 +725,10 @@ setFontSizeIfNotSet = (appendment) => {
 		  if (res >= (FONT_MAX_SIZE))
 			Alert.alert("This is the largest font size")
 		  else {
-			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 1).toString())
-	  		this.setState({fontGlobalSize: (parseInt(res)+1)});
+			// AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 1).toString())
+	  		// this.setState({fontGlobalSize: (parseInt(res)+1)});
+			AsyncStorage.setItem(FONT_SIZE, (parseInt(res) + 4).toString())
+	  		this.setState({fontGlobalSize: (parseInt(res)+4)});
 		  }
 	  }
 

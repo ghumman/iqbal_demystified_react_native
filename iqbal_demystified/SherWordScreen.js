@@ -1,6 +1,9 @@
 import React from 'react'
 import {Platform, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
+
+import Moment from 'moment';
+
 // import Tabs from './Tabs';
 
 // for formatting
@@ -905,6 +908,8 @@ async send_word_message(){
 	render() {
 
 
+		Moment.locale('en');
+
 		var item4 = this.state.sherText.map( (item, index) =>
 			<Text key={item.index}> {item}</Text>
 			/*<p key={item.index}> {item}</p>*/
@@ -989,7 +994,7 @@ async send_word_message(){
 				// if ((item.wordposition-1) == this.state.mySelectedId)
 				if ((item.wordposition) == this.state.mySelectedId)
 				return (
-	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{item.timestamp}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
+	  <View key={item.id} style={styles.RenderedItem6View}><View style={styles.NavBar}><Text>{item.username}</Text><Text>{Moment(item.timestamp).format('MMM DD, YYYY')}</Text></View><View><Text style={styles.CommentsText}>{item.text}</Text></View><View style={styles.NavBar}><Button onPress={() => this.vote_like_word(item.id)} title='LIKE'/><Text>SCORE: {item.score}</Text><Button onPress={() => this.vote_dislike_word(item.id)} title='DISLIKE'/></View><View><Text></Text></View><View><Button onPress={() => this.vote_unregister_word(item.id)} title='UNREGISTER'/></View></View>
 		)}
 		)
 
