@@ -809,7 +809,7 @@ fontSizeVariableTitle = function(argument) {
 			    flexWrap: 'wrap',
 			     fontSize: argument,
 			    textAlign: 'center',
-			    fontWeight: 'bold',
+			    // fontWeight: 'bold',
 			    color: '#FF0000',
 			    // color: 'blue',
 			   }
@@ -819,10 +819,11 @@ fontSizeVariableTitle = function(argument) {
 			// fontFamilyTextVariable = styles.RenderedTextNafees;
 			   return {
 			    flexWrap: 'wrap',
-    			    fontFamily: 'NafeesNastaleeq',
+    			    // fontFamily: 'NafeesNastaleeq',
+    			    fontFamily: 'Nafees Nastaleeq v1.02',
 			    fontSize: argument,
 			    textAlign: 'center',
-			    fontWeight: 'bold',
+			    // fontWeight: 'bold',
 			    color: '#FF0000',
 			    // color: 'blue',
 			   }
@@ -833,10 +834,11 @@ fontSizeVariableTitle = function(argument) {
 
 			   return {
 			    flexWrap: 'wrap',
-    			    fontFamily: 'JameelNooriKasheeda',
+    			    // fontFamily: 'JameelNooriKasheeda',
+    			    fontFamily: 'Jameel Noori Kasheeda',
 			    fontSize: argument,
 			    textAlign: 'center',
-			    fontWeight: 'bold',
+			    // fontWeight: 'bold',
 			    color: '#FF0000',
 			    // color: 'blue',
 			   }
@@ -846,10 +848,11 @@ fontSizeVariableTitle = function(argument) {
 			// fontFamilyTextVariable = styles.RenderedTextFajer;
 			   return {
 			    flexWrap: 'wrap',
-    			    fontFamily: 'FajerNooriNastalique',
+    			    // fontFamily: 'FajerNooriNastalique',
+    			    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
 			    fontSize: argument,
 			    textAlign: 'center',
-			    fontWeight: 'bold',
+			    // fontWeight: 'bold',
 			    color: '#FF0000',
 			    // color: 'blue',
 			   }
@@ -875,7 +878,8 @@ fontSizeVariable = function(argument) {
 			// fontFamilyTitleVariable = styles.UrduTitleNafees;
 			// fontFamilyTextVariable = styles.RenderedTextNafees;
 			   return {
-    			    fontFamily: 'NafeesNastaleeq',
+    			    // fontFamily: 'NafeesNastaleeq',
+    			    fontFamily: 'Nafees Nastaleeq v1.02',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -888,7 +892,8 @@ fontSizeVariable = function(argument) {
 			// fontFamilyTextVariable = styles.RenderedTextKasheeda;
 
 			   return {
-    			    fontFamily: 'JameelNooriKasheeda',
+    			    // fontFamily: 'JameelNooriKasheeda',
+    			    fontFamily: 'Jameel Noori Kasheeda',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -900,7 +905,8 @@ fontSizeVariable = function(argument) {
 			// fontFamilyTitleVariable = styles.UrduTitleFajer;
 			// fontFamilyTextVariable = styles.RenderedTextFajer;
 			   return {
-    			    fontFamily: 'FajerNooriNastalique',
+    			    // fontFamily: 'FajerNooriNastalique',
+    			    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -1241,7 +1247,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextNafees: {
-    fontFamily: 'NafeesNastaleeq',
+    // fontFamily: 'NafeesNastaleeq',
+    fontFamily: 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1250,7 +1257,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextKasheeda: {
-    fontFamily: 'JameelNooriKasheeda',
+    // fontFamily: 'JameelNooriKasheeda',
+    fontFamily: 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1259,7 +1267,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextFajer: {
-    fontFamily: 'FajerNooriNastalique',
+    // fontFamily: 'FajerNooriNastalique',
+    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1289,7 +1298,8 @@ const styles = StyleSheet.create({
   },
 
   UrduTitleNafees: { 
-    fontFamily: 'NafeesNastaleeq',
+    // fontFamily: 'NafeesNastaleeq',
+    fontFamily: 'Nafees Nastaleeq v1.02',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -1297,7 +1307,8 @@ const styles = StyleSheet.create({
   },
 
   UrduTitleKasheeda: { 
-    fontFamily: 'JameelNooriKasheeda',
+    // fontFamily: 'JameelNooriKasheeda',
+    fontFamily: 'Jameel Noori Kasheeda',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -1305,7 +1316,8 @@ const styles = StyleSheet.create({
   },
   
   UrduTitleFajer: { 
-    fontFamily: 'FajerNooriNastalique',
+    // fontFamily: 'FajerNooriNastalique',
+    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',

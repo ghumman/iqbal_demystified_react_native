@@ -418,6 +418,8 @@ renderItem = ({item}) => {
 
 	var that = this;
 	var fontFamilyTextVariable;
+	console.log("this.state.font")
+	console.log(this.state.font)
 	switch(this.state.font) {
 		case 'Normal': 
 			fontFamilyTextVariable = styles.RenderedTextNormal;
@@ -482,6 +484,15 @@ renderItem = ({item}) => {
 
     return (
       <View style={styles.MainContainer}>
+	    		{/*
+	    		<View><Text style={{fontFamily: 'Jameel Noori Kasheeda'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text style={{fontFamily: 'Jameel Noori Nastaleeq'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text style={{fontFamily: 'asunaskh'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text style={{fontFamily: 'Fajer Noori Nastalique 15-12-2006'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text style={{fontFamily: 'Nafees Nastaleeq v1.02'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text style={{fontFamily: 'Pak Nastaleeq (Beta Release)'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
+	    		<View><Text >اخلاص عمل مانگ نيا گان کہن س</Text></View>
+			*/}
 	    		{/*
 			<View>
                                 <Text style={fontFamilyTitleVariable}>
@@ -559,7 +570,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextNafees: {
-    fontFamily: 'NafeesNastaleeq',
+    // fontFamily: 'NafeesNastaleeq',
+    fontFamily: 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -568,7 +580,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextKasheeda: {
-    fontFamily: 'JameelNooriKasheeda',
+    // fontFamily: 'JameelNooriKasheeda',
+    fontFamily: 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -577,7 +590,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextFajer: {
-    fontFamily: 'FajerNooriNastalique',
+    // fontFamily: 'FajerNooriNastalique',
+    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',

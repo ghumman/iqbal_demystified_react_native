@@ -72,15 +72,28 @@ SherNavigator.navigationOptions = ({ navigation }) => {
 	// const headerTitle = "Page1";
 	
 	const headerTitle = navigation.getParam("poemTitle");
-	    return {
-	        headerTitle,
-		 headerTintColor: 'red',
-		 headerTitleStyle: {
-		       fontWeight: 'bold',
-		       fontSize: 20, 
-		       textAlign: 'center',
-		 },
-	    };
+	    if (headerTitle != null) {
+		    return {
+			headerTitle,
+			 headerTintColor: 'red',
+			 headerTitleStyle: {
+			       fontWeight: 'bold',
+			       fontSize: 20, 
+			       textAlign: 'center',
+			 },
+		    };
+	    } else {
+		    return {
+			 headerTitle: "Discussion",
+			 headerTintColor: 'red',
+			 headerTitleStyle: {
+			       fontWeight: 'bold',
+			       fontSize: 20, 
+			       textAlign: 'center',
+			 },
+		    };
+
+	    }
 	};
 
 

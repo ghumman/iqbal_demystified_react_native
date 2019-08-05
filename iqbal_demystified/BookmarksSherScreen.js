@@ -344,7 +344,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextNafees: {
-    fontFamily: 'NafeesNastaleeq',
+    // fontFamily: 'NafeesNastaleeq',
+    fontFamily: 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -353,7 +354,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextKasheeda: {
-    fontFamily: 'JameelNooriKasheeda',
+    // fontFamily: 'JameelNooriKasheeda',
+    fontFamily: 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -362,7 +364,8 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextFajer: {
-    fontFamily: 'FajerNooriNastalique',
+    // fontFamily: 'FajerNooriNastalique',
+    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
