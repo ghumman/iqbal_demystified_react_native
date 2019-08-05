@@ -28,7 +28,7 @@ const DiscussionNavigator = createMaterialTopTabNavigator({
 					          },
 			            labelStyle: {
 					            textAlign: 'center',
-						    fontSize: 18,
+						    fontSize: 14,
 						    fontWeight: 'bold',
 					          },
 			            indicatorStyle: {
@@ -37,22 +37,6 @@ const DiscussionNavigator = createMaterialTopTabNavigator({
 					          },
 			          },
 		    }
-/*
-{
-tabBarOptions: {
-  labelStyle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20, 
-   
-  },
-  style: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}
-}
-*/
 );
 
 

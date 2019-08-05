@@ -64,7 +64,7 @@ class SearchPage extends React.Component {
 		 headerTintColor: 'red',
 		 headerTitleStyle: {
 		       fontWeight: 'bold',
-		       fontSize: 20, 
+		       fontSize: 10, 
 		       textAlign: 'center',
 		 },
 	})
