@@ -1,5 +1,5 @@
 import React from 'react'
-import {TouchableOpacity, Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Platform, TouchableOpacity, Modal, Linking, ImageBackground, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import ActionBar from 'react-native-action-bar';
@@ -820,7 +820,8 @@ fontSizeVariableTitle = function(argument) {
 			   return {
 			    flexWrap: 'wrap',
     			    // fontFamily: 'NafeesNastaleeq',
-    			    fontFamily: 'Nafees Nastaleeq v1.02',
+    			    // fontFamily: 'Nafees Nastaleeq v1.02',
+    			    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
 			    fontSize: argument,
 			    textAlign: 'center',
 			    // fontWeight: 'bold',
@@ -835,7 +836,8 @@ fontSizeVariableTitle = function(argument) {
 			   return {
 			    flexWrap: 'wrap',
     			    // fontFamily: 'JameelNooriKasheeda',
-    			    fontFamily: 'Jameel Noori Kasheeda',
+    			    // fontFamily: 'Jameel Noori Kasheeda',
+    			    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
 			    fontSize: argument,
 			    textAlign: 'center',
 			    // fontWeight: 'bold',
@@ -849,7 +851,8 @@ fontSizeVariableTitle = function(argument) {
 			   return {
 			    flexWrap: 'wrap',
     			    // fontFamily: 'FajerNooriNastalique',
-    			    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    			    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    			    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
 			    fontSize: argument,
 			    textAlign: 'center',
 			    // fontWeight: 'bold',
@@ -879,7 +882,8 @@ fontSizeVariable = function(argument) {
 			// fontFamilyTextVariable = styles.RenderedTextNafees;
 			   return {
     			    // fontFamily: 'NafeesNastaleeq',
-    			    fontFamily: 'Nafees Nastaleeq v1.02',
+    			    // fontFamily: 'Nafees Nastaleeq v1.02',
+    			    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -893,7 +897,8 @@ fontSizeVariable = function(argument) {
 
 			   return {
     			    // fontFamily: 'JameelNooriKasheeda',
-    			    fontFamily: 'Jameel Noori Kasheeda',
+    			    // fontFamily: 'Jameel Noori Kasheeda',
+    			    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -906,7 +911,8 @@ fontSizeVariable = function(argument) {
 			// fontFamilyTextVariable = styles.RenderedTextFajer;
 			   return {
     			    // fontFamily: 'FajerNooriNastalique',
-    			    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    			    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    			    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
 			    fontSize: argument,
 			    flexShrink: 1,
 			    flexWrap: 'wrap',
@@ -1248,7 +1254,8 @@ const styles = StyleSheet.create({
 
   RenderedTextNafees: {
     // fontFamily: 'NafeesNastaleeq',
-    fontFamily: 'Nafees Nastaleeq v1.02',
+    // fontFamily: 'Nafees Nastaleeq v1.02',
+    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1258,7 +1265,8 @@ const styles = StyleSheet.create({
 
   RenderedTextKasheeda: {
     // fontFamily: 'JameelNooriKasheeda',
-    fontFamily: 'Jameel Noori Kasheeda',
+    // fontFamily: 'Jameel Noori Kasheeda',
+    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1268,7 +1276,8 @@ const styles = StyleSheet.create({
 
   RenderedTextFajer: {
     // fontFamily: 'FajerNooriNastalique',
-    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -1299,7 +1308,8 @@ const styles = StyleSheet.create({
 
   UrduTitleNafees: { 
     // fontFamily: 'NafeesNastaleeq',
-    fontFamily: 'Nafees Nastaleeq v1.02',
+    // fontFamily: 'Nafees Nastaleeq v1.02',
+    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -1308,7 +1318,8 @@ const styles = StyleSheet.create({
 
   UrduTitleKasheeda: { 
     // fontFamily: 'JameelNooriKasheeda',
-    fontFamily: 'Jameel Noori Kasheeda',
+    // fontFamily: 'Jameel Noori Kasheeda',
+    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -1317,7 +1328,8 @@ const styles = StyleSheet.create({
   
   UrduTitleFajer: { 
     // fontFamily: 'FajerNooriNastalique',
-    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',

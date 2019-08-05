@@ -389,7 +389,7 @@ const concatData = [this.state.leaderBoardTextEvenDiscussionName, this.state.lea
 const state = this.state;
 				return (
 			<View style={{flex: 1}}>
-			<View style={{flex: 2}}>
+			<View style={{flex: 1}}>
 					{/*<Text style={styles.EnglishTitle}>My Profile</Text>*/}
 				<View style={styles.UsernameView}>
 					<View style={styles.UsernameViewInner}>
@@ -415,8 +415,9 @@ const state = this.state;
 					</View>
 			   </View>
 
-			   <View style={{flex: 0.5}}>
-						<View style={{borderColor:'red',borderBottomWidth:1,borderTopWidth:1}}>
+			   <View style={{flex: 1}}>
+						{/*<View style={{borderColor:'red',borderBottomWidth:1,brderTopWidth:1}}>*/}
+						<View>
 
 						<Picker 
 						  selectedValue={this.state.dropdownState}

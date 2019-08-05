@@ -1,5 +1,5 @@
 import React from 'react'
-import {ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Platform, ScrollView,  Image,TextInput, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 
 import starLiked from './assets/android_app_assets/star_liked.png';
@@ -345,7 +345,8 @@ const styles = StyleSheet.create({
 
   RenderedTextNafees: {
     // fontFamily: 'NafeesNastaleeq',
-    fontFamily: 'Nafees Nastaleeq v1.02',
+    // fontFamily: 'Nafees Nastaleeq v1.02',
+    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -355,7 +356,8 @@ const styles = StyleSheet.create({
 
   RenderedTextKasheeda: {
     // fontFamily: 'JameelNooriKasheeda',
-    fontFamily: 'Jameel Noori Kasheeda',
+    // fontFamily: 'Jameel Noori Kasheeda',
+    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -365,7 +367,8 @@ const styles = StyleSheet.create({
 
   RenderedTextFajer: {
     // fontFamily: 'FajerNooriNastalique',
-    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',

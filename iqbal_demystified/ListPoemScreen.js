@@ -569,9 +569,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
+
   RenderedTextNafees: {
     // fontFamily: 'NafeesNastaleeq',
-    fontFamily: 'Nafees Nastaleeq v1.02',
+    // fontFamily: 'Nafees Nastaleeq v1.02',
+    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -581,7 +583,8 @@ const styles = StyleSheet.create({
 
   RenderedTextKasheeda: {
     // fontFamily: 'JameelNooriKasheeda',
-    fontFamily: 'Jameel Noori Kasheeda',
+    // fontFamily: 'Jameel Noori Kasheeda',
+    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
@@ -591,15 +594,15 @@ const styles = StyleSheet.create({
 
   RenderedTextFajer: {
     // fontFamily: 'FajerNooriNastalique',
-    fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
+    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
     padding: 10,
     fontSize: 18,
   },
-
-  MainContainer: {
+MainContainer: {
    flex: 1,
    alignItems: 'center',
    justifyContent: 'center'
@@ -626,7 +629,8 @@ const styles = StyleSheet.create({
   },
 
   UrduTitleNafees: { 
-    fontFamily: 'NafeesNastaleeq',
+    // fontFamily: 'NafeesNastaleeq',
+    fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -635,7 +639,8 @@ const styles = StyleSheet.create({
   },
 
   UrduTitleKasheeda: { 
-    fontFamily: 'JameelNooriKasheeda',
+    // fontFamily: 'JameelNooriKasheeda',
+    fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -644,7 +649,8 @@ const styles = StyleSheet.create({
   },
   
   UrduTitleFajer: { 
-    fontFamily: 'FajerNooriNastalique',
+    // fontFamily: 'FajerNooriNastalique',
+    fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
