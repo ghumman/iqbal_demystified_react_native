@@ -1,8 +1,10 @@
 import React from 'react'
-import { ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {Image, Platform, ScrollView, TextInput, Button, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import StaticContentService from './StaticContentServiceYaml'
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
+import starLiked from './assets/android_app_assets/star_liked.png';
+import starNotLiked from './assets/android_app_assets/star_not_liked.png';
 
 
 // for formatting
@@ -14,6 +16,7 @@ import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-
 
 // import PoemPage from './PoemPage';
 
+var RNFS = require('react-native-fs');
 var  YAML = require('yaml');
 
 var radio_props = [
@@ -48,7 +51,9 @@ class SearchPage extends React.Component {
 	    bookSections: [],
 	    onePoem: "",
 	    poemText: [],
-	    poemObjects: []
+	    poemObjects: [], 
+	    messageResults: "Results",
+
 
     }
 		this.handleSearchText = this.handleSearchText.bind(this);
@@ -105,7 +110,7 @@ class SearchPage extends React.Component {
 
 		console.log("Option selected is: ")
 		console.log(this.state.selectedOption)
-		event.preventDefault()
+		// event.preventDefault()
 
 		if (this.state.searchText.trim() != "") {
 			if (this.state.selectedOption == 'title'){
@@ -125,17 +130,226 @@ class SearchPage extends React.Component {
 		}
 	}
 
+  starTogglingSher = (sher) => {
+
+	var that = this;
+
+
+       this.readBookmarksSher().then(function(result)	{
+	
+		
+		console.log("result");
+		console.log(result);
+
+	// create a path you want to write to
+	// :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
+	// but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
+
+
+       
+	if (result.includes(sher.id)){
+		var index = result.indexOf(sher.id);
+		if (index > -1)	{
+			result.splice(index, 7);
+		}
+
+		console.log("result");
+		console.log(result);
+		
+		var newData = result.join('@');
+
+		console.log("newData");
+		console.log(newData);
+
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+
+		// var sherNumberComma = sherNumber + ',';
+
+
+		// write the file
+		RNFS.writeFile(path, newData, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+
+		  // let poemName = that.props.navigation.getParam('detailPoem');
+		  // console.log("In poempage.js inside starToggling if");
+		  // that.getPoem(poemName);
+		  that.handleSubmit();
+			
+
+	}
+	else{
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+
+		// var sherNumberComma = sherNumber + ',';
+		var sherAt = sher.id + '@' + sher.sherContent[0].text[0] + '@' + sher.sherContent[0].text[1] + '@' + sher.sherContent[1].text[0] + '@' + sher.sherContent[1].text[1] + '@' + sher.sherContent[2].text[0] + '@' + sher.sherContent[2].text[1] + '@';
+
+
+		// write the file
+		RNFS.appendFile(path, sherAt, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+		
+		
+		  // let poemName = that.props.navigation.getParam('detailPoem');
+		  // console.log("In poempage.js inside starToggling else");
+		  // that.getPoem(poemName);
+		
+		  that.handleSubmit();
+
+	}
+	})
+
+
+  }
+
+	async readBookmarksSher() { 
+
+		const path = RNFS.DocumentDirectoryPath + '/bookmarked-shers.txt';
+		try {
+			const yamlFile = await RNFS.readFile(path, "utf8")
+			var partsOfStr = yamlFile.split('@');
+			return partsOfStr;
+		}
+		catch(e) {
+			return "";
+		}
+
+	}
+
+  starToggling = (poem) => {
+
+	var that = this;
+
+
+       this.readBookmarks().then(function(result)	{
+	
+		
+		console.log("result");
+		console.log(result);
+
+	// create a path you want to write to
+	// :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
+	// but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
+
+
+       
+	if (result.includes(poem.id)){
+		console.log("poem is in the file")
+		var index = result.indexOf(poem.id);
+		if (index > -1)	{
+			result.splice(index, 3);
+		}
+
+		console.log("result");
+		console.log(result);
+		
+		var newData = result.join('@');
+
+		console.log("newData");
+		console.log(newData);
+
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
+
+
+
+		// write the file
+		RNFS.writeFile(path, newData, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+
+                        // let bookName = that.props.navigation.getParam('detailBook');
+		  	// console.log("In listPoemScreen.js inside starToggling if");
+                        // that.getPoemListSearch(poem.id);
+			that.handleSubmit();
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+
+			
+
+	}
+	else{
+
+		console.log("poem is not in the file")
+		var path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
+
+		// var sherNumberComma = sherNumber + ',';
+		var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
+
+
+		// write the file
+		RNFS.appendFile(path, sherNumberComma, 'utf8')
+		  .then((success) => {
+		    console.log('FILE WRITTEN!');
+                        // let bookName = that.props.navigation.getParam('detailBook');
+		  	// console.log("In listPoemScreen.js inside starToggling else");
+                        // that.getPoemListSearch(poem.id);
+			that.handleSubmit();
+		  })
+		  .catch((err) => {
+		    console.log(err.message);
+		  });
+		
+		
+	}
+	})
+
+
+  }
+
+	async readBookmarks() { 
+
+		const path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
+		try {
+			const yamlFile = await RNFS.readFile(path, "utf8")
+			var partsOfStr = yamlFile.split('@');
+			return partsOfStr;
+		}
+		catch(e) {
+			return "";
+		}
+
+	}
 
   getPoemListSearch (listId) {
 
     var that = this;
-    // var response = StaticContentService.getPoemListSearch(listId);
+    this.setState({messageResults: "Searching..."})
+    that.setState({poemList : [] })
     StaticContentService.getPoemListSearch(listId).then(function(response){
 	    console.log("Reseponse");
 	    console.log(response);
+    	that.readBookmarks().then(function(result)	{
+	    console.log("Result");
+	    console.log(result);
+	  for (var i=0; i<response.poems.length; i++) {
+		if (result.includes(response.poems[i].id)) {
+			response.poems[i].star = true;
+			console.log("star added")
+		}
+		else	{
+			response.poems[i].star = false;
+			console.log("star not added")
+		}
+	  }
+
+
+
 	    that.setState({poemList : response.poems })
 	    console.log("poemList");
 	    console.log(that.state.poemList);
+    	    that.setState({messageResults: "No Results Found"})
+    })
     })
 
   }
@@ -145,10 +359,30 @@ class SearchPage extends React.Component {
    
     var that = this;
 
+    this.setState({messageResults: "Searching..."})
+    that.setState({sherList : [] })
+
     // var response = StaticContentService.getPoemSearch(poemId)
     StaticContentService.getPoemSearch(poemId).then(function(response){
 	    console.log("Reseponse");
 	    console.log(response);
+    	that.readBookmarksSher().then(function(result)	{
+	    console.log("Result");
+	    console.log(result);
+
+	  for (var i=0; i<response.sher.length; i++) {
+
+		  try {
+			if (result.includes(response.sher[i].id))
+				response.sher[i].star = true;
+			else
+				response.sher[i].star = false;
+		  }
+			catch(e) {
+		    console.log("catch caught an error");
+			}
+	  }
+
 	    response.sher.map(el => {
 				el.sherContent[0].text = el.sherContent[0].text.split('|')
 				console.log(el.sherContent[0].text)
@@ -175,6 +409,8 @@ class SearchPage extends React.Component {
 	    console.log(response);
 
 	    that.setState({sherList : response.sher })
+    	    that.setState({messageResults: "No Results Found"})
+    })
     })
 	}
 
@@ -261,24 +497,44 @@ class SearchPage extends React.Component {
 		var lenghtSher = this.state.sherList.length
 		if (this.state.selectedOption  === "title") {
 					if (this.state.poemList.length != 0) {
-
-					var itemsPoemOrSher = this.state.poemList.map((item, key) =>
-						<View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View>
-					);
+					
+						var that = this;
+						var itemsPoemOrSher = this.state.poemList.map( function (item, index) {
+					// var itemsPoemOrSher = this.state.poemList.map((item, key) =>
+          		 		if (item.star) {
+						return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><Text style={styles.RenderedText} key={item.id} onPress={() =>that.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View></View>
+						// return <View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View>
 					}
 					else {
-					var itemsPoemOrSher = <Text>No Results Found</Text>
+						return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><Text style={styles.RenderedText} key={item.id} onPress={() =>that.onSubmitPoem(item.id)}>{item.poemName[0].text}</Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitPoem(item.id)}> {item.poemName[1].text} </Text></View></View>
+					}
+		
+					});
+					}
+					else {
+					var itemsPoemOrSher = <View style={{alignItems: 'center', justifyContent: 'center'}}><Text style={{padding: 10, fontSize: 18}}>{this.state.messageResults}</Text></View>
 					}
 
 		}
 		else {
 			if (this.state.sherList.length != 0){
-				var itemsPoemOrSher = this.state.sherList.map((item, key) =>
-					<View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View>
-				);
+				var that = this;
+				var itemsPoemOrSher = this.state.sherList.map( function (item, index) {
+				// var itemsPoemOrSher = this.state.sherList.map((item, key) =>
+          		 	if (item.star) {
+					
+					// return <View style={styles.RenderedView}><Text style={styles.RenderedText} key={item.id} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text style={styles.RenderedText} onPress={() =>this.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View>
+
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starTogglingSher(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><Text style={styles.RenderedText} key={item.id} onPress={() =>that.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View></View>
+				}
+				else {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starTogglingSher(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><Text style={styles.RenderedText} key={item.id} onPress={() =>that.onSubmitSher(item.id)}> {item.sherContent[0].text[0]}</Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}>{item.sherContent[0].text[1]} </Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}> {item.sherContent[1].text[0]} </Text><Text style={styles.RenderedText} onPress={() =>that.onSubmitSher(item.id)}>{item.sherContent[1].text[1]}</Text></View></View>
+						
+				}
+				});
 			}
 			else {
-				var itemsPoemOrSher = <Text>No Results Found</Text>
+				var itemsPoemOrSher = <View style={{alignItems: 'center', justifyContent: 'center'}}><Text style={{padding: 10,  fontSize: 18}}>{this.state.messageResults}</Text></View>
 			}
 		}
 
@@ -559,8 +815,10 @@ const styles = StyleSheet.create({
   button: {
     // backgroundColor: 'green',
     // flex: 2,
-    borderRadius: 10,
-    borderWidth: 1,
+    // borderRadius: 10,
+    borderRadius: Platform.OS === 'ios' ? 10 : 0,
+    // borderWidth: 1,
+    borderWidth: Platform.OS === 'ios' ? 1 : 0,
     // width: '40%',
     height: 40
   },
