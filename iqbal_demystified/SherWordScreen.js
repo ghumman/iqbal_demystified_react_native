@@ -41,6 +41,8 @@ class SherPage extends React.Component {
     	listId: "List_001",
     	    sherId: "",
 	    sherText: [],
+	    // meaningsAvailable: [],
+	    meaningsAvailable: new Set(),
 	    wordText: [],
 	    poemText: [],
 	    sherObjects: [],
@@ -477,6 +479,20 @@ async send_word_message(){
     var wordDiscussionDetailLocal = sherWordDiscussionServerResponse;
     console.log("wordDiscussionDetailLocal");
     console.log(wordDiscussionDetailLocal);
+    // var meaningsAvailableLocal; 	
+		//
+
+    var meaningsAvailableLocal = new Set(); 
+	
+		/*
+    var meaningsAvailableLocal = new Array(this.state.wordText.length); 
+    for (i=0; i<this.state.wordText.length; i++){
+	    meaningsAvailableLocal[i] = false; 
+    }
+	console.log("meaningsAvailableLocal");
+	console.log(meaningsAvailableLocal);
+		*/
+
 
     for (var i=0; i<wordDiscussionDetailLocal.length; i++){
 
@@ -484,10 +500,34 @@ async send_word_message(){
       console.log(decodeURI(wordDiscussionDetailLocal[i].text))
     	wordDiscussionDetailLocal[i].text = decodeURI(wordDiscussionDetailLocal[i].text);
 
+	// meaningsAviableLocal[wordDiscussionDetialLocal[i].index] = true;
+	meaningsAvailableLocal.add(wordDiscussionDetailLocal[i].wordposition)
+
     }
 	console.log("Before setState")
    	this.setState({wordDiscussionDetail : wordDiscussionDetailLocal});
 	console.log("After setState")
+
+	console.log("meaningsAvailableLocal");
+	console.log(meaningsAvailableLocal);
+
+		// let meaningsAvailableArray = [];
+		// meaningsAvailableLocal.forEach(v => meaningsAvailableArray.push(v));
+
+   	// this.setState({meaningsAvailable : meaningsAvailableArray});
+   	this.setState({meaningsAvailable : meaningsAvailableLocal});
+
+	console.log("this.state.meaningsAvailable");
+	console.log(this.state.meaningsAvailable);
+
+	// make a new array of the same lenght of wordText, with boolean values
+		/*
+   	this.setState({meaningsAvailable : meaningsAvailableLocal});
+	console.log("meaningsAvailableLocal");
+	console.log(meaningsAvailableLocal);
+		*/
+
+
 
 	}
 
@@ -1121,6 +1161,10 @@ async send_word_message(){
     					borderColor: 'black',
     					borderWidth: 1,
 			        };
+		    const viewStylesWithMeanings = {
+    					borderColor: 'green',
+    					borderWidth: 1,
+			        };
 		    const viewStylesSelected = {
     					borderColor: 'red',
     					borderWidth: 2,
@@ -1144,8 +1188,12 @@ async send_word_message(){
 			{
 			if (parseInt(that.state.mySelectedId) == (index+ 1))
 				return <View style={[styles.button, viewStylesSelected]}><TouchableHighlight key={item.index} onPress={() => that.selectedWord(item, index)}><Text style={[styles.buttonText, textStylesSelected]}>{item}</Text></TouchableHighlight></View>
-			else
+			else if (that.state.meaningsAvailable.has((index + 1).toString())) {
+				return <View style={[styles.button, viewStylesWithMeanings]}><TouchableHighlight key={item.index} onPress={() => that.selectedWord(item, index)}><Text style={[styles.buttonText, textStylesNotSelected]}>{item}</Text></TouchableHighlight></View>
+			}
+			else  {
 				return <View style={[styles.button, viewStylesNotSelected]}><TouchableHighlight key={item.index} onPress={() => that.selectedWord(item, index)}><Text style={[styles.buttonText, textStylesNotSelected]}>{item}</Text></TouchableHighlight></View>
+			}
 			})
 			
 
