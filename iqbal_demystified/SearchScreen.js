@@ -284,7 +284,8 @@ class SearchPage extends React.Component {
 		var path = RNFS.DocumentDirectoryPath + '/bookmarked-poems.yaml';
 
 		// var sherNumberComma = sherNumber + ',';
-		var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
+		// var sherNumberComma = poem.id + '@' + poem.textUrdu + '@' + poem.textEnglish + '@';
+		var sherNumberComma = poem.id + '@' + poem.poemName[0].text + '@' + poem.poemName[1].text + '@';
 
 
 		// write the file
