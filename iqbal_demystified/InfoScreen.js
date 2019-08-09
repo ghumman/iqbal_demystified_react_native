@@ -1,13 +1,17 @@
 import React from 'react'
-import {Image, ScrollView, Linking, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
+import {TextInput, Image, ScrollView, Linking, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
+
+import qs from 'qs';
+
 // import StaticContentService from './StaticContentServiceYaml'
 
 // for formatting
 // import './TabView1.css';
 
 import iconIis from './assets/android_app_assets/iqbal_com_pk.png';
+import iconAcademy from './assets/android_app_assets/iap.png';
 
 
 // import PoemPage from './PoemPage';
@@ -45,6 +49,10 @@ class InfoPage extends React.Component {
 	    text: "Urdu",
 	    fontIndex: -1,
 	    textIndex: -1,
+	    emailText: "",
+	    height: 40,
+	    emailText: "",
+	    isFocused: false,
 
 	    fontIndexReady: false, 
 	    textIndexReady: false,
@@ -167,12 +175,78 @@ class InfoPage extends React.Component {
 
 	  }
 */
+  updateSize = (height) => {
+	      this.setState({
+		            height
+		          });
+	    }
+ handleFocus = () => this.setState({isFocused: true})
+
+ handleBlur = () => this.setState({isFocused: false})
+
+
+ sendEmailFunction() {
+	 				console.log("Inside sendEmailFunciton")
+	 				this.sendEmail(
+					    'admin@ghummantech.com',
+					    'Iqbal Demystified App - User Email',
+					    this.state.emailText
+				).then(() => {
+					    console.log('Our email successful provided to device mail ');
+				})}					
+
+ async sendEmail(to, subject, body, options = {}) {
+
+	 console.log("Inside sendEmail")
+	    const cc = ""
+	    const bcc = ""
+
+	 console.log("Before url = mailto...")
+	    let url = `mailto:${to}`;
+
+	 console.log("Before const query")
+	const query = qs.stringify({
+		        subject: subject,
+		        body: body,
+		        cc: cc,
+		        bcc: bcc
+		    });
+
+	    if (query.length) {
+		            url += `?${query}`;
+		        }
+
+    console.log("Before canOpen = await Linking...")
+    const canOpen = await Linking.canOpenURL(url);
+
+	    if (!canOpen) {
+		            throw new Error('Provided URL can not be handled');
+		        }
+    	console.log("Before return Linking...")
+
+	    return Linking.openURL(url);
+}
+
 
 	render() {
+		    const {emailText, height} = this.state;
+
+		    let newStyle = {
+			          height, 
+			    	    backgroundColor: '#ffffff',
+			      paddingLeft: 15,
+			      paddingRight: 15,
+					                    borderBottomColor: this.state.isFocused
+					                        ? 'black'
+					                        : 'red',
+					                    borderBottomWidth: 1,
+			    	   
+			        }
 
 		let signinTag
 		var infoText = "Developer:\n\nAhmed Ghumman\n\n"
-		var infoText2 = "\n\nFor suggestions and reporting bugs: admin@ghummantech.com\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source."
+		// var infoText2 = "\n\nFor suggestions and reporting bugs: admin@ghummantech.com\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source."
+		var infoText2 = "\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source."
 
 		var infoTextTokens = infoText.split('\n').map((item, key) => {
 			  return <Text style={styles.RenderedText} key={key}>{item}</Text>
@@ -258,13 +332,48 @@ class InfoPage extends React.Component {
 				<Text style={styles.RenderedText}>Ahmed Ghumman</Text>
 				{/*<Text style={styles.WebsiteTitle} onPress={() => Linking.openURL('https://ghummantech.com')}> GHUMMAN TECH </Text>*/}
 				{/*{infoTextTokens2}*/}
-				<Text style={styles.RenderedText}>For suggestions and reporting bugs: admin@ghummantech.com</Text>
+			{/*<Text style={styles.RenderedText}>For suggestions and reporting bugs: admin@ghummantech.com</Text>*/}
+				<Text style={styles.RenderedText}>For suggestions and reporting bugs:</Text>
+			<TextInput
+			      onFocus={this.handleFocus}
+			      onBlur={this.handleBlur}
+			      placeholder="Message..."
+			      onChangeText={(emailText) => this.setState({emailText})}
+			      style={[newStyle]}
+			      editable={true}
+			      multiline={true}
+			      value={emailText}
+			      onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+			    />
+				{/*
+			      <TextInput
+			        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+			        onChangeText={(text) => this.setState({emailText: text})}
+				onChange={this.onTextChange.bind(this)}
+			        value={this.state.emailText}
+				multiline = {true}
+			      />
+			      		*/}
+
+				<View style={styles.RenderedTextFeedbackView}>
+				<TouchableHighlight onPress={() =>this.sendEmailFunction()}>
+					<Text style={styles.RenderedTextFeedback}>
+						SEND FEEDBACK TO DEVELOPER
+					</Text>
+		
+				</TouchableHighlight>
+				</View>
 				<Text style={styles.RenderedText}>Special thanks to Iqbal Demystified Android App Developers:</Text>
 				<Text style={styles.RenderedText}>AZEEM GHUMMAN</Text>
 				<Text style={styles.RenderedText}>FAIZAN KHAN</Text>
 				<Text style={styles.RenderedText}>اخلاص عمل مانگ نيا گان کہن سے</Text>
 				<Text style={styles.RenderedText}>'شاہاں چہ عجب گر بنوازند گدا را!'</Text>
 				<Text style={styles.RenderedText}>May Allah give them reward for making the code open source.</Text>
+				<Text style={styles.RenderedText}>Special Thanks</Text>
+					<View style={styles.ImageView}>
+					<Image source={iconAcademy}/>
+					</View>
+				<Text style={styles.RenderedText}>Iqbal Academy Pakistan</Text>
 				</ScrollView>
 
 			</View>
@@ -282,6 +391,21 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0.5,
     borderColor: '#d6d7da',
+  },
+
+  RenderedTextFeedbackView: {
+    backgroundColor: 'gray',
+    padding: 10,
+  },
+  RenderedTextFeedback: {
+    textAlign: 'center',
+    padding: 10,
+    fontSize: 18,
+    // height: 44,
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: '#d6d7da',
+
   },
 
   RenderedText: {
