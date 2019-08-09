@@ -55,6 +55,11 @@ class PoemPage extends React.Component {
 		  poemText: [],
 		  poemTextNew: [],
 		  poemObjects: [],
+
+		  introductionText: "",
+	    	  introVisible: false,
+
+	    	  detailsVisible: false,
 		
 		  paused: true,
 		  duration: 0.0,
@@ -115,6 +120,14 @@ class PoemPage extends React.Component {
 	    //
 	  console.log("yamlObject : ")
 	  console.log(yamlObject)
+	try {
+	that.setState({introductionText :  yamlObject.description[0].text});
+	console.log("that.state.introductionText[0].text")
+	console.log(that.state.introductionText[0].text)
+	}catch(e) {
+	that.setState({introductionText :  ""});
+
+	}
 	
 	that.setState({poemAudioUrl:  yamlObject.audioUrl});
 	console.log("that.state.poemAudioUrl")
@@ -775,9 +788,23 @@ menuItemClicked = (item) => {
 
 }
 
+toggleIntro() {	
+	this.setState({introVisible: !this.state.introVisible})
+}
+
 	render() {
 
 	var that = this
+
+	var displayIntro
+	if (this.state.introVisible)
+		if (this.state.introductionText != "")
+		displayIntro = <View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{this.state.introductionText}</Text></View>
+		else 
+		displayIntro = <View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>No Introduction found. Click here to contribute!</Text></View>
+	else 
+		displayIntro = null;
+
 	var fontFamilyTextVariable;
 	var fontFamilyTitleVariable;
 	switch(this.state.font) {
@@ -799,6 +826,20 @@ menuItemClicked = (item) => {
 			break;
 	}
 
+
+IntroSettings = function(argument) {
+   argument = parseInt(argument);
+			   return {
+			    flexWrap: 'wrap',
+			     fontSize: argument,
+			    textAlign: 'center',
+		 	    padding: 2,
+			    // fontWeight: 'bold',
+			    color: 'blue',
+			    // color: 'blue',
+			   }
+
+}
 fontSizeVariableTitle = function(argument) {
    argument = parseInt(argument);
 	switch(that.state.font) {
@@ -933,19 +974,58 @@ fontSizeVariable = function(argument) {
 			
           		 if (item.star) {
 				if (that.state.text == 'Urdu') {
+					if (that.state.detailsVisible) {
+						try {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View><View>{item.sherContent[1].notes.map((item2, key2)=>(<Text key={key2} style={IntroSettings(that.state.fontGlobalSize)}>{item2.phrase}:{item2.meaning}</Text>))}</View></View></TouchableHighlight></View></View>
+						} catch(e) {
+
 					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+						}
+					}else {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View></View></TouchableHighlight></View></View>
+
+					}
 				}
 				else if (that.state.text == 'Roman'){
+					if (that.state.detailsVisible) {
+						try {
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View><View>{item.sherContent[1].notes.map((item2, key2)=>(<Text key={key2} style={IntroSettings(that.state.fontGlobalSize)}>{item2.phrase}:{item2.meaning}</Text>))}</View></View></TouchableHighlight></View></View>
+						}catch(e) {
 					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+
+						}
+					}else {
+
+					return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2 }}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View></View></TouchableHighlight></View></View>
+
+					}
 				}
 			}
 			else { 
 				if (that.state.text == 'Urdu') {
+					if (that.state.detailsVisible) {
+						try {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View><View>{item.sherContent[1].notes.map((item2, key2)=>(<Text key={key2} style={IntroSettings(that.state.fontGlobalSize)}>{item2.phrase}:{item2.meaning}</Text>))}</View></View></TouchableHighlight></View></View>
+						}catch(e) {
           				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+
+						}
+					}else {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[0].text[1]}</Text></View></View></TouchableHighlight></View></View>
+					}
 				}
 		
 				else if (that.state.text == 'Roman') {
+					if (that.state.detailsVisible) {
+						try {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View><View>{item.sherContent[1].notes.map((item2, key2)=>(<Text key={key2} style={IntroSettings(that.state.fontGlobalSize)}>{item2.phrase}:{item2.meaning}</Text>))}</View></View></TouchableHighlight></View></View>
+						}catch(e) {
           				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[1].text[1]}</Text></View></View></TouchableHighlight></View></View>
+
+						}
+					}else {
+          				return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text>e</View></View></TouchableHighlight></View></View>
+					}
 				}
 			}
 		});
@@ -990,6 +1070,11 @@ fontSizeVariable = function(argument) {
      else
 	audioBox = <Text style={{backgroundColor: 'skyblue'}}>Show Audio Box</Text>	
 
+     var detailsBox; 
+     if (this.state.detailsVisible)
+	detailsBox = <Text style={{backgroundColor: 'skyblue'}}>Hide Translation</Text>	
+     else
+	detailsBox = <Text style={{backgroundColor: 'skyblue'}}>Show Translation</Text>	
 
      var audioSystem1; 
      if (this.state.showAudioBox)
@@ -1138,9 +1223,15 @@ else
 
 
 
+			<View style={{flex: 0.1, alignItems: 'flex-end', padding: 4}}>
+				<TouchableHighlight onPress={() => this.setState({detailsVisible: !this.state.detailsVisible})}>
+					{detailsBox}
+				</TouchableHighlight>
+			</View>
 			
 			<View style={{flex: 2}}>
 			<ScrollView contentContainerStyle={{alignItems: 'center'}}>
+
 			<View style={{flex: 0.2}}>
                                 <Text style={ fontSizeVariableTitle(this.state.fontGlobalSize)}>
 					{this.state.poemNameUrdu}
@@ -1153,6 +1244,15 @@ else
 					{this.state.poemNameEnglish}
                                 </Text>
 			</View>
+
+			<View style={[{flex: 0.2}, styles.submit]}>
+                                {/*<Text style={styles.EnglishTitle}>*/}
+                                <Text style={ IntroSettings(this.state.fontGlobalSize)} onPress={()=>this.toggleIntro()}>
+					Introduction
+                                </Text>
+			</View>
+			{displayIntro}
+
 				{itemScroll}
 				{/*{testItem}*/}
 			</ScrollView>
@@ -1397,6 +1497,18 @@ backgroundVideo: {
     marginTop: 50,
 
   },
+	  submit:{
+		      marginRight:40,
+		      marginLeft:40,
+		      marginTop:10,
+		      // paddingTop:20,
+		      // paddingBottom:20,
+		      padding: 10,
+		      backgroundColor:'#68a0cf',
+		      borderRadius:10,
+		      borderWidth: 1,
+		      borderColor: '#fff'
+		    },
 
   listMenu: {
     color: 'white', 

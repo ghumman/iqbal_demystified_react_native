@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   TopText: {
+    textAlign: 'center',
     fontFamily: 'Times New Roman',
     fontSize: 20, 
     fontWeight: 'bold',
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   BottomText: {
+    textAlign: 'center',
     fontFamily: 'Times New Roman',
     fontSize: 20, 
     fontWeight: 'bold',

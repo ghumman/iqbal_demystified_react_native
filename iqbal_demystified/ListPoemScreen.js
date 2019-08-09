@@ -418,8 +418,6 @@ renderItem = ({item}) => {
 
 	var that = this;
 	var fontFamilyTextVariable;
-	console.log("this.state.font")
-	console.log(this.state.font)
 	switch(this.state.font) {
 		case 'Normal': 
 			fontFamilyTextVariable = styles.RenderedTextNormal;
