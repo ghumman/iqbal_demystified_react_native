@@ -625,7 +625,8 @@ onDownloadAudio() {
 	    console.log("inside .catch err...")
             console.log("err: ")
             console.log(err)
-	    Alert.alert("There was error downloading the audio. Please check internet connection.");
+	    Alert.alert(err.toString());
+	    // Alert.alert("There was error downloading the audio. Please check internet connection.");
        	    that.setState({ modalVisible: false })
        	    this.setState({ isDownloadDone: false })
       	    this.setState({ paused: true });
