@@ -1,21 +1,22 @@
 import React from "react";
 import {TouchableOpacity,  TouchableHighlight, Button, View, Text, Image, Platform, StyleSheet, Alert} from 'react-native';
-// import {NavigationEvents, createBottomTabNavigator, createAppContainer } from "react-navigation";
-import {NavigationEvents, createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
+import {NavigationEvents} from "react-navigation";
 
+// used for reading and writing application wide variables
 import AsyncStorage from '@react-native-community/async-storage';
-// import SecureStorage, { ACCESS_CONTROL, ACCESSIBLE, AUTHENTICATION_TYPE } from 'react-native-secure-storage'
-// import { AsyncStorage } from "react-native";
 
+// used for reading/writing file system
 var RNFS = require('react-native-fs');
 
-// const USER_KEY = "";
+// initializing
 const USERNAME = "username";
 const PASSWORD = "password";
 const MESSAGE = "message";
 
+// iqbal logo
 import logo from './assets/allam_iqbal_pic.jpg';
 
+// 6 main logos on main page
 import iconSignIn from './assets/android_app_assets/icon_signed_in.png';
 import iconBest from './assets/android_app_assets/icon_best.png';
 import iconBookmarks from './assets/android_app_assets/icon_bookmark.png';
@@ -23,299 +24,200 @@ import iconDiscussion from './assets/android_app_assets/icon_discussion.png';
 import iconSearch from './assets/android_app_assets/icon_search.png';
 import iconInfo from './assets/android_app_assets/icon_info.png';
 
+// books logo in the middle of the page
 import booksLogo from './assets/android_app_assets/books_logo.png';
 
-import DetailsScreen from './DetailsScreen';
-
-import TabNavigator from './TabScreen';
-
-
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-
-
-
-
-
-
-// const TabFunction = createAppContainer(TabNavigator);
-
-
 export default class HomeScreen extends React.Component {
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-          username: "",
-          password: "",
-          signinConfirmation: "",
-          gotoPage: "", 
-
-
+      username: "",
+      password: "",
+      signinConfirmation: "",
+      gotoPage: "", 
     }
-	this.example = "Home Alone";
   }
 
+  onDidFocusCustomFunction = () => {
+    AsyncStorage.getItem(USERNAME).then(res => {
+      if (res !== null) {
+        this.setState({username: res});
+      } else {
+        this.setState({username: res});
+      }
+    })
 
- onDidFocusCustomFunction = () => {
+    AsyncStorage.getItem(PASSWORD).then(res => {
+      if (res !== null) {
+	this.setState({password: res});
+      } else {
+	this.setState({password: res});
+      }
+    })
 
-    AsyncStorage.getItem(USERNAME)
-      .then(res => {
-        if (res !== null) {
-	  // console.log("res: ")
-	  // console.log(res)
-	this.setState({username: res});
-        } else {
-	  // console.log("res: ")
-	  // console.log(res)
-	this.setState({username: res});
-        }
-      })
+    AsyncStorage.getItem(MESSAGE).then(res => {
+      this.setState({signinConfirmation: res});
+      if (res != 'done') {
+        // console.log("Profile Signin Confirmation message is not done ")
 
-    AsyncStorage.getItem(PASSWORD)
-      .then(res => {
-        if (res !== null) {
-	  // console.log("res: ")
-	  // console.log(res)
-	  this.setState({password: res});
-        } else {
-	  // console.log("res: ")
-	  // console.log(res)
-	  this.setState({password: res});
-        }
-      })
+        this.setState({signinConfirmation: 'not signed in'});
+        this.setState({username: ''});
+        this.setState({gotoPage : "Register"})
+      } else {
+        // console.log("You're signed in and profileSigninConfirmation message is done");
+        this.setState({gotoPage : "Profile"})
 
-    AsyncStorage.getItem(MESSAGE)
-      .then(res => {
-        // if (res !== null) {
-	  // console.log("res: ")
-	  // console.log(res)
-	  this.setState({signinConfirmation: res});
-	  if (res != 'done') {
-		
-                                console.log("Profile Signin Confirmation message is not done ")
+      }
 
-                                this.setState({signinConfirmation: 'not signed in'});
-                                this.setState({username: ''});
-                                this.setState({gotoPage : "Register"})
-}	else {
-                                console.log("You're signed in and profileSigninConfirmation message is done");
-                                this.setState({gotoPage : "Profile"})
-
-}
-
-        // } else {
-	  // console.log("res: ")
-	  // console.log(res)
-	  // this.setState({signinConfirmation: res});
-        // }
-      })
-
-/*
-      if (this.state.signinConfirmation != 'done') {
-
-                                console.log("Profile Signin Confirmation message is not done ")
-
-                                this.setState({signinConfirmation: 'not signed in'});
-                                this.setState({username: ''});
-                                this.setState({gotoPage : "Register"})
-
-                        }
-                        else {
-                                console.log("You're signed in and profileSigninConfirmation message is done");
-                                this.setState({gotoPage : "Profile"})
-                        }
-*/
-
- }
+    })
+  }
 	
- onSubmit = (pageName) => {
+  // if pageName is Intikhab go to ListPoem, becuase Intikhab is similar to ListPoem
+  // else go to particular page like Register/Profile, BookmarksTabs, DiscussionTabs, Search or Info
+  onSubmit = (pageName) => {
+    if (pageName === 'Intikhab'){
+      this.props.navigation.navigate('ListPoem',{ detailBook: "List_Editor_Pick", profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+    }
+    else {
+      this.props.navigation.navigate(pageName,{ profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
+    }
+  }
 
-	  console.log("Inside onSubmit, pageName: ")
-	  console.log(pageName)
+  componentDidMount() {
+    // first thing when app starts is to make Iqbal-Demystified folder, so that we can put .mp3, txt and yaml files in it. 
+    RNFS.mkdir( RNFS.DocumentDirectoryPath + '/Iqbal-Demystified').then(function(res) {
+      // console.log("Iqbal-Demystified directory exists now");
+    })
+    try {
+      // gets AsyncStorage username, passowrd, message and sets gotoPage to either Register or Profile 	
+      this.onDidFocusCustomFunction();
+      
+      // following code is inherited from React, where username, encrypted password and signinconfirmation message used to get transfer through url and used to pass to every single page. 
+      this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+      this.setState({username: this.props.navigation.getParam('profileUsername')});
+      this.setState({password: this.props.navigation.getParam('profilePassword')});
 
-	  console.log("Inside onSubmit, this.state.signinConfirmation: ")
-	  console.log(this.state.signinConfirmation)
-
-	  console.log("Inside onSubmit, this.state.username: ")
-	  console.log(this.state.username)
-
-	  console.log("Inside onSubmit, this.state.password: ")
-	  console.log(this.state.password)
-
-          if (pageName === 'Intikhab'){
-                this.props.navigation.navigate('ListPoem',{ detailBook: "List_Editor_Pick", profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
-          }
-          else {
-                this.props.navigation.navigate(pageName,{ profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })
-          }
-        }
-
-
-        componentDidMount() {
-	
-
-
-		RNFS.mkdir( RNFS.DocumentDirectoryPath + '/Iqbal-Demystified').then(function(res) {
-			console.log("Iqbal-Demystified directory exists now");
-		})
-                try {
-			
-			this.onDidFocusCustomFunction();
-
-			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
-			this.setState({username: this.props.navigation.getParam('profileUsername')});
-			this.setState({password: this.props.navigation.getParam('profilePassword')});
-
-                // this.setState({signinConfirmation: this.props.location.state.profileSigninConfirmation});
-                // this.setState({username: this.props.location.state.profileUsername});
-                // this.setState({password: this.props.location.state.profilePassword});
-
-
-      // if (this.props.navigation.getParam('profileSigninConfirmation') != 'done') {
       if (this.state.signinConfirmation != 'done') {
+        // console.log("Profile Signin Confirmation message is not done ")
+        this.setState({signinConfirmation: 'not signed in'});
+        this.setState({username: ''});
+        this.setState({gotoPage : "Register"})
 
-                                console.log("Profile Signin Confirmation message is not done ")
+      } else {
+        // console.log("You're signed in and profileSigninConfirmation message is done");
+        this.setState({gotoPage : "Profile"})
+      }
+    } // try ends
+    catch (e) {
+      // console.log("Inside catch")
+      // console.log("Not signed in or just started the app");
+      this.setState({signinConfirmation: 'not signed in'});
+      this.setState({username: ''});
+      this.setState({gotoPage : "RegisterPage"})
+    }
+  }
 
-                                this.setState({signinConfirmation: 'not signed in'});
-                                this.setState({username: ''});
-                                this.setState({gotoPage : "Register"})
+  render() {
+    const state = this.state;
+    const {navigate} = this.props.navigation;
+    return (
+      <View style={{flex: 1}}>
+        {/*
+	  Following runs the onDidFocus... when user comes to home page 
+	  after going to other pages and check if the user is still logged
+	  in or not. 
+	*/}
+        <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
+	   
+        {/*
+	  allama iqbal picture
+	*/}
+        <View style={{flex: 2}}>
+          <Image style={styles.Image} source={logo}/>
+        </View>
 
-                        }
-                        else {
-                                console.log("You're signed in and profileSigninConfirmation message is done");
-                                this.setState({gotoPage : "Profile"})
-                        }
-                }
-                catch (e) {
-                        console.log("Inside catch")
-                        console.log("Not signed in or just started the app");
+        {/*
+	  main book logo in the center
+	*/}
+        <View style={styles.MainContainer}>
+          <TouchableOpacity style={styles.BookStyle} activeOpacity={0.5} onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} >
+            <Image source={booksLogo} style={styles.ImageIconStyle}/>
+	      <View style={styles.SeparatorLine} />
+              <Text style={styles.TextStyle}> BOOKS </Text>
+          </TouchableOpacity>
+        </View>
 
-                        this.setState({signinConfirmation: 'not signed in'});
-                        this.setState({username: ''});
-                        this.setState({gotoPage : "RegisterPage"})
-                }
-        }
-
-	render() {
-		
-    		const state = this.state;
-		const {navigate} = this.props.navigation;
-		return (
-			<View style={{flex: 1}}>
-				<NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
+        {/*
+	  all six logos at the bottom
+	*/}
 	<View style={{flex: 2}}>
-	<Image style={styles.image} source={logo}/>
-	</View>
-      <View style={styles.MainContainer}>
-	
-        <TouchableOpacity style={styles.FacebookStyle} activeOpacity={0.5} onPress={() => navigate('TabFunction', { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password })} >
-          <Image
-            //We are showing the Image from online
-            source={
-		booksLogo
-           }
-            //You can also show the image from you project directory like below
-            //source={require('./Images/facebook.png')}
-            //Image Style
-            style={styles.ImageIconStyle}
-          />
-          <View style={styles.SeparatorLine} />
-          <Text style={styles.TextStyle}> BOOKS </Text>
-        </TouchableOpacity>
+          {/*
+	    first row of logos
+	  */}
+          <View style={{flex: 1, flexDirection: 'row', padding: 10,  justifyContent: 'space-around'}}>
+            <TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit(this.state.gotoPage)} >
+              <Image style={styles.RowImage} resizeMode='contain' source={iconSignIn}/>
+            </TouchableHighlight>
+
+            <TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("Intikhab")}>
+              <Image style={styles.RowImage} resizeMode="contain" source={iconBest}/>
+            </TouchableHighlight>
+
+            <TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onSubmit("BookmarksTabs")}>
+              <Image style={styles.RowImage} resizeMode="contain" source={iconBookmarks}/>
+            </TouchableHighlight>
+          </View>
+
+          {/*
+	    second row of logos
+	  */}
+          <View style={{flex: 1, flexDirection: 'row', padding: 10, justifyContent: 'space-around'}}>
+            <TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("DiscussionTabs")}>
+              <Image style={styles.RowImage} resizeMode="contain"  source={iconDiscussion}/>
+            </TouchableHighlight>
+
+            <TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("Search")}>
+              <Image style={styles.RowImage} resizeMode="contain"  source={iconSearch}/>
+            </TouchableHighlight>
+
+
+            <TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onSubmit("Info")}>
+              <Image style={styles.RowImage} resizeMode="contain"  source={iconInfo}/>
+            </TouchableHighlight>
+          </View>
+        </View>
       </View>
-		<View style={{flex: 2}}>
-
-
-      <View style={{flex: 1, flexDirection: 'row', padding: 10,  justifyContent: 'space-around'}}>
-
-		<TouchableHighlight style={styles.HighlightProperties} onPress={() =>this.onSubmit(this.state.gotoPage)} >
-			<Image style={styles.RowImage} resizeMode='contain' source={iconSignIn}/>
-		</TouchableHighlight>
-
-
-		<TouchableHighlight  style={styles.HighlightProperties} onPress={() => this.onSubmit("Intikhab")}>
-			<Image style={styles.RowImage} resizeMode="contain" source={iconBest}/>
-		</TouchableHighlight>
-
-		<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onSubmit("BookmarksTabs")}>
-			<Image style={styles.RowImage} resizeMode="contain" source={iconBookmarks}/>
-		</TouchableHighlight>
-
-      </View>
-      <View style={{flex: 1, flexDirection: 'row', padding: 10, justifyContent: 'space-around'}}>
-		<TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("DiscussionTabs")}>
-<Image style={styles.RowImage} resizeMode="contain"  source={iconDiscussion}/>
-		</TouchableHighlight>
-
-		<TouchableHighlight   style={styles.HighlightProperties} onPress={() => this.onSubmit("Search")}>
-<Image style={styles.RowImage} resizeMode="contain"  source={iconSearch}/>
-		</TouchableHighlight>
-
-
-		<TouchableHighlight  style={styles.HighlightProperties}  onPress={() => this.onSubmit("Info")}>
-<Image style={styles.RowImage} resizeMode="contain"  source={iconInfo}/>
-		</TouchableHighlight>
-
-
-
-	
-      </View>
-
-	</View>
-			</View>
-
-		)
-	}
+    )
+  }
 }
 
 
 
-// instructions
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-// Styling
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
+    margin: 10
   },
-  GooglePlusStyle: {
+  BookStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#dc4e41',
-    borderWidth: 0.5,
-    borderColor: '#fff',
-    height: 40,
-    width: 220,
-    borderRadius: 5,
-    margin: 5,
-  },
-  FacebookStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // backgroundColor: '#485a96',
     backgroundColor: '#808000',
     borderWidth: 0.5,
     borderColor: '#fff',
-    // height: 200,
-    // width: 300,
     height: 150,
     width: 300,
     borderRadius: 5,
-    margin: 5,
+    margin: 5
   },
   ImageIconStyle: {
     padding: 20,
     margin: 20,
     height: 120,
     width: 120,
-    resizeMode: 'stretch',
+    resizeMode: 'stretch'
   },
   TextStyle: {
     fontSize: 20, 
@@ -323,83 +225,27 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 4,
     marginRight: 10,
-    marginLeft: 10,
+    marginLeft: 10
   },
   SeparatorLine: {
     backgroundColor: '#fff',
     width: 5,
-    height: 120,
+    height: 120
   },
-  container: {
+  Image: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  appTitle: {
-    fontSize: 40,
-    textAlign: 'center',
-    color: 'red',
-    margin: 10,
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  image: {
-        flex: 1,
     width: null,
     height: null,
     resizeMode: 'contain'
-
   },
-
-  RowSpace: {
-    // alignSelf: 'flex-start',
-    // flex: 1,
-    // width: null,
-    // height: null,
-    // resizeMode: 'contain',
-    // resizeMode: 'center',
-    // margin: 15 
-
-  },
-
   RowImage: {
-    flex: 1,
-    // alignItems: 'center',
-    // width: 80, 
-    // height: 80, 
-    // width: undefined, 
-    // height: undefined, 
-    // width: null, 
-    // height: null, 
-    // resizeMode: 'contain'
+    flex: 1
   },
-
   HighlightProperties: {
     flex: 1,
-    // alignItems: 'center',
-    // width: 80, 
-    // height: 80, 
-    // width: undefined, 
-    // height: undefined, 
-    // width: null, 
-    // height: null, 
 	overflow: 'hidden', 
 	alignItems: 'center', 
-	// position: 'relative', 
 	margin: 10
-},
-
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
+  }
 });
 
