@@ -18,6 +18,7 @@ import DownloadAudiosScreen from './DownloadAudiosScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import ProfileScreen from './ProfileScreen';
 import InfoScreen from './InfoScreen';
+import ContributeIntroductionScreen from './ContributeIntroductionScreen';
 import SearchScreen from './SearchScreen';
 
 import TabNavigator from './TabScreen';
@@ -94,6 +95,7 @@ const AppNavigator = createStackNavigator(
     ForgotPassword: ForgotPasswordScreen,
     Profile: ProfileScreen,
     Info: InfoScreen,
+    ContributeIntroduction: ContributeIntroductionScreen,
     Search: SearchScreen,
     Details: DetailsScreen
   },

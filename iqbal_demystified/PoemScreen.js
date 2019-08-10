@@ -792,6 +792,11 @@ toggleIntro() {
 	this.setState({introVisible: !this.state.introVisible})
 }
 
+contributeFunction() {
+
+	  this.props.navigation.navigate('ContributeIntroduction', {profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password, poemTitle: this.state.poemNameUrdu });
+}
+
 	render() {
 
 	var that = this
@@ -801,7 +806,7 @@ toggleIntro() {
 		if (this.state.introductionText != "")
 		displayIntro = <View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{this.state.introductionText}</Text></View>
 		else 
-		displayIntro = <View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>No Introduction found. Click here to contribute!</Text></View>
+		displayIntro = <View><TouchableHighlight onPress={() =>this.contributeFunction()}><Text style={fontSizeVariableUnderline(that.state.fontGlobalSize)}>No Introduction found. Click here to contribute!</Text></TouchableHighlight></View>
 	else 
 		displayIntro = null;
 
@@ -902,6 +907,19 @@ fontSizeVariableTitle = function(argument) {
 			   }
 			break;
 	}
+}
+
+fontSizeVariableUnderline = function(argument) {
+   argument = parseInt(argument);
+			   return {
+			     fontSize: argument,
+			    flexShrink: 1,
+			    flexWrap: 'wrap',
+			    textAlign: 'center',
+			    textDecorationLine: 'underline', 
+			    color: 'blue',
+			    padding: 10,
+			   }
 }
 
 fontSizeVariable = function(argument) {
