@@ -189,10 +189,9 @@ class ListPoemScreen extends React.Component {
 				that.props.navigation.setParams({ title: that.state.bookNameUrdu })
 
 			});
-
 		})
-
   }
+
   onSubmit = (poemNumber) => {
   	if (poemNumber != 0){
 	  	this.props.navigation.navigate('Poem', {detailPoem: poemNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password});
@@ -245,203 +244,99 @@ class ListPoemScreen extends React.Component {
 			fontFamilyTitleVariable = styles.UrduTitleFajer;
 			break;
 	}
-// var fontFamilyTitleVariable = styles.UrduTitleNafees;
-// var fontFamilyTitleVariable = styles.UrduTitleNormal;
-// var fontFamilyTitleVariable = styles.UrduTitleKasheeda;
-// var fontFamilyTitleVariable = styles.UrduTitleFajer;
 
-    var item3 = this.state.poemText.map( (item) => 
-                        <Text key={item.index} onClick={() => this.onSubmit(item.id)}> {item.textUrdu}</Text> 
-                );
+	var item3 = this.state.poemText.map( (item) => 
+  	<Text key={item.index} onClick={() => this.onSubmit(item.id)}> {item.textUrdu}</Text> 
+  );
 
-		var that = this
+	var that = this
 
-    return (
-      <View style={styles.MainContainer}>
-	    		{/*
-	    		<View><Text style={{fontFamily: 'Jameel Noori Kasheeda'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text style={{fontFamily: 'Jameel Noori Nastaleeq'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text style={{fontFamily: 'asunaskh'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text style={{fontFamily: 'Fajer Noori Nastalique 15-12-2006'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text style={{fontFamily: 'Nafees Nastaleeq v1.02'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text style={{fontFamily: 'Pak Nastaleeq (Beta Release)'}}>اخلاص عمل مانگ نيا گان کہن س</Text></View>
-	    		<View><Text >اخلاص عمل مانگ نيا گان کہن س</Text></View>
-			*/}
-	    		{/*
-			<View>
-                                <Text style={fontFamilyTitleVariable}>
-                                        {this.state.bookNameUrdu}
-                                </Text>
-			</View>
-			<View>
-                                <Text style={fontFamilyTitleVariable}>
-                                        {this.state.bookNameEnglish}
-                                </Text>
-			</View>
-			*/}
-        <FlatList
-          data={
-		this.state.poemTextFinal
-          }
-          renderItem={this.renderItem}        />
-
-
-
-      </View>
-    );
-  }
+	return (
+		<View style={styles.MainContainer}>
+			<FlatList
+				data={
+					this.state.poemTextFinal
+				}
+				renderItem={this.renderItem}/>
+		</View>
+	);
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-/*
-  RenderedText: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-  },
-*/
-
-  StarImage: {
-
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // textAlign: 'center',
-    // resizeMode: 'contain',
-
-  },
-  RenderedView: {
-    // height: 44,
-    // borderBottomRadius: 4,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#d6d7da',
-  },
-
-  RenderedText: {
-    // flex: 1,
-    flexShrink: 1,
-    flexWrap: 'wrap',
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 18,
-  },
-
   RenderedTextNormal: {
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
-
-
   RenderedTextNafees: {
-    // fontFamily: 'NafeesNastaleeq',
-    // fontFamily: 'Nafees Nastaleeq v1.02',
     fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
-
   RenderedTextKasheeda: {
-    // fontFamily: 'JameelNooriKasheeda',
-    // fontFamily: 'Jameel Noori Kasheeda',
     fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
-
   RenderedTextFajer: {
-    // fontFamily: 'FajerNooriNastalique',
-    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     flexShrink: 1,
     flexWrap: 'wrap',
     textAlign: 'center',
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
-MainContainer: {
-   flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center'
+	MainContainer: {
+  	flex: 1,
+   	alignItems: 'center',
+   	justifyContent: 'center'
   }, 
   UrduTitle : {
-    // fontFamily: 'nastaleeq',
-    // fontFamily: 'NotoNastaliqUrdu-Regular',
-    // fontFamily: 'NafeesNastaleeq',
-    // fontFamily: 'FajerNooriNastalique',
-    // fontFamily: 'JameelNooriKasheeda',
-    textAlign: 'center',
+  	textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
+    color: '#FF0000'
   },
 
   UrduTitleNormal: { 
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
+    color: '#FF0000'
   },
 
   UrduTitleNafees: { 
-    // fontFamily: 'NafeesNastaleeq',
     fontFamily: Platform.OS === 'ios' ? 'NafeesNastaleeq' : 'Nafees Nastaleeq v1.02',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
+    color: '#FF0000'
   },
 
   UrduTitleKasheeda: { 
-    // fontFamily: 'JameelNooriKasheeda',
     fontFamily: Platform.OS === 'ios' ? 'JameelNooriKasheeda' : 'Jameel Noori Kasheeda',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
+    color: '#FF0000'
   },
   
   UrduTitleFajer: { 
-    // fontFamily: 'FajerNooriNastalique',
     fontFamily: Platform.OS === 'ios' ? 'FajerNooriNastalique' : 'Fajer Noori Nastalique 15-12-2006',
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
-  },
-
-  EnglishTitle : {
-    textAlign: 'center',
-    // fontFamily: 'NafeesNastaleeq',
-    fontSize: 20, 
-    fontWeight: 'bold',
-    color: '#FF0000',
-    // color: 'blue',
-   
+    color: '#FF0000'
   }
-  
 })
 
 
