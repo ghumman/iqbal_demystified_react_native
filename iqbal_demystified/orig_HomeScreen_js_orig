@@ -1,0 +1,100 @@
+import React from "react";
+import { Button, View, Text, Image, Platform, StyleSheet } from 'react-native';
+import {createBottomTabNavigator, createAppContainer } from "react-navigation";
+import logo from './assets/allam_iqbal_pic.jpg';
+
+class Page1 extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text>
+      </View>
+    );
+  }
+}
+
+class Page2 extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+  }
+}
+
+
+const TabNavigator = createBottomTabNavigator({
+  Page1: Page1,
+  Page2: Page2,
+});
+
+
+class HomeScreen extends React.Component {
+  render() {
+    return (
+
+      <View style={styles.container}>
+      {/*<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>*/}
+	
+        <Text style={styles.appTitle}>ALLAMA IQBAL</Text>
+	<Image source={logo}/>
+        <Text style={styles.welcome}>I am making changes to React Native!</Text>
+        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.instructions}>{instructions}</Text>
+	{/*createAppContainer(TabNavigator);*/}
+
+	<View><Text>This is inside new Text and new View</Text></View>
+
+
+	{/*
+        <Text>Home Screen</Text>
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+
+      </View>
+	*/}
+      </View>
+
+	
+    );
+  }
+}
+
+// instructions
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
+
+// Styling
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  appTitle: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: 'red',
+    margin: 10,
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
+
+export default HomeScreen;
