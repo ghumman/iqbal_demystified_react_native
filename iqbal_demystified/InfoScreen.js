@@ -1,22 +1,12 @@
-import React from 'react'
+import React from 'react';
 import {TextInput, Image, ScrollView, Linking, TouchableHighlight, StyleSheet, FlatList, SectionList, Alert, View, Text } from "react-native";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import qs from 'qs';
 
-// import StaticContentService from './StaticContentServiceYaml'
-
-// for formatting
-// import './TabView1.css';
-
 import iconIis from './assets/android_app_assets/iqbal_com_pk.png';
 import iconAcademy from './assets/android_app_assets/iap.png';
-
-
-// import PoemPage from './PoemPage';
-
-// var  YAML = require('yaml');
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -37,11 +27,7 @@ class InfoPage extends React.Component {
 
 	constructor(props) {
 	  super(props);
- 				
-
-
 	  this.state = {
-
 	    username: "",
 	    password: "",
 	    signinConfirmation: "",
@@ -63,189 +49,166 @@ class InfoPage extends React.Component {
 		headerTitle: 'Settings',
 		 headerTintColor: 'red',
 		 headerTitleStyle: {
-		       fontWeight: 'bold',
-		       fontSize: 20, 
-		       textAlign: 'center',
+			 fontWeight: 'bold',
+			 fontSize: 20, 
+			 textAlign: 'center',
 		 },
 	})
 
- onDidFocusCustomFunction = () => {
+	onDidFocusCustomFunction = () => {
     console.log("Inside onDidFocusCustomFunction")
-
     try {
-    AsyncStorage.getItem(FONT)
+			AsyncStorage.getItem(FONT)
+				.then(res => {
+					if (res !== null) {
+						console.log("res is not equal to null: ")
+						console.log(res)
+						this.setState({font: res});
+						switch(res) { 
+							case 'Normal': 
+								console.log("case is Normal")
+								this.setState({fontIndex: 0})
+								break;
+							case 'Nafees': 
+								console.log("case is Nafees")
+								this.setState({fontIndex: 1})
+								break;
+							case 'Kasheeda': 
+								console.log("case is Kasheeda")
+								this.setState({fontIndex: 2})
+								break;
+							case 'Fajer': 
+								console.log("case is Fajer")
+								this.setState({fontIndex: 3})
+								break;
+						}
+						console.log("this.state.fontIndex")
+						console.log(this.state.fontIndex)
+						this.setState({fontIndexReady: true})
+					} else {
+						console.log("res: ")
+						console.log(res)
+
+						this.setState({font: "Normal"})
+						this.setState({fontIndex: 0})
+						this.setState({fontIndexReady: true})
+
+					}
+				})
+		}catch (err) { 
+			console.log("err: ")
+			console.log(err)
+			this.setState({font: "Normal"});
+		}
+
+		AsyncStorage.getItem(TEXT)
       .then(res => {
         if (res !== null) {
-		console.log("res is not equal to null: ")
-		console.log(res)
-		this.setState({font: res});
-		switch(res) { 
-		case 'Normal': 
-			console.log("case is Normal")
-			this.setState({fontIndex: 0})
-			break;
-		case 'Nafees': 
-			console.log("case is Nafees")
-			this.setState({fontIndex: 1})
-			break;
-		case 'Kasheeda': 
-			console.log("case is Kasheeda")
-			this.setState({fontIndex: 2})
-			break;
-		case 'Fajer': 
-			console.log("case is Fajer")
-			this.setState({fontIndex: 3})
-			break;
-
-		}
-	console.log("this.state.fontIndex")
-	console.log(this.state.fontIndex)
-	this.setState({fontIndexReady: true})
+					console.log("res is not null: ")
+					console.log(res)
+					this.setState({text: res});
+					switch(res) { 
+						case 'Urdu': 
+							this.setState({textIndex: 0})
+							break;
+						case 'Roman': 
+							this.setState({textIndex: 1})
+							break;
+					}
+					console.log("this.state.textIndex")
+					console.log(this.state.textIndex)
+					this.setState({textIndexReady: true})
         } else {
-	  console.log("res: ")
-	  console.log(res)
+					console.log("res: ")
+					console.log(res)
 
-	this.setState({font: "Normal"})
-	this.setState({fontIndex: 0})
-	this.setState({fontIndexReady: true})
-
-        }
+					this.setState({text: "Urdu"})
+					this.setState({textIndex: 0})
+					this.setState({textIndexReady: true})
+				}
       })
-	}catch (err) { 
-	  console.log("err: ")
-	  console.log(err)
-	this.setState({font: "Normal"});
 	}
 
-    AsyncStorage.getItem(TEXT)
-      .then(res => {
-        if (res !== null) {
-	  console.log("res is not null: ")
-	  console.log(res)
-	  this.setState({text: res});
-		switch(res) { 
-		case 'Urdu': 
-			this.setState({textIndex: 0})
-			break;
-		case 'Roman': 
-			this.setState({textIndex: 1})
-			break;
+	componentDidMount() {
+		try {
+			this.onDidFocusCustomFunction();			
+
+			this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
+			this.setState({username: this.props.navigation.getParam('profileUsername')});
+			this.setState({password: this.props.navigation.getParam('profilePassword')});
 		}
-	console.log("this.state.textIndex")
-	console.log(this.state.textIndex)
-	this.setState({textIndexReady: true})
-        } else {
-	  console.log("res: ")
-	  console.log(res)
 
-	this.setState({text: "Urdu"})
-	this.setState({textIndex: 0})
-	this.setState({textIndexReady: true})
-        }
-      })
-}
+		catch(e) {
+			console.log("Inside catch");
+		}
+	}
 
-		componentDidMount() {
-			// window.scrollTo(0, 0)
-      // retrive the data
-	   		try {
-
-
-				this.onDidFocusCustomFunction();			
-
-				this.setState({signinConfirmation: this.props.navigation.getParam('profileSigninConfirmation')});
-				this.setState({username: this.props.navigation.getParam('profileUsername')});
-				this.setState({password: this.props.navigation.getParam('profilePassword')});
-	  		}
-
-			catch(e) {
-				console.log("Inside catch");
-			}
-    }
-
-/*
-		signMeIn = () => {
-
-		  if (this.state.username == "") {
-		  	this.props.history.push({
-			    pathname: '/RegisterPage',
-			    state: { profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password}
-		  	})
-		  }
-
-	  }
-*/
   updateSize = (height) => {
-	      this.setState({
-		            height
-		          });
-	    }
- handleFocus = () => this.setState({isFocused: true})
+	      this.setState({height});
+	}
 
- handleBlur = () => this.setState({isFocused: false})
+	handleFocus = () => this.setState({isFocused: true})
+
+	handleBlur = () => this.setState({isFocused: false})
 
 
- sendEmailFunction() {
-	 				console.log("Inside sendEmailFunciton")
-	 				this.sendEmail(
-					    'admin@ghummantech.com',
-					    'Iqbal Demystified App - User Email',
-					    this.state.emailText
-				).then(() => {
-					    console.log('Our email successful provided to device mail ');
-				})}					
+	sendEmailFunction() {
+		console.log("Inside sendEmailFunciton")
+		this.sendEmail(
+			'admin@ghummantech.com',
+			'Iqbal Demystified App - User Email',
+			this.state.emailText
+		).then(() => {
+			console.log('Our email successful provided to device mail ');
+		})}					
 
- async sendEmail(to, subject, body, options = {}) {
+	async sendEmail(to, subject, body, options = {}) {
 
-	 console.log("Inside sendEmail")
-	    const cc = ""
-	    const bcc = ""
+		console.log("Inside sendEmail")
+		const cc = ""
+		const bcc = ""
 
-	 console.log("Before url = mailto...")
-	    let url = `mailto:${to}`;
+		console.log("Before url = mailto...")
+		let url = `mailto:${to}`;
 
-	 console.log("Before const query")
-	const query = qs.stringify({
-		        subject: subject,
-		        body: body,
-		        cc: cc,
-		        bcc: bcc
-		    });
+		console.log("Before const query")
+		const query = qs.stringify({
+			subject: subject,
+			body: body,
+			cc: cc,
+			bcc: bcc
+		});
 
-	    if (query.length) {
-		            url += `?${query}`;
-		        }
+		if (query.length) {
+			url += `?${query}`;
+		}
 
-    console.log("Before canOpen = await Linking...")
-    const canOpen = await Linking.canOpenURL(url);
+		console.log("Before canOpen = await Linking...")
+		const canOpen = await Linking.canOpenURL(url);
 
-	    if (!canOpen) {
-		            throw new Error('Provided URL can not be handled');
-		        }
-    	console.log("Before return Linking...")
+		if (!canOpen) {
+			throw new Error('Provided URL can not be handled');
+		}
+		console.log("Before return Linking...")
 
-	    return Linking.openURL(url);
+		return Linking.openURL(url);
 }
 
 
 	render() {
-		    const {emailText, height} = this.state;
+		const {emailText, height} = this.state;
 
-		    let newStyle = {
-			          height, 
-			    	    backgroundColor: '#ffffff',
-			      paddingLeft: 15,
-			      paddingRight: 15,
-					                    borderBottomColor: this.state.isFocused
-					                        ? 'black'
-					                        : 'red',
-					                    borderBottomWidth: 1,
-			    	   
-			        }
+		let newStyle = {
+			height, 
+			backgroundColor: '#ffffff',
+			paddingLeft: 15,
+			paddingRight: 15,
+			borderBottomColor: this.state.isFocused? 'black': 'red',
+			borderBottomWidth: 1,
+		}
 
 		let signinTag
 		var infoText = "Developer:\n\nAhmed Ghumman\n\n"
-		// var infoText2 = "\n\nFor suggestions and reporting bugs: admin@ghummantech.com\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source."
 		var infoText2 = "\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source."
 
 		var infoTextTokens = infoText.split('\n').map((item, key) => {
@@ -255,34 +218,6 @@ class InfoPage extends React.Component {
 			  return <Text style={styles.RenderedText} key={key}>{item}</Text>
 		})
 
-/*
-
-		var signinMessageLocal = ""
-		if (this.state.signinConfirmation  === "done") {
-			signinMessageLocal = this.state.username.charAt(0).toUpperCase()
-		  signinTag = <button type="button" class="btn btn-success btn-circle btn-lg"> {signinMessageLocal} </button>
-		}
-		else {
-			signinMessageLocal = "Sign In"
-		  signinTag = <button type="button" class="btn btn-primary" onClick={() => this.signMeIn()}> {signinMessageLocal} </button>
-		}
-*/
-/*
-
-			<div class="text-center">
-				<div class="text-right">
-				{signinTag}
-				</div>
-				<div>
-				{infoTextTokens}
-				</div>
-				<a href="https://ghummantech.com"> https://ghummantech.com </a>
-				<div class="sherPageText">
-				{infoTextTokens2}
-				</div>
-			</div>
-
-*/
 	var showFontRadioForm
 	if (this.state.fontIndexReady)
 		showFontRadioForm = <RadioForm
@@ -306,9 +241,6 @@ class InfoPage extends React.Component {
 		return (
 			<View>
 				<ScrollView>
-				{/*
-				<Text style={styles.EnglishTitle}>Settings</Text>	
-				*/}
 				<Text style={styles.RenderedText}>Choose Font</Text>
 	{showFontRadioForm}
 
@@ -318,21 +250,15 @@ class InfoPage extends React.Component {
 	{showTextRadioForm}
 
 
-				{/*{infoTextTokens}*/}
 				<Text style={styles.RenderedText}>Created By</Text>
 				<Text style={styles.EnglishTitle}>International Iqbal Society</Text>
-				{/*<TouchableHighlight onPress={() => Linking.openURL('https://ghummantech.com')}>*/}
 					<View style={styles.ImageView}>
 					<Image source={iconIis}/>
 					</View>
-				{/*/TouchableHighlight>*/}
 
 				
 				<Text style={styles.RenderedText}>Developer</Text>
 				<Text style={styles.RenderedText}>Ahmed Ghumman</Text>
-				{/*<Text style={styles.WebsiteTitle} onPress={() => Linking.openURL('https://ghummantech.com')}> GHUMMAN TECH </Text>*/}
-				{/*{infoTextTokens2}*/}
-			{/*<Text style={styles.RenderedText}>For suggestions and reporting bugs: admin@ghummantech.com</Text>*/}
 				<Text style={styles.RenderedText}>For suggestions and reporting bugs:</Text>
 			<TextInput
 			      onFocus={this.handleFocus}
@@ -345,15 +271,6 @@ class InfoPage extends React.Component {
 			      value={emailText}
 			      onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
 			    />
-				{/*
-			      <TextInput
-			        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-			        onChangeText={(text) => this.setState({emailText: text})}
-				onChange={this.onTextChange.bind(this)}
-			        value={this.state.emailText}
-				multiline = {true}
-			      />
-			      		*/}
 
 				<View style={styles.RenderedTextFeedbackView}>
 				<TouchableHighlight onPress={() =>this.sendEmailFunction()}>
@@ -382,80 +299,34 @@ class InfoPage extends React.Component {
 }	// class ends
 
 const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-  RenderedView: {
-    // height: 44,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-  },
-
   RenderedTextFeedbackView: {
     backgroundColor: 'gray',
-    padding: 10,
+    padding: 10
   },
   RenderedTextFeedback: {
     textAlign: 'center',
     padding: 10,
     fontSize: 18,
-    // height: 44,
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#d6d7da',
-
+    borderColor: '#d6d7da'
   },
-
   RenderedText: {
     textAlign: 'center',
     padding: 10,
-    fontSize: 18,
-    // height: 44,
-    // borderRadius: 4,
-    // borderWidth: 0.5,
-    // borderColor: '#d6d7da',
+    fontSize: 18
   },
 
-  MainContainer: {
-   flex: 1,
-   alignItems: 'center',
-   justifyContent: 'center'
-  }, 
-  UrduTitle : {
-    fontSize: 20, 
-    fontWeight: 'bold',
-    color: '#FF0000',
-   
-   
-  },
   EnglishTitle : {
     textAlign: 'center',
     fontSize: 20, 
     fontWeight: 'bold',
-    color: '#FF0000',
-   
+    color: '#FF0000'
   },
   ImageView: {
-    // flex: 1,
-    // width: null,
-    // height: null,
-    // resizeMode: 'contain'
     justifyContent: 'center',
-    alignItems: 'center',
-
-
-  },
-  WebsiteTitle : {
-    textAlign: 'center',
-    fontSize: 20, 
-    // fontWeight: 'bold',
-    color: 'blue',
-    textDecorationLine: 'underline',
-   
+    alignItems: 'center'
   }
-  
 })
 
 export default InfoPage
