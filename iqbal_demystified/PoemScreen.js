@@ -825,7 +825,7 @@ class PoemPage extends React.Component {
 
 						}
 					}	else {
-						return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text>e</View></View></TouchableHighlight></View></View>
+						return <View style={{flex: 1, flexDirection: "column"}}><View  style={{justifyContent: 'center',alignItems: 'center', flex: 0.2}}><TouchableHighlight onPress={() =>that.starToggling(item)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{borderBottomWidth: 0.5, borderBottomColor: '#d6d7da', flex: 0.8}} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[0]}</Text></View><View><Text style={fontSizeVariable(that.state.fontGlobalSize)}>{item.sherContent[2].text[1]}</Text></View></View></TouchableHighlight></View></View>
 					}
 				}
 			}

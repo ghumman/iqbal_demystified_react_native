@@ -243,9 +243,9 @@ const styles = StyleSheet.create({
   },
   HighlightProperties: {
     flex: 1,
-	overflow: 'hidden', 
-	alignItems: 'center', 
-	margin: 10
+		overflow: 'hidden', 
+		alignItems: 'center', 
+		margin: 10
   }
 });
 

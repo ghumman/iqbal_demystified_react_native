@@ -5,6 +5,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import qs from 'qs';
 
+import iconReact from './assets/android_app_assets/react.png';
+import iconVue from './assets/android_app_assets/vue.png';
+import iconFacebook from './assets/android_app_assets/facebook_link.png';
+import iconGithub from './assets/android_app_assets/github.png';
 import iconIis from './assets/android_app_assets/iqbal_com_pk.png';
 import iconAcademy from './assets/android_app_assets/iap.png';
 
@@ -218,77 +222,150 @@ class InfoPage extends React.Component {
 			  return <Text style={styles.RenderedText} key={key}>{item}</Text>
 		})
 
-	var showFontRadioForm
-	if (this.state.fontIndexReady)
-		showFontRadioForm = <RadioForm
-		  radio_props={radio_props_font}
-		  initial= {this.state.fontIndex}
-		  onPress={(value) => AsyncStorage.setItem(FONT, value)}
-		/>
-	else 
-		showFontRadioForm = null;
-			
-	var showTextRadioForm
-	if (this.state.textIndexReady)
-		showTextRadioForm = <RadioForm
-		  radio_props={radio_props_text}
-		  initial={this.state.textIndex}
-		  onPress={(value) => {AsyncStorage.setItem(TEXT, value)}}
-		/>
-	else 
-		showTextRadioForm = null;
+		var showFontRadioForm
+		if (this.state.fontIndexReady)
+			showFontRadioForm = <RadioForm
+				radio_props={radio_props_font}
+				initial= {this.state.fontIndex}
+				onPress={(value) => AsyncStorage.setItem(FONT, value)}
+			/>
+		else 
+			showFontRadioForm = null;
+				
+		var showTextRadioForm
+		if (this.state.textIndexReady)
+			showTextRadioForm = <RadioForm
+				radio_props={radio_props_text}
+				initial={this.state.textIndex}
+				onPress={(value) => {AsyncStorage.setItem(TEXT, value)}}
+			/>
+		else 
+			showTextRadioForm = null;
+
+		var aboutText = "Iqbal Demystified App helps the young generation to fully understand the work of Allama Iqbal. The purpose of this app is to facilitate students who are unable to benefit from Iqbal's work because of the difficult terms used or lack of knowledge about the context of the poems.\n\nUsers can contribute to this app in several ways including but not limited to writing poem introductions, providing audios for poems and adding more references to difficult words. We are always open to suggestions and comments and are looking for other effective techniques that can facilitate learning about our lost heritage."	
+
+		var developerText = "We have open-sourced our repositories and codebase in an attempt to involve the community to help us with this project. If you are interested in working on a new feature for the app, please contact us.\n\nFollowing are the 4 GitHub repositories for this project. Please get involved!"
 
 		return (
 			<View>
 				<ScrollView>
-				<Text style={styles.RenderedText}>Choose Font</Text>
+				<Text style={styles.EnglishTitle}>Choose Font</Text>
 	{showFontRadioForm}
 
 				<Text style={{color: '#FF0000',}}>Warning: Fonts may not show up properly on some mobile devices.</Text>
     
-				<Text style={styles.RenderedText}>Choose Text Type</Text>
-	{showTextRadioForm}
+				<Text style={styles.EnglishTitle}>Choose Text Type</Text>
+				{showTextRadioForm}
 
-
-				<Text style={styles.RenderedText}>Created By</Text>
-				<Text style={styles.EnglishTitle}>International Iqbal Society</Text>
-					<View style={styles.ImageView}>
-					<Image source={iconIis}/>
-					</View>
-
-				
-				<Text style={styles.RenderedText}>Developer</Text>
-				<Text style={styles.RenderedText}>Ahmed Ghumman</Text>
-				<Text style={styles.RenderedText}>For suggestions and reporting bugs:</Text>
-			<TextInput
-			      onFocus={this.handleFocus}
-			      onBlur={this.handleBlur}
-			      placeholder="Message..."
-			      onChangeText={(emailText) => this.setState({emailText})}
-			      style={[newStyle]}
-			      editable={true}
-			      multiline={true}
-			      value={emailText}
-			      onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
-			    />
+				<Text style={styles.EnglishTitle}>Contribute</Text>
+				<Text style={styles.RenderedText}>If you have any suggestions or if you can contribute to the app in any way, we would really appreciate your help. Visit our Facebook Page to see how you can help.</Text>
+				<TextInput
+					onFocus={this.handleFocus}
+					onBlur={this.handleBlur}
+					placeholder="Message..."
+					onChangeText={(emailText) => this.setState({emailText})}
+					style={[newStyle]}
+					editable={true}
+					multiline={true}
+					value={emailText}
+					onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+				/>
 
 				<View style={styles.RenderedTextFeedbackView}>
 				<TouchableHighlight onPress={() =>this.sendEmailFunction()}>
 					<Text style={styles.RenderedTextFeedback}>
-						SEND FEEDBACK TO DEVELOPER
+						SEND FEEDBACK TO DEVELOPERS
 					</Text>
 		
 				</TouchableHighlight>
 				</View>
-				<Text style={styles.RenderedText}>Special thanks to Iqbal Demystified Android App Developers:</Text>
-				<Text style={styles.RenderedText}>AZEEM GHUMMAN</Text>
-				<Text style={styles.RenderedText}>FAIZAN KHAN</Text>
-				<Text style={styles.RenderedText}>اخلاص عمل مانگ نيا گان کہن سے</Text>
-				<Text style={styles.RenderedText}>'شاہاں چہ عجب گر بنوازند گدا را!'</Text>
-				<Text style={styles.RenderedText}>May Allah give them reward for making the code open source.</Text>
-				<Text style={styles.RenderedText}>Special Thanks</Text>
+
+				<Text style={styles.EnglishTitle}>About This App</Text>
+				<Text style={styles.RenderedText}>{aboutText}</Text>
+
+				<View style={styles.ImageView}>
+					<TouchableHighlight onPress={() => Linking.openURL('https://www.facebook.com/IqbalDemystified')}  >
+						<Image source={iconFacebook}/>
+					</TouchableHighlight>
+				</View>
+
+				<Text style={styles.EnglishTitle}>Are you a developer?</Text>
+				<Text style={styles.RenderedText}>{developerText}</Text>
+
+          {/*
+	    first row of logos
+	  */}
+				
+          <View style={{flex: 1, flexDirection: 'row', padding: 10,  justifyContent: 'space-around'}}>
+						<View style={styles.HighlightProperties}>	
+							<Text style={styles.EnglishTitle}>Iqbal Demystifed React Native</Text>
+							<TouchableHighlight onPress={() => Linking.openURL('https://github.com/ghumman/iqbal_demystified_react_native')}  >
+								<Image style={styles.RowImage} resizeMode='center' source={iconGithub}/>
+							</TouchableHighlight>
+						</View>
+						<View style={styles.HighlightProperties}>	
+							<Text style={styles.EnglishTitle}>Iqbal Android App</Text>
+							<TouchableHighlight onPress={() => Linking.openURL('https://github.com/AzeemGhumman/iqbal-demystified-android-app')}>
+								<Image style={styles.RowImage} resizeMode="center" source={iconGithub}/>
+							</TouchableHighlight>
+						</View>
+					</View>
+
+          {/*
+	    second row of logos
+	  */}
+          <View style={{flex: 1, flexDirection: 'row', padding: 10, justifyContent: 'space-around'}}>
+						<View style={styles.HighlightProperties}>
+							<Text style={styles.EnglishTitle}>Iqbal Dataset</Text>
+							<TouchableHighlight onPress={() => Linking.openURL('https://github.com/AzeemGhumman/iqbal-demystified-dataset')}>
+								<Image style={styles.RowImage} resizeMode="center"  source={iconGithub}/>
+							</TouchableHighlight>
+						</View>
+
+						<View style={styles.HighlightProperties}>
+							<Text style={styles.EnglishTitle}>Iqbal Web Client</Text>
+							<TouchableHighlight onPress={() => Linking.openURL('https://github.com/AzeemGhumman/iqbal-demystified-web-client')}>
+								<Image style={styles.RowImage} resizeMode="center"  source={iconGithub}/>
+							</TouchableHighlight>
+						</View>
+
+          </View>
+
+
+				<Text style={styles.EnglishTitle}>Vue Web Client</Text>
+				<View style={styles.ImageView}>
+					<TouchableHighlight onPress={() => Linking.openURL('https://iqbal-demystified.herokuapp.com/')}  >
+						<Image source={iconVue}/>
+					</TouchableHighlight>
+				</View> 
+
+				<Text style={styles.EnglishTitle}>React Web Client</Text>
+				<View style={styles.ImageView}>
+					<TouchableHighlight onPress={() => Linking.openURL('http://iqbal-demystified-react.herokuapp.com/')}  >
+						<Image source={iconReact}/>
+					</TouchableHighlight>
+				</View> 
+
+				<Text style={styles.RenderedText}>{"ﺷﮑﻮﮦﺀ۔ ﻇﻠﻤﺖِ ﺷﺐ ﺳﮯ ﺗﻮ ﮐﮩﯿﮟ ﺑﮩﺘﺮ ﺗﮭﺎ"}</Text>
+				<Text style={styles.RenderedText}>{"ﺍﭘﻨﮯ ﺣﺼﮯ ﮐﯽ ﮐﻮﺋﯽ ﺷﻤﻊ ﺟﻼﺗﮯ ﺟﺎﺗﮯ"}</Text>
+
+				<Text style={styles.EnglishTitle}>Created By</Text>
+				<Text style={styles.EnglishTitle}>International Iqbal Society</Text>
+				<Text style={styles.RenderedText}>{"{{Developers}}"}</Text> 
+				<Text style={styles.RenderedText}>Azeem Ghumman</Text>
+				<Text style={styles.RenderedText}>Faizan Khan</Text>
+				<Text style={styles.RenderedText}>Ahmed Ghumman (CEO: Ghumman Tech)</Text>
 					<View style={styles.ImageView}>
-					<Image source={iconAcademy}/>
+						<TouchableHighlight onPress={() => Linking.openURL('http://www.iqbal.com.pk/')}  >
+							<Image source={iconIis}/>
+						</TouchableHighlight>
+					</View> 
+				<Text style={styles.RenderedText}>{"International Iqbal Society\n(Formerly DISNA)"}</Text>
+				<Text style={styles.EnglishTitle}>Special Thanks</Text>
+					<View style={styles.ImageView}>
+						<TouchableHighlight onPress={() => Linking.openURL('http://iap.gov.pk/')}  >
+							<Image source={iconAcademy}/>
+						</TouchableHighlight>
 					</View>
 				<Text style={styles.RenderedText}>Iqbal Academy Pakistan</Text>
 				</ScrollView>
@@ -326,6 +403,15 @@ const styles = StyleSheet.create({
   ImageView: {
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  HighlightProperties: {
+    flex: 1,
+		overflow: 'hidden', 
+		alignItems: 'center', 
+		margin: 10
+  },
+  RowImage: {
+    flex: 1
   }
 })
 
