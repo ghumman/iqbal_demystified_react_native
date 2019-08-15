@@ -2,8 +2,10 @@
 
 This application is built using React Native CLI. This project was enhancement of our Web Application: [Iqbal Demystified React Web Client](http://iqbal-demystified-react.herokuapp.com)
 
-![screenshots of example app](/iqbal_demystified/assets/screenshots1.png)
-![screenshots of example app](/iqbal_demystified/assets/screenshots2.png)
+![First Set of Screenshots](/iqbal_demystified/assets/screenshots1.png)
+![Second Set of Screenshots](/iqbal_demystified/assets/screenshots2.png)
+![Third Set of Screenshots](/iqbal_demystified/assets/screenshots3.png)
+![Forth Set of Screenshots](/iqbal_demystified/assets/screenshots4.png)
 
 ## Features
 
@@ -19,6 +21,7 @@ This application is built using React Native CLI. This project was enhancement o
 - Reading and Writing to YAML data files
 - Downloading, Playing and Keeping Record of Audio files
 - Zoom In and Out while reading the poems
+- Select from different fonts types and font sizes
 - Bookmarking poems and stanzas
 - Ability to do discussion on stanzas or words inside stanzas
 - Voting system including
@@ -33,30 +36,20 @@ This application is built using React Native CLI. This project was enhancement o
 
 ## Setup instructions
 
+Install the required packages for macOS, Windows or Linux following the below guide
+
+```
+https://facebook.github.io/react-native/docs/getting-started.html
+```
+
+After following the above guide you should have Node, Watchman, JDK, Android Studio for Android and XCode for iOS development installed on your system. Use the following code to run the app on simulators or actual connected devices
+
 ```
 git clone https://github.com/ghumman/iqbal_demystified_react_native
 cd iqbal_demystified_react_native/iqbal_demystified
 npm install
+# For Android
 react-native run-android
+# For iOS
+react-native run-ios
 ```
-
-# Running on Android simulator with Ubuntu 18.04
-
-`echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && watchman shutdown-server && sudo sysctl -p`
-or just run following command.
-`bash fix_watchman_error_for_android.sh`
-
-# Install app on actual phone.
-
-`react-native run-android`
-
-# Run
-
-`sudo npm start`
-
-# To reload on actual phone
-
-'''Shake the device'''
-or
-`https://facebook.github.io/react-native/docs/running-on-device.html`
-`adb shell input keyevent 82`
