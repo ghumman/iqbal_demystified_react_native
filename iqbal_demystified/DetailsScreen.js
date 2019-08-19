@@ -12,5 +12,4 @@ class DetailsScreen extends React.Component {
   }
 }
 
-
 export default DetailsScreen;

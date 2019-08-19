@@ -1,18 +1,23 @@
-import React, { Component, PropTypes } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import React, { Component, PropTypes } from "react";
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet
+} from "react-native";
 
-const menuList = require('./Constants.js');
-
+const menuList = require("./Constants.js");
 
 export default class Menu extends Component {
-menuItemClicked = (item) => {
-		console.log('item: ')
-		console.log(item)
+  menuItemClicked = item => {
+    console.log("item: ");
+    console.log(item);
 
-		console.log('item.index: ')
-		console.log(item.index)
-
-}
+    console.log("item.index: ");
+    console.log(item.index);
+  };
   render() {
     var that = this;
     return (
@@ -34,18 +39,14 @@ menuItemClicked = (item) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#33cc33',
-    // marginTop: 50,
-
+    backgroundColor: "#33cc33"
   },
 
   listMenu: {
-    color: 'white', 
-    fontSize: 16, 
-    paddingLeft: 20, 
+    color: "white",
+    fontSize: 16,
+    paddingLeft: 20,
     paddingTop: 12,
-    paddingBottom: 12,
+    paddingBottom: 12
   }
-
 });
-
