@@ -9,7 +9,7 @@ export default {
       var yamlFile = "";
 
       if (Platform.OS == "ios") {
-        path = RNFS.MainBundlePath + "/assets/lists/" + listId + ".yaml";
+        path = RNFS.MainBundlePath + "/src/assets/lists/" + listId + ".yaml";
         yamlFile = await RNFS.readFile(path, "utf8");
       } else if (Platform.OS == "android") {
         path = "lists/" + listId + ".yaml";
@@ -34,7 +34,7 @@ export default {
           // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_00' + i + '.yaml');
           if (Platform.OS == "ios") {
             path[i - 1] =
-              RNFS.MainBundlePath + "/assets/lists/List_00" + i + ".yaml";
+              RNFS.MainBundlePath + "/src/assets/lists/List_00" + i + ".yaml";
             yamlFile[i - 1] = await RNFS.readFile(path[i - 1], "utf8");
           } else if (Platform.OS == "android") {
             path[i - 1] = "lists/List_00" + i + ".yaml";
@@ -47,7 +47,7 @@ export default {
           // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
           if (Platform.OS == "ios") {
             path[i - 1] =
-              RNFS.MainBundlePath + "/assets/lists/List_0" + i + ".yaml";
+              RNFS.MainBundlePath + "/src/assets/lists/List_0" + i + ".yaml";
             yamlFile[i - 1] = await RNFS.readFile(path[i - 1], "utf8");
           } else if (Platform.OS == "android") {
             path[i - 1] = "lists/List_0" + i + ".yaml";
@@ -127,7 +127,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/00" +
+                  "/src/assets/poems/00" +
                   l +
                   "/00" +
                   l +
@@ -154,7 +154,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/00" +
+                  "/src/assets/poems/00" +
                   l +
                   "/00" +
                   l +
@@ -181,7 +181,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/00" +
+                  "/src/assets/poems/00" +
                   l +
                   "/00" +
                   l +
@@ -212,7 +212,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/0" +
+                  "/src/assets/poems/0" +
                   l +
                   "/0" +
                   l +
@@ -239,7 +239,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/0" +
+                  "/src/assets/poems/0" +
                   l +
                   "/0" +
                   l +
@@ -266,7 +266,7 @@ export default {
               if (Platform.OS == "ios") {
                 path[i - 1 + sumOfFiles[l - 1]] =
                   RNFS.MainBundlePath +
-                  "/assets/poems/0" +
+                  "/src/assets/poems/0" +
                   l +
                   "/0" +
                   l +
@@ -331,7 +331,7 @@ export default {
       if (Platform.OS == "ios") {
         path =
           RNFS.MainBundlePath +
-          "/assets/poems/" +
+          "/src/assets/poems/" +
           arr[0] +
           "/" +
           poemId +
@@ -367,7 +367,7 @@ export default {
         if (Platform.OS == "ios") {
           path =
             RNFS.MainBundlePath +
-            "/assets/poems/" +
+            "/src/assets/poems/" +
             arr[0] +
             "/" +
             arr[0] +

@@ -11,9 +11,9 @@ import {
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 // following are books in second tab - Farsi 2
-import farsi2Book1 from "./assets/android_app_assets/book_javed_nama_persian_9.jpg";
-import farsi2Book2 from "./assets/android_app_assets/book_pas_cheh_bayad_kard_persian_10.jpg";
-import farsi2Book3 from "./assets/android_app_assets/book_armaghan_ae_hijaz_persian_11.jpg";
+import farsi2Book1 from "../../assets/android_app_assets/book_javed_nama_persian_9.jpg";
+import farsi2Book2 from "../../assets/android_app_assets/book_pas_cheh_bayad_kard_persian_10.jpg";
+import farsi2Book3 from "../../assets/android_app_assets/book_armaghan_ae_hijaz_persian_11.jpg";
 
 class Farsi2 extends React.Component {
   constructor(props) {

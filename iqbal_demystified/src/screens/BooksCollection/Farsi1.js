@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
-// following are books in first tab - Urdu
-import urduBook1 from "./assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg";
-import urduBook2 from "./assets/android_app_assets/book_bang_ae_dara_urdu_1.jpg";
-import urduBook3 from "./assets/android_app_assets/book_armaghan_ae_hijaz_urdu_4.jpg";
-import urduBook4 from "./assets/android_app_assets/book_zarb_ae_kaleem_urdu_3.jpg";
+// following are books in second tab - Farsi 1
+import farsi1Book1 from "../../assets/android_app_assets/book_rumuz_ae_bekhudi_persian_6.jpg";
+import farsi1Book2 from "../../assets/android_app_assets/book_asrar_ae_khudi_persian_5.jpg";
+import farsi1Book3 from "../../assets/android_app_assets/book_payam_ae_hijaz_persian_7.jpg";
+import farsi1Book4 from "../../assets/android_app_assets/book_zabur_ae_ajam_persian_8.jpg";
 
-class Urdu extends React.Component {
+class Farsi1 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,12 +26,20 @@ class Urdu extends React.Component {
     };
   }
 
+  static navigationOptions = {
+    title: "Farsi (1)",
+    headerTitle: "farsi"
+  };
+
   onSubmit = bookNumber => {
     const { navigate } = this.props.navigation;
 
     console.log("You are inside onSubmit Going to ListPoem");
+    // Alert.alert('You are inside onSubmit Going to ListPoem');
+    // Alert.alert('Value of this.state.username');
     console.log("Value of this.state.username");
     const localUsername = "test2";
+    // Alert.alert(localUsername);
     console.log(localUsername);
     console.log("Value of this.state.signinConfirmation");
     console.log(this.state.signinConfirmation);
@@ -57,11 +65,13 @@ class Urdu extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
+      // Alert.alert("Inside catch");
       console.log("Inside catch");
       console.log("Error");
       console.log(e);
     }
   }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -77,23 +87,23 @@ class Urdu extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_002")}
+                onPress={() => this.onSubmit("List_006")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={urduBook1}
+                  source={farsi1Book1}
                 />
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_001")}
+                onPress={() => this.onSubmit("List_005")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={urduBook2}
+                  source={farsi1Book2}
                 />
               </TouchableHighlight>
             </View>
@@ -108,23 +118,23 @@ class Urdu extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_004")}
+                onPress={() => this.onSubmit("List_007")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={urduBook3}
+                  source={farsi1Book3}
                 />
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_003")}
+                onPress={() => this.onSubmit("List_008")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={urduBook4}
+                  source={farsi1Book4}
                 />
               </TouchableHighlight>
             </View>
@@ -142,7 +152,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 10
   },
-
   RowSpace: {
     flex: 1,
     width: null,
@@ -156,4 +165,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Urdu;
+export default Farsi1;

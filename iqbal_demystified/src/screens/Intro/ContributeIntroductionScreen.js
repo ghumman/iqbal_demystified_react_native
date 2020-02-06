@@ -21,8 +21,8 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 import qs from "qs";
 
-import iconIis from "./assets/android_app_assets/iqbal_com_pk.png";
-import iconAcademy from "./assets/android_app_assets/iap.png";
+import iconIis from "../../assets/android_app_assets/iqbal_com_pk.png";
+import iconAcademy from "../../assets/android_app_assets/iap.png";
 
 const FONT = "Normal";
 const TEXT = "Urdu";

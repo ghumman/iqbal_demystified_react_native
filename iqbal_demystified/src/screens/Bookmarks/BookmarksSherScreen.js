@@ -12,10 +12,10 @@ import {
   View,
   Text
 } from "react-native";
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 
-import starLiked from "./assets/android_app_assets/star_liked.png";
-import starNotLiked from "./assets/android_app_assets/star_not_liked.png";
+import starLiked from "../../assets/android_app_assets/star_liked.png";
+import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 // for formatting
 // import './TabView1.css';

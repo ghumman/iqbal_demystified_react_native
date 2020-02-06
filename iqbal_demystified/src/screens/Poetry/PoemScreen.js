@@ -16,26 +16,26 @@ import {
   View,
   Text
 } from "react-native";
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import ActionBar from "react-native-action-bar";
 import DrawerLayout from "react-native-drawer-layout";
-import Menu from "./Menu";
+import Menu from "../Misc/Menu";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
-import starLiked from "./assets/android_app_assets/star_liked.png";
-import starNotLiked from "./assets/android_app_assets/star_not_liked.png";
+import starLiked from "../../assets/android_app_assets/star_liked.png";
+import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
-import iconAddSound from "./assets/android_app_assets/audio_player_add_sound.png";
-import iconBackward from "./assets/android_app_assets/audio_player_backward.png";
-import iconForward from "./assets/android_app_assets/audio_player_forward.png";
-import iconPause from "./assets/android_app_assets/audio_player_pause.png";
-import iconPlay from "./assets/android_app_assets/audio_player_play.png";
+import iconAddSound from "../../assets/android_app_assets/audio_player_add_sound.png";
+import iconBackward from "../../assets/android_app_assets/audio_player_backward.png";
+import iconForward from "../../assets/android_app_assets/audio_player_forward.png";
+import iconPause from "../../assets/android_app_assets/audio_player_pause.png";
+import iconPlay from "../../assets/android_app_assets/audio_player_play.png";
 
 import Video from "react-native-video";
 
-const menuList = require("./Constants.js");
+const menuList = require("../../shared/Constants");
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");

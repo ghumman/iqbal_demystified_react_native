@@ -8,7 +8,7 @@ import {
   StyleSheet
 } from "react-native";
 
-const menuList = require("./Constants.js");
+const menuList = require("../../shared/Constants.js");
 
 export default class Menu extends Component {
   menuItemClicked = item => {

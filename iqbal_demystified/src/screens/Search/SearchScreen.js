@@ -13,15 +13,15 @@ import {
   View,
   Text
 } from "react-native";
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
   RadioButtonLabel
 } from "react-native-simple-radio-button";
 
-import starLiked from "./assets/android_app_assets/star_liked.png";
-import starNotLiked from "./assets/android_app_assets/star_not_liked.png";
+import starLiked from "../../assets/android_app_assets/star_liked.png";
+import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");

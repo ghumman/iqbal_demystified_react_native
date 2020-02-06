@@ -15,7 +15,7 @@ import {
   createAppContainer
 } from "react-navigation";
 
-import logo from "./assets/ic_launcher.png";
+import logo from "../../assets/ic_launcher.png";
 
 export default class HomeScreen extends React.Component {
   componentWillMount() {
