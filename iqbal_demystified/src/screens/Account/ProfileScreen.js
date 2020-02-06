@@ -12,7 +12,7 @@ import {
   View,
   Text
 } from "react-native";
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import {
   Table,

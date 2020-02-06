@@ -7,31 +7,33 @@ import {
   createAppContainer
 } from "react-navigation";
 
-import SplashScreen from "./SplashScreen"; // splash screen, used only for android
-import HomeScreen from "./HomeScreen"; // screen after splash
-import ListPoemScreen from "./ListPoemScreen"; // this page opens when a book icon is clicked, shows poems
-import PoemScreen from "./PoemScreen"; // it opens when poem is clicked, shows a particular poem
-import ContributeIntroductionScreen from "./ContributeIntroductionScreen"; // for contributing introduction
+import SplashScreen from "./screens/Misc/SplashScreen"; // splash screen, used only for android
+import HomeScreen from "./screens/Home/HomeScreen"; // screen after splash
+import ListPoemScreen from "./screens/Poetry/ListPoemScreen"; // this page opens when a book icon is clicked, shows poems
+import PoemScreen from "./screens/Poetry/PoemScreen"; // it opens when poem is clicked, shows a particular poem
+import ContributeIntroductionScreen from "./screens/Intro/ContributeIntroductionScreen"; // for contributing introduction
 
 // screens for creating user account
-import SigninScreen from "./SigninScreen";
-import RegisterScreen from "./RegisterScreen";
-import ChangePasswordScreen from "./ChangePasswordScreen";
-import DownloadAudiosScreen from "./DownloadAudiosScreen";
-import ForgotPasswordScreen from "./ForgotPasswordScreen";
-import ProfileScreen from "./ProfileScreen";
+import SigninScreen from "./screens/Account/SigninScreen";
+import RegisterScreen from "./screens/Account/RegisterScreen";
+import ChangePasswordScreen from "./screens/Account/ChangePasswordScreen";
+import ForgotPasswordScreen from "./screens/Account/ForgotPasswordScreen";
+import ProfileScreen from "./screens/Account/ProfileScreen";
+
+// Audio
+import DownloadAudiosScreen from "./screens/Audio/DownloadAudiosScreen";
 
 // screen with settings and information
-import InfoScreen from "./InfoScreen";
+import InfoScreen from "./screens/Intro/InfoScreen";
 
 // screen for search engine
-import SearchScreen from "./SearchScreen";
+import SearchScreen from "./screens/Search/SearchScreen";
 
 // navigators
-import TabNavigator from "./TabScreen"; // shows book tabs like urdu/farsi
-import SherNavigator from "./SherTabsScreen"; // shows sher and word meanings discussion
-import BookmarksNavigator from "./BookmarksTabsScreen"; // shows bookmarked poems and shers
-import DiscussionNavigator from "./DiscussionTabsScreen"; // shows recent, popular and my poems tabs
+import TabNavigator from "./screens/BooksCollection/TabScreen"; // shows book tabs like urdu/farsi
+import SherNavigator from "./screens/Poetry/SherTabsScreen"; // shows sher and word meanings discussion
+import BookmarksNavigator from "./screens/Bookmarks/BookmarksTabsScreen"; // shows bookmarked poems and shers
+import DiscussionNavigator from "./screens/Discussion/DiscussionTabsScreen"; // shows recent, popular and my poems tabs
 
 const AppNavigator = createStackNavigator(
   {

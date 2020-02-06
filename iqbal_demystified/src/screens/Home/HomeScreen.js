@@ -24,18 +24,18 @@ const PASSWORD = "password";
 const MESSAGE = "message";
 
 // iqbal logo
-import logo from "./assets/allam_iqbal_pic.jpg";
+import logo from "../../assets/allam_iqbal_pic.jpg";
 
 // 6 main logos on main page
-import iconSignIn from "./assets/android_app_assets/icon_signed_in.png";
-import iconBest from "./assets/android_app_assets/icon_best.png";
-import iconBookmarks from "./assets/android_app_assets/icon_bookmark.png";
-import iconDiscussion from "./assets/android_app_assets/icon_discussion.png";
-import iconSearch from "./assets/android_app_assets/icon_search.png";
-import iconInfo from "./assets/android_app_assets/icon_info.png";
+import iconSignIn from "../../assets/android_app_assets/icon_signed_in.png";
+import iconBest from "../../assets/android_app_assets/icon_best.png";
+import iconBookmarks from "../../assets/android_app_assets/icon_bookmark.png";
+import iconDiscussion from "../../assets/android_app_assets/icon_discussion.png";
+import iconSearch from "../../assets/android_app_assets/icon_search.png";
+import iconInfo from "../../assets/android_app_assets/icon_info.png";
 
 // books logo in the middle of the page
-import booksLogo from "./assets/android_app_assets/books_logo.png";
+import booksLogo from "../../assets/android_app_assets/books_logo.png";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {

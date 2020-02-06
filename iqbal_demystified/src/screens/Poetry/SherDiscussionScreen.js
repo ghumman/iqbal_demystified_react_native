@@ -1,7 +1,8 @@
 import React from "react";
 import {
-  Image,
   Platform,
+  Share,
+  Image,
   ScrollView,
   TextInput,
   Button,
@@ -13,7 +14,7 @@ import {
   View,
   Text
 } from "react-native";
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import Moment from "moment";
 
@@ -27,8 +28,9 @@ import {
   Cell
 } from "react-native-table-component";
 
-import iconUpVote from "./assets/android_app_assets/vote_up_unselected.png";
-import iconDownVote from "./assets/android_app_assets/vote_down_unselected.png";
+import iconShare from "../../assets/android_app_assets/share.png";
+import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
+import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");
@@ -44,7 +46,6 @@ class SherPage extends React.Component {
       listId: "List_001",
       sherId: "",
       sherText: [],
-      meaningsAvailable: new Set(),
       wordText: [],
       poemText: [],
       sherObjects: [],
@@ -52,7 +53,7 @@ class SherPage extends React.Component {
       sherDiscussionDetail: [],
       wordDiscussionDetail: [],
       mySelectedWord: "",
-      mySelectedId: "1",
+      mySelectedId: "-99",
 
       userMessageSher: "",
       userMessageWord: "",
@@ -66,16 +67,11 @@ class SherPage extends React.Component {
     this.handleSubmitWord = this.handleSubmitWord.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: "Word Meanings",
-    headerTitle: navigation.state.params.title || "",
-    headerTintColor: "red",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      fontSize: 20,
-      textAlign: "center"
-    }
-  });
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Discussion"
+    };
+  };
 
   handleUserMessageSher(event) {
     this.setState({ userMessageSher: event.target.value });
@@ -95,9 +91,6 @@ class SherPage extends React.Component {
   }
 
   handleSubmitWord(event) {
-    console.log("Inside handleSubmitWord");
-
-    console.log("Going to send_word_message");
     this.send_word_message();
     event.preventDefault();
   }
@@ -154,28 +147,7 @@ class SherPage extends React.Component {
   }
 
   async send_word_message() {
-    console.log("Inside send_word_message");
-
-    console.log(
-      "sending message using body: sher= + that.state.sherId + &discussion_type=word-meanings&username= + that.state.username + &password= + that.state.password + &comment_text= + that.state.userMessageSher + &word_position= + that.state.mySelectedId"
-    );
-
-    console.log("this.state.sherId: ");
-    console.log(this.state.sherId);
-
-    console.log("this.state.username: ");
-    console.log(this.state.username);
-
-    console.log("this.state.pasword: ");
-    console.log(this.state.password);
-
-    console.log("this.state.userMessage: ");
-    console.log(this.state.userMessageWord);
-
-    console.log("this.state.mySelectedId: ");
-    console.log(this.state.mySelectedId);
-
-    var that = this;
+    // do not try pushing comment if message is empty
     if (this.state.userMessageWord.trim() != "") {
       // if user is not signed in, ask user to sign in
       if (
@@ -186,23 +158,20 @@ class SherPage extends React.Component {
           fetch("https://icanmakemyownapp.com/iqbal/v3/post-comment.php", {
             method: "POST",
             headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
+              "Content-Type": "text/plain"
             },
-            body:
-              "sher=" +
-              that.state.sherId +
-              "&discussion_type=word-meanings&username=" +
-              that.state.username +
-              "&password=" +
-              that.state.password +
-              "&comment_text=" +
-              that.state.userMessageWord +
-              "&word_position=" +
-              that.state.mySelectedId
-          }).then(async function(data) {
+            body: {
+              sher: this.state.sherId,
+              discussion_type: "word-meanings",
+              username: this.state.username,
+              password: this.state.password,
+              comment_text: this.state.userMessageWord,
+              word_position: this.state.mySelectedId + 1
+            }
+          }).then(function(data) {
             console.log("data");
             console.log(data);
-            that.getSherWordDiscussion(that.state.sherId);
+            this.getSherWordDiscussion(this.state.sherId);
           }); // success function ends
         } catch (err) {
           Alert.alert("inside catch err");
@@ -248,6 +217,7 @@ class SherPage extends React.Component {
         data.json().then(async function(data) {
           console.log("data: ");
           console.log(data);
+
           var sherArray = sherName.split("_");
 
           var path = "";
@@ -339,6 +309,7 @@ class SherPage extends React.Component {
             console.log(wordTextLocal[6]);
           }
 
+          // make wordTextLocal equal to this.state.wordText
           that.setState({ wordText: wordTextLocal });
 
           var poemTextLocal = yamlObject.heading[0].text;
@@ -396,25 +367,19 @@ class SherPage extends React.Component {
   }
 
   async getSherWordDiscussion(sherName) {
-    var that = this;
     try {
       fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "text/plain"
         },
-        body: "sher=" + sherName + "&discussion_type=word-meanings"
-      }).then(async function(data) {
-        data.json().then(async function(data) {
-          console.log("data: ");
-          console.log(data);
+        body: { sher: sherName, discussion_type: "word-meanings" }
+      }).then(function(data) {
+        var sherWordDiscussionServerResponse = data;
+        console.log("sherWordDiscussionServerResponse");
+        console.log(sherWordDiscussionServerResponse);
 
-          var sherWordDiscussionServerResponse = data;
-          console.log("sherWordDiscussionServerResponse");
-          console.log(sherWordDiscussionServerResponse);
-
-          that.getWordDiscussion(sherWordDiscussionServerResponse);
-        }); // data.json().then ends
+        this.getWordDiscussion(sherWordDiscussionServerResponse);
       }); // success function ends
     } catch (err) {
       // try ends
@@ -424,31 +389,18 @@ class SherPage extends React.Component {
   }
 
   getWordDiscussion(sherWordDiscussionServerResponse) {
-    var wordDiscussionDetailLocal = sherWordDiscussionServerResponse;
+    var wordDiscussionDetailLocal = JSON.parse(
+      sherWordDiscussionServerResponse
+    );
     console.log("wordDiscussionDetailLocal");
     console.log(wordDiscussionDetailLocal);
 
-    var meaningsAvailableLocal = new Set();
-
     for (var i = 0; i < wordDiscussionDetailLocal.length; i++) {
-      console.log(wordDiscussionDetailLocal[i].text);
-      console.log(decodeURI(wordDiscussionDetailLocal[i].text));
       wordDiscussionDetailLocal[i].text = decodeURI(
         wordDiscussionDetailLocal[i].text
       );
-      meaningsAvailableLocal.add(wordDiscussionDetailLocal[i].wordposition);
     }
-    console.log("Before setState");
     this.setState({ wordDiscussionDetail: wordDiscussionDetailLocal });
-    console.log("After setState");
-
-    console.log("meaningsAvailableLocal");
-    console.log(meaningsAvailableLocal);
-
-    this.setState({ meaningsAvailable: meaningsAvailableLocal });
-
-    console.log("this.state.meaningsAvailable");
-    console.log(this.state.meaningsAvailable);
   }
 
   componentDidMount() {
@@ -471,7 +423,6 @@ class SherPage extends React.Component {
       console.log("sherName: ");
       console.log(sherName);
       this.getSherGeneralDiscussion(sherName);
-      this.getSherWordDiscussion(sherName);
     } catch (e) {
       // try ends
       console.log("Inside catch");
@@ -495,119 +446,36 @@ class SherPage extends React.Component {
   //	Vote Like Word
   ///////////////////////////////////////////////////////////
 
-  vote_like_word_arrow(comment_general_id) {
-    console.log("Value of comment_general_id");
-    console.log(comment_general_id);
-
-    var that = this;
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
-            console.log("data");
-            console.log(data);
-            if (data == "vote registered") {
-              Alert.alert("Vote registered.");
-              that.getSherWordDiscussion(that.state.sherId);
-            } else if (data == "vote already registered") {
-              try {
-                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  },
-                  body:
-                    "sher=" +
-                    that.state.sherId +
-                    "&discussion_type=word-meanings&comment_id=" +
-                    comment_general_id +
-                    "&username=" +
-                    that.state.username +
-                    "&password=" +
-                    that.state.password +
-                    "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
-                    console.log("data");
-                    console.log(data);
-                    if (data == "vote removed") {
-                      Alert.alert("Vote removed.");
-                      that.getSherWordDiscussion(that.state.sherId);
-                    } else if (data == "invalid is_cancel value") {
-                      Alert.alert("You have not liked or disliked it yet.");
-                    }
-                  }); // data.text.then.func ends
-                }); // success function ends
-              } catch (err) {
-                Alert.alert("inside catch err");
-                Alert.alert(err);
-              }
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-    console.log("messageSher sent to send sher message function");
-  }
-
   vote_like_word(comment_general_id) {
     console.log("Value of comment_general_id");
     console.log(comment_general_id);
 
-    var that = this;
     if (this.state.username != "") {
       try {
         fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "text/plain"
           },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
-            console.log("data");
-            console.log(data);
-            if (data == "vote registered")
-              that.getSherWordDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
+          body: {
+            sher: this.state.sherId,
+            discussion_type: "word-meanings",
+            comment_id: comment_general_id,
+            username: this.state.username,
+            password: this.state.password,
+            is_like: 1,
+            is_cancel: 0
+          }
+        }).then(function(data) {
+          console.log("data");
+          console.log(data);
+          if (data == "vote registered")
+            this.getSherWordDiscussion(this.state.sherId);
+          else if (data == "vote already registered") {
+            Alert.alert(
+              "Vote is already registerd. Unregister vote first and then you can revote"
+            );
+          }
         }); // success function ends
       } catch (err) {
         Alert.alert("inside catch err");
@@ -627,126 +495,36 @@ class SherPage extends React.Component {
   //	Vote Dislike Word
   ///////////////////////////////////////////////////////////
 
-  vote_dislike_word_arrow(comment_general_id) {
-    console.log("Value of comment_general_id");
-    console.log(comment_general_id);
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=0"
-        }).then(function(data) {
-          data.text().then(async function(data) {
-            console.log("data");
-            console.log(data);
-            if (data == "vote registered") {
-              Alert.alert("Vote registered.");
-              that.getSherWordDiscussion(that.state.sherId);
-            } else if (data == "vote already registered") {
-              try {
-                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                  },
-                  body:
-                    "sher=" +
-                    that.state.sherId +
-                    "&discussion_type=word-meanings&comment_id=" +
-                    comment_general_id +
-                    "&username=" +
-                    that.state.username +
-                    "&password=" +
-                    that.state.password +
-                    "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
-                    // success: (data) => {	// success funciton starts
-                    console.log("data");
-                    console.log(data);
-                    if (data == "vote removed") {
-                      // this.toggle_word(idx);
-                      Alert.alert("Vote removed.");
-                      that.getSherWordDiscussion(that.state.sherId);
-                    } else if (data == "invalid is_cancel value") {
-                      Alert.alert("You have not liked or disliked it yet.");
-                    }
-                  }); // data.text.then.func ends
-                }); // success function ends
-                // });	// ajax call ends
-              } catch (err) {
-                Alert.alert("inside catch err");
-                Alert.alert(err);
-                // this.message = err;
-              }
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-        this.message = err;
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-    console.log("messageSher sent to send sher message function");
-    // console.log(this.messageSher);
-  }
   vote_dislike_word(comment_general_id) {
     console.log("Value of comment_general_id");
     console.log(comment_general_id);
 
-    var that = this;
-
     if (this.state.username != "") {
       try {
         fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "text/plain"
           },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=0"
+          body: {
+            sher: this.state.sherId,
+            discussion_type: "word-meanings",
+            comment_id: comment_general_id,
+            username: this.state.username,
+            password: this.state.password,
+            is_like: 0,
+            is_cancel: 0
+          }
         }).then(function(data) {
-          data.text().then(async function(data) {
-            console.log("data");
-            console.log(data);
-            if (data == "vote registered")
-              that.getSherWordDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
+          console.log("data");
+          console.log(data);
+          if (data == "vote registered")
+            this.getSherWordDiscussion(this.state.sherId);
+          else if (data == "vote already registered") {
+            Alert.alert(
+              "Vote is already registerd. Unregister vote first and then you can revote"
+            );
+          }
         }); // success function ends
       } catch (err) {
         Alert.alert("inside catch err");
@@ -771,36 +549,31 @@ class SherPage extends React.Component {
     console.log("Value of comment_general_id");
     console.log(comment_general_id);
 
-    var that = this;
-
     if (this.state.username != "") {
       try {
         fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
           method: "POST",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "text/plain"
           },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=1"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
-            console.log("data");
-            console.log(data);
-            if (data == "vote removed") {
-              that.getSherWordDiscussion(that.state.sherId);
-              Alert.alert("Your vote is removed");
-            } else if (data == "invalid is_cancel value") {
-              Alert.alert("You have not liked or disliked it yet.");
-            }
-          }); // data.text.then.func ends
+          body: {
+            sher: this.state.sherId,
+            discussion_type: "word-meanings",
+            comment_id: comment_general_id,
+            username: this.state.username,
+            password: this.state.password,
+            is_like: 0,
+            is_cancel: 1
+          }
+        }).then(function(data) {
+          console.log("data");
+          console.log(data);
+          if (data == "vote removed") {
+            this.getSherWordDiscussion(this.state.sherId);
+            Alert.alert("Your vote is removed");
+          } else if (data == "invalid is_cancel value") {
+            Alert.alert("You have not liked or disliked it yet.");
+          }
         }); // success function ends
       } catch (err) {
         Alert.alert("inside catch err");
@@ -819,6 +592,90 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
   //	Vote Like General
   ///////////////////////////////////////////////////////////
+  vote_like_arrow(comment_general_id) {
+    console.log("Inside vote_like");
+
+    console.log("Value of comment_general_id");
+    console.log(comment_general_id);
+
+    var that = this;
+
+    if (this.state.username != "") {
+      try {
+        localTestString =
+          "sher=002_001_001&discussion_type=general&comment_id=319&username=agent3&password=agent&is_like=1&is_cancel=0";
+        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body:
+            "sher=" +
+            that.state.sherId +
+            "&discussion_type=general&comment_id=" +
+            comment_general_id +
+            "&username=" +
+            that.state.username +
+            "&password=" +
+            that.state.password +
+            "&is_like=1&is_cancel=0"
+        }).then(async function(data) {
+          data.text().then(async function(data) {
+            // success: (data) => {	// success funciton starts
+            console.log("data");
+            console.log(data);
+            if (data == "vote registered") {
+              Alert.alert("Vote registered.");
+              that.getSherGeneralDiscussion(that.state.sherId);
+            } else if (data == "vote already registered") {
+              try {
+                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body:
+                    "sher=" +
+                    that.state.sherId +
+                    "&discussion_type=general&comment_id=" +
+                    comment_general_id +
+                    "&username=" +
+                    that.state.username +
+                    "&password=" +
+                    that.state.password +
+                    "&is_like=0&is_cancel=1"
+                }).then(async function(data) {
+                  data.text().then(async function(data) {
+                    console.log("data");
+                    console.log(data);
+                    if (data == "vote removed") {
+                      Alert.alert("Vote removed.");
+                      that.getSherGeneralDiscussion(that.state.sherId);
+                    } else if (data == "invalid is_cancel value") {
+                      Alert.alert("You have not liked or disliked it yet.");
+                    }
+                  }); // data.text.then.func ends
+                }); // success function ends
+              } catch (err) {
+                Alert.alert("inside catch err");
+                Alert.alert(err);
+              }
+            }
+          }); // data.text.then.func ends
+        }); // success function ends
+      } catch (err) {
+        Alert.alert("inside catch err");
+        Alert.alert(err);
+      }
+    } // if username not empty ends
+    else {
+      Alert.alert(
+        "You are you not logged in. Please Login to give your feedback."
+      );
+    }
+
+    console.log("messageSher sent to send sher message function");
+  }
 
   vote_like(comment_general_id) {
     console.log("Inside vote_like");
@@ -877,6 +734,89 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
   //	Vote Dislike General
   ///////////////////////////////////////////////////////////
+
+  vote_dislike_arrow(comment_general_id) {
+    console.log("Inside vote_dislike");
+
+    console.log("Value of comment_general_id");
+    console.log(comment_general_id);
+
+    var that = this;
+
+    if (this.state.username != "") {
+      try {
+        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body:
+            "sher=" +
+            that.state.sherId +
+            "&discussion_type=general&comment_id=" +
+            comment_general_id +
+            "&username=" +
+            that.state.username +
+            "&password=" +
+            that.state.password +
+            "&is_like=0&is_cancel=0"
+        }).then(async function(data) {
+          data.text().then(async function(data) {
+            console.log("data");
+            console.log(data);
+            if (data == "vote registered") {
+              Alert.alert("Vote registered.");
+
+              that.getSherGeneralDiscussion(that.state.sherId);
+            } else if (data == "vote already registered") {
+              try {
+                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                  },
+                  body:
+                    "sher=" +
+                    that.state.sherId +
+                    "&discussion_type=general&comment_id=" +
+                    comment_general_id +
+                    "&username=" +
+                    that.state.username +
+                    "&password=" +
+                    that.state.password +
+                    "&is_like=0&is_cancel=1"
+                }).then(async function(data) {
+                  data.text().then(async function(data) {
+                    console.log("data");
+                    console.log(data);
+                    if (data == "vote removed") {
+                      Alert.alert("Vote removed.");
+                      that.getSherGeneralDiscussion(that.state.sherId);
+                    } else if (data == "invalid is_cancel value") {
+                      Alert.alert("You have not liked or disliked it yet.");
+                    }
+                  }); // data.text.then.func ends
+                }); // success function ends
+              } catch (err) {
+                Alert.alert("inside catch err");
+                Alert.alert(err);
+              }
+            }
+          }); // data.text.then.func ends
+        }); // success function ends
+      } catch (err) {
+        Alert.alert("inside catch err");
+        Alert.alert(err);
+      }
+    } // if username not empty ends
+    else {
+      Alert.alert(
+        "You are you not logged in. Please Login to give your feedback."
+      );
+    }
+
+    console.log("messageSher sent to send sher message function");
+  }
 
   vote_dislike(comment_general_id) {
     console.log("Inside vote_dislike");
@@ -987,187 +927,158 @@ class SherPage extends React.Component {
 
   selectedWord(wordText, wordId) {
     this.setState({ mySelectedWord: wordText });
-    this.setState({ mySelectedId: wordId + 1 });
+    this.setState({ mySelectedId: wordId });
     console.log("Value of mySelectedWord");
     console.log(this.state.mySelectedWord);
     console.log("Value of mySelectedId");
     console.log(this.state.mySelectedId);
   }
 
-  chooseColor() {
-    return {
-      borderColor: "red"
-    };
-  }
+  onShare = async () => {
+    var that = this;
+    try {
+      const result = await Share.share({
+        title: "Iqbal Demystified",
+        message:
+          that.state.sherText[0] +
+          "\n" +
+          that.state.sherText[1] +
+          "\n" +
+          "(Iqbal Demystified by International Iqbal Society)"
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   render() {
     Moment.locale("en");
-
     var item4 = this.state.sherText.map((item, index) => (
-      <Text key={item.index}> {item}</Text>
+      <Text key={item.index} style={styles.RenderedText}>
+        {" "}
+        {item}
+      </Text>
     ));
 
-    const viewStylesNotSelected = {
-      borderColor: "black",
-      borderWidth: 1
-    };
-    const viewStylesWithMeanings = {
-      borderColor: "green",
-      borderWidth: 1
-    };
-    const viewStylesSelected = {
-      borderColor: "red",
-      borderWidth: 2
-    };
-
-    const textStylesNotSelected = {
-      color: "black",
-      fontWeight: "normal"
-    };
-    const textStylesSelected = {
-      color: "red",
-      fontWeight: "bold"
-    };
-
-    var that = this;
-    var item5 = this.state.wordText.map(function(item, index) {
-      if (parseInt(that.state.mySelectedId) == index + 1)
-        return (
-          <View style={[styles.button, viewStylesSelected]}>
-            <TouchableHighlight
-              key={item.index}
-              onPress={() => that.selectedWord(item, index)}
-            >
-              <Text style={[styles.buttonText, textStylesSelected]}>
-                {item}
-              </Text>
-            </TouchableHighlight>
-          </View>
-        );
-      else if (that.state.meaningsAvailable.has((index + 1).toString())) {
-        return (
-          <View style={[styles.button, viewStylesWithMeanings]}>
-            <TouchableHighlight
-              key={item.index}
-              onPress={() => that.selectedWord(item, index)}
-            >
-              <Text style={[styles.buttonText, textStylesNotSelected]}>
-                {item}
-              </Text>
-            </TouchableHighlight>
-          </View>
-        );
-      } else {
-        return (
-          <View style={[styles.button, viewStylesNotSelected]}>
-            <TouchableHighlight
-              key={item.index}
-              onPress={() => that.selectedWord(item, index)}
-            >
-              <Text style={[styles.buttonText, textStylesNotSelected]}>
-                {item}
-              </Text>
-            </TouchableHighlight>
-          </View>
-        );
-      }
-    });
+    var item5 = this.state.wordText.map((item, index) => (
+      <span key={item.index}>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={() => this.selectedWord(item, index)}
+        >
+          {" "}
+          {item}{" "}
+        </button>{" "}
+      </span>
+    ));
 
     var item6 = this.state.sherDiscussionDetail.map((item, index) => (
-      <View key={item.id}>
-        <Text>{item.username}</Text>
-        <View></View>
-        <View>
-          <Text>{item.timestamp}</Text>
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 0.1, flexDirection: "column" }}>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <TouchableHighlight onPress={() => this.vote_like_arrow(item.id)}>
+              <Image
+                resizeMode="stretch"
+                style={{ height: 30, width: 30 }}
+                source={iconUpVote}
+              />
+            </TouchableHighlight>
+          </View>
+          <View
+            style={{
+              flex: 0.2,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+              {item.score}
+            </Text>
+          </View>
+          <View
+            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+          >
+            <TouchableHighlight
+              onPress={() => this.vote_dislike_arrow(item.id)}
+            >
+              <Image
+                resizeMode="stretch"
+                style={{ height: 30, width: 30 }}
+                source={iconDownVote}
+              />
+            </TouchableHighlight>
+          </View>
         </View>
-        <View>
-          <Text>{item.text}</Text>
-        </View>
-        <View>
-          <Button onPress={() => this.vote_like(item.id)} title="LIKE" />
-        </View>
-        <View>
-          <Text>SCORE: {item.score}</Text>
-        </View>
-        <View>
-          <Button onPress={() => this.vote_dislike(item.id)} title="DISLIKE" />
-        </View>
-        <View>
-          <Text></Text>
-        </View>
-        <View>
-          <Button
-            onPress={() => this.vote_unregister(item.id)}
-            title="UNREGISTER"
-          />
+        <View
+          key={item.id}
+          style={[styles.RenderedItem6View, styles.flexPoint8]}
+        >
+          <View style={styles.NavBar}>
+            <Text>{item.username}</Text>
+            <Text>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
+          </View>
+          <View>
+            <Text style={styles.CommentsText}>{item.text}</Text>
+          </View>
         </View>
       </View>
     ));
 
     var item7 = this.state.wordDiscussionDetail.map((item, index) => {
-      if (item.wordposition == this.state.mySelectedId)
+      if (item.wordposition - 1 == this.state.mySelectedId)
         return (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={{ flex: 0.1, flexDirection: "column" }}>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+          <div key={item.id}>
+            {" "}
+            <div class="float-left">
+              <p> {item.username}</p>
+            </div>{" "}
+            <div class="float-right">
+              <p> {item.timestamp}</p>{" "}
+            </div>
+            <br />{" "}
+            <p>
+              {item.text}
+              <br />
+              <br />{" "}
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => this.vote_like_word(item.id)}
               >
-                <TouchableHighlight
-                  onPress={() => this.vote_like_word_arrow(item.id)}
-                >
-                  <Image
-                    resizeMode="stretch"
-                    style={{ height: 30, width: 30 }}
-                    source={iconUpVote}
-                  />
-                </TouchableHighlight>
-              </View>
-              <View
-                style={{
-                  flex: 0.2,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+                {" "}
+                LIKE{" "}
+              </button>
+              <span class="px-2"> SCORE: {item.score}</span>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => this.vote_dislike_word(item.id)}
               >
-                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
-                  {item.score}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                  justifyContent: "center"
-                }}
+                DISLIKE
+              </button>
+              <p></p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => this.vote_unregister_word(item.id)}
               >
-                <TouchableHighlight
-                  onPress={() => this.vote_dislike_word_arrow(item.id)}
-                >
-                  <Image
-                    resizeMode="stretch"
-                    style={{ height: 30, width: 30 }}
-                    source={iconDownVote}
-                  />
-                </TouchableHighlight>
-              </View>
-            </View>
-            <View
-              key={item.id}
-              style={[styles.RenderedItem6View, styles.flexPoint8]}
-            >
-              <View style={styles.NavBar}>
-                <Text>{item.username}</Text>
-                <Text>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
-              </View>
-              <View>
-                <Text style={styles.CommentsText}>{item.text}</Text>
-              </View>
-            </View>
-          </View>
+                UNREGISTER
+              </button>
+            </p>
+          </div>
         );
     });
 
@@ -1196,14 +1107,12 @@ class SherPage extends React.Component {
     }
     return (
       <View style={{ flex: 1 }}>
-        <View style={styles.FirstSection}>
+        <View style={styles.MainScrollView}>
           <ScrollView>
-            <View style={styles.container}>{item5}</View>
-          </ScrollView>
-        </View>
-        <View style={styles.SecondSection}>
-          <ScrollView>
-            <View>{item7}</View>
+            <View>
+              <View style={styles.RenderedView}>{item4}</View>
+              <View sytle={styles.RenderedItem6View}>{item6}</View>
+            </View>
           </ScrollView>
         </View>
 
@@ -1215,10 +1124,26 @@ class SherPage extends React.Component {
             <TextInput
               style={{ height: 40 }}
               placeholder="Comments..."
-              onChangeText={text => this.setState({ userMessageWord: text })}
+              onChangeText={text => this.setState({ userMessageSher: text })}
             />
           </View>
-          <Button onPress={this.handleSubmitWord} title="SUBMIT" />
+          <View
+            style={{
+              flex: 0.5,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <View>
+              <Button onPress={this.handleSubmitSher} title="SUBMIT" />
+            </View>
+            <View>
+              <TouchableHighlight onPress={() => this.onShare()}>
+                <Image resizeMode="contain" source={iconShare} />
+              </TouchableHighlight>
+            </View>
+          </View>
         </View>
       </View>
     ); // return ends
@@ -1227,36 +1152,8 @@ class SherPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
-    flexWrap: "wrap"
-  },
-  button: {
-    padding: 5,
-    borderRadius: 10,
-    padding: 10
-  },
-
-  buttonText: {
-    textAlign: "right",
-    textAlignVertical: "center",
-    fontSize: 18
-  },
-  FirstSection: {
-    flex: 2,
-    borderWidth: 1
-  },
-  SecondSection: {
-    flex: 4,
-    borderWidth: 1
-  },
-  buttonSelected: {
-    backgroundColor: "red",
-    borderRadius: 10,
-    borderWidth: 1,
-    width: "25%",
-    height: 40
+    flex: 1,
+    paddingTop: 22
   },
   RenderedView: {
     borderRadius: 4,
@@ -1315,12 +1212,6 @@ const styles = StyleSheet.create({
   MainScrollView: {
     flex: 3,
     borderWidth: 1
-  },
-  WordButtons: {
-    backgroundColor: "#00aeef",
-    borderColor: "red",
-    borderWidth: 5,
-    borderRadius: 15
   }
 });
 

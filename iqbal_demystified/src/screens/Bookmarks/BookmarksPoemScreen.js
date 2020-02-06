@@ -13,15 +13,15 @@ import {
 } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
-import starLiked from "./assets/android_app_assets/star_liked.png";
-import starNotLiked from "./assets/android_app_assets/star_not_liked.png";
+import starLiked from "../../assets/android_app_assets/star_liked.png";
+import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 // import Divider from '@material-ui/core/Divider';
 // import { Divider } from 'react-native-elements';
 
 // import StaticContentService from './StaticContentServiceYamlTest2';
 // import StaticContentService from './StaticContentServiceYamlTest';
-import StaticContentService from "./StaticContentServiceYaml";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
