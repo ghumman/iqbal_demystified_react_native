@@ -14,8 +14,8 @@ const USERNAME = 'username';
 const PASSWORD = 'password';
 const MESSAGE = 'message';
 
-class Register extends React.Component {
-  constructor(props) {
+class Register extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       signinConfirmation: '',
@@ -50,27 +50,27 @@ class Register extends React.Component {
   });
 
   // handlechange
-  handleChangeFirstName(event) {
+  handleChangeFirstName(event: any) {
     this.setState({ firstName: event.target.value });
   }
 
-  handleChangeLastName(event) {
+  handleChangeLastName(event: any) {
     this.setState({ lastName: event.target.value });
   }
 
-  handleChangeUsername(event) {
+  handleChangeUsername(event: any) {
     this.setState({ username: event.target.value });
   }
 
-  handleChangeEmail(event) {
+  handleChangeEmail(event: any) {
     this.setState({ email: event.target.value });
   }
 
-  handleChangePassword1(event) {
+  handleChangePassword1(event: any) {
     this.setState({ password1: event.target.value });
   }
 
-  handleChangePassword2(event) {
+  handleChangePassword2(event: any) {
     this.setState({ password2: event.target.value });
   }
 
@@ -80,7 +80,7 @@ class Register extends React.Component {
   };
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     console.log('first name: ');
     console.log(this.state.firstName);
 

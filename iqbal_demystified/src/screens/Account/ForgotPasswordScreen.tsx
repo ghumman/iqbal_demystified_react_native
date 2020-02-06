@@ -9,8 +9,8 @@ import {
   Text,
 } from 'react-native';
 
-class ForgotPassword extends React.Component {
-  constructor(props) {
+class ForgotPassword extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       email: '',
@@ -32,7 +32,7 @@ class ForgotPassword extends React.Component {
   });
 
   // handlechange
-  handleChangeEmail(event) {
+  handleChangeEmail(event: any) {
     this.setState({ email: event.target.value });
   }
 
@@ -41,7 +41,7 @@ class ForgotPassword extends React.Component {
   };
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     const that = this;
     if (this.state.email.trim() != '') {
       try {
@@ -50,10 +50,10 @@ class ForgotPassword extends React.Component {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          data: { email: this.state.email },
+          // data: { email: this.state.email },
           body: `email=${that.state.email}`,
-        }).then(async (data) => {
-          data.text().then(async (data) => {
+        }).then(async (data: any) => {
+          data.text().then(async (data: any) => {
             console.log('data');
             console.log(data);
             if (data.trim() == 'email sent') {

@@ -23,8 +23,8 @@ const USERNAME = 'username';
 const PASSWORD = 'password';
 const MESSAGE = 'message';
 
-class ProfilePage extends React.Component {
-  constructor(props) {
+class ProfilePage extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       username: '',
@@ -74,29 +74,10 @@ class ProfilePage extends React.Component {
     },
   };
 
-  dropChange(event) {
+  dropChange(event: any) {
     this.setState({ dropdownState: event.target.value });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('this.state.leaderBoardText');
-    console.log(this.state.leaderBoardText);
-
-    console.log('this.state.leaderBoardTextEven');
-    console.log(this.state.leaderBoardTextEven);
-
-    console.log('this.state.leaderBoardTextEvenDiscussion');
-    console.log(this.state.leaderBoardTextEvenDiscussion);
-
-    console.log('this.state.leaderBoardTextOddDiscussion');
-    console.log(this.state.leaderBoardTextOddDiscussion);
-
-    console.log('this.state.leaderBoardTextEvenWord');
-    console.log(this.state.leaderBoardTextEvenWord);
-
-    console.log('this.state.leaderBoardTextOddWord');
-    console.log(this.state.leaderBoardTextOddWord);
-  }
 
   componentDidMount() {
     try {
@@ -172,12 +153,12 @@ class ProfilePage extends React.Component {
 
   async get_leader_board() {
     let leaderBoardTextLocal = [];
-    const leaderBoardTextEvenLocal = [];
-    const leaderBoardTextOddLocal = [];
-    const leaderBoardTextEvenDiscussionLocal = [];
-    const leaderBoardTextOddDiscussionLocal = [];
-    const leaderBoardTextEvenWordLocal = [];
-    const leaderBoardTextOddWordLocal = [];
+    const leaderBoardTextEvenLocal: any = [];
+    const leaderBoardTextOddLocal: any = [];
+    const leaderBoardTextEvenDiscussionLocal: any = [];
+    const leaderBoardTextOddDiscussionLocal: any = [];
+    const leaderBoardTextEvenWordLocal: any = [];
+    const leaderBoardTextOddWordLocal: any = [];
 
     const that = this;
     try {
@@ -269,14 +250,14 @@ class ProfilePage extends React.Component {
       signinMessageLocal = 'Sign In';
     }
 
-    const itemOddWord = this.state.leaderBoardTextOddWord.map((item) => (
+    const itemOddWord = this.state.leaderBoardTextOddWord.map((item: any) => (
       <Text key={item}>
         {' '}
         {item}
       </Text>
     ));
 
-    const itemEvenWord = this.state.leaderBoardTextEvenWord.map((item) => (
+    const itemEvenWord = this.state.leaderBoardTextEvenWord.map((item: any) => (
       <Text key={item}>
         {' '}
         {item}
@@ -284,7 +265,7 @@ class ProfilePage extends React.Component {
     ));
 
     const itemOddDiscussion = this.state.leaderBoardTextOddDiscussion.map(
-      (item) => (
+      (item: any) => (
         <Text key={item}>
           {' '}
           {item}
@@ -293,7 +274,7 @@ class ProfilePage extends React.Component {
     );
 
     const itemEvenDiscussion = this.state.leaderBoardTextEvenDiscussion.map(
-      (item) => (
+      (item: any) => (
         <Text key={item}>
           {' '}
           {item}
@@ -304,7 +285,7 @@ class ProfilePage extends React.Component {
 
     const tableHeader = ['Leaderboard Name', 'Points'];
 
-    let myTable = '';
+    let myTable: any = '';
 
     if (this.state.dropdownState === 'discussion') {
       myTable = (

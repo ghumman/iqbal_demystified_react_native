@@ -13,21 +13,23 @@ import {
 import Video from 'react-native-video';
 import StaticContentService from '../Misc/StaticContentServiceYaml';
 
-import starLiked from '../../assets/android_app_assets/star_liked.png';
-import starNotLiked from '../../assets/android_app_assets/star_not_liked.png';
-
-import iconBackward from '../../assets/android_app_assets/audio_player_backward.png';
-import iconForward from '../../assets/android_app_assets/audio_player_forward.png';
-import iconPause from '../../assets/android_app_assets/audio_player_pause.png';
-import iconPlay from '../../assets/android_app_assets/audio_player_play.png';
-import iconGarbage from '../../assets/android_app_assets/garbage_icon.png';
+// import iconBackward from '../../assets/android_app_assets/audio_player_backward.png';
+const iconBackward = require('../../assets/android_app_assets/audio_player_backward.png');
+// import iconForward from '../../assets/android_app_assets/audio_player_forward.png';
+const iconForward = require('../../assets/android_app_assets/audio_player_forward.png');
+// import iconPause from '../../assets/android_app_assets/audio_player_pause.png';
+const iconPause = require('../../assets/android_app_assets/audio_player_pause.png');
+// import iconPlay from '../../assets/android_app_assets/audio_player_play.png';
+const iconPlay = require('../../assets/android_app_assets/audio_player_play.png');
+// import iconGarbage from '../../assets/android_app_assets/garbage_icon.png';
+const iconGarbage = require('../../assets/android_app_assets/garbage_icon.png');
 
 
 const RNFS = require('react-native-fs');
 const YAML = require('yaml');
 
-class PoemPage extends React.Component {
-  constructor(props) {
+class DownloadAudioScreen extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       username: '',
@@ -70,7 +72,7 @@ class PoemPage extends React.Component {
     },
   });
 
-  onSubmit = (sherNumber) => {
+  onSubmit = (sherNumber: any) => {
     this.props.navigation.navigate('SherTabs', {
       detailSher: sherNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
@@ -79,7 +81,7 @@ class PoemPage extends React.Component {
     });
   };
 
-  getPoem(listId) {
+  getPoem(listId: any) {
     console.log(`listId: ${listId}`);
     const that = this;
     StaticContentService.getPoem(listId).then((response) => {
@@ -126,7 +128,7 @@ class PoemPage extends React.Component {
         console.log('Value of newArr');
         console.log(newArr);
 
-        yamlObject.sher.map((el) => {
+        yamlObject.sher.map((el: any) => {
           try {
             el.sherContent[0].text = el.sherContent[0].text.split('|');
             console.log(el.sherContent[0].text);
@@ -183,7 +185,7 @@ class PoemPage extends React.Component {
     });
   }
 
-  starToggling = (sher) => {
+  starToggling = (sher: any) => {
     const that = this;
 
     this.readBookmarks().then((result) => {
@@ -211,7 +213,7 @@ class PoemPage extends React.Component {
           .then(() => {
             console.log('FILE WRITTEN!');
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
 
@@ -237,7 +239,7 @@ class PoemPage extends React.Component {
           .then(() => {
             console.log('FILE WRITTEN!');
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
 
@@ -304,11 +306,11 @@ class PoemPage extends React.Component {
     });
   }
 
-  onLoad = (data) => {
+  onLoad = (data: any) => {
     this.setState({ duration: data.duration });
   };
 
-  onProgress = (data) => {
+  onProgress = (data: any) => {
     this.setState({ currentTime: data.currentTime });
   };
 
@@ -354,7 +356,7 @@ class PoemPage extends React.Component {
     } else Alert.alert('Please select a poem first.');
   }
 
-  onDownloadAudio(audioFile) {
+  onDownloadAudio(audioFile: any) {
     console.log('Inside onDownloadAudio');
     const path = `${RNFS.DocumentDirectoryPath}/Iqbal-Demystified/${audioFile}`;
     this.setState({ audioPath: path });
@@ -386,13 +388,13 @@ class PoemPage extends React.Component {
     that.state.downloadedData = [];
 
     RNFS.readDir(`${RNFS.DocumentDirectoryPath}/Iqbal-Demystified`).then(
-      (result) => {
+      (result: any) => {
         console.log('GOT RESULT', result);
         console.log('result.length', result.length);
         const previousResult = result;
 
         that.readDownloadedAudioFile().then((result1) => {
-          for (i = 0; i < previousResult.length; i++) {
+          for (var i = 0; i < previousResult.length; i++) {
             if (previousResult[i].isFile()) {
               console.log('prevousResult[i].name', previousResult[i].name);
               console.log('result1');
@@ -463,14 +465,14 @@ class PoemPage extends React.Component {
           .then(() => {
             console.log('FILE WRITTEN!');
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       }
     });
   };
 
-  deleteDownloadEntry(audioFile) {
+  deleteDownloadEntry(audioFile: any) {
     const that = this;
 
     this.readDownloadedAudioFile().then((result) => {
@@ -501,14 +503,14 @@ class PoemPage extends React.Component {
 
             that.readDirectory();
           }) // writeFile.then ends
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       } // if entry was available in yaml file finished
     }); // readDownloadedAudioFile.then ends
   }
 
-  confirmDeleteDownload(audioFile) {
+  confirmDeleteDownload(audioFile: any) {
     Alert.alert('Are you sure you want to delete this audio?', '', [
       {
         text: 'NO',
@@ -521,7 +523,7 @@ class PoemPage extends React.Component {
     ]);
   }
 
-  deleteDownload(audioFile) {
+  deleteDownload(audioFile: any) {
     const that = this;
     const path = `${RNFS.DocumentDirectoryPath}/Iqbal-Demystified/${audioFile}`;
 
@@ -530,7 +532,7 @@ class PoemPage extends React.Component {
         console.log('FILE DELETED');
         that.deleteDownloadEntry(audioFile);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.log('Inside catch error');
         console.log(err.message);
       });
@@ -550,7 +552,7 @@ class PoemPage extends React.Component {
   render() {
     const that = this;
     const itemDownload = this.state.downloadedDataFinal.map((
-      item,
+      item: any,
     ) => (
         <View style={{ flex: 1, flexDirection: 'column' }}>
           <View
@@ -718,7 +720,7 @@ class PoemPage extends React.Component {
       videoSetup = (
         <Video
           source={{ uri: this.state.audioPath }}
-          ref={(ref) => {
+          ref={(ref: any) => {
             this.player = ref;
           }}
           onBuffer={this.onBuffer}
@@ -842,4 +844,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PoemPage;
+export default DownloadAudioScreen;

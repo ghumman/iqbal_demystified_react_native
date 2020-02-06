@@ -17,8 +17,8 @@ const USERNAME = 'username';
 const PASSWORD = 'password';
 const MESSAGE = 'message';
 
-class Signin extends React.Component {
-  constructor(props) {
+class Signin extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       errorMessage: '',
@@ -31,7 +31,7 @@ class Signin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: 'Sign In',
     headerTintColor: 'red',
     headerTitleStyle: {
@@ -49,7 +49,7 @@ class Signin extends React.Component {
     } // else if user or password are empty ends
   } // function login ends
 
-  async try_login(inputUsername, inputPassword) {
+  async try_login(inputUsername: any, inputPassword: any) {
     const that = this;
     try {
       fetch('https://www.icanmakemyownapp.com/iqbal/v3/login.php', {
@@ -95,16 +95,16 @@ class Signin extends React.Component {
     } // catch ends
   } // async try_login ends
 
-  handleChangeUsername(event) {
+  handleChangeUsername(event: any) {
     this.setState({ username: event.target.value });
   }
 
-  handleChangePassword(event) {
+  handleChangePassword(event: any) {
     this.setState({ password: event.target.value });
   }
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     this.login();
     event.preventDefault();
   }

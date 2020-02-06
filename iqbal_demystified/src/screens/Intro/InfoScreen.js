@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   TextInput,
   Image,
@@ -6,132 +6,139 @@ import {
   Linking,
   TouchableHighlight,
   StyleSheet,
+  FlatList,
+  SectionList,
+  Alert,
   View,
-  Text,
-} from 'react-native';
+  Text
+} from "react-native";
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel
+} from "react-native-simple-radio-button";
+import AsyncStorage from "@react-native-community/async-storage";
 
-import AsyncStorage from '@react-native-community/async-storage';
+import qs from "qs";
 
-import qs from 'qs';
+import iconReact from "../../assets/android_app_assets/react.png";
+import iconVue from "../../assets/android_app_assets/vue.png";
+import iconFacebook from "../../assets/android_app_assets/facebook_link.png";
+import iconGithub from "../../assets/android_app_assets/github.png";
+import iconIis from "../../assets/android_app_assets/iqbal_com_pk.png";
+import iconAcademy from "../../assets/android_app_assets/iap.png";
 
-import iconReact from '../../assets/android_app_assets/react.png';
-import iconVue from '../../assets/android_app_assets/vue.png';
-import iconFacebook from '../../assets/android_app_assets/facebook_link.png';
-import iconGithub from '../../assets/android_app_assets/github.png';
-import iconIis from '../../assets/android_app_assets/iqbal_com_pk.png';
-import iconAcademy from '../../assets/android_app_assets/iap.png';
+const FONT = "Normal";
+const TEXT = "Urdu";
 
-const FONT = 'Normal';
-const TEXT = 'Urdu';
-
-const radio_props_font = [
-  { label: 'Normal', value: 'Normal' },
-  { label: 'Nafees', value: 'Nafees' },
-  { label: 'Kasheeda', value: 'Kasheeda' },
-  { label: 'Fajer', value: 'Fajer' },
+var radio_props_font = [
+  { label: "Normal", value: "Normal" },
+  { label: "Nafees", value: "Nafees" },
+  { label: "Kasheeda", value: "Kasheeda" },
+  { label: "Fajer", value: "Fajer" }
 ];
 
-const radio_props_text = [
-  { label: 'Urdu', value: 'Urdu' },
-  { label: 'Roman English', value: 'Roman' },
+var radio_props_text = [
+  { label: "Urdu", value: "Urdu" },
+  { label: "Roman English", value: "Roman" }
 ];
 
 class InfoPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      signinConfirmation: '',
-      font: 'Normal',
-      text: 'Urdu',
+      username: "",
+      password: "",
+      signinConfirmation: "",
+      font: "Normal",
+      text: "Urdu",
       fontIndex: -1,
       textIndex: -1,
-      emailText: '',
+      emailText: "",
       height: 40,
-      emailText: '',
+      emailText: "",
       isFocused: false,
 
       fontIndexReady: false,
-      textIndexReady: false,
+      textIndexReady: false
     };
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: 'Settings',
-    headerTintColor: 'red',
+    headerTitle: "Settings",
+    headerTintColor: "red",
     headerTitleStyle: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 20,
-      textAlign: 'center',
-    },
+      textAlign: "center"
+    }
   });
 
   onDidFocusCustomFunction = () => {
-    console.log('Inside onDidFocusCustomFunction');
+    console.log("Inside onDidFocusCustomFunction");
     try {
-      AsyncStorage.getItem(FONT).then((res) => {
+      AsyncStorage.getItem(FONT).then(res => {
         if (res !== null) {
-          console.log('res is not equal to null: ');
+          console.log("res is not equal to null: ");
           console.log(res);
           this.setState({ font: res });
           switch (res) {
-            case 'Normal':
-              console.log('case is Normal');
+            case "Normal":
+              console.log("case is Normal");
               this.setState({ fontIndex: 0 });
               break;
-            case 'Nafees':
-              console.log('case is Nafees');
+            case "Nafees":
+              console.log("case is Nafees");
               this.setState({ fontIndex: 1 });
               break;
-            case 'Kasheeda':
-              console.log('case is Kasheeda');
+            case "Kasheeda":
+              console.log("case is Kasheeda");
               this.setState({ fontIndex: 2 });
               break;
-            case 'Fajer':
-              console.log('case is Fajer');
+            case "Fajer":
+              console.log("case is Fajer");
               this.setState({ fontIndex: 3 });
               break;
           }
-          console.log('this.state.fontIndex');
+          console.log("this.state.fontIndex");
           console.log(this.state.fontIndex);
           this.setState({ fontIndexReady: true });
         } else {
-          console.log('res: ');
+          console.log("res: ");
           console.log(res);
 
-          this.setState({ font: 'Normal' });
+          this.setState({ font: "Normal" });
           this.setState({ fontIndex: 0 });
           this.setState({ fontIndexReady: true });
         }
       });
     } catch (err) {
-      console.log('err: ');
+      console.log("err: ");
       console.log(err);
-      this.setState({ font: 'Normal' });
+      this.setState({ font: "Normal" });
     }
 
-    AsyncStorage.getItem(TEXT).then((res) => {
+    AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log('res is not null: ');
+        console.log("res is not null: ");
         console.log(res);
         this.setState({ text: res });
         switch (res) {
-          case 'Urdu':
+          case "Urdu":
             this.setState({ textIndex: 0 });
             break;
-          case 'Roman':
+          case "Roman":
             this.setState({ textIndex: 1 });
             break;
         }
-        console.log('this.state.textIndex');
+        console.log("this.state.textIndex");
         console.log(this.state.textIndex);
         this.setState({ textIndexReady: true });
       } else {
-        console.log('res: ');
+        console.log("res: ");
         console.log(res);
 
-        this.setState({ text: 'Urdu' });
+        this.setState({ text: "Urdu" });
         this.setState({ textIndex: 0 });
         this.setState({ textIndexReady: true });
       }
@@ -144,21 +151,21 @@ class InfoPage extends React.Component {
 
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          'profileSigninConfirmation',
-        ),
+          "profileSigninConfirmation"
+        )
       });
       this.setState({
-        username: this.props.navigation.getParam('profileUsername'),
+        username: this.props.navigation.getParam("profileUsername")
       });
       this.setState({
-        password: this.props.navigation.getParam('profilePassword'),
+        password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      console.log('Inside catch');
+      console.log("Inside catch");
     }
   }
 
-  updateSize = (height) => {
+  updateSize = height => {
     this.setState({ height });
   };
 
@@ -167,43 +174,43 @@ class InfoPage extends React.Component {
   handleBlur = () => this.setState({ isFocused: false });
 
   sendEmailFunction() {
-    console.log('Inside sendEmailFunciton');
+    console.log("Inside sendEmailFunciton");
     this.sendEmail(
-      'admin@ghummantech.com',
-      'Iqbal Demystified App - User Email',
-      this.state.emailText,
+      "admin@ghummantech.com",
+      "Iqbal Demystified App - User Email",
+      this.state.emailText
     ).then(() => {
-      console.log('Our email successful provided to device mail ');
+      console.log("Our email successful provided to device mail ");
     });
   }
 
   async sendEmail(to, subject, body, options = {}) {
-    console.log('Inside sendEmail');
-    const cc = '';
-    const bcc = '';
+    console.log("Inside sendEmail");
+    const cc = "";
+    const bcc = "";
 
-    console.log('Before url = mailto...');
+    console.log("Before url = mailto...");
     let url = `mailto:${to}`;
 
-    console.log('Before const query');
+    console.log("Before const query");
     const query = qs.stringify({
-      subject,
-      body,
-      cc,
-      bcc,
+      subject: subject,
+      body: body,
+      cc: cc,
+      bcc: bcc
     });
 
     if (query.length) {
       url += `?${query}`;
     }
 
-    console.log('Before canOpen = await Linking...');
+    console.log("Before canOpen = await Linking...");
     const canOpen = await Linking.canOpenURL(url);
 
     if (!canOpen) {
-      throw new Error('Provided URL can not be handled');
+      throw new Error("Provided URL can not be handled");
     }
-    console.log('Before return Linking...');
+    console.log("Before return Linking...");
 
     return Linking.openURL(url);
   }
@@ -211,57 +218,64 @@ class InfoPage extends React.Component {
   render() {
     const { emailText, height } = this.state;
 
-    const newStyle = {
+    let newStyle = {
       height,
-      backgroundColor: '#ffffff',
+      backgroundColor: "#ffffff",
       paddingLeft: 15,
       paddingRight: 15,
-      borderBottomColor: this.state.isFocused ? 'black' : 'red',
-      borderBottomWidth: 1,
+      borderBottomColor: this.state.isFocused ? "black" : "red",
+      borderBottomWidth: 1
     };
 
     let signinTag;
-    const infoText = 'Developer:\n\nAhmed Ghumman\n\n';
-    const infoText2 = "\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source.";
+    var infoText = "Developer:\n\nAhmed Ghumman\n\n";
+    var infoText2 =
+      "\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source.";
 
-    const infoTextTokens = infoText.split('\n').map((item, key) => (
-      <Text style={styles.RenderedText} key={key}>
-        {item}
-      </Text>
-    ));
-    const infoTextTokens2 = infoText2.split('\n').map((item, key) => (
-      <Text style={styles.RenderedText} key={key}>
-        {item}
-      </Text>
-    ));
+    var infoTextTokens = infoText.split("\n").map((item, key) => {
+      return (
+        <Text style={styles.RenderedText} key={key}>
+          {item}
+        </Text>
+      );
+    });
+    var infoTextTokens2 = infoText2.split("\n").map((item, key) => {
+      return (
+        <Text style={styles.RenderedText} key={key}>
+          {item}
+        </Text>
+      );
+    });
 
-    let showFontRadioForm;
-    if (this.state.fontIndexReady) {
+    var showFontRadioForm;
+    if (this.state.fontIndexReady)
       showFontRadioForm = (
         <RadioForm
           radio_props={radio_props_font}
           initial={this.state.fontIndex}
-          onPress={(value) => AsyncStorage.setItem(FONT, value)}
+          onPress={value => AsyncStorage.setItem(FONT, value)}
         />
       );
-    } else showFontRadioForm = null;
+    else showFontRadioForm = null;
 
-    let showTextRadioForm;
-    if (this.state.textIndexReady) {
+    var showTextRadioForm;
+    if (this.state.textIndexReady)
       showTextRadioForm = (
         <RadioForm
           radio_props={radio_props_text}
           initial={this.state.textIndex}
-          onPress={(value) => {
+          onPress={value => {
             AsyncStorage.setItem(TEXT, value);
           }}
         />
       );
-    } else showTextRadioForm = null;
+    else showTextRadioForm = null;
 
-    const aboutText = "Iqbal Demystified App helps the young generation to fully understand the work of Allama Iqbal. The purpose of this app is to facilitate students who are unable to benefit from Iqbal's work because of the difficult terms used or lack of knowledge about the context of the poems.\n\nUsers can contribute to this app in several ways including but not limited to writing poem introductions, providing audios for poems and adding more references to difficult words. We are always open to suggestions and comments and are looking for other effective techniques that can facilitate learning about our lost heritage.";
+    var aboutText =
+      "Iqbal Demystified App helps the young generation to fully understand the work of Allama Iqbal. The purpose of this app is to facilitate students who are unable to benefit from Iqbal's work because of the difficult terms used or lack of knowledge about the context of the poems.\n\nUsers can contribute to this app in several ways including but not limited to writing poem introductions, providing audios for poems and adding more references to difficult words. We are always open to suggestions and comments and are looking for other effective techniques that can facilitate learning about our lost heritage.";
 
-    const developerText = 'We have open-sourced our repositories and codebase in an attempt to involve the community to help us with this project. If you are interested in working on a new feature for the app, please contact us.\n\nFollowing are the 4 GitHub repositories for this project. Please get involved!';
+    var developerText =
+      "We have open-sourced our repositories and codebase in an attempt to involve the community to help us with this project. If you are interested in working on a new feature for the app, please contact us.\n\nFollowing are the 4 GitHub repositories for this project. Please get involved!";
 
     return (
       <View>
@@ -269,7 +283,7 @@ class InfoPage extends React.Component {
           <Text style={styles.EnglishTitle}>Choose Font</Text>
           {showFontRadioForm}
 
-          <Text style={{ color: '#FF0000' }}>
+          <Text style={{ color: "#FF0000" }}>
             Warning: Fonts may not show up properly on some mobile devices.
           </Text>
 
@@ -286,12 +300,14 @@ class InfoPage extends React.Component {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
             placeholder="Message..."
-            onChangeText={(emailText) => this.setState({ emailText })}
+            onChangeText={emailText => this.setState({ emailText })}
             style={[newStyle]}
-            editable
-            multiline
+            editable={true}
+            multiline={true}
             value={emailText}
-            onContentSizeChange={(e) => this.updateSize(e.nativeEvent.contentSize.height)}
+            onContentSizeChange={e =>
+              this.updateSize(e.nativeEvent.contentSize.height)
+            }
           />
 
           <View style={styles.RenderedTextFeedbackView}>
@@ -307,7 +323,9 @@ class InfoPage extends React.Component {
 
           <View style={styles.ImageView}>
             <TouchableHighlight
-              onPress={() => Linking.openURL('https://www.facebook.com/IqbalDemystified')}
+              onPress={() =>
+                Linking.openURL("https://www.facebook.com/IqbalDemystified")
+              }
             >
               <Image source={iconFacebook} />
             </TouchableHighlight>
@@ -323,9 +341,9 @@ class InfoPage extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: 'row',
+              flexDirection: "row",
               padding: 10,
-              justifyContent: 'space-around',
+              justifyContent: "space-around"
             }}
           >
             <View style={styles.HighlightProperties}>
@@ -333,9 +351,11 @@ class InfoPage extends React.Component {
                 Iqbal Demystifed React Native
               </Text>
               <TouchableHighlight
-                onPress={() => Linking.openURL(
-                  'https://github.com/ghumman/iqbal_demystified_react_native',
-                )}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://github.com/ghumman/iqbal_demystified_react_native"
+                  )
+                }
               >
                 <Image
                   style={styles.RowImage}
@@ -347,9 +367,11 @@ class InfoPage extends React.Component {
             <View style={styles.HighlightProperties}>
               <Text style={styles.EnglishTitle}>Iqbal Android App</Text>
               <TouchableHighlight
-                onPress={() => Linking.openURL(
-                  'https://github.com/AzeemGhumman/iqbal-demystified-android-app',
-                )}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://github.com/AzeemGhumman/iqbal-demystified-android-app"
+                  )
+                }
               >
                 <Image
                   style={styles.RowImage}
@@ -366,17 +388,19 @@ class InfoPage extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: 'row',
+              flexDirection: "row",
               padding: 10,
-              justifyContent: 'space-around',
+              justifyContent: "space-around"
             }}
           >
             <View style={styles.HighlightProperties}>
               <Text style={styles.EnglishTitle}>Iqbal Dataset</Text>
               <TouchableHighlight
-                onPress={() => Linking.openURL(
-                  'https://github.com/AzeemGhumman/iqbal-demystified-dataset',
-                )}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://github.com/AzeemGhumman/iqbal-demystified-dataset"
+                  )
+                }
               >
                 <Image
                   style={styles.RowImage}
@@ -389,9 +413,11 @@ class InfoPage extends React.Component {
             <View style={styles.HighlightProperties}>
               <Text style={styles.EnglishTitle}>Iqbal Web Client</Text>
               <TouchableHighlight
-                onPress={() => Linking.openURL(
-                  'https://github.com/AzeemGhumman/iqbal-demystified-web-client',
-                )}
+                onPress={() =>
+                  Linking.openURL(
+                    "https://github.com/AzeemGhumman/iqbal-demystified-web-client"
+                  )
+                }
               >
                 <Image
                   style={styles.RowImage}
@@ -405,7 +431,9 @@ class InfoPage extends React.Component {
           <Text style={styles.EnglishTitle}>Vue Web Client</Text>
           <View style={styles.ImageView}>
             <TouchableHighlight
-              onPress={() => Linking.openURL('https://iqbal-demystified.herokuapp.com/')}
+              onPress={() =>
+                Linking.openURL("https://iqbal-demystified.herokuapp.com/")
+              }
             >
               <Image source={iconVue} />
             </TouchableHighlight>
@@ -414,22 +442,24 @@ class InfoPage extends React.Component {
           <Text style={styles.EnglishTitle}>React Web Client</Text>
           <View style={styles.ImageView}>
             <TouchableHighlight
-              onPress={() => Linking.openURL('http://iqbal-demystified-react.herokuapp.com/')}
+              onPress={() =>
+                Linking.openURL("http://iqbal-demystified-react.herokuapp.com/")
+              }
             >
               <Image source={iconReact} />
             </TouchableHighlight>
           </View>
 
           <Text style={styles.RenderedText}>
-            ﺷﮑﻮﮦﺀ۔ ﻇﻠﻤﺖِ ﺷﺐ ﺳﮯ ﺗﻮ ﮐﮩﯿﮟ ﺑﮩﺘﺮ ﺗﮭﺎ
+            {"ﺷﮑﻮﮦﺀ۔ ﻇﻠﻤﺖِ ﺷﺐ ﺳﮯ ﺗﻮ ﮐﮩﯿﮟ ﺑﮩﺘﺮ ﺗﮭﺎ"}
           </Text>
           <Text style={styles.RenderedText}>
-            ﺍﭘﻨﮯ ﺣﺼﮯ ﮐﯽ ﮐﻮﺋﯽ ﺷﻤﻊ ﺟﻼﺗﮯ ﺟﺎﺗﮯ
+            {"ﺍﭘﻨﮯ ﺣﺼﮯ ﮐﯽ ﮐﻮﺋﯽ ﺷﻤﻊ ﺟﻼﺗﮯ ﺟﺎﺗﮯ"}
           </Text>
 
           <Text style={styles.EnglishTitle}>Created By</Text>
           <Text style={styles.EnglishTitle}>International Iqbal Society</Text>
-          <Text style={styles.RenderedText}>{'{{Developers}}'}</Text>
+          <Text style={styles.RenderedText}>{"{{Developers}}"}</Text>
           <Text style={styles.RenderedText}>Azeem Ghumman</Text>
           <Text style={styles.RenderedText}>Faizan Khan</Text>
           <Text style={styles.RenderedText}>
@@ -437,18 +467,18 @@ class InfoPage extends React.Component {
           </Text>
           <View style={styles.ImageView}>
             <TouchableHighlight
-              onPress={() => Linking.openURL('http://www.iqbal.com.pk/')}
+              onPress={() => Linking.openURL("http://www.iqbal.com.pk/")}
             >
               <Image source={iconIis} />
             </TouchableHighlight>
           </View>
           <Text style={styles.RenderedText}>
-            {'International Iqbal Society\n(Formerly DISNA)'}
+            {"International Iqbal Society\n(Formerly DISNA)"}
           </Text>
           <Text style={styles.EnglishTitle}>Special Thanks</Text>
           <View style={styles.ImageView}>
             <TouchableHighlight
-              onPress={() => Linking.openURL('http://iap.gov.pk/')}
+              onPress={() => Linking.openURL("http://iap.gov.pk/")}
             >
               <Image source={iconAcademy} />
             </TouchableHighlight>
@@ -462,42 +492,42 @@ class InfoPage extends React.Component {
 
 const styles = StyleSheet.create({
   RenderedTextFeedbackView: {
-    backgroundColor: 'gray',
-    padding: 10,
+    backgroundColor: "gray",
+    padding: 10
   },
   RenderedTextFeedback: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 10,
     fontSize: 18,
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    borderColor: "#d6d7da"
   },
   RenderedText: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
 
   EnglishTitle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FF0000',
+    fontWeight: "bold",
+    color: "#FF0000"
   },
   ImageView: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   HighlightProperties: {
     flex: 1,
-    overflow: 'hidden',
-    alignItems: 'center',
-    margin: 10,
+    overflow: "hidden",
+    alignItems: "center",
+    margin: 10
   },
   RowImage: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
 export default InfoPage;

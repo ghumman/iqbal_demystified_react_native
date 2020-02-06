@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Image,
   Platform,
@@ -7,48 +7,56 @@ import {
   Button,
   TouchableHighlight,
   StyleSheet,
+  FlatList,
+  SectionList,
   Alert,
   View,
-  Text,
-} from 'react-native';
-import StaticContentService from '../Misc/StaticContentServiceYaml';
+  Text
+} from "react-native";
+import StaticContentService from "../Misc/StaticContentServiceYaml";
+import RadioForm, {
+  RadioButton,
+  RadioButtonInput,
+  RadioButtonLabel
+} from "react-native-simple-radio-button";
 
-import starLiked from '../../assets/android_app_assets/star_liked.png';
-import starNotLiked from '../../assets/android_app_assets/star_not_liked.png';
+import starLiked from "../../assets/android_app_assets/star_liked.png";
+import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
-const RNFS = require('react-native-fs');
+var RNFS = require("react-native-fs");
+var YAML = require("yaml");
 
-const radio_props = [
-  { label: 'Title', value: 'title' },
-  { label: 'Text', value: 'text' },
+var radio_props = [
+  { label: "Title", value: "title" },
+  { label: "Text", value: "text" }
 ];
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      signinConfirmation: '',
+      username: "",
+      password: "",
+      signinConfirmation: "",
 
-      searchText: '',
-      selectedOption: 'title',
+      searchText: "",
+      selectedOption: "title",
 
       inputBoxClicked: false,
 
       pictures: [],
-      listId: 'List_001',
+      listId: "List_001",
       poemList: [],
       sherList: [],
       poemListName: [],
       bookName: [],
-      bookNameUrdu: '',
-      bookNameEnglish: '',
+      bookNameUrdu: "",
+      bookNameEnglish: "",
       bookSections: [],
-      onePoem: '',
+      onePoem: "",
       poemText: [],
       poemObjects: [],
-      messageResults: 'Results',
+      messageResults: "Results"
     };
     this.handleSearchText = this.handleSearchText.bind(this);
 
@@ -57,32 +65,32 @@ class SearchPage extends React.Component {
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
 
-  static navigationOptions = () => ({
-    headerTitle: 'Allama Iqbal Search Engine',
-    headerTintColor: 'red',
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: "Allama Iqbal Search Engine",
+    headerTintColor: "red",
     headerTitleStyle: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 10,
-      textAlign: 'center',
-    },
+      textAlign: "center"
+    }
   });
 
   handleAlphabet(alphabetValue) {
-    console.log('alphabetValue: ');
+    console.log("alphabetValue: ");
     console.log(alphabetValue);
-    if (alphabetValue != 'Back') this.setState({ searchText: this.state.searchText + alphabetValue });
-    else {
+    if (alphabetValue != "Back")
+      this.setState({ searchText: this.state.searchText + alphabetValue });
+    else
       this.setState({
         searchText: this.state.searchText.substr(
           0,
-          this.state.searchText.length - 1,
-        ),
+          this.state.searchText.length - 1
+        )
       });
-    }
   }
 
   handleInputClicked() {
-    console.log('Input box is clicked: ');
+    console.log("Input box is clicked: ");
     this.setState({ inputBoxClicked: true });
   }
 
@@ -95,85 +103,86 @@ class SearchPage extends React.Component {
   }
 
   // handleSubmit
-  handleSubmit() {
+  handleSubmit(event) {
     this.setState({ inputBoxClicked: false });
 
-    console.log('SEARCH is pressed');
-    console.log('You searched for: ');
+    console.log("SEARCH is pressed");
+    console.log("You searched for: ");
     console.log(this.state.searchText);
 
-    console.log('Option selected is: ');
+    console.log("Option selected is: ");
     console.log(this.state.selectedOption);
 
-    if (this.state.searchText.trim() != '') {
-      if (this.state.selectedOption == 'title') {
-        console.log('going to getPoemListSearch');
+    if (this.state.searchText.trim() != "") {
+      if (this.state.selectedOption == "title") {
+        console.log("going to getPoemListSearch");
         this.getPoemListSearch(this.state.searchText.trim());
-      } else if (this.state.selectedOption == 'text') {
-        console.log('going to getPoemSearch');
+      } else if (this.state.selectedOption == "text") {
+        console.log("going to getPoemSearch");
         this.getPoemSearch(this.state.searchText.trim());
       }
     } else {
-      Alert.alert('Search Field can not be empty');
+      Alert.alert("Search Field can not be empty");
     }
   }
 
-  starTogglingSher = (sher) => {
-    const that = this;
+  starTogglingSher = sher => {
+    var that = this;
 
-    this.readBookmarksSher().then((result) => {
-      console.log('result');
+    this.readBookmarksSher().then(function (result) {
+      console.log("result");
       console.log(result);
 
       if (result.includes(sher.id)) {
-        const index = result.indexOf(sher.id);
+        var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
 
-        console.log('result');
+        console.log("result");
         console.log(result);
 
-        const newData = result.join('@');
+        var newData = result.join("@");
 
-        console.log('newData');
+        console.log("newData");
         console.log(newData);
 
-        var path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
+        var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
-        RNFS.writeFile(path, newData, 'utf8')
-          .then(() => {
-            console.log('FILE WRITTEN!');
+        RNFS.writeFile(path, newData, "utf8")
+          .then(success => {
+            console.log("FILE WRITTEN!");
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err.message);
           });
         that.handleSubmit();
       } else {
-        var path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
+        var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
-        const sherAt = `${sher.id
-          }@${
-          sher.sherContent[0].text[0]
-          }@${
-          sher.sherContent[0].text[1]
-          }@${
-          sher.sherContent[1].text[0]
-          }@${
-          sher.sherContent[1].text[1]
-          }@${
-          sher.sherContent[2].text[0]
-          }@${
-          sher.sherContent[2].text[1]
-          }@`;
+        var sherAt =
+          sher.id +
+          "@" +
+          sher.sherContent[0].text[0] +
+          "@" +
+          sher.sherContent[0].text[1] +
+          "@" +
+          sher.sherContent[1].text[0] +
+          "@" +
+          sher.sherContent[1].text[1] +
+          "@" +
+          sher.sherContent[2].text[0] +
+          "@" +
+          sher.sherContent[2].text[1] +
+          "@";
 
         // write the file
-        RNFS.appendFile(path, sherAt, 'utf8')
-          .then(() => {
-            console.log('FILE WRITTEN!');
+        RNFS.appendFile(path, sherAt, "utf8")
+          .then(success => {
+            console.log("FILE WRITTEN!");
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err.message);
           });
 
@@ -183,69 +192,70 @@ class SearchPage extends React.Component {
   };
 
   async readBookmarksSher() {
-    const path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
+    const path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
     try {
-      const yamlFile = await RNFS.readFile(path, 'utf8');
-      const partsOfStr = yamlFile.split('@');
+      const yamlFile = await RNFS.readFile(path, "utf8");
+      var partsOfStr = yamlFile.split("@");
       return partsOfStr;
     } catch (e) {
-      return '';
+      return "";
     }
   }
 
-  starToggling = (poem) => {
-    const that = this;
+  starToggling = poem => {
+    var that = this;
 
-    this.readBookmarks().then((result) => {
-      console.log('result');
+    this.readBookmarks().then(function (result) {
+      console.log("result");
       console.log(result);
 
       if (result.includes(poem.id)) {
-        console.log('poem is in the file');
-        const index = result.indexOf(poem.id);
+        console.log("poem is in the file");
+        var index = result.indexOf(poem.id);
         if (index > -1) {
           result.splice(index, 3);
         }
 
-        console.log('result');
+        console.log("result");
         console.log(result);
 
-        const newData = result.join('@');
+        var newData = result.join("@");
 
-        console.log('newData');
+        console.log("newData");
         console.log(newData);
 
-        var path = `${RNFS.DocumentDirectoryPath}/bookmarked-poems.yaml`;
+        var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
         // write the file
-        RNFS.writeFile(path, newData, 'utf8')
-          .then(() => {
-            console.log('FILE WRITTEN!');
+        RNFS.writeFile(path, newData, "utf8")
+          .then(success => {
+            console.log("FILE WRITTEN!");
 
             that.handleSubmit();
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err.message);
           });
       } else {
-        console.log('poem is not in the file');
-        var path = `${RNFS.DocumentDirectoryPath}/bookmarked-poems.yaml`;
+        console.log("poem is not in the file");
+        var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
-        const sherNumberComma = `${poem.id
-          }@${
-          poem.poemName[0].text
-          }@${
-          poem.poemName[1].text
-          }@`;
+        var sherNumberComma =
+          poem.id +
+          "@" +
+          poem.poemName[0].text +
+          "@" +
+          poem.poemName[1].text +
+          "@";
 
         // write the file
-        RNFS.appendFile(path, sherNumberComma, 'utf8')
-          .then(() => {
-            console.log('FILE WRITTEN!');
+        RNFS.appendFile(path, sherNumberComma, "utf8")
+          .then(success => {
+            console.log("FILE WRITTEN!");
 
             that.handleSubmit();
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err.message);
           });
       }
@@ -253,114 +263,115 @@ class SearchPage extends React.Component {
   };
 
   async readBookmarks() {
-    const path = `${RNFS.DocumentDirectoryPath}/bookmarked-poems.yaml`;
+    const path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
     try {
-      const yamlFile = await RNFS.readFile(path, 'utf8');
-      const partsOfStr = yamlFile.split('@');
+      const yamlFile = await RNFS.readFile(path, "utf8");
+      var partsOfStr = yamlFile.split("@");
       return partsOfStr;
     } catch (e) {
-      return '';
+      return "";
     }
   }
 
   getPoemListSearch(listId) {
-    const that = this;
-    this.setState({ messageResults: 'Searching...' });
+    var that = this;
+    this.setState({ messageResults: "Searching..." });
     that.setState({ poemList: [] });
-    StaticContentService.getPoemListSearch(listId).then((response) => {
-      console.log('Reseponse');
+    StaticContentService.getPoemListSearch(listId).then(function (response) {
+      console.log("Reseponse");
       console.log(response);
-      that.readBookmarks().then((result) => {
-        console.log('Result');
+      that.readBookmarks().then(function (result) {
+        console.log("Result");
         console.log(result);
-        for (let i = 0; i < response.poems.length; i++) {
+        for (var i = 0; i < response.poems.length; i++) {
           if (result.includes(response.poems[i].id)) {
             response.poems[i].star = true;
-            console.log('star added');
+            console.log("star added");
           } else {
             response.poems[i].star = false;
-            console.log('star not added');
+            console.log("star not added");
           }
         }
 
         that.setState({ poemList: response.poems });
-        console.log('poemList');
+        console.log("poemList");
         console.log(that.state.poemList);
-        that.setState({ messageResults: 'No Results Found' });
+        that.setState({ messageResults: "No Results Found" });
       });
     });
   }
 
   getPoemSearch(poemId) {
-    const that = this;
+    var that = this;
 
-    this.setState({ messageResults: 'Searching...' });
+    this.setState({ messageResults: "Searching..." });
     that.setState({ sherList: [] });
 
-    StaticContentService.getPoemSearch(poemId).then((response) => {
-      console.log('Reseponse');
+    StaticContentService.getPoemSearch(poemId).then(function (response) {
+      console.log("Reseponse");
       console.log(response);
-      that.readBookmarksSher().then((result) => {
-        console.log('Result');
+      that.readBookmarksSher().then(function (result) {
+        console.log("Result");
         console.log(result);
 
-        for (let i = 0; i < response.sher.length; i++) {
+        for (var i = 0; i < response.sher.length; i++) {
           try {
-            if (result.includes(response.sher[i].id)) response.sher[i].star = true;
+            if (result.includes(response.sher[i].id))
+              response.sher[i].star = true;
             else response.sher[i].star = false;
           } catch (e) {
-            console.log('catch caught an error');
+            console.log("catch caught an error");
           }
         }
 
-        response.sher.map((el) => {
-          el.sherContent[0].text = el.sherContent[0].text.split('|');
+        response.sher.map(el => {
+          el.sherContent[0].text = el.sherContent[0].text.split("|");
           console.log(el.sherContent[0].text);
           try {
-            el.sherContent[1].text = el.sherContent[1].text.split('|');
+            el.sherContent[1].text = el.sherContent[1].text.split("|");
             console.log(el.sherContent[1].text);
           } catch (err) {
             el.sherContent.push({
-              text: ['#translation missing', '#translation missing'],
+              text: ["#translation missing", "#translation missing"]
             });
             console.log(el.sherContent[1].text);
           }
           try {
-            el.sherContent[2].text = el.sherContent[2].text.split('|');
+            el.sherContent[2].text = el.sherContent[2].text.split("|");
           } catch (err) {
             el.sherContent.push({
-              text: ['#translation missing', '#translation missing'],
+              text: ["#translation missing", "#translation missing"]
             });
             console.log(el.sherContent[2].text);
           }
           return (el.sherContent = el.sherContent);
         });
-        console.log('Reseponse');
+        console.log("Reseponse");
         console.log(response);
 
         that.setState({ sherList: response.sher });
-        that.setState({ messageResults: 'No Results Found' });
+        that.setState({ messageResults: "No Results Found" });
       });
     });
   }
 
-  onSubmitPoem = (poemNumber) => {
-    console.log('Value of poemNumber: ');
+  onSubmitPoem = poemNumber => {
+    console.log("Value of poemNumber: ");
     console.log(poemNumber);
-    this.props.navigation.navigate('Poem', {
+    this.props.navigation.navigate("Poem", {
       detailPoem: poemNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
       profileUsername: this.state.username,
-      profilePassword: this.state.password,
+      profilePassword: this.state.password
     });
   };
 
-  onSubmitSher = (sherNumber) => {
-    this.props.navigation.navigate('SherTabs', {
+  onSubmitSher = sherNumber => {
+    this.props.navigation.navigate("SherTabs", {
       detailSher: sherNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
       profileUsername: this.state.username,
-      profilePassword: this.state.password,
+      profilePassword: this.state.password
     });
   };
 
@@ -368,39 +379,50 @@ class SearchPage extends React.Component {
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          'profileSigninConfirmation',
-        ),
+          "profileSigninConfirmation"
+        )
       });
       this.setState({
-        username: this.props.navigation.getParam('profileUsername'),
+        username: this.props.navigation.getParam("profileUsername")
       });
       this.setState({
-        password: this.props.navigation.getParam('profilePassword'),
+        password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      console.log('Inside catch');
+      console.log("Inside catch");
     }
   }
 
   render() {
-    const items = this.state.bookSections.map((item) => (
+    var items = this.state.bookSections.map((item, key) => (
       <Text key={item.sectionName}>{item.sectionName}</Text>
     ));
+    var items2 = items.map((item, key) => (
+      <Text key={item.text}>{item.text}</Text>
+    ));
 
+    var item3 = this.state.poemText.map(item => (
+      <Text key={item.index} onPress={() => this.onSubmit(item.id)}>
+        {" "}
+        {item.text}: {item.id}
+      </Text>
+    ));
 
     var itemsPoemOrSher = [];
-    if (this.state.selectedOption === 'title') {
+    var lenghtPoem = this.state.poemList.length;
+    var lenghtSher = this.state.sherList.length;
+    if (this.state.selectedOption === "title") {
       if (this.state.poemList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.poemList.map((item) => {
+        var itemsPoemOrSher = this.state.poemList.map(function (item, index) {
           if (item.star) {
             return (
-              <View style={{ flex: 1, flexDirection: 'column' }}>
+              <View style={{ flex: 1, flexDirection: "column" }}>
                 <View
                   style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flex: 0.2,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 0.2
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -414,8 +436,8 @@ class SearchPage extends React.Component {
                 <View
                   style={{
                     borderBottomWidth: 0.5,
-                    borderBottomColor: '#d6d7da',
-                    flex: 0.8,
+                    borderBottomColor: "#d6d7da",
+                    flex: 0.8
                   }}
                 >
                   <Text
@@ -429,202 +451,201 @@ class SearchPage extends React.Component {
                     style={styles.RenderedText}
                     onPress={() => that.onSubmitPoem(item.id)}
                   >
-                    {' '}
-                    {item.poemName[1].text}
-                    {' '}
+                    {" "}
+                    {item.poemName[1].text}{" "}
+                  </Text>
+                </View>
+              </View>
+            );
+          } else {
+            return (
+              <View style={{ flex: 1, flexDirection: "column" }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 0.2
+                  }}
+                >
+                  <TouchableHighlight onPress={() => that.starToggling(item)}>
+                    <Image
+                      resizeMode="cover"
+                      source={starNotLiked}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <View
+                  style={{
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: "#d6d7da",
+                    flex: 0.8
+                  }}
+                >
+                  <Text
+                    style={styles.RenderedText}
+                    key={item.id}
+                    onPress={() => that.onSubmitPoem(item.id)}
+                  >
+                    {item.poemName[0].text}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitPoem(item.id)}
+                  >
+                    {" "}
+                    {item.poemName[1].text}{" "}
                   </Text>
                 </View>
               </View>
             );
           }
-          return (
-            <View style={{ flex: 1, flexDirection: 'column' }}>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flex: 0.2,
-                }}
-              >
-                <TouchableHighlight onPress={() => that.starToggling(item)}>
-                  <Image
-                    resizeMode="cover"
-                    source={starNotLiked}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableHighlight>
-              </View>
-              <View
-                style={{
-                  borderBottomWidth: 0.5,
-                  borderBottomColor: '#d6d7da',
-                  flex: 0.8,
-                }}
-              >
-                <Text
-                  style={styles.RenderedText}
-                  key={item.id}
-                  onPress={() => that.onSubmitPoem(item.id)}
-                >
-                  {item.poemName[0].text}
-                </Text>
-                <Text
-                  style={styles.RenderedText}
-                  onPress={() => that.onSubmitPoem(item.id)}
-                >
-                  {' '}
-                  {item.poemName[1].text}
-                  {' '}
-                </Text>
-              </View>
-            </View>
-          );
         });
       } else {
         var itemsPoemOrSher = (
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Text style={{ padding: 10, fontSize: 18 }}>
               {this.state.messageResults}
             </Text>
           </View>
         );
       }
-    } else if (this.state.sherList.length != 0) {
-      var that = this;
-      var itemsPoemOrSher = this.state.sherList.map((item) => {
-        if (item.star) {
-          return (
-            <View style={{ flex: 1, flexDirection: 'column' }}>
-              <View
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flex: 0.2,
-                }}
-              >
-                <TouchableHighlight
-                  onPress={() => that.starTogglingSher(item)}
+    } else {
+      if (this.state.sherList.length != 0) {
+        var that = this;
+        var itemsPoemOrSher = this.state.sherList.map(function (item, index) {
+          if (item.star) {
+            return (
+              <View style={{ flex: 1, flexDirection: "column" }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 0.2
+                  }}
                 >
-                  <Image
-                    resizeMode="cover"
-                    source={starLiked}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableHighlight>
+                  <TouchableHighlight
+                    onPress={() => that.starTogglingSher(item)}
+                  >
+                    <Image
+                      resizeMode="cover"
+                      source={starLiked}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <View
+                  style={{
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: "#d6d7da",
+                    flex: 0.8
+                  }}
+                >
+                  <Text
+                    style={styles.RenderedText}
+                    key={item.id}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {" "}
+                    {item.sherContent[0].text[0]}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {item.sherContent[0].text[1]}{" "}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {" "}
+                    {item.sherContent[1].text[0]}{" "}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {item.sherContent[1].text[1]}
+                  </Text>
+                </View>
               </View>
-              <View
-                style={{
-                  borderBottomWidth: 0.5,
-                  borderBottomColor: '#d6d7da',
-                  flex: 0.8,
-                }}
-              >
-                <Text
-                  style={styles.RenderedText}
-                  key={item.id}
-                  onPress={() => that.onSubmitSher(item.id)}
+            );
+          } else {
+            return (
+              <View style={{ flex: 1, flexDirection: "column" }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 0.2
+                  }}
                 >
-                  {' '}
-                  {item.sherContent[0].text[0]}
-                </Text>
-                <Text
-                  style={styles.RenderedText}
-                  onPress={() => that.onSubmitSher(item.id)}
+                  <TouchableHighlight
+                    onPress={() => that.starTogglingSher(item)}
+                  >
+                    <Image
+                      resizeMode="cover"
+                      source={starNotLiked}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <View
+                  style={{
+                    borderBottomWidth: 0.5,
+                    borderBottomColor: "#d6d7da",
+                    flex: 0.8
+                  }}
                 >
-                  {item.sherContent[0].text[1]}
-                  {' '}
-                </Text>
-                <Text
-                  style={styles.RenderedText}
-                  onPress={() => that.onSubmitSher(item.id)}
-                >
-                  {' '}
-                  {item.sherContent[1].text[0]}
-                  {' '}
-                </Text>
-                <Text
-                  style={styles.RenderedText}
-                  onPress={() => that.onSubmitSher(item.id)}
-                >
-                  {item.sherContent[1].text[1]}
-                </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    key={item.id}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {" "}
+                    {item.sherContent[0].text[0]}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {item.sherContent[0].text[1]}{" "}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {" "}
+                    {item.sherContent[1].text[0]}{" "}
+                  </Text>
+                  <Text
+                    style={styles.RenderedText}
+                    onPress={() => that.onSubmitSher(item.id)}
+                  >
+                    {item.sherContent[1].text[1]}
+                  </Text>
+                </View>
               </View>
-            </View>
-          );
-        }
-        return (
-          <View style={{ flex: 1, flexDirection: 'column' }}>
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 0.2,
-              }}
-            >
-              <TouchableHighlight
-                onPress={() => that.starTogglingSher(item)}
-              >
-                <Image
-                  resizeMode="cover"
-                  source={starNotLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: '#d6d7da',
-                flex: 0.8,
-              }}
-            >
-              <Text
-                style={styles.RenderedText}
-                key={item.id}
-                onPress={() => that.onSubmitSher(item.id)}
-              >
-                {' '}
-                {item.sherContent[0].text[0]}
-              </Text>
-              <Text
-                style={styles.RenderedText}
-                onPress={() => that.onSubmitSher(item.id)}
-              >
-                {item.sherContent[0].text[1]}
-                {' '}
-              </Text>
-              <Text
-                style={styles.RenderedText}
-                onPress={() => that.onSubmitSher(item.id)}
-              >
-                {' '}
-                {item.sherContent[1].text[0]}
-                {' '}
-              </Text>
-              <Text
-                style={styles.RenderedText}
-                onPress={() => that.onSubmitSher(item.id)}
-              >
-                {item.sherContent[1].text[1]}
-              </Text>
-            </View>
+            );
+          }
+        });
+      } else {
+        var itemsPoemOrSher = (
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Text style={{ padding: 10, fontSize: 18 }}>
+              {this.state.messageResults}
+            </Text>
           </View>
         );
-      });
-    } else {
-      var itemsPoemOrSher = (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ padding: 10, fontSize: 18 }}>
-            {this.state.messageResults}
-          </Text>
-        </View>
-      );
+      }
     }
 
-    console.log('hello world');
+    var aVar = this.state.bookSections.length;
+    console.log("hello world");
     console.log(this.state.bookSections);
-    const stationsArr = [];
-    for (let i = 0; i < this.state.bookSections.length; i++) {
+    var stationsArr = [];
+    for (var i = 0; i < this.state.bookSections.length; i++) {
       stationsArr.push(<Text>{this.data}</Text>);
     }
 
@@ -634,154 +655,154 @@ class SearchPage extends React.Component {
         <View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('Back')} title="->" />
+              <Button onPress={() => this.handleAlphabet("Back")} title="->" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ح')} title="ح" />
+              <Button onPress={() => this.handleAlphabet("ح")} title="ح" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('چ')} title="چ" />
+              <Button onPress={() => this.handleAlphabet("چ")} title="چ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ج')} title="ج" />
+              <Button onPress={() => this.handleAlphabet("ج")} title="ج" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ث')} title="ث" />
+              <Button onPress={() => this.handleAlphabet("ث")} title="ث" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ٹ')} title="ٹ" />
+              <Button onPress={() => this.handleAlphabet("ٹ")} title="ٹ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ت')} title="ت" />
+              <Button onPress={() => this.handleAlphabet("ت")} title="ت" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('پ')} title="پ" />
+              <Button onPress={() => this.handleAlphabet("پ")} title="پ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ب')} title="ب" />
+              <Button onPress={() => this.handleAlphabet("ب")} title="ب" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ا')} title="ا" />
+              <Button onPress={() => this.handleAlphabet("ا")} title="ا" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('آ')} title="آ" />
-            </View>
-          </View>
-          <View style={styles.container}>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ص')} title="ص" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ش')} title="ش" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('س')} title="س" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ژ')} title="ژ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ز')} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ڑ')} title="ڑ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ر')} title="ر" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ز')} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ڈ')} title="ڈ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('د')} title="د" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('خ')} title="خ" />
+              <Button onPress={() => this.handleAlphabet("آ")} title="آ" />
             </View>
           </View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('م')} title="م" />
+              <Button onPress={() => this.handleAlphabet("ص")} title="ص" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ل')} title="ل" />
+              <Button onPress={() => this.handleAlphabet("ش")} title="ش" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('گ')} title="گ" />
+              <Button onPress={() => this.handleAlphabet("س")} title="س" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ک')} title="ک" />
+              <Button onPress={() => this.handleAlphabet("ژ")} title="ژ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ق')} title="ق" />
+              <Button onPress={() => this.handleAlphabet("ز")} title="ز" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ف')} title="ف" />
+              <Button onPress={() => this.handleAlphabet("ڑ")} title="ڑ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('غ')} title="غ" />
+              <Button onPress={() => this.handleAlphabet("ر")} title="ر" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ع')} title="ع" />
+              <Button onPress={() => this.handleAlphabet("ز")} title="ز" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ظ')} title="ظ" />
+              <Button onPress={() => this.handleAlphabet("ڈ")} title="ڈ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ط')} title="ط" />
+              <Button onPress={() => this.handleAlphabet("د")} title="د" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ض')} title="ض" />
+              <Button onPress={() => this.handleAlphabet("خ")} title="خ" />
             </View>
           </View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet(' ')} title="Space" />
+              <Button onPress={() => this.handleAlphabet("م")} title="م" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ے')} title="ے" />
+              <Button onPress={() => this.handleAlphabet("ل")} title="ل" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ي')} title="ي" />
+              <Button onPress={() => this.handleAlphabet("گ")} title="گ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ء')} title="ء" />
+              <Button onPress={() => this.handleAlphabet("ک")} title="ک" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ھ')} title="ھ" />
+              <Button onPress={() => this.handleAlphabet("ق")} title="ق" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ہ')} title="ہ" />
+              <Button onPress={() => this.handleAlphabet("ف")} title="ف" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('و')} title="و" />
+              <Button onPress={() => this.handleAlphabet("غ")} title="غ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ں')} title="ں" />
+              <Button onPress={() => this.handleAlphabet("ع")} title="ع" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet('ن')} title="ن" />
+              <Button onPress={() => this.handleAlphabet("ظ")} title="ظ" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ط")} title="ط" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ض")} title="ض" />
+            </View>
+          </View>
+          <View style={styles.container}>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet(" ")} title="Space" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ے")} title="ے" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ي")} title="ي" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ء")} title="ء" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ھ")} title="ھ" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ہ")} title="ہ" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("و")} title="و" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ں")} title="ں" />
+            </View>
+            <View style={styles.button}>
+              <Button onPress={() => this.handleAlphabet("ن")} title="ن" />
             </View>
           </View>
         </View>
       );
     } else {
       // signinMessageLocal = "Sign In"
-      keyboardTag = <Text />;
+      keyboardTag = <Text></Text>;
     }
 
     return (
       <View style={{ flex: 1 }}>
         {/*
-				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text> */}
+				<Text style={styles.EnglishTitle}>Allama Iqbal Search Engine</Text>*/}
         <View style={{ flex: 1 }}>
           <RadioForm
             radio_props={radio_props}
             initial={0}
-            onPress={(value) => {
+            onPress={value => {
               this.setState({ selectedOption: value });
             }}
           />
@@ -792,7 +813,7 @@ class SearchPage extends React.Component {
             style={{ height: 40 }}
             placeholder="Search Text..."
             onFocus={() => this.handleInputClicked()}
-            onChangeText={(text) => this.setState({ searchText: text })}
+            onChangeText={text => this.setState({ searchText: text })}
             value={this.state.searchText}
           />
         </View>
@@ -811,9 +832,9 @@ class SearchPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    flexWrap: "wrap"
   },
 
   RenderedView: {
@@ -821,38 +842,38 @@ const styles = StyleSheet.create({
     flex: 0.5,
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    borderColor: "#d6d7da"
   },
 
   RenderedText: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: 10,
-    fontSize: 18,
+    fontSize: 18
   },
 
   MainContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center"
   },
   UrduTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FF0000',
+    fontWeight: "bold",
+    color: "#FF0000"
   },
   EnglishTitle: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#FF0000',
-    padding: 3,
+    fontWeight: "bold",
+    color: "#FF0000",
+    padding: 3
   },
 
   button: {
-    borderRadius: Platform.OS === 'ios' ? 10 : 0,
-    borderWidth: Platform.OS === 'ios' ? 1 : 0,
-    height: 40,
-  },
+    borderRadius: Platform.OS === "ios" ? 10 : 0,
+    borderWidth: Platform.OS === "ios" ? 1 : 0,
+    height: 40
+  }
 });
 
 export default SearchPage;
