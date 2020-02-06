@@ -19,8 +19,8 @@ const RNFS = require('react-native-fs');
 const FONT = 'Normal';
 const TEXT = 'Urdu';
 
-class ListPoemScreen extends React.Component {
-  constructor(props) {
+class ListPoemScreen extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       // following three are normally passed to every page
@@ -46,7 +46,7 @@ class ListPoemScreen extends React.Component {
     }; // this.state ends
   } // constructor ends
 
-  starToggling = (poem) => {
+  starToggling = (poem: any) => {
     const that = this;
 
     this.readBookmarks().then((result) => {
@@ -81,7 +81,7 @@ class ListPoemScreen extends React.Component {
 
             that.getPoemList();
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       } else {
@@ -97,7 +97,7 @@ class ListPoemScreen extends React.Component {
             console.log('FILE WRITTEN!');
             that.getPoemList();
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       }
@@ -228,7 +228,7 @@ class ListPoemScreen extends React.Component {
 
       // var set = new Set(result);
 
-      for (i = 0; i < (result.length - 1) / 3; i++) {
+      for (var i = 0; i < (result.length - 1) / 3; i++) {
         console.log('Inside for loop for putting result');
 
         that.state.poemText.push({
@@ -240,12 +240,10 @@ class ListPoemScreen extends React.Component {
 
       that.setState({ poemTextFinal: that.state.poemText });
 
-      console.log('that.setState.poemTextFinal');
-      console.log(that.setState.poemTextFinal);
     });
   }
 
-  onSubmit = (poemNumber) => {
+  onSubmit = (poemNumber: any) => {
     console.log('Value of poemNumber: ');
     console.log(poemNumber);
     if (poemNumber != 0) {
@@ -263,7 +261,7 @@ class ListPoemScreen extends React.Component {
     }
   };
 
-  renderItem = ({ item }) => {
+  renderItem = (item: any) => {
     const that = this;
     let fontFamilyTextVariable;
     switch (this.state.font) {

@@ -24,8 +24,8 @@ const RNFS = require('react-native-fs');
 const FONT = 'Normal';
 const TEXT = 'Urdu';
 
-class PoemPage extends React.Component {
-  constructor(props) {
+class PoemPage extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       username: '',
@@ -49,7 +49,7 @@ class PoemPage extends React.Component {
     title: 'VERSES',
   };
 
-  onSubmit = (sherNumber) => {
+  onSubmit = (sherNumber: any) => {
     this.props.navigation.navigate('SherTabs', {
       detailSher: sherNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
@@ -67,7 +67,7 @@ class PoemPage extends React.Component {
       console.log('result');
       console.log(result);
 
-      for (i = 0; i < (result.length - 1) / 7; i++) {
+      for (var i = 0; i < (result.length - 1) / 7; i++) {
         console.log('Inside for loop for putting result');
 
         that.state.poemText.push({
@@ -85,7 +85,7 @@ class PoemPage extends React.Component {
     });
   }
 
-  starToggling = (sher) => {
+  starToggling = (sher: any) => {
     const that = this;
 
     this.readBookmarks().then((result) => {
@@ -115,7 +115,7 @@ class PoemPage extends React.Component {
 
             that.getPoem();
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       } else {
@@ -142,7 +142,7 @@ class PoemPage extends React.Component {
             console.log('FILE WRITTEN!');
             that.getPoem();
           })
-          .catch((err) => {
+          .catch((err: any) => {
             console.log(err.message);
           });
       }
@@ -207,7 +207,7 @@ class PoemPage extends React.Component {
   }
 
   render() {
-    let fontFamilyTextVariable;
+    let fontFamilyTextVariable: any;
     switch (this.state.font) {
       case 'Normal':
         fontFamilyTextVariable = styles.RenderedTextNormal;
@@ -224,7 +224,7 @@ class PoemPage extends React.Component {
     }
 
     const that = this;
-    const itemScroll = this.state.poemTextNew.map((item) => {
+    const itemScroll = this.state.poemTextNew.map((item: any) => {
       if (that.state.text == 'Urdu') {
         return (
           <View style={{ flex: 1, flexDirection: 'column' }}>
