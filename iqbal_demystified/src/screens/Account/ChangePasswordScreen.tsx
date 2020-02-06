@@ -14,8 +14,8 @@ const USERNAME = 'username';
 const PASSWORD = 'password';
 const MESSAGE = 'message';
 
-class ChangePassword extends React.Component {
-  constructor(props) {
+class ChangePassword extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       username: '',
@@ -49,15 +49,15 @@ class ChangePassword extends React.Component {
   });
 
   // handlechange
-  handleChangeCurrentPassword(event) {
+  handleChangeCurrentPassword(event: any) {
     this.setState({ currentPassword: event.target.value });
   }
 
-  handleChangeNewPassword1(event) {
+  handleChangeNewPassword1(event: any) {
     this.setState({ newPassword1: event.target.value });
   }
 
-  handleChangeNewPassword2(event) {
+  handleChangeNewPassword2(event: any) {
     this.setState({ newPassword2: event.target.value });
   }
 
@@ -66,7 +66,7 @@ class ChangePassword extends React.Component {
   };
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit(event: any) {
     const that = this;
     event.preventDefault();
     console.log('Inside Change Password: inside handleSubmit');
