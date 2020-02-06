@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TouchableOpacity,
   TouchableHighlight,
@@ -7,20 +7,20 @@ import {
   Text,
   Image,
   Platform,
-  StyleSheet
-} from "react-native";
+  StyleSheet,
+} from 'react-native';
 import {
   NavigationEvents,
   createMaterialTopTabNavigator,
-  createAppContainer
-} from "react-navigation";
+  createAppContainer,
+} from 'react-navigation';
 
-import logo from "../../assets/ic_launcher.png";
+import logo from '../../assets/ic_launcher.png';
 
 export default class HomeScreen extends React.Component {
   componentWillMount() {
     setTimeout(() => {
-      this.props.navigation.navigate("Home");
+      this.props.navigation.navigate('Home');
     }, 2000);
   }
 
@@ -35,8 +35,9 @@ export default class HomeScreen extends React.Component {
         </View>
         <View style={styles.BottomArea}>
           <Text style={styles.BottomText}>
-            {" "}
-            Created by International Iqbal Society{" "}
+            {' '}
+            Created by International Iqbal Society
+            {' '}
           </Text>
         </View>
       </View>
@@ -48,34 +49,34 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   TopArea: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 10
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   },
   TopText: {
-    textAlign: "center",
-    fontFamily: "Times New Roman",
+    textAlign: 'center',
+    fontFamily: 'Times New Roman',
     fontSize: 20,
-    fontWeight: "bold",
-    color: "gray"
+    fontWeight: 'bold',
+    color: 'gray',
   },
   BottomArea: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 10
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   },
   BottomText: {
-    textAlign: "center",
-    fontFamily: "Times New Roman",
+    textAlign: 'center',
+    fontFamily: 'Times New Roman',
     fontSize: 20,
-    fontWeight: "bold",
-    color: "gray"
+    fontWeight: 'bold',
+    color: 'gray',
   },
   Image: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: "contain"
-  }
+    resizeMode: 'contain',
+  },
 });

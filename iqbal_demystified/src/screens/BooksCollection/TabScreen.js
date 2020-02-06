@@ -1,42 +1,42 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 import {
   createMaterialTopTabNavigator,
   createStackNavigator,
-  createAppContainer
-} from "react-navigation";
+  createAppContainer,
+} from 'react-navigation';
 
-import Urdu from "./Urdu";
-import Farsi1 from "./Farsi1";
-import Farsi2 from "./Farsi2";
+import Urdu from './Urdu';
+import Farsi1 from './Farsi1';
+import Farsi2 from './Farsi2';
 
 const TabNavigator = createMaterialTopTabNavigator(
   {
-    Urdu: Urdu,
-    Farsi1: Farsi1,
-    Farsi2: Farsi2
+    Urdu,
+    Farsi1,
+    Farsi2,
   },
   {
-    tabBarPosition: "top",
+    tabBarPosition: 'top',
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#FFFFFF",
-      inactiveTintColor: "#F8F8F8",
+      activeTintColor: '#FFFFFF',
+      inactiveTintColor: '#F8F8F8',
       style: {
-        backgroundColor: "gray"
+        backgroundColor: 'gray',
       },
       labelStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: 'bold',
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
-        borderBottomWidth: 2
-      }
-    }
-  }
+        borderBottomColor: '#87B56A',
+        borderBottomWidth: 2,
+      },
+    },
+  },
 );
 
 export default TabNavigator;

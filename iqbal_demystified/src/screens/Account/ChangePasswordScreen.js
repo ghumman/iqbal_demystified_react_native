@@ -1,39 +1,36 @@
-import React from "react";
+import React from 'react';
 import {
-  ScrollView,
   TextInput,
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
-  Text
-} from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+  Text,
+} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const USERNAME = "username";
-const PASSWORD = "password";
-const MESSAGE = "message";
+const USERNAME = 'username';
+const PASSWORD = 'password';
+const MESSAGE = 'message';
 
 class ChangePassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      signinConfirmation: "",
+      username: '',
+      password: '',
+      signinConfirmation: '',
 
-      currentPassword: "",
-      newPassword1: "",
-      newPassword2: "",
-      newPassword: "",
-      errorMessage: ""
+      currentPassword: '',
+      newPassword1: '',
+      newPassword2: '',
+      newPassword: '',
+      errorMessage: '',
     };
 
     this.handleChangeCurrentPassword = this.handleChangeCurrentPassword.bind(
-      this
+      this,
     );
     this.handleChangeNewPassword1 = this.handleChangeNewPassword1.bind(this);
     this.handleChangeNewPassword2 = this.handleChangeNewPassword2.bind(this);
@@ -41,14 +38,14 @@ class ChangePassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Change Password",
-    headerTintColor: "red",
+  static navigationOptions = () => ({
+    headerTitle: 'Change Password',
+    headerTintColor: 'red',
     headerTitleStyle: {
-      fontWeight: "bold",
+      fontWeight: 'bold',
       fontSize: 20,
-      textAlign: "center"
-    }
+      textAlign: 'center',
+    },
   });
 
   // handlechange
@@ -65,62 +62,62 @@ class ChangePassword extends React.Component {
   }
 
   onSubmitSignin = () => {
-    this.props.navigation.navigate("Signin");
+    this.props.navigation.navigate('Signin');
   };
 
   // handleSubmit
   handleSubmit(event) {
-    var that = this;
+    const that = this;
     event.preventDefault();
-    console.log("Inside Change Password: inside handleSubmit");
-    console.log("this.state.username");
+    console.log('Inside Change Password: inside handleSubmit');
+    console.log('this.state.username');
     console.log(this.state.username);
 
-    console.log("this.state.password");
+    console.log('this.state.password');
     console.log(this.state.password);
 
-    console.log("this.state.currentPassword");
+    console.log('this.state.currentPassword');
     console.log(this.state.currentPassword);
 
-    console.log("this.state.newPassword1");
+    console.log('this.state.newPassword1');
     console.log(this.state.newPassword1);
 
-    console.log("this.state.newPassword2");
+    console.log('this.state.newPassword2');
     console.log(this.state.newPassword2);
 
     if (
-      this.state.currentPassword != "" &&
-      this.state.newPassword1 != "" &&
-      this.state.newPassword2 != ""
+      this.state.currentPassword != ''
+      && this.state.newPassword1 != ''
+      && this.state.newPassword2 != ''
     ) {
       if (this.state.newPassword1.trim() == this.state.newPassword2.trim()) {
         this.setState({ newPassword: this.state.newPassword1 });
         try {
           console.log(
-            "Inside try inside chnagepasswordscreen inside trying to change password"
+            'Inside try inside chnagepasswordscreen inside trying to change password',
           );
           fetch(
-            "https://www.icanmakemyownapp.com/iqbal/v3/change-password.php",
+            'https://www.icanmakemyownapp.com/iqbal/v3/change-password.php',
             {
-              method: "POST",
+              method: 'POST',
               headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                'Content-Type': 'application/x-www-form-urlencoded',
               },
               body:
-                "username=" +
-                that.state.username.trim() +
-                "&old_password=" +
-                that.state.currentPassword.trim() +
-                "&new_password=" +
-                that.state.newPassword1.trim()
-            }
-          ).then(async function(data) {
-            data.text().then(async function(data) {
-              console.log("data");
+                `username=${
+                that.state.username.trim()
+                }&old_password=${
+                that.state.currentPassword.trim()
+                }&new_password=${
+                that.state.newPassword1.trim()}`,
+            },
+          ).then(async (data) => {
+            data.text().then(async (data) => {
+              console.log('data');
               console.log(data);
-              if (data.trim() == "done") {
-                Alert.alert("Password Successfully Changed");
-                console.log("Password Successfully Changed");
+              if (data.trim() == 'done') {
+                Alert.alert('Password Successfully Changed');
+                console.log('Password Successfully Changed');
 
                 that.setState({ signinConfirmation: data });
                 that.setState({ password: that.state.newPassword });
@@ -128,34 +125,34 @@ class ChangePassword extends React.Component {
                 AsyncStorage.setItem(USERNAME, that.state.username);
                 AsyncStorage.setItem(PASSWORD, that.state.password);
                 AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
-                that.props.navigation.navigate("Home", {
+                that.props.navigation.navigate('Home', {
                   profileUsername: that.state.username,
                   profilePassword: that.state.password,
-                  profileSigninConfirmation: that.state.signinConfirmation
+                  profileSigninConfirmation: that.state.signinConfirmation,
                 });
               } // if data is equal to done ends
               else {
-                Alert.alert("Unable to register your account:" + data);
+                Alert.alert(`Unable to register your account:${data}`);
               }
             }); // data.text().then ends
           }); // then async func ends
         } catch (err) {
           // try ends
           console.log(
-            "Inside catch err inside ChangePasswordScreen inside trying to change password, err: "
+            'Inside catch err inside ChangePasswordScreen inside trying to change password, err: ',
           );
           console.log(err);
-          Alert.alert("inside catch err");
+          Alert.alert('inside catch err');
           Alert.alert(err);
         } // catch finishes
       } // if passwords are same ends
       else {
         // passwords are not same
-        Alert.alert("Passwords do not match");
+        Alert.alert('Passwords do not match');
       } // if email not empty ends
     } // if fields  are not empty ends
     else {
-      Alert.alert("All fields are required");
+      Alert.alert('All fields are required');
     }
   }
 
@@ -163,21 +160,21 @@ class ChangePassword extends React.Component {
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
+          'profileSigninConfirmation',
+        ),
       });
       this.setState({
-        username: this.props.navigation.getParam("profileUsername")
+        username: this.props.navigation.getParam('profileUsername'),
       });
       this.setState({
-        password: this.props.navigation.getParam("profilePassword")
+        password: this.props.navigation.getParam('profilePassword'),
       });
     } catch (e) {
-      console.log("Inside catch");
-      console.log("Not signed in or just started the app");
+      console.log('Inside catch');
+      console.log('Not signed in or just started the app');
 
-      this.setState({ signinConfirmation: "not signed in" });
-      this.setState({ username: "" });
+      this.setState({ signinConfirmation: 'not signed in' });
+      this.setState({ username: '' });
     }
   }
 
@@ -189,10 +186,10 @@ class ChangePassword extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             autoCompleteType="password"
-            secureTextEntry={true}
+            secureTextEntry
             style={{ height: 40 }}
             placeholder="Current Password"
-            onChangeText={text => this.setState({ currentPassword: text })}
+            onChangeText={(text) => this.setState({ currentPassword: text })}
           />
         </View>
         <View style={styles.RenderedView}>
@@ -200,10 +197,10 @@ class ChangePassword extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             autoCompleteType="password"
-            secureTextEntry={true}
+            secureTextEntry
             style={{ height: 40 }}
             placeholder="New Password"
-            onChangeText={text => this.setState({ newPassword1: text })}
+            onChangeText={(text) => this.setState({ newPassword1: text })}
           />
         </View>
         <View style={styles.RenderedView}>
@@ -211,17 +208,18 @@ class ChangePassword extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             autoCompleteType="password"
-            secureTextEntry={true}
+            secureTextEntry
             style={{ height: 40 }}
             placeholder="New Password(again)"
-            onChangeText={text => this.setState({ newPassword2: text })}
+            onChangeText={(text) => this.setState({ newPassword2: text })}
           />
         </View>
 
         <Button onPress={this.handleSubmit} title="CHANGE PASSWORD!" />
         <TouchableHighlight onPress={() => this.onSubmitSignin()}>
           <Text style={styles.BottomLines}>
-            Already Registered?{"\n"}
+            Already Registered?
+            {'\n'}
             Login Here
           </Text>
         </TouchableHighlight>
@@ -234,14 +232,14 @@ const styles = StyleSheet.create({
   RenderedView: {
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: "#d6d7da"
+    borderColor: '#d6d7da',
   },
   BottomLines: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 15,
-    fontWeight: "bold",
-    color: "blue"
-  }
+    fontWeight: 'bold',
+    color: 'blue',
+  },
 });
 
 export default ChangePassword;

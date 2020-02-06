@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TouchableOpacity,
   TouchableHighlight,
@@ -8,48 +8,48 @@ import {
   Image,
   Platform,
   StyleSheet,
-  Alert
-} from "react-native";
-import { NavigationEvents } from "react-navigation";
+  Alert,
+} from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 // used for reading and writing application wide variables
-import AsyncStorage from "@react-native-community/async-storage";
-
-// used for reading/writing file system
-var RNFS = require("react-native-fs");
-
-// initializing
-const USERNAME = "username";
-const PASSWORD = "password";
-const MESSAGE = "message";
+import AsyncStorage from '@react-native-community/async-storage';
 
 // iqbal logo
-import logo from "../../assets/allam_iqbal_pic.jpg";
+import logo from '../../assets/allam_iqbal_pic.jpg';
 
 // 6 main logos on main page
-import iconSignIn from "../../assets/android_app_assets/icon_signed_in.png";
-import iconBest from "../../assets/android_app_assets/icon_best.png";
-import iconBookmarks from "../../assets/android_app_assets/icon_bookmark.png";
-import iconDiscussion from "../../assets/android_app_assets/icon_discussion.png";
-import iconSearch from "../../assets/android_app_assets/icon_search.png";
-import iconInfo from "../../assets/android_app_assets/icon_info.png";
+import iconSignIn from '../../assets/android_app_assets/icon_signed_in.png';
+import iconBest from '../../assets/android_app_assets/icon_best.png';
+import iconBookmarks from '../../assets/android_app_assets/icon_bookmark.png';
+import iconDiscussion from '../../assets/android_app_assets/icon_discussion.png';
+import iconSearch from '../../assets/android_app_assets/icon_search.png';
+import iconInfo from '../../assets/android_app_assets/icon_info.png';
 
 // books logo in the middle of the page
-import booksLogo from "../../assets/android_app_assets/books_logo.png";
+import booksLogo from '../../assets/android_app_assets/books_logo.png';
+
+// used for reading/writing file system
+const RNFS = require('react-native-fs');
+
+// initializing
+const USERNAME = 'username';
+const PASSWORD = 'password';
+const MESSAGE = 'message';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      signinConfirmation: "",
-      gotoPage: ""
+      username: '',
+      password: '',
+      signinConfirmation: '',
+      gotoPage: '',
     };
   }
 
   onDidFocusCustomFunction = () => {
-    AsyncStorage.getItem(USERNAME).then(res => {
+    AsyncStorage.getItem(USERNAME).then((res) => {
       if (res !== null) {
         this.setState({ username: res });
       } else {
@@ -57,7 +57,7 @@ export default class HomeScreen extends React.Component {
       }
     });
 
-    AsyncStorage.getItem(PASSWORD).then(res => {
+    AsyncStorage.getItem(PASSWORD).then((res) => {
       if (res !== null) {
         this.setState({ password: res });
       } else {
@@ -65,45 +65,45 @@ export default class HomeScreen extends React.Component {
       }
     });
 
-    AsyncStorage.getItem(MESSAGE).then(res => {
+    AsyncStorage.getItem(MESSAGE).then((res) => {
       this.setState({ signinConfirmation: res });
-      if (res != "done") {
+      if (res != 'done') {
         // console.log("Profile Signin Confirmation message is not done ")
 
-        this.setState({ signinConfirmation: "not signed in" });
-        this.setState({ username: "" });
-        this.setState({ gotoPage: "Register" });
+        this.setState({ signinConfirmation: 'not signed in' });
+        this.setState({ username: '' });
+        this.setState({ gotoPage: 'Register' });
       } else {
         // console.log("You're signed in and profileSigninConfirmation message is done");
-        this.setState({ gotoPage: "Profile" });
+        this.setState({ gotoPage: 'Profile' });
       }
     });
   };
 
   // if pageName is Intikhab go to ListPoem, becuase Intikhab is similar to ListPoem
   // else go to particular page like Register/Profile, BookmarksTabs, DiscussionTabs, Search or Info
-  onSubmit = pageName => {
-    if (pageName === "Intikhab") {
-      this.props.navigation.navigate("ListPoem", {
-        detailBook: "List_Editor_Pick",
+  onSubmit = (pageName) => {
+    if (pageName === 'Intikhab') {
+      this.props.navigation.navigate('ListPoem', {
+        detailBook: 'List_Editor_Pick',
         profileSigninConfirmation: this.state.signinConfirmation,
         profileUsername: this.state.username,
-        profilePassword: this.state.password
+        profilePassword: this.state.password,
       });
     } else {
       this.props.navigation.navigate(pageName, {
         profileSigninConfirmation: this.state.signinConfirmation,
         profileUsername: this.state.username,
-        profilePassword: this.state.password
+        profilePassword: this.state.password,
       });
     }
   };
 
   componentDidMount() {
     // first thing when app starts is to make Iqbal-Demystified folder, so that we can put .mp3, txt and yaml files in it.
-    RNFS.mkdir(RNFS.DocumentDirectoryPath + "/Iqbal-Demystified").then(function(
-      res
-    ) {
+    RNFS.mkdir(`${RNFS.DocumentDirectoryPath}/Iqbal-Demystified`).then((
+      res,
+    ) => {
       // console.log("Iqbal-Demystified directory exists now");
     });
     try {
@@ -113,37 +113,37 @@ export default class HomeScreen extends React.Component {
       // following code is inherited from React, where username, encrypted password and signinconfirmation message used to get transfer through url and used to pass to every single page.
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
+          'profileSigninConfirmation',
+        ),
       });
       this.setState({
-        username: this.props.navigation.getParam("profileUsername")
+        username: this.props.navigation.getParam('profileUsername'),
       });
       this.setState({
-        password: this.props.navigation.getParam("profilePassword")
+        password: this.props.navigation.getParam('profilePassword'),
       });
 
-      if (this.state.signinConfirmation != "done") {
+      if (this.state.signinConfirmation != 'done') {
         // console.log("Profile Signin Confirmation message is not done ")
-        this.setState({ signinConfirmation: "not signed in" });
-        this.setState({ username: "" });
-        this.setState({ gotoPage: "Register" });
+        this.setState({ signinConfirmation: 'not signed in' });
+        this.setState({ username: '' });
+        this.setState({ gotoPage: 'Register' });
       } else {
         // console.log("You're signed in and profileSigninConfirmation message is done");
-        this.setState({ gotoPage: "Profile" });
+        this.setState({ gotoPage: 'Profile' });
       }
     } catch (e) {
       // try ends
       // console.log("Inside catch")
       // console.log("Not signed in or just started the app");
-      this.setState({ signinConfirmation: "not signed in" });
-      this.setState({ username: "" });
-      this.setState({ gotoPage: "RegisterPage" });
+      this.setState({ signinConfirmation: 'not signed in' });
+      this.setState({ username: '' });
+      this.setState({ gotoPage: 'RegisterPage' });
     }
   }
 
   render() {
-    const state = this.state;
+    const { state } = this;
     const { navigate } = this.props.navigation;
     return (
       <View style={{ flex: 1 }}>
@@ -168,13 +168,11 @@ export default class HomeScreen extends React.Component {
           <TouchableOpacity
             style={styles.BookStyle}
             activeOpacity={0.5}
-            onPress={() =>
-              navigate("TabFunction", {
-                profileSigninConfirmation: this.state.signinConfirmation,
-                profileUsername: this.state.username,
-                profilePassword: this.state.password
-              })
-            }
+            onPress={() => navigate('TabFunction', {
+              profileSigninConfirmation: this.state.signinConfirmation,
+              profileUsername: this.state.username,
+              profilePassword: this.state.password,
+            })}
           >
             <Image source={booksLogo} style={styles.ImageIconStyle} />
             <View style={styles.SeparatorLine} />
@@ -192,9 +190,9 @@ export default class HomeScreen extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: "row",
+              flexDirection: 'row',
               padding: 10,
-              justifyContent: "space-around"
+              justifyContent: 'space-around',
             }}
           >
             <TouchableHighlight
@@ -210,7 +208,7 @@ export default class HomeScreen extends React.Component {
 
             <TouchableHighlight
               style={styles.HighlightProperties}
-              onPress={() => this.onSubmit("Intikhab")}
+              onPress={() => this.onSubmit('Intikhab')}
             >
               <Image
                 style={styles.RowImage}
@@ -221,7 +219,7 @@ export default class HomeScreen extends React.Component {
 
             <TouchableHighlight
               style={styles.HighlightProperties}
-              onPress={() => this.onSubmit("BookmarksTabs")}
+              onPress={() => this.onSubmit('BookmarksTabs')}
             >
               <Image
                 style={styles.RowImage}
@@ -237,14 +235,14 @@ export default class HomeScreen extends React.Component {
           <View
             style={{
               flex: 1,
-              flexDirection: "row",
+              flexDirection: 'row',
               padding: 10,
-              justifyContent: "space-around"
+              justifyContent: 'space-around',
             }}
           >
             <TouchableHighlight
               style={styles.HighlightProperties}
-              onPress={() => this.onSubmit("DiscussionTabs")}
+              onPress={() => this.onSubmit('DiscussionTabs')}
             >
               <Image
                 style={styles.RowImage}
@@ -255,7 +253,7 @@ export default class HomeScreen extends React.Component {
 
             <TouchableHighlight
               style={styles.HighlightProperties}
-              onPress={() => this.onSubmit("Search")}
+              onPress={() => this.onSubmit('Search')}
             >
               <Image
                 style={styles.RowImage}
@@ -266,7 +264,7 @@ export default class HomeScreen extends React.Component {
 
             <TouchableHighlight
               style={styles.HighlightProperties}
-              onPress={() => this.onSubmit("Info")}
+              onPress={() => this.onSubmit('Info')}
             >
               <Image
                 style={styles.RowImage}
@@ -284,54 +282,54 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 10
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
   },
   BookStyle: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#808000",
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#808000',
     borderWidth: 0.5,
-    borderColor: "#fff",
+    borderColor: '#fff',
     height: 150,
     width: 300,
     borderRadius: 5,
-    margin: 5
+    margin: 5,
   },
   ImageIconStyle: {
     padding: 20,
     margin: 20,
     height: 120,
     width: 120,
-    resizeMode: "stretch"
+    resizeMode: 'stretch',
   },
   TextStyle: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#fff",
+    fontWeight: 'bold',
+    color: '#fff',
     marginBottom: 4,
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
   },
   SeparatorLine: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     width: 5,
-    height: 120
+    height: 120,
   },
   Image: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: "contain"
+    resizeMode: 'contain',
   },
   RowImage: {
-    flex: 1
+    flex: 1,
   },
   HighlightProperties: {
     flex: 1,
-    overflow: "hidden",
-    alignItems: "center",
-    margin: 10
-  }
+    overflow: 'hidden',
+    alignItems: 'center',
+    margin: 10,
+  },
 });

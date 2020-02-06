@@ -1,52 +1,45 @@
-import React from "react";
+import React from 'react';
 import {
   Picker,
   ScrollView,
-  TextInput,
   Button,
-  TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
-  Text
-} from "react-native";
-import StaticContentService from "../Misc/StaticContentServiceYaml";
+  Text,
+} from 'react-native';
 
 import {
   Table,
   TableWrapper,
   Row,
-  Rows,
-  Col
-} from "react-native-table-component";
+  Col,
+} from 'react-native-table-component';
 
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage';
 
-var YAML = require("yaml");
 
-const USERNAME = "username";
-const PASSWORD = "password";
-const MESSAGE = "message";
+const USERNAME = 'username';
+const PASSWORD = 'password';
+const MESSAGE = 'message';
 
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
-      signinConfirmation: "",
+      username: '',
+      password: '',
+      signinConfirmation: '',
 
       pictures: [],
-      listId: "List_001",
+      listId: 'List_001',
       poemList: [],
       poemListName: [],
       bookName: [],
-      bookNameUrdu: "",
-      bookNameEnglish: "",
+      bookNameUrdu: '',
+      bookNameEnglish: '',
       bookSections: [],
-      onePoem: "",
+      onePoem: '',
       poemText: [],
       poemObjects: [],
 
@@ -64,21 +57,21 @@ class ProfilePage extends React.Component {
       leaderBoardTextOddWordName: [],
       leaderBoardTextWordConcat: [],
 
-      dropdownState: "discussion"
+      dropdownState: 'discussion',
     };
 
     this.dropChange = this.dropChange.bind(this);
   }
 
   static navigationOptions = {
-    title: "My Profile",
+    title: 'My Profile',
     headerStyle: {},
-    headerTintColor: "red",
+    headerTintColor: 'red',
     headerTitleStyle: {
-      fontWeight: "bold",
+      fontWeight: 'bold',
       fontSize: 20,
-      textAlign: "center"
-    }
+      textAlign: 'center',
+    },
   };
 
   dropChange(event) {
@@ -86,22 +79,22 @@ class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("this.state.leaderBoardText");
+    console.log('this.state.leaderBoardText');
     console.log(this.state.leaderBoardText);
 
-    console.log("this.state.leaderBoardTextEven");
+    console.log('this.state.leaderBoardTextEven');
     console.log(this.state.leaderBoardTextEven);
 
-    console.log("this.state.leaderBoardTextEvenDiscussion");
+    console.log('this.state.leaderBoardTextEvenDiscussion');
     console.log(this.state.leaderBoardTextEvenDiscussion);
 
-    console.log("this.state.leaderBoardTextOddDiscussion");
+    console.log('this.state.leaderBoardTextOddDiscussion');
     console.log(this.state.leaderBoardTextOddDiscussion);
 
-    console.log("this.state.leaderBoardTextEvenWord");
+    console.log('this.state.leaderBoardTextEvenWord');
     console.log(this.state.leaderBoardTextEvenWord);
 
-    console.log("this.state.leaderBoardTextOddWord");
+    console.log('this.state.leaderBoardTextOddWord');
     console.log(this.state.leaderBoardTextOddWord);
   }
 
@@ -109,58 +102,58 @@ class ProfilePage extends React.Component {
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
+          'profileSigninConfirmation',
+        ),
       });
       this.setState({
-        username: this.props.navigation.getParam("profileUsername")
+        username: this.props.navigation.getParam('profileUsername'),
       });
       this.setState({
-        password: this.props.navigation.getParam("profilePassword")
+        password: this.props.navigation.getParam('profilePassword'),
       });
       this.get_leader_board();
       console.log(this.state.leaderBoardTextOddWord);
     } catch (e) {
-      console.log("Inside catch");
+      console.log('Inside catch');
     }
   }
 
   signMeIn = () => {
-    if (this.state.username == "") {
+    if (this.state.username == '') {
       this.props.history.push({
-        pathname: "/RegisterPage",
+        pathname: '/RegisterPage',
         state: {
           profileSigninConfirmation: this.state.signinConfirmation,
           profileUsername: this.state.username,
-          profilePassword: this.state.password
-        }
+          profilePassword: this.state.password,
+        },
       });
     }
   };
 
   myDownloads = () => {
-    console.log("this.state.username");
+    console.log('this.state.username');
     console.log(this.state.username);
 
-    console.log("this.state.password");
+    console.log('this.state.password');
     console.log(this.state.password);
-    this.props.navigation.navigate("DownloadAudios", {
+    this.props.navigation.navigate('DownloadAudios', {
       profileUsername: this.state.username,
       profilePassword: this.state.password,
-      profileSigninConfirmation: this.state.signinConfirmation
+      profileSigninConfirmation: this.state.signinConfirmation,
     });
   };
 
   changePassword = () => {
-    console.log("this.state.username");
+    console.log('this.state.username');
     console.log(this.state.username);
 
-    console.log("this.state.password");
+    console.log('this.state.password');
     console.log(this.state.password);
-    this.props.navigation.navigate("ChangePassword", {
+    this.props.navigation.navigate('ChangePassword', {
       profileUsername: this.state.username,
       profilePassword: this.state.password,
-      profileSigninConfirmation: this.state.signinConfirmation
+      profileSigninConfirmation: this.state.signinConfirmation,
     });
   };
 
@@ -168,37 +161,37 @@ class ProfilePage extends React.Component {
     AsyncStorage.removeItem(USERNAME);
     AsyncStorage.removeItem(PASSWORD);
     AsyncStorage.removeItem(MESSAGE);
-    console.log("All store variables are removed");
+    console.log('All store variables are removed');
 
-    this.props.navigation.navigate("Home", {
-      profileUsername: "",
-      profilePassword: "",
-      profileSigninConfirmation: ""
+    this.props.navigation.navigate('Home', {
+      profileUsername: '',
+      profilePassword: '',
+      profileSigninConfirmation: '',
     });
   };
 
   async get_leader_board() {
-    var leaderBoardTextLocal = [];
-    var leaderBoardTextEvenLocal = [];
-    var leaderBoardTextOddLocal = [];
-    var leaderBoardTextEvenDiscussionLocal = [];
-    var leaderBoardTextOddDiscussionLocal = [];
-    var leaderBoardTextEvenWordLocal = [];
-    var leaderBoardTextOddWordLocal = [];
+    let leaderBoardTextLocal = [];
+    const leaderBoardTextEvenLocal = [];
+    const leaderBoardTextOddLocal = [];
+    const leaderBoardTextEvenDiscussionLocal = [];
+    const leaderBoardTextOddDiscussionLocal = [];
+    const leaderBoardTextEvenWordLocal = [];
+    const leaderBoardTextOddWordLocal = [];
 
-    var that = this;
+    const that = this;
     try {
-      fetch("https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php", {
-        method: "GET",
+      fetch('https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php', {
+        method: 'GET',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      }).then(async function(data) {
-        data.text().then(async function(data) {
-          console.log("data");
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then(async (data) => {
+        data.text().then(async (data) => {
+          console.log('data');
           console.log(data);
 
-          leaderBoardTextLocal = data.split(",");
+          leaderBoardTextLocal = data.split(',');
           leaderBoardTextLocal.splice(-1, 1);
           for (var i = 0; i < leaderBoardTextLocal.length; i++) {
             if (i % 2 === 0) {
@@ -210,34 +203,34 @@ class ProfilePage extends React.Component {
           for (var i = 0; i < leaderBoardTextEvenLocal.length; i++) {
             if (i < 10) {
               leaderBoardTextEvenDiscussionLocal.push(
-                leaderBoardTextEvenLocal[i]
+                leaderBoardTextEvenLocal[i],
               );
               leaderBoardTextOddDiscussionLocal.push(
-                leaderBoardTextOddLocal[i]
+                leaderBoardTextOddLocal[i],
               );
               that.state.leaderBoardTextEvenDiscussionName.push({
-                name: leaderBoardTextEvenLocal[i]
+                name: leaderBoardTextEvenLocal[i],
               });
               that.state.leaderBoardTextOddDiscussionName.push({
-                points: leaderBoardTextOddLocal[i]
+                points: leaderBoardTextOddLocal[i],
               });
               that.state.leaderBoardTextDiscussionConcat.push({
                 name: leaderBoardTextEvenLocal[i],
-                points: leaderBoardTextOddLocal[i]
+                points: leaderBoardTextOddLocal[i],
               });
             } else {
               leaderBoardTextEvenWordLocal.push(leaderBoardTextEvenLocal[i]);
               leaderBoardTextOddWordLocal.push(leaderBoardTextOddLocal[i]);
 
               that.state.leaderBoardTextEvenWordName.push({
-                name: leaderBoardTextEvenLocal[i]
+                name: leaderBoardTextEvenLocal[i],
               });
               that.state.leaderBoardTextOddWordName.push({
-                points: leaderBoardTextOddLocal[i]
+                points: leaderBoardTextOddLocal[i],
               });
               that.state.leaderBoardTextWordConcat.push({
                 name: leaderBoardTextEvenLocal[i],
-                points: leaderBoardTextOddLocal[i]
+                points: leaderBoardTextOddLocal[i],
               });
             }
           }
@@ -246,92 +239,74 @@ class ProfilePage extends React.Component {
           that.setState({ leaderBoardTextEven: leaderBoardTextEvenLocal });
           that.setState({ leaderBoardTextOdd: leaderBoardTextOddLocal });
           that.setState({
-            leaderBoardTextEvenDiscussion: leaderBoardTextEvenDiscussionLocal
+            leaderBoardTextEvenDiscussion: leaderBoardTextEvenDiscussionLocal,
           });
           that.setState({
-            leaderBoardTextOddDiscussion: leaderBoardTextOddDiscussionLocal
+            leaderBoardTextOddDiscussion: leaderBoardTextOddDiscussionLocal,
           });
           that.setState({
-            leaderBoardTextEvenWord: leaderBoardTextEvenWordLocal
+            leaderBoardTextEvenWord: leaderBoardTextEvenWordLocal,
           });
           that.setState({
-            leaderBoardTextOddWord: leaderBoardTextOddWordLocal
+            leaderBoardTextOddWord: leaderBoardTextOddWordLocal,
           });
         }); // data.text().then ends
       }); // then async func ends
     } catch (err) {
-      Alert.alert("inside catch err");
+      Alert.alert('inside catch err');
       Alert.alert(err);
     }
-    console.log("messageSher sent to send sher message function");
-    console.log("ajax: that.state.leaderBoardTextEvenDiscussion");
+    console.log('messageSher sent to send sher message function');
+    console.log('ajax: that.state.leaderBoardTextEvenDiscussion');
     console.log(that.state.leaderBoardTextEvenDiscussion);
   }
 
   render() {
-    let signinTag;
-    var signinMessageLocal = "";
-    if (this.state.signinConfirmation === "done") {
+    let signinMessageLocal = '';
+    if (this.state.signinConfirmation === 'done') {
       signinMessageLocal = this.state.username.charAt(0).toUpperCase();
-      signinTag = (
-        <button type="button" class="btn btn-success btn-circle btn-lg">
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
     } else {
-      signinMessageLocal = "Sign In";
-      signinTag = (
-        <button
-          type="button"
-          class="btn btn-primary"
-          onClick={() => this.signMeIn()}
-        >
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
+      signinMessageLocal = 'Sign In';
     }
 
-    var itemOddWord = this.state.leaderBoardTextOddWord.map(item => (
-      <Text key={item}> {item}</Text>
+    const itemOddWord = this.state.leaderBoardTextOddWord.map((item) => (
+      <Text key={item}>
+        {' '}
+        {item}
+      </Text>
     ));
 
-    var itemEvenWord = this.state.leaderBoardTextEvenWord.map(item => (
-      <Text key={item}> {item}</Text>
+    const itemEvenWord = this.state.leaderBoardTextEvenWord.map((item) => (
+      <Text key={item}>
+        {' '}
+        {item}
+      </Text>
     ));
 
-    var itemOddDiscussion = this.state.leaderBoardTextOddDiscussion.map(
-      item => <Text key={item}> {item}</Text>
+    const itemOddDiscussion = this.state.leaderBoardTextOddDiscussion.map(
+      (item) => (
+        <Text key={item}>
+          {' '}
+          {item}
+        </Text>
+      ),
     );
 
-    var itemEvenDiscussion = this.state.leaderBoardTextEvenDiscussion.map(
-      item => <Text key={item}> {item}</Text>
+    const itemEvenDiscussion = this.state.leaderBoardTextEvenDiscussion.map(
+      (item) => (
+        <Text key={item}>
+          {' '}
+          {item}
+        </Text>
+      ),
     );
 
-    var itemEvenDiscussionName = this.state.leaderBoardTextEvenDiscussionName.map(
-      item => <Text key={item}> {item.name}</Text>
-    );
 
-    const columns = [
-      {
-        Header: "Leaderboard Name",
-        accessor: "name" // String-based value accessors!
-      },
-      {
-        Header: "Points",
-        accessor: "points" // String-based value accessors!
-      }
-    ];
-    const tableHeader = ["Leaderboard Name", "Points"];
-    const concatData = [
-      this.state.leaderBoardTextEvenDiscussionName,
-      this.state.leaderBoardTextOddDiscussionName
-    ];
+    const tableHeader = ['Leaderboard Name', 'Points'];
 
-    var myTable = "";
+    let myTable = '';
 
-    if (this.state.dropdownState === "discussion") {
+    if (this.state.dropdownState === 'discussion') {
       myTable = (
         <Table>
           <Row
@@ -382,7 +357,6 @@ class ProfilePage extends React.Component {
         </Table>
       );
     }
-    const state = this.state;
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.6 }}>
@@ -400,10 +374,10 @@ class ProfilePage extends React.Component {
 
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "stretch",
-              padding: 1
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'stretch',
+              padding: 1,
             }}
           >
             <View>
@@ -418,9 +392,9 @@ class ProfilePage extends React.Component {
           </View>
           <View
             style={{
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: 1
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingTop: 1,
             }}
           >
             <Button onPress={() => this.signOut()} title="SIGN OUT" />
@@ -431,9 +405,7 @@ class ProfilePage extends React.Component {
           <View>
             <Picker
               selectedValue={this.state.dropdownState}
-              onValueChange={(itemValue, itemIndex) =>
-                this.setState({ dropdownState: itemValue })
-              }
+              onValueChange={(itemValue) => this.setState({ dropdownState: itemValue })}
             >
               <Picker.Item label="Discussion" value="discussion" />
               <Picker.Item label="Word Meanings" value="word" />
@@ -449,31 +421,31 @@ class ProfilePage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  head: { height: 28, backgroundColor: "#f1f8ff" },
-  wrapper: { flexDirection: "row" },
-  title: { flex: 1, backgroundColor: "#f6f8fa" },
-  text: { textAlign: "center" },
+  head: { height: 28, backgroundColor: '#f1f8ff' },
+  wrapper: { flexDirection: 'row' },
+  title: { flex: 1, backgroundColor: '#f6f8fa' },
+  text: { textAlign: 'center' },
 
   Message: {
-    textAlign: "center"
+    textAlign: 'center',
   },
   UsernameView: {
     // flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff"
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   UsernameViewInner: {
     borderWidth: 2,
     borderRadius: 4,
-    borderColor: "#d6d7da"
+    borderColor: '#d6d7da',
   },
   Username: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  }
+    fontWeight: 'bold',
+    color: '#FF0000',
+  },
 });
 // return <h1>I got following message : {this.props.location.state.detail}</h1>
 

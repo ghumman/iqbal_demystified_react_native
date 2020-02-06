@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   ScrollView,
   TextInput,
@@ -9,22 +9,22 @@ import {
   SectionList,
   Alert,
   View,
-  Text
-} from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
+  Text,
+} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const USERNAME = "username";
-const PASSWORD = "password";
-const MESSAGE = "message";
+const USERNAME = 'username';
+const PASSWORD = 'password';
+const MESSAGE = 'message';
 
 class Signin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorMessage: "",
-      username: "",
-      password: "",
-      signinConfirmation: ""
+      errorMessage: '',
+      username: '',
+      password: '',
+      signinConfirmation: '',
     };
     this.handleChangeUsername = this.handleChangeUsername.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -32,56 +32,56 @@ class Signin extends React.Component {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: "Sign In",
-    headerTintColor: "red",
+    headerTitle: 'Sign In',
+    headerTintColor: 'red',
     headerTitleStyle: {
-      fontWeight: "bold",
+      fontWeight: 'bold',
       fontSize: 20,
-      textAlign: "center"
-    }
+      textAlign: 'center',
+    },
   });
 
   login() {
-    if (this.state.username != "" && this.state.password != "") {
+    if (this.state.username != '' && this.state.password != '') {
       this.try_login(this.state.username, this.state.password);
     } else {
-      Alert.alert("A username and password must be present");
+      Alert.alert('A username and password must be present');
     } // else if user or password are empty ends
   } // function login ends
 
   async try_login(inputUsername, inputPassword) {
-    var that = this;
+    const that = this;
     try {
-      fetch("https://www.icanmakemyownapp.com/iqbal/v3/login.php", {
-        method: "POST",
+      fetch('https://www.icanmakemyownapp.com/iqbal/v3/login.php', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
         body:
-          "username=" +
-          that.state.username.trim() +
-          "&password=" +
-          that.state.password.trim()
-      }).then(async function(data) {
-        data.text().then(async function(data) {
-          console.log("data");
+          `username=${
+          that.state.username.trim()
+          }&password=${
+          that.state.password.trim()}`,
+      }).then(async (data) => {
+        data.text().then(async (data) => {
+          console.log('data');
           console.log(data);
-          if (data == "done") {
-            console.log("Successfully Logged in");
-            that.setState({ errorMessage: "Successfully Logged in" });
+          if (data == 'done') {
+            console.log('Successfully Logged in');
+            that.setState({ errorMessage: 'Successfully Logged in' });
             that.setState({ signinConfirmation: data });
 
-            console.log("navigating to home with following parameters");
-            console.log("that.state.signinConfirmation");
+            console.log('navigating to home with following parameters');
+            console.log('that.state.signinConfirmation');
             console.log(that.state.signinConfirmation);
 
             AsyncStorage.setItem(USERNAME, that.state.username);
             AsyncStorage.setItem(PASSWORD, that.state.password);
             AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
-            that.props.navigation.navigate("Home", {
+            that.props.navigation.navigate('Home', {
               profileUsername: that.state.username,
               profilePassword: that.state.password,
-              profileSigninConfirmation: that.state.signinConfirmation
+              profileSigninConfirmation: that.state.signinConfirmation,
             });
           } else {
             Alert.alert(data);
@@ -90,7 +90,7 @@ class Signin extends React.Component {
       }); // then async func ends
     } catch (err) {
       // try ends
-      Alert.alert("inside catch err");
+      Alert.alert('inside catch err');
       Alert.alert(err);
     } // catch ends
   } // async try_login ends
@@ -110,11 +110,11 @@ class Signin extends React.Component {
   }
 
   onSubmitRegister = () => {
-    this.props.navigation.navigate("Register");
+    this.props.navigation.navigate('Register');
   };
 
   onSubmitForgot = () => {
-    this.props.navigation.navigate("ForgotPassword");
+    this.props.navigation.navigate('ForgotPassword');
   };
 
   render() {
@@ -127,7 +127,7 @@ class Signin extends React.Component {
             autoCompleteType="username"
             style={{ height: 40 }}
             placeholder="Username"
-            onChangeText={text => this.setState({ username: text })}
+            onChangeText={(text) => this.setState({ username: text })}
           />
         </View>
 
@@ -136,10 +136,10 @@ class Signin extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             autoCompleteType="password"
-            secureTextEntry={true}
+            secureTextEntry
             style={{ height: 40 }}
             placeholder="Password"
-            onChangeText={text => this.setState({ password: text })}
+            onChangeText={(text) => this.setState({ password: text })}
           />
         </View>
 
@@ -152,7 +152,9 @@ class Signin extends React.Component {
         <TouchableHighlight onPress={() => this.onSubmitRegister()}>
           <View style={styles.RenderedView}>
             <Text style={styles.BottomLines}>
-              Do not have an account? {"\n"}
+              Do not have an account?
+              {' '}
+              {'\n'}
               Register Here
             </Text>
           </View>
@@ -166,14 +168,14 @@ const styles = StyleSheet.create({
   RenderedView: {
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: "#d6d7da"
+    borderColor: '#d6d7da',
   },
   BottomLines: {
-    textAlign: "center",
+    textAlign: 'center',
     fontSize: 15,
-    fontWeight: "bold",
-    color: "blue"
-  }
+    fontWeight: 'bold',
+    color: 'blue',
+  },
 });
 
 export default Signin;

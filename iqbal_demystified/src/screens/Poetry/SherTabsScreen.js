@@ -1,66 +1,65 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, Text } from 'react-native';
 import {
   createMaterialTopTabNavigator,
   createStackNavigator,
-  createAppContainer
-} from "react-navigation";
+  createAppContainer,
+} from 'react-navigation';
 
-import SherDiscussionScreen from "./SherDiscussionScreen";
-import SherWordScreen from "./SherWordScreen";
+import SherDiscussionScreen from './SherDiscussionScreen';
+import SherWordScreen from './SherWordScreen';
 
 const SherNavigator = createMaterialTopTabNavigator(
   {
     SherDiscussion: SherDiscussionScreen,
-    SherWordMeanings: SherWordScreen
+    SherWordMeanings: SherWordScreen,
   },
   {
-    tabBarPosition: "top",
-    title: "Title set by SherTabsScreen.js",
+    tabBarPosition: 'top',
+    title: 'Title set by SherTabsScreen.js',
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#FFFFFF",
-      inactiveTintColor: "#F8F8F8",
+      activeTintColor: '#FFFFFF',
+      inactiveTintColor: '#F8F8F8',
       style: {
-        backgroundColor: "gray"
+        backgroundColor: 'gray',
       },
       labelStyle: {
-        textAlign: "center",
+        textAlign: 'center',
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: 'bold',
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
-        borderBottomWidth: 2
-      }
-    }
-  }
+        borderBottomColor: '#87B56A',
+        borderBottomWidth: 2,
+      },
+    },
+  },
 );
 
 SherNavigator.navigationOptions = ({ navigation }) => {
-  const headerTitle = navigation.getParam("poemTitle");
+  const headerTitle = navigation.getParam('poemTitle');
   if (headerTitle != null) {
     return {
       headerTitle,
-      headerTintColor: "red",
+      headerTintColor: 'red',
       headerTitleStyle: {
-        fontWeight: "bold",
+        fontWeight: 'bold',
         fontSize: 20,
-        textAlign: "center"
-      }
-    };
-  } else {
-    return {
-      headerTitle: "Discussion",
-      headerTintColor: "red",
-      headerTitleStyle: {
-        fontWeight: "bold",
-        fontSize: 20,
-        textAlign: "center"
-      }
+        textAlign: 'center',
+      },
     };
   }
+  return {
+    headerTitle: 'Discussion',
+    headerTintColor: 'red',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 20,
+      textAlign: 'center',
+    },
+  };
 };
 
 export default SherNavigator;

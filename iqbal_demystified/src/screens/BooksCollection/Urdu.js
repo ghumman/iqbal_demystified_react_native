@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   TouchableHighlight,
   Alert,
@@ -6,40 +6,40 @@ import {
   View,
   Text,
   Image,
-  StyleSheet
-} from "react-native";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
+  StyleSheet,
+} from 'react-native';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
 // following are books in first tab - Urdu
-import urduBook1 from "../../assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg";
-import urduBook2 from "../../assets/android_app_assets/book_bang_ae_dara_urdu_1.jpg";
-import urduBook3 from "../../assets/android_app_assets/book_armaghan_ae_hijaz_urdu_4.jpg";
-import urduBook4 from "../../assets/android_app_assets/book_zarb_ae_kaleem_urdu_3.jpg";
+import urduBook1 from '../../assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg';
+import urduBook2 from '../../assets/android_app_assets/book_bang_ae_dara_urdu_1.jpg';
+import urduBook3 from '../../assets/android_app_assets/book_armaghan_ae_hijaz_urdu_4.jpg';
+import urduBook4 from '../../assets/android_app_assets/book_zarb_ae_kaleem_urdu_3.jpg';
 
 class Urdu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      signinConfirmation: "",
-      username: "",
-      password: ""
+      signinConfirmation: '',
+      username: '',
+      password: '',
     };
   }
 
-  onSubmit = bookNumber => {
+  onSubmit = (bookNumber) => {
     const { navigate } = this.props.navigation;
 
-    console.log("You are inside onSubmit Going to ListPoem");
-    console.log("Value of this.state.username");
-    const localUsername = "test2";
+    console.log('You are inside onSubmit Going to ListPoem');
+    console.log('Value of this.state.username');
+    const localUsername = 'test2';
     console.log(localUsername);
-    console.log("Value of this.state.signinConfirmation");
+    console.log('Value of this.state.signinConfirmation');
     console.log(this.state.signinConfirmation);
-    navigate("ListPoem", {
+    navigate('ListPoem', {
       detailBook: bookNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
       profileUsername: this.state.username,
-      profilePassword: this.state.password
+      profilePassword: this.state.password,
     });
   };
 
@@ -47,37 +47,38 @@ class Urdu extends React.Component {
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
+          'profileSigninConfirmation',
+        ),
       });
       this.setState({
-        username: this.props.navigation.getParam("profileUsername")
+        username: this.props.navigation.getParam('profileUsername'),
       });
       this.setState({
-        password: this.props.navigation.getParam("profilePassword")
+        password: this.props.navigation.getParam('profilePassword'),
       });
     } catch (e) {
-      console.log("Inside catch");
-      console.log("Error");
+      console.log('Inside catch');
+      console.log('Error');
       console.log(e);
     }
   }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flex: 1, flexDirection: 'column' }}>
             <View
               style={{
                 flex: 1,
-                flexDirection: "row",
+                flexDirection: 'row',
                 padding: 1,
-                justifyContent: "space-around"
+                justifyContent: 'space-around',
               }}
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_002")}
+                onPress={() => this.onSubmit('List_002')}
               >
                 <Image
                   style={styles.RowImage}
@@ -88,7 +89,7 @@ class Urdu extends React.Component {
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_001")}
+                onPress={() => this.onSubmit('List_001')}
               >
                 <Image
                   style={styles.RowImage}
@@ -101,14 +102,14 @@ class Urdu extends React.Component {
             <View
               style={{
                 flex: 1,
-                flexDirection: "row",
+                flexDirection: 'row',
                 padding: 1,
-                justifyContent: "space-around"
+                justifyContent: 'space-around',
               }}
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_004")}
+                onPress={() => this.onSubmit('List_004')}
               >
                 <Image
                   style={styles.RowImage}
@@ -119,7 +120,7 @@ class Urdu extends React.Component {
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_003")}
+                onPress={() => this.onSubmit('List_003')}
               >
                 <Image
                   style={styles.RowImage}
@@ -138,22 +139,22 @@ class Urdu extends React.Component {
 const styles = StyleSheet.create({
   HighlightProperties: {
     flex: 1,
-    overflow: "hidden",
-    alignItems: "center",
-    margin: 10
+    overflow: 'hidden',
+    alignItems: 'center',
+    margin: 10,
   },
 
   RowSpace: {
     flex: 1,
     width: null,
     height: null,
-    resizeMode: "contain",
-    margin: 15
+    resizeMode: 'contain',
+    margin: 15,
   },
 
   RowImage: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 export default Urdu;
