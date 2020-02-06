@@ -1,17 +1,13 @@
 import React from 'react';
 import {
   Platform,
-  ScrollView,
   Image,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
-  Alert,
   View,
   Text,
 } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import starLiked from '../../assets/android_app_assets/star_liked.png';
@@ -80,7 +76,7 @@ class ListPoemScreen extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, 'utf8')
-          .then((success) => {
+          .then(() => {
             // console.log('FILE WRITTEN!');
             const bookName = that.props.navigation.getParam('detailBook');
             that.getPoemList(bookName);
@@ -94,7 +90,7 @@ class ListPoemScreen extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
             const bookName = that.props.navigation.getParam('detailBook');
             console.log('In listPoemScreen.js inside starToggling else');
@@ -175,7 +171,6 @@ class ListPoemScreen extends React.Component {
 
       that.setState({ poemListName: that.state.poemList.poems });
 
-      const checkValueVar = [];
 
       that.readBookmarks().then((result) => {
         const set = new Set(result);
@@ -259,38 +254,38 @@ class ListPoemScreen extends React.Component {
           <View style={{ flex: 1, flexDirection: 'column' }}>
             <View
               style={{
-         justifyContent: 'center',
-         alignItems: 'center',
-         flex: 0.2,
-       }}
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 0.2,
+              }}
             >
               <TouchableHighlight onPress={() => that.starToggling(item)}>
-         <Image
-                resizeMode="cover"
-                source={starLiked}
-                style={{ width: 20, height: 20 }}
-              />
-       </TouchableHighlight>
+                <Image
+                  resizeMode="cover"
+                  source={starLiked}
+                  style={{ width: 20, height: 20 }}
+                />
+              </TouchableHighlight>
             </View>
             <View
               style={{
-         borderBottomWidth: 0.5,
-         borderBottomColor: '#d6d7da',
-         flex: 0.8,
-       }}
+                borderBottomWidth: 0.5,
+                borderBottomColor: '#d6d7da',
+                flex: 0.8,
+              }}
             >
               <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
-         <View>
                 <View>
-                  <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-                </View>
-                <View>
-                  <Text style={fontFamilyTextVariable}>
+                  <View>
+                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
+                  </View>
+                  <View>
+                    <Text style={fontFamilyTextVariable}>
                       {item.textEnglish}
                     </Text>
+                  </View>
                 </View>
-              </View>
-       </TouchableHighlight>
+              </TouchableHighlight>
             </View>
           </View>
         );
@@ -343,30 +338,18 @@ class ListPoemScreen extends React.Component {
   };
 
   render() {
-    let fontFamilyTitleVariable;
     switch (this.state.font) {
       case 'Normal':
-        fontFamilyTitleVariable = styles.UrduTitleNormal;
         break;
       case 'Nafees':
-        fontFamilyTitleVariable = styles.UrduTitleNafees;
         break;
       case 'Kasheeda':
-        fontFamilyTitleVariable = styles.UrduTitleKasheeda;
         break;
       case 'Fajer':
-        fontFamilyTitleVariable = styles.UrduTitleFajer;
         break;
     }
 
-    const item3 = this.state.poemText.map((item) => (
-      <Text key={item.index} onClick={() => this.onSubmit(item.id)}>
-        {' '}
-        {item.textUrdu}
-      </Text>
-    ));
 
-    const that = this;
 
     return (
       <View style={styles.MainContainer}>

@@ -6,17 +6,10 @@ import {
   Linking,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
-  Alert,
   View,
   Text,
 } from 'react-native';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from 'react-native-simple-radio-button';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 import qs from 'qs';

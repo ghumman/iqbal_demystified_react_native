@@ -1,28 +1,17 @@
 import React from 'react';
 import {
   TextInput,
-  Image,
   ScrollView,
   Linking,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
-  Alert,
   View,
   Text,
 } from 'react-native';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from 'react-native-simple-radio-button';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import qs from 'qs';
 
-import iconIis from '../../assets/android_app_assets/iqbal_com_pk.png';
-import iconAcademy from '../../assets/android_app_assets/iap.png';
 
 const FONT = 'Normal';
 const TEXT = 'Urdu';
@@ -48,7 +37,7 @@ class ContributeIntroductionScreen extends React.Component {
     };
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     headerTitle: 'Contribute!',
     headerTintColor: 'red',
     headerTitleStyle: {
@@ -148,7 +137,7 @@ class ContributeIntroductionScreen extends React.Component {
       this.setState({
         emailText:
           `Asalamualikum, I want to add the Introduction of the Poem: ${
-            this.props.navigation.getParam('poemTitle')
+          this.props.navigation.getParam('poemTitle')
           }\n\n\n`,
       });
     } catch (e) {
@@ -175,7 +164,7 @@ class ContributeIntroductionScreen extends React.Component {
     });
   }
 
-  async sendEmail(to, subject, body, options = {}) {
+  async sendEmail(to, subject, body) {
     console.log('Inside sendEmail');
     const cc = '';
     const bcc = '';
@@ -216,7 +205,6 @@ class ContributeIntroductionScreen extends React.Component {
       borderBottomWidth: 1,
     };
 
-    let signinTag;
 
     return (
       <View>

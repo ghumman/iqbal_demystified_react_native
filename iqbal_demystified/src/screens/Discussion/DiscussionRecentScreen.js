@@ -2,13 +2,9 @@ import React from 'react';
 import {
   Platform,
   Image,
-  ScrollView,
-  TextInput,
-  Button,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
   Alert,
   View,
   Text,
@@ -21,7 +17,6 @@ import starLiked from '../../assets/android_app_assets/star_liked.png';
 import starNotLiked from '../../assets/android_app_assets/star_not_liked.png';
 
 const RNFS = require('react-native-fs');
-const YAML = require('yaml');
 
 const FONT = 'Normal';
 const TEXT = 'Urdu';
@@ -114,7 +109,7 @@ class CommentsPage extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -126,23 +121,23 @@ class CommentsPage extends React.Component {
 
         // var sherNumberComma = sherNumber + ',';
         const sherAt = `${sher.id
-        }@${
+          }@${
           sher.sherContent[0].text[0]
-        }@${
+          }@${
           sher.sherContent[0].text[1]
-        }@${
+          }@${
           sher.sherContent[1].text[0]
-        }@${
+          }@${
           sher.sherContent[1].text[1]
-        }@${
+          }@${
           sher.sherContent[2].text[0]
-        }@${
+          }@${
           sher.sherContent[2].text[1]
-        }@`;
+          }@`;
 
         // write the file
         RNFS.appendFile(path, sherAt, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -272,10 +267,10 @@ class CommentsPage extends React.Component {
       try {
         el.sherContent[1].text = el.sherContent[1].text.split('|');
         console.log(el.sherContent[1].text);
-      } catch (err) {}
+      } catch (err) { }
       try {
         el.sherContent[2].text = el.sherContent[2].text.split('|');
-      } catch (err) {}
+      } catch (err) { }
       return (el.sherContent = el.sherContent);
     });
 

@@ -1,9 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
 import {
   createMaterialTopTabNavigator,
-  createStackNavigator,
-  createAppContainer,
 } from 'react-navigation';
 
 import DiscussionRecentScreen from './DiscussionRecentScreen';

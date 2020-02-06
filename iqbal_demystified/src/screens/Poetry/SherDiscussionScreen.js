@@ -8,8 +8,6 @@ import {
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text,
@@ -17,15 +15,6 @@ import {
 
 import Moment from 'moment';
 
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell,
-} from 'react-native-table-component';
 import StaticContentService from '../Misc/StaticContentServiceYaml';
 
 import iconShare from '../../assets/android_app_assets/share.png';
@@ -67,7 +56,7 @@ class SherPage extends React.Component {
     this.handleSubmitWord = this.handleSubmitWord.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     title: 'Discussion',
   });
 
@@ -117,13 +106,13 @@ class SherPage extends React.Component {
             },
             body:
               `sher=${
-                that.state.sherId
+              that.state.sherId
               }&discussion_type=general&username=${
-                that.state.username
+              that.state.username
               }&password=${
-                that.state.password
+              that.state.password
               }&comment_text=${
-                that.state.userMessageSher}`,
+              that.state.userMessageSher}`,
           }).then(async (data) => {
             console.log('data');
             console.log(data);
@@ -204,7 +193,6 @@ class SherPage extends React.Component {
     try {
       console.log('sherName: ');
       console.log(sherName);
-      const localData = { sher: sherName, discussion_type: 'general' };
       fetch('https://icanmakemyownapp.com/iqbal/v3/get-discussion.php', {
         method: 'POST',
         headers: {
@@ -222,22 +210,22 @@ class SherPage extends React.Component {
           let yamlFile = '';
           if (Platform.OS == 'ios') {
             path = `${RNFS.MainBundlePath
-            }/assets/poems/${
+              }/assets/poems/${
               sherArray[0]
-            }/${
+              }/${
               sherArray[0]
-            }_${
+              }_${
               sherArray[1]
-            }.yaml`;
+              }.yaml`;
             yamlFile = await RNFS.readFile(path, 'utf8');
           } else if (Platform.OS == 'android') {
             path = `poems/${
               sherArray[0]
-            }/${
+              }/${
               sherArray[0]
-            }_${
+              }_${
               sherArray[1]
-            }.yaml`;
+              }.yaml`;
             yamlFile = await RNFS.readFileAssets(path, 'utf8');
           }
 
@@ -336,7 +324,7 @@ class SherPage extends React.Component {
     const that = this;
     StaticContentService.getSherDiscussion(
       sherGeneralDiscussionServerResponse,
-    ).then((response) => {
+    ).then(() => {
       const sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
       console.log('Value of sherDiscussionDetailLocal:');
@@ -602,13 +590,13 @@ class SherPage extends React.Component {
           },
           body:
             `sher=${
-              that.state.sherId
+            that.state.sherId
             }&discussion_type=general&comment_id=${
-              comment_general_id
+            comment_general_id
             }&username=${
-              that.state.username
+            that.state.username
             }&password=${
-              that.state.password
+            that.state.password
             }&is_like=1&is_cancel=0`,
         }).then(async (data) => {
           data.text().then(async (data) => {
@@ -627,13 +615,13 @@ class SherPage extends React.Component {
                   },
                   body:
                     `sher=${
-                      that.state.sherId
+                    that.state.sherId
                     }&discussion_type=general&comment_id=${
-                      comment_general_id
+                    comment_general_id
                     }&username=${
-                      that.state.username
+                    that.state.username
                     }&password=${
-                      that.state.password
+                    that.state.password
                     }&is_like=0&is_cancel=1`,
                 }).then(async (data) => {
                   data.text().then(async (data) => {
@@ -686,13 +674,13 @@ class SherPage extends React.Component {
           },
           body:
             `sher=${
-              that.state.sherId
+            that.state.sherId
             }&discussion_type=general&comment_id=${
-              comment_general_id
+            comment_general_id
             }&username=${
-              that.state.username
+            that.state.username
             }&password=${
-              that.state.password
+            that.state.password
             }&is_like=1&is_cancel=0`,
         }).then(async (data) => {
           data.text().then(async (data) => {
@@ -741,13 +729,13 @@ class SherPage extends React.Component {
           },
           body:
             `sher=${
-              that.state.sherId
+            that.state.sherId
             }&discussion_type=general&comment_id=${
-              comment_general_id
+            comment_general_id
             }&username=${
-              that.state.username
+            that.state.username
             }&password=${
-              that.state.password
+            that.state.password
             }&is_like=0&is_cancel=0`,
         }).then(async (data) => {
           data.text().then(async (data) => {
@@ -766,13 +754,13 @@ class SherPage extends React.Component {
                   },
                   body:
                     `sher=${
-                      that.state.sherId
+                    that.state.sherId
                     }&discussion_type=general&comment_id=${
-                      comment_general_id
+                    comment_general_id
                     }&username=${
-                      that.state.username
+                    that.state.username
                     }&password=${
-                      that.state.password
+                    that.state.password
                     }&is_like=0&is_cancel=1`,
                 }).then(async (data) => {
                   data.text().then(async (data) => {
@@ -824,13 +812,13 @@ class SherPage extends React.Component {
           },
           body:
             `sher=${
-              that.state.sherId
+            that.state.sherId
             }&discussion_type=general&comment_id=${
-              comment_general_id
+            comment_general_id
             }&username=${
-              that.state.username
+            that.state.username
             }&password=${
-              that.state.password
+            that.state.password
             }&is_like=0&is_cancel=0`,
         }).then(async (data) => {
           data.text().then(async (data) => {
@@ -879,13 +867,13 @@ class SherPage extends React.Component {
           },
           body:
             `sher=${
-              that.state.sherId
+            that.state.sherId
             }&discussion_type=general&comment_id=${
-              comment_general_id
+            comment_general_id
             }&username=${
-              that.state.username
+            that.state.username
             }&password=${
-              that.state.password
+            that.state.password
             }&is_like=0&is_cancel=1`,
         }).then(async (data) => {
           data.text().then(async (data) => {
@@ -930,7 +918,7 @@ class SherPage extends React.Component {
         message:
           `${that.state.sherText[0]
           }\n${
-            that.state.sherText[1]
+          that.state.sherText[1]
           }\n`
           + '(Iqbal Demystified by International Iqbal Society)',
       });
@@ -951,29 +939,15 @@ class SherPage extends React.Component {
 
   render() {
     Moment.locale('en');
-    const item4 = this.state.sherText.map((item, index) => (
+    const item4 = this.state.sherText.map((item) => (
       <Text key={item.index} style={styles.RenderedText}>
         {' '}
         {item}
       </Text>
     ));
 
-    const item5 = this.state.wordText.map((item, index) => (
-      <span key={item.index}>
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => this.selectedWord(item, index)}
-        >
-          {' '}
-          {item}
-          {' '}
-        </button>
-        {' '}
-      </span>
-    ));
 
-    const item6 = this.state.sherDiscussionDetail.map((item, index) => (
+    const item6 = this.state.sherDiscussionDetail.map((item) => (
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={{ flex: 0.1, flexDirection: 'column' }}>
           <View
@@ -1027,91 +1001,12 @@ class SherPage extends React.Component {
       </View>
     ));
 
-    const item7 = this.state.wordDiscussionDetail.map((item, index) => {
-      if (item.wordposition - 1 == this.state.mySelectedId) {
-        return (
-          <div key={item.id}>
-            {' '}
-            <div className="float-left">
-              <p>
-                {' '}
-                {item.username}
-              </p>
-            </div>
-            {' '}
-            <div className="float-right">
-              <p>
-                {' '}
-                {item.timestamp}
-              </p>
-              {' '}
-            </div>
-            <br />
-            {' '}
-            <p>
-              {item.text}
-              <br />
-              <br />
-              {' '}
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => this.vote_like_word(item.id)}
-              >
-                {' '}
-                LIKE
-                {' '}
-              </button>
-              <span className="px-2">
-                {' '}
-                SCORE:
-                {item.score}
-              </span>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => this.vote_dislike_word(item.id)}
-              >
-                DISLIKE
-              </button>
-              <p />
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => this.vote_unregister_word(item.id)}
-              >
-                UNREGISTER
-              </button>
-            </p>
-          </div>
-        );
-      }
-    });
 
-    let signinTag;
     let signinMessageLocal = '';
     if (this.state.signinConfirmation === 'done') {
       signinMessageLocal = this.state.username.charAt(0).toUpperCase();
-      signinTag = (
-        <button type="button" className="btn btn-success btn-circle btn-lg">
-          {' '}
-          {signinMessageLocal}
-          {' '}
-        </button>
-      );
     } else {
       signinMessageLocal = 'Sign In';
-      signinTag = (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => this.signMeIn()}
-        >
-          {' '}
-          {signinMessageLocal}
-          {' '}
-        </button>
-      );
     }
     return (
       <View style={{ flex: 1 }}>

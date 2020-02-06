@@ -4,14 +4,10 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
-  ImageBackground,
   ScrollView,
   Image,
-  TextInput,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text,
@@ -22,7 +18,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Video from 'react-native-video';
 import StaticContentService from '../Misc/StaticContentServiceYaml';
 
-import Menu from '../Misc/Menu';
 
 
 import starLiked from '../../assets/android_app_assets/star_liked.png';
@@ -245,7 +240,7 @@ class PoemPage extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -259,23 +254,23 @@ class PoemPage extends React.Component {
         var path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
 
         const sherAt = `${sher.id
-        }@${
+          }@${
           sher.sherContent[0].text[0]
-        }@${
+          }@${
           sher.sherContent[0].text[1]
-        }@${
+          }@${
           sher.sherContent[1].text[0]
-        }@${
+          }@${
           sher.sherContent[1].text[1]
-        }@${
+          }@${
           sher.sherContent[2].text[0]
-        }@${
+          }@${
           sher.sherContent[2].text[1]
-        }@`;
+          }@`;
 
         // write the file
         RNFS.appendFile(path, sherAt, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -372,7 +367,7 @@ class PoemPage extends React.Component {
       'http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3',
       localSong,
     ).then(() => {
-      const song = new Sound(localSong, '', (error) => {
+      const song = new Sound(localSong, '', () => {
         song.play();
       });
     });
@@ -435,15 +430,15 @@ class PoemPage extends React.Component {
       const path = `${RNFS.DocumentDirectoryPath}/downloaded-poems.yaml`;
 
       const sherNumberComma = `${poem
-      }@${
+        }@${
         that.state.poemNameUrdu
-      }@${
+        }@${
         that.state.poemNameEnglish
-      }@`;
+        }@`;
 
       // write the file
       RNFS.appendFile(path, sherNumberComma, 'utf8')
-        .then((success) => {
+        .then(() => {
           console.log('FILE WRITTEN!');
         })
         .catch((err) => {
@@ -466,9 +461,9 @@ class PoemPage extends React.Component {
   onDownloadAudio() {
     console.log('Inside onDownloadAudio');
     const path = `${RNFS.DocumentDirectoryPath
-    }/Iqbal-Demystified/${
+      }/Iqbal-Demystified/${
       this.state.poemNumber
-    }.mp3`;
+      }.mp3`;
     const that = this;
     if (this.state.poemAudioUrl != '') {
       RNFS.exists(path).then((exists) => {
@@ -545,9 +540,9 @@ class PoemPage extends React.Component {
 
   onCheckFileExists() {
     const path = `${RNFS.DocumentDirectoryPath
-    }/Iqbal-Demystified/${
+      }/Iqbal-Demystified/${
       this.state.poemNumber
-    }.mp3`;
+      }.mp3`;
     RNFS.exists(path).then((exists) => {
       if (exists) {
         console.log('BLAH EXISTS');
@@ -673,7 +668,7 @@ class PoemPage extends React.Component {
               <Text
                 style={fontSizeVariableUnderline(that.state.fontGlobalSize)}
               >
-            No Introduction found. Click here to contribute!
+                No Introduction found. Click here to contribute!
               </Text>
             </TouchableHighlight>
           </View>
@@ -681,24 +676,14 @@ class PoemPage extends React.Component {
       }
     } else displayIntro = null;
 
-    let fontFamilyTextVariable;
-    let fontFamilyTitleVariable;
     switch (this.state.font) {
       case 'Normal':
-        fontFamilyTitleVariable = styles.UrduTitleNormal;
-        fontFamilyTextVariable = styles.RenderedTextNormal;
         break;
       case 'Nafees':
-        fontFamilyTitleVariable = styles.UrduTitleNafees;
-        fontFamilyTextVariable = styles.RenderedTextNafees;
         break;
       case 'Kasheeda':
-        fontFamilyTitleVariable = styles.UrduTitleKasheeda;
-        fontFamilyTextVariable = styles.RenderedTextKasheeda;
         break;
       case 'Fajer':
-        fontFamilyTitleVariable = styles.UrduTitleFajer;
-        fontFamilyTextVariable = styles.RenderedTextFajer;
         break;
     }
 
@@ -830,7 +815,7 @@ class PoemPage extends React.Component {
       }
     };
 
-    const itemScroll = this.state.poemTextNew.map((item, index) => {
+    const itemScroll = this.state.poemTextNew.map((item) => {
       if (item.star) {
         if (that.state.text == 'Urdu') {
           if (that.state.detailsVisible) {
@@ -1257,13 +1242,13 @@ class PoemPage extends React.Component {
                       <View>
                         {item.sherContent[1].notes.map((item2, key2) => (
                           <Text
-                              key={key2}
-                              style={IntroSettings(that.state.fontGlobalSize)}
-                            >
-                              {item2.phrase}
-                              :
+                            key={key2}
+                            style={IntroSettings(that.state.fontGlobalSize)}
+                          >
+                            {item2.phrase}
+                            :
                               {item2.meaning}
-                            </Text>
+                          </Text>
                         ))}
                       </View>
                     </View>
@@ -1439,13 +1424,13 @@ class PoemPage extends React.Component {
                       <View>
                         {item.sherContent[1].notes.map((item2, key2) => (
                           <Text
-                              key={key2}
-                              style={IntroSettings(that.state.fontGlobalSize)}
-                            >
-                              {item2.phrase}
-                              :
+                            key={key2}
+                            style={IntroSettings(that.state.fontGlobalSize)}
+                          >
+                            {item2.phrase}
+                            :
                               {item2.meaning}
-                            </Text>
+                          </Text>
                         ))}
                       </View>
                     </View>
@@ -1564,16 +1549,6 @@ class PoemPage extends React.Component {
       }
     });
 
-    const testItem = this.state.poemTextNew.map((item, index) => (
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ justifyContent: 'center' }}>
-          <Image source={starNotLiked} style={{ width: 30, height: 30 }} />
-        </View>
-        <View style={{}}>
-          <Text>Hello</Text>
-        </View>
-      </View>
-    ));
 
     let soundIcon;
     if (this.state.poemAudioUrl != '') {
@@ -1716,9 +1691,9 @@ class PoemPage extends React.Component {
     } else audioSystem2 = <View />;
 
     const path = `${RNFS.DocumentDirectoryPath
-    }/Iqbal-Demystified/${
+      }/Iqbal-Demystified/${
       this.state.poemNumber
-    }.mp3`;
+      }.mp3`;
 
     let videoSetup;
     if (this.state.isDownloadDone) {

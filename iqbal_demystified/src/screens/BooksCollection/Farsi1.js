@@ -1,14 +1,10 @@
 import React from 'react';
 import {
   TouchableHighlight,
-  Alert,
-  Button,
   View,
-  Text,
   Image,
   StyleSheet,
 } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
 // following are books in second tab - Farsi 1
 import farsi1Book1 from '../../assets/android_app_assets/book_rumuz_ae_bekhudi_persian_6.jpg';

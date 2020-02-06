@@ -1,19 +1,10 @@
 import React from 'react';
 import {
-  TouchableOpacity,
-  TouchableHighlight,
-  Button,
   View,
   Text,
   Image,
-  Platform,
   StyleSheet,
 } from 'react-native';
-import {
-  NavigationEvents,
-  createMaterialTopTabNavigator,
-  createAppContainer,
-} from 'react-navigation';
 
 import logo from '../../assets/ic_launcher.png';
 

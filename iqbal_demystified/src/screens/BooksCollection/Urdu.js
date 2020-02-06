@@ -1,14 +1,10 @@
 import React from 'react';
 import {
   TouchableHighlight,
-  Alert,
-  Button,
   View,
-  Text,
   Image,
   StyleSheet,
 } from 'react-native';
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
 // following are books in first tab - Urdu
 import urduBook1 from '../../assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg';

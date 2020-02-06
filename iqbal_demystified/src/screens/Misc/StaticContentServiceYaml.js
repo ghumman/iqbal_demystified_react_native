@@ -33,7 +33,7 @@ export default {
 
       for (i = 1; i <= 11; i++) {
         if (i <= 9) {
-        // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_00' + i + '.yaml');
+          // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_00' + i + '.yaml');
           if (Platform.OS == 'ios') {
             path[i - 1] = `${RNFS.MainBundlePath}/src/assets/lists/List_00${i}.yaml`;
             yamlFile[i - 1] = await RNFS.readFile(path[i - 1], 'utf8');
@@ -45,7 +45,7 @@ export default {
           // yamlObject[i-1] = YAML.parse(yamlFile[i-1].default);
           yamlObject[i - 1] = YAML.parse(yamlFile[i - 1]);
         } else {
-        // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
+          // yamlFile[i-1] = require('!raw-loader!./assets/lists/List_0' + i + '.yaml');
           if (Platform.OS == 'ios') {
             path[i - 1] = `${RNFS.MainBundlePath}/src/assets/lists/List_0${i}.yaml`;
             yamlFile[i - 1] = await RNFS.readFile(path[i - 1], 'utf8');
@@ -128,13 +128,13 @@ export default {
             if (i <= 9) {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/00${
+                  }/src/assets/poems/00${
                   l
-                }/00${
+                  }/00${
                   l
-                }_00${
+                  }_00${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -153,13 +153,13 @@ export default {
             } else if (i <= 99) {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/00${
+                  }/src/assets/poems/00${
                   l
-                }/00${
+                  }/00${
                   l
-                }_0${
+                  }_0${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -178,13 +178,13 @@ export default {
             } else {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/00${
+                  }/src/assets/poems/00${
                   l
-                }/00${
+                  }/00${
                   l
-                }_${
+                  }_${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -207,13 +207,13 @@ export default {
             if (i <= 9) {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/0${
+                  }/src/assets/poems/0${
                   l
-                }/0${
+                  }/0${
                   l
-                }_00${
+                  }_00${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -232,13 +232,13 @@ export default {
             } else if (i <= 99) {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/0${
+                  }/src/assets/poems/0${
                   l
-                }/0${
+                  }/0${
                   l
-                }_0${
+                  }_0${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -257,13 +257,13 @@ export default {
             } else {
               if (Platform.OS == 'ios') {
                 path[i - 1 + sumOfFiles[l - 1]] = `${RNFS.MainBundlePath
-                }/src/assets/poems/0${
+                  }/src/assets/poems/0${
                   l
-                }/0${
+                  }/0${
                   l
-                }_${
+                  }_${
                   i
-                }.yaml`;
+                  }.yaml`;
                 yamlFile[i - 1 + sumOfFiles[l - 1]] = await RNFS.readFile(
                   path[i - 1 + sumOfFiles[l - 1]],
                   'utf8',
@@ -320,11 +320,11 @@ export default {
 
       if (Platform.OS == 'ios') {
         path = `${RNFS.MainBundlePath
-        }/src/assets/poems/${
+          }/src/assets/poems/${
           arr[0]
-        }/${
+          }/${
           poemId
-        }.yaml`;
+          }.yaml`;
         yamlFile = await RNFS.readFile(path, 'utf8');
       } else if (Platform.OS == 'android') {
         path = `poems/${arr[0]}/${poemId}.yaml`;
@@ -355,13 +355,13 @@ export default {
 
         if (Platform.OS == 'ios') {
           path = `${RNFS.MainBundlePath
-          }/src/assets/poems/${
+            }/src/assets/poems/${
             arr[0]
-          }/${
+            }/${
             arr[0]
-          }_${
+            }_${
             arr[1]
-          }.yaml`;
+            }.yaml`;
           yamlFile = await RNFS.readFile(path, 'utf8');
         } else if (Platform.OS == 'android') {
           path = `poems/${arr[0]}/${arr[0]}_${arr[1]}.yaml`;

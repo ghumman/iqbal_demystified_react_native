@@ -375,19 +375,19 @@ class CommentsPage extends React.Component {
         var path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
 
         const sherAt = `${sher.id
-        }@${
+          }@${
           sher.sherContent[0].text[0]
-        }@${
+          }@${
           sher.sherContent[0].text[1]
-        }@${
+          }@${
           sher.sherContent[1].text[0]
-        }@${
+          }@${
           sher.sherContent[1].text[1]
-        }@${
+          }@${
           sher.sherContent[2].text[0]
-        }@${
+          }@${
           sher.sherContent[2].text[1]
-        }@`;
+          }@`;
 
         // write the file
         RNFS.appendFile(path, sherAt, 'utf8')

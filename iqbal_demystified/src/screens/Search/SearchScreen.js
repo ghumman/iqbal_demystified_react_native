@@ -7,24 +7,16 @@ import {
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text,
 } from 'react-native';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel,
-} from 'react-native-simple-radio-button';
 import StaticContentService from '../Misc/StaticContentServiceYaml';
 
 import starLiked from '../../assets/android_app_assets/star_liked.png';
 import starNotLiked from '../../assets/android_app_assets/star_not_liked.png';
 
 const RNFS = require('react-native-fs');
-const YAML = require('yaml');
 
 const radio_props = [
   { label: 'Title', value: 'title' },
@@ -65,7 +57,7 @@ class SearchPage extends React.Component {
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = () => ({
     headerTitle: 'Allama Iqbal Search Engine',
     headerTintColor: 'red',
     headerTitleStyle: {
@@ -103,7 +95,7 @@ class SearchPage extends React.Component {
   }
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit() {
     this.setState({ inputBoxClicked: false });
 
     console.log('SEARCH is pressed');
@@ -151,7 +143,7 @@ class SearchPage extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -162,23 +154,23 @@ class SearchPage extends React.Component {
         var path = `${RNFS.DocumentDirectoryPath}/bookmarked-shers.txt`;
 
         const sherAt = `${sher.id
-        }@${
+          }@${
           sher.sherContent[0].text[0]
-        }@${
+          }@${
           sher.sherContent[0].text[1]
-        }@${
+          }@${
           sher.sherContent[1].text[0]
-        }@${
+          }@${
           sher.sherContent[1].text[1]
-        }@${
+          }@${
           sher.sherContent[2].text[0]
-        }@${
+          }@${
           sher.sherContent[2].text[1]
-        }@`;
+          }@`;
 
         // write the file
         RNFS.appendFile(path, sherAt, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
           })
           .catch((err) => {
@@ -227,7 +219,7 @@ class SearchPage extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
 
             that.handleSubmit();
@@ -240,15 +232,15 @@ class SearchPage extends React.Component {
         var path = `${RNFS.DocumentDirectoryPath}/bookmarked-poems.yaml`;
 
         const sherNumberComma = `${poem.id
-        }@${
+          }@${
           poem.poemName[0].text
-        }@${
+          }@${
           poem.poemName[1].text
-        }@`;
+          }@`;
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, 'utf8')
-          .then((success) => {
+          .then(() => {
             console.log('FILE WRITTEN!');
 
             that.handleSubmit();
@@ -391,29 +383,16 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    const items = this.state.bookSections.map((item, key) => (
+    const items = this.state.bookSections.map((item) => (
       <Text key={item.sectionName}>{item.sectionName}</Text>
     ));
-    const items2 = items.map((item, key) => (
-      <Text key={item.text}>{item.text}</Text>
-    ));
 
-    const item3 = this.state.poemText.map((item) => (
-      <Text key={item.index} onPress={() => this.onSubmit(item.id)}>
-        {' '}
-        {item.text}
-        :
-        {item.id}
-      </Text>
-    ));
 
     var itemsPoemOrSher = [];
-    const lenghtPoem = this.state.poemList.length;
-    const lenghtSher = this.state.sherList.length;
     if (this.state.selectedOption === 'title') {
       if (this.state.poemList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.poemList.map((item, index) => {
+        var itemsPoemOrSher = this.state.poemList.map((item) => {
           if (item.star) {
             return (
               <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -512,7 +491,7 @@ class SearchPage extends React.Component {
       }
     } else if (this.state.sherList.length != 0) {
       var that = this;
-      var itemsPoemOrSher = this.state.sherList.map((item, index) => {
+      var itemsPoemOrSher = this.state.sherList.map((item) => {
         if (item.star) {
           return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
@@ -642,7 +621,6 @@ class SearchPage extends React.Component {
       );
     }
 
-    const aVar = this.state.bookSections.length;
     console.log('hello world');
     console.log(this.state.bookSections);
     const stationsArr = [];

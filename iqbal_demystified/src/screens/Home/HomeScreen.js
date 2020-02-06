@@ -2,13 +2,10 @@ import React from 'react';
 import {
   TouchableOpacity,
   TouchableHighlight,
-  Button,
   View,
   Text,
   Image,
-  Platform,
   StyleSheet,
-  Alert,
 } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
