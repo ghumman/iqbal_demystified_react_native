@@ -803,7 +803,7 @@ class SearchPage extends React.Component {
             radio_props={radio_props}
             initial={0}
             buttonColor={"black"}
-            lableColor={"black"}
+            selectedButtonColor={"black"}
             onPress={value => {
               this.setState({ selectedOption: value });
             }}
