@@ -66,7 +66,7 @@ class InfoPage extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Settings",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -223,7 +223,7 @@ class InfoPage extends React.Component {
       backgroundColor: "#ffffff",
       paddingLeft: 15,
       paddingRight: 15,
-      borderBottomColor: this.state.isFocused ? "black" : "red",
+      borderBottomColor: this.state.isFocused ? "black" : "gray",
       borderBottomWidth: 1
     };
 
@@ -283,7 +283,7 @@ class InfoPage extends React.Component {
           <Text style={styles.EnglishTitle}>Choose Font</Text>
           {showFontRadioForm}
 
-          <Text style={{ color: "#FF0000" }}>
+          <Text style={{ color: "black" }}>
             Warning: Fonts may not show up properly on some mobile devices.
           </Text>
 
@@ -513,7 +513,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FF0000"
+    color: "black"
   },
   ImageView: {
     justifyContent: "center",
