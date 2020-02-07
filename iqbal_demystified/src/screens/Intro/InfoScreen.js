@@ -227,25 +227,6 @@ class InfoPage extends React.Component {
       borderBottomWidth: 1
     };
 
-    let signinTag;
-    var infoText = "Developer:\n\nAhmed Ghumman\n\n";
-    var infoText2 =
-      "\n\nSpecial thanks to Iqbal Demystified Android App Developers:\n\nAZEEM GHUMMAN\n\nFAIZAN KHAN\n\nاخلاص عمل مانگ نيا گان کہن سے\n'!شاہاں چہ عجب گر بنوازند گدا را'\n\nMay Allah give them reward for making the code open source.";
-
-    var infoTextTokens = infoText.split("\n").map((item, key) => {
-      return (
-        <Text style={styles.RenderedText} key={key}>
-          {item}
-        </Text>
-      );
-    });
-    var infoTextTokens2 = infoText2.split("\n").map((item, key) => {
-      return (
-        <Text style={styles.RenderedText} key={key}>
-          {item}
-        </Text>
-      );
-    });
 
     var showFontRadioForm;
     if (this.state.fontIndexReady)
@@ -253,6 +234,8 @@ class InfoPage extends React.Component {
         <RadioForm
           radio_props={radio_props_font}
           initial={this.state.fontIndex}
+          buttonColor={"black"}
+          selectedButtonColor={"black"}
           onPress={value => AsyncStorage.setItem(FONT, value)}
         />
       );
@@ -264,6 +247,8 @@ class InfoPage extends React.Component {
         <RadioForm
           radio_props={radio_props_text}
           initial={this.state.textIndex}
+          buttonColor={"black"}
+          selectedButtonColor={"black"}
           onPress={value => {
             AsyncStorage.setItem(TEXT, value);
           }}
@@ -348,7 +333,7 @@ class InfoPage extends React.Component {
           >
             <View style={styles.HighlightProperties}>
               <Text style={styles.EnglishTitle}>
-                Iqbal Demystifed React Native
+                Iqbal Demystifed React Native Android and iPhone App
               </Text>
               <TouchableHighlight
                 onPress={() =>
@@ -365,7 +350,7 @@ class InfoPage extends React.Component {
               </TouchableHighlight>
             </View>
             <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Android App</Text>
+              <Text style={styles.EnglishTitle}>Iqbal Demystified Old Android App</Text>
               <TouchableHighlight
                 onPress={() =>
                   Linking.openURL(
@@ -394,7 +379,7 @@ class InfoPage extends React.Component {
             }}
           >
             <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Dataset</Text>
+              <Text style={styles.EnglishTitle}>Iqbal Demystified Dataset</Text>
               <TouchableHighlight
                 onPress={() =>
                   Linking.openURL(
@@ -411,11 +396,11 @@ class InfoPage extends React.Component {
             </View>
 
             <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Web Client</Text>
+              <Text style={styles.EnglishTitle}>Iqbal Demystified Web Application</Text>
               <TouchableHighlight
                 onPress={() =>
                   Linking.openURL(
-                    "https://github.com/AzeemGhumman/iqbal-demystified-web-client"
+                    "https://github.com/ghumman/iqbal-demystified-web"
                   )
                 }
               >
