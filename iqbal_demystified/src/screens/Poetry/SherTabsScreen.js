@@ -20,10 +20,10 @@ const SherNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#FFFFFF",
-      inactiveTintColor: "#F8F8F8",
+      activeTintColor: "black",
+      inactiveTintColor: "gray",
       style: {
-        backgroundColor: "gray"
+        backgroundColor: "white"
       },
       labelStyle: {
         textAlign: "center",
@@ -31,7 +31,7 @@ const SherNavigator = createMaterialTopTabNavigator(
         fontWeight: "bold"
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
+        borderBottomColor: "black",
         borderBottomWidth: 2
       }
     }
@@ -43,7 +43,7 @@ SherNavigator.navigationOptions = ({ navigation }) => {
   if (headerTitle != null) {
     return {
       headerTitle,
-      headerTintColor: "red",
+      headerTintColor: "black",
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 20,
@@ -53,7 +53,7 @@ SherNavigator.navigationOptions = ({ navigation }) => {
   } else {
     return {
       headerTitle: "Discussion",
-      headerTintColor: "red",
+      headerTintColor: "black",
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 20,

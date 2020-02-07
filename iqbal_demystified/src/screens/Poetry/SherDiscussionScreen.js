@@ -963,7 +963,7 @@ class SherPage extends React.Component {
 
   render() {
     Moment.locale("en");
-    var item4 = this.state.sherText.map((item, index) => (
+    var completeSher = this.state.sherText.map((item, index) => (
       <Text key={item.index} style={styles.RenderedText}>
         {" "}
         {item}
@@ -983,7 +983,7 @@ class SherPage extends React.Component {
       </span>
     ));
 
-    var item6 = this.state.sherDiscussionDetail.map((item, index) => (
+    var sherComments = this.state.sherDiscussionDetail.map((item, index) => (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 0.1, flexDirection: "column" }}>
           <View
@@ -1110,8 +1110,8 @@ class SherPage extends React.Component {
         <View style={styles.MainScrollView}>
           <ScrollView>
             <View>
-              <View style={styles.RenderedView}>{item4}</View>
-              <View sytle={styles.RenderedItem6View}>{item6}</View>
+              <View style={styles.RenderedView}>{completeSher}</View>
+              <View sytle={styles.RenderedItem6View}>{sherComments}</View>
             </View>
           </ScrollView>
         </View>
@@ -1136,7 +1136,7 @@ class SherPage extends React.Component {
             }}
           >
             <View>
-              <Button onPress={this.handleSubmitSher} title="SUBMIT" />
+              <Button color="black" onPress={this.handleSubmitSher} title="SUBMIT" />
             </View>
             <View>
               <TouchableHighlight onPress={() => this.onShare()}>
@@ -1176,10 +1176,12 @@ const styles = StyleSheet.create({
     flex: 0.8
   },
   RenderedItem6View: {
-    backgroundColor: "skyblue",
+    backgroundColor: "white",
     margin: 20,
     borderRadius: 10,
-    borderWidth: 1
+    borderWidth: 1, 
+    borderColor: "black", 
+    padding: 20
   },
   NavBar: {
     flexDirection: "row",

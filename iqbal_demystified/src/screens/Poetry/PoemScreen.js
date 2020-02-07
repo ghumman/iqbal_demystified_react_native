@@ -91,7 +91,7 @@ class PoemPage extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title || "",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -721,7 +721,8 @@ class PoemPage extends React.Component {
         fontSize: argument,
         textAlign: "center",
         padding: 2,
-        color: "blue"
+        color: "black",
+        backgroundColor: "gray"
       };
     };
 
@@ -733,7 +734,7 @@ class PoemPage extends React.Component {
             flexWrap: "wrap",
             fontSize: argument,
             textAlign: "center",
-            color: "#FF0000"
+            color: "black"
           };
           break;
         case "Nafees":
@@ -745,7 +746,7 @@ class PoemPage extends React.Component {
                 : "Nafees Nastaleeq v1.02",
             fontSize: argument,
             textAlign: "center",
-            color: "#FF0000"
+            color: "black"
           };
           break;
         case "Kasheeda":
@@ -757,7 +758,7 @@ class PoemPage extends React.Component {
                 : "Jameel Noori Kasheeda",
             fontSize: argument,
             textAlign: "center",
-            color: "#FF0000"
+            color: "black"
           };
           break;
         case "Fajer":
@@ -769,7 +770,7 @@ class PoemPage extends React.Component {
                 : "Fajer Noori Nastalique 15-12-2006",
             fontSize: argument,
             textAlign: "center",
-            color: "#FF0000"
+            color: "black"
           };
           break;
       }
@@ -1629,21 +1630,21 @@ class PoemPage extends React.Component {
     var audioBox;
     if (this.state.showAudioBox)
       audioBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Hide Audio Box</Text>
+        <Text style={{backgroundColor: "gray", color: "black" }}>Hide Audio Box</Text>
       );
     else
       audioBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Show Audio Box</Text>
+        <Text style={{ backgroundColor: "gray", color: "black" }}>Show Audio Box</Text>
       );
 
     var detailsBox;
     if (this.state.detailsVisible)
       detailsBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Hide Translation</Text>
+        <Text style={{ backgroundColor: "gray", color: "black"}}>Hide Translation</Text>
       );
     else
       detailsBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Show Translation</Text>
+        <Text style={{ backgroundColor: "gray", color: "black" }}>Show Translation</Text>
       );
 
     var audioControlButtons;
@@ -1997,10 +1998,10 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 10,
     padding: 10,
-    backgroundColor: "#68a0cf",
+    backgroundColor: "gray",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#fff"
+    borderColor: "gray"
   },
 
   listMenu: {

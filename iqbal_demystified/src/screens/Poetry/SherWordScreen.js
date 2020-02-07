@@ -69,7 +69,7 @@ class SherPage extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: "Word Meanings",
     headerTitle: navigation.state.params.title || "",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -1008,29 +1008,30 @@ class SherPage extends React.Component {
     ));
 
     const viewStylesNotSelected = {
-      borderColor: "black",
-      borderWidth: 1
+      // borderColor: "gray",
+      // borderStyle: "dotted",
+      // borderWidth: 1
     };
     const viewStylesWithMeanings = {
-      borderColor: "green",
+      borderColor: "gray",
       borderWidth: 1
     };
     const viewStylesSelected = {
-      borderColor: "red",
-      borderWidth: 2
+      borderColor: "black",
+      borderWidth: 4
     };
 
     const textStylesNotSelected = {
-      color: "black",
+      color: "gray",
       fontWeight: "normal"
     };
     const textStylesSelected = {
-      color: "red",
+      color: "black",
       fontWeight: "bold"
     };
 
     var that = this;
-    var item5 = this.state.wordText.map(function(item, index) {
+    var singleWords = this.state.wordText.map(function(item, index) {
       if (parseInt(that.state.mySelectedId) == index + 1)
         return (
           <View style={[styles.button, viewStylesSelected]}>
@@ -1038,7 +1039,7 @@ class SherPage extends React.Component {
               key={item.index}
               onPress={() => that.selectedWord(item, index)}
             >
-              <Text style={[styles.buttonText, textStylesSelected]}>
+              <Text style={[styles.buttonsingleWordsText, textStylesSelected]}>
                 {item}
               </Text>
             </TouchableHighlight>
@@ -1104,7 +1105,7 @@ class SherPage extends React.Component {
       </View>
     ));
 
-    var item7 = this.state.wordDiscussionDetail.map((item, index) => {
+    var singleWordsComments = this.state.wordDiscussionDetail.map((item, index) => {
       if (item.wordposition == this.state.mySelectedId)
         return (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -1198,12 +1199,12 @@ class SherPage extends React.Component {
       <View style={{ flex: 1 }}>
         <View style={styles.FirstSection}>
           <ScrollView>
-            <View style={styles.container}>{item5}</View>
+            <View style={styles.container}>{singleWords}</View>
           </ScrollView>
         </View>
         <View style={styles.SecondSection}>
           <ScrollView>
-            <View>{item7}</View>
+            <View>{singleWordsComments}</View>
           </ScrollView>
         </View>
 
@@ -1218,8 +1219,20 @@ class SherPage extends React.Component {
               onChangeText={text => this.setState({ userMessageWord: text })}
             />
           </View>
-          <Button onPress={this.handleSubmitWord} title="SUBMIT" />
         </View>
+
+        <View
+            style={{
+              flex: 0.5,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <View>
+        <Button color="black" onPress={this.handleSubmitWord} title="SUBMIT" />
+            </View>
+            </View>
       </View>
     ); // return ends
   } // render function ends
@@ -1279,10 +1292,12 @@ const styles = StyleSheet.create({
     flex: 0.8
   },
   RenderedItem6View: {
-    backgroundColor: "skyblue",
+    backgroundColor: "white",
     margin: 20,
     borderRadius: 10,
-    borderWidth: 1
+    borderWidth: 1,
+    borderColor: "black", 
+    padding: 20
   },
   NavBar: {
     flexDirection: "row",

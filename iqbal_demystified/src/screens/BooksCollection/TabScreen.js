@@ -21,10 +21,10 @@ const TabNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#FFFFFF",
-      inactiveTintColor: "#F8F8F8",
+      activeTintColor: "black",
+      inactiveTintColor: "grey",
       style: {
-        backgroundColor: "gray"
+        backgroundColor: "white"
       },
       labelStyle: {
         textAlign: "center",
@@ -32,7 +32,7 @@ const TabNavigator = createMaterialTopTabNavigator(
         fontWeight: "bold"
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
+        borderBottomColor: "black",
         borderBottomWidth: 2
       }
     }

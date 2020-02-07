@@ -54,7 +54,7 @@ const AppNavigator = createStackNavigator(
       screen: TabNavigator,
       navigationOptions: {
         headerTitle: "Books",
-        headerTintColor: "red",
+        headerTintColor: "black",
         headerTitleStyle: {
           fontWeight: "bold",
           fontSize: 20,
@@ -73,7 +73,7 @@ const AppNavigator = createStackNavigator(
       screen: BookmarksNavigator,
       navigationOptions: {
         headerTitle: "Bookmarks",
-        headerTintColor: "red",
+        headerTintColor: "black",
         headerTitleStyle: {
           fontWeight: "bold",
           fontSize: 20,
@@ -86,7 +86,7 @@ const AppNavigator = createStackNavigator(
       screen: DiscussionNavigator,
       navigationOptions: {
         headerTitle: "Discussion",
-        headerTintColor: "red",
+        headerTintColor: "black",
         headerTitleStyle: {
           fontWeight: "bold",
           fontSize: 20,
