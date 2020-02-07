@@ -33,7 +33,7 @@ class Signin extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Sign In",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -62,8 +62,8 @@ class Signin extends React.Component {
           that.state.username.trim() +
           "&password=" +
           that.state.password.trim()
-      }).then(async function(data) {
-        data.text().then(async function(data) {
+      }).then(async function (data) {
+        data.text().then(async function (data) {
           console.log("data");
           console.log(data);
           if (data == "done") {
@@ -119,7 +119,11 @@ class Signin extends React.Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1
+        }}
+      >
         <View style={styles.RenderedView}>
           <TextInput
             autoCapitalize="none"
@@ -142,8 +146,20 @@ class Signin extends React.Component {
             onChangeText={text => this.setState({ password: text })}
           />
         </View>
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View>
+            <Button color="black" onPress={this.handleSubmit} title="SIGN IN" />
+          </View>
+        </View>
 
-        <Button onPress={this.handleSubmit} title="SIGN IN" />
+
         <TouchableHighlight onPress={() => this.onSubmitForgot()}>
           <View style={styles.RenderedView}>
             <Text style={styles.BottomLines}>I Forgot My Password!</Text>
@@ -172,7 +188,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
-    color: "blue"
+    color: "black"
   }
 });
 

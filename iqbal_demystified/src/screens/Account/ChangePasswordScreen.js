@@ -43,7 +43,7 @@ class ChangePassword extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Change Password",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -114,8 +114,8 @@ class ChangePassword extends React.Component {
                 "&new_password=" +
                 that.state.newPassword1.trim()
             }
-          ).then(async function(data) {
-            data.text().then(async function(data) {
+          ).then(async function (data) {
+            data.text().then(async function (data) {
               console.log("data");
               console.log(data);
               if (data.trim() == "done") {
@@ -183,7 +183,11 @@ class ChangePassword extends React.Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1
+        }}
+      >
         <View style={styles.RenderedView}>
           <TextInput
             autoCapitalize="none"
@@ -218,7 +222,20 @@ class ChangePassword extends React.Component {
           />
         </View>
 
-        <Button onPress={this.handleSubmit} title="CHANGE PASSWORD!" />
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View>
+            <Button color="black" onPress={this.handleSubmit} title="CHANGE PASSWORD!" />
+          </View>
+        </View>
+
+
         <TouchableHighlight onPress={() => this.onSubmitSignin()}>
           <Text style={styles.BottomLines}>
             Already Registered?{"\n"}
@@ -240,7 +257,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
-    color: "blue"
+    color: "black"
   }
 });
 

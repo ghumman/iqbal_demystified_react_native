@@ -26,7 +26,7 @@ class ForgotPassword extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Forgot Password",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -55,8 +55,8 @@ class ForgotPassword extends React.Component {
           },
           data: { email: this.state.email },
           body: "email=" + that.state.email
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data.trim() == "email sent") {
@@ -88,7 +88,11 @@ class ForgotPassword extends React.Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1
+        }}
+      >
         <View style={styles.RenderedView}>
           <TextInput
             autoCapitalize="none"
@@ -99,7 +103,19 @@ class ForgotPassword extends React.Component {
             onChangeText={text => this.setState({ email: text })}
           />
         </View>
-        <Button onPress={this.handleSubmit} title="RESET MY PASSWORD" />
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View>
+            <Button color="black" onPress={this.handleSubmit} title="RESET MY PASSWORD" />
+          </View>
+        </View>
+
         <TouchableHighlight onPress={() => this.onSubmitSignin()}>
           <Text style={styles.BottomLines}>
             Already Registered?{"\n"}
@@ -121,7 +137,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
-    color: "blue"
+    color: "black"
   }
 });
 
