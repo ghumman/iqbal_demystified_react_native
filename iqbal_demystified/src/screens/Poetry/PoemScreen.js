@@ -1646,9 +1646,9 @@ class PoemPage extends React.Component {
         <Text style={{ backgroundColor: "skyblue" }}>Show Translation</Text>
       );
 
-    var audioSystem1;
+    var audioControlButtons;
     if (this.state.showAudioBox)
-      audioSystem1 = (
+      audioControlButtons = (
         <View
           style={{
             flex: 0.2,
@@ -1687,11 +1687,11 @@ class PoemPage extends React.Component {
           </TouchableHighlight>
         </View>
       );
-    else audioSystem1 = <View></View>;
+    else audioControlButtons = <View></View>;
 
-    var audioSystem2;
+    var audioPlayProgressBar;
     if (this.state.showAudioBox)
-      audioSystem2 = (
+      audioPlayProgressBar = (
         <View style={{ flex: 0.2 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
@@ -1711,7 +1711,7 @@ class PoemPage extends React.Component {
           </View>
         </View>
       );
-    else audioSystem2 = <View></View>;
+    else audioPlayProgressBar = <View></View>;
 
     let path =
       RNFS.DocumentDirectoryPath +
@@ -1734,6 +1734,8 @@ class PoemPage extends React.Component {
           onEnd={this.onEnd}
           repeat={true}
           onError={this.videoError}
+          playWhenInactive={true}
+          playInBackground={true}
         />
       );
     else videoSetup = null;
@@ -1851,8 +1853,8 @@ class PoemPage extends React.Component {
             </TouchableHighlight>
           </View>
 
-          {audioSystem1}
-          {audioSystem2}
+          {audioControlButtons}
+          {audioPlayProgressBar}
         </View>
       </DrawerLayout>
     );
