@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
   UrduTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FF0000"
+    color: "black"
   },
   EnglishTitle: {
     textAlign: "center",
