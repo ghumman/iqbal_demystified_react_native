@@ -44,7 +44,7 @@ class Register extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Register",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -123,8 +123,8 @@ class Register extends React.Component {
             that.state.password.trim() +
             "&email=" +
             that.state.email.trim()
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             if (
               data.trim() ==
               "Your account has been created! Please check your email and activate your account by clicking on a link that we have sent you in the email. Don't forget to check in your Junk folder."
@@ -162,7 +162,11 @@ class Register extends React.Component {
 
   render() {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1
+        }}
+      >
         <View style={styles.RenderedView}>
           <TextInput
             autoCapitalize="none"
@@ -229,13 +233,26 @@ class Register extends React.Component {
             onChangeText={text => this.setState({ password2: text })}
           />
         </View>
-        <Button onPress={this.handleSubmit} title="REGISTER" />
-        <TouchableHighlight onPress={() => this.onSubmitSignin()}>
-          <Text style={styles.BottomLines}>
-            Already Registered?{"\n"}
-            Login Here
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View>
+            <Button color="black" onPress={this.handleSubmit} title="REGISTER" />
+          </View>
+        </View>
+        <View>
+          <TouchableHighlight onPress={() => this.onSubmitSignin()}>
+            <Text style={styles.BottomLines}>
+              Already Registered?{"\n"}
+              Login Here
           </Text>
-        </TouchableHighlight>
+          </TouchableHighlight>
+        </View>
       </View>
     ); // return ends
   } // render function ends
@@ -251,7 +268,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontWeight: "bold",
-    color: "blue"
+    color: "black"
   }
 });
 

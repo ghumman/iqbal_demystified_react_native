@@ -21,10 +21,10 @@ const DiscussionNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#FFFFFF",
-      inactiveTintColor: "#F8F8F8",
+      activeTintColor: "black",
+      inactiveTintColor: "gray",
       style: {
-        backgroundColor: "gray"
+        backgroundColor: "white"
       },
       labelStyle: {
         textAlign: "center",
@@ -32,7 +32,7 @@ const DiscussionNavigator = createMaterialTopTabNavigator(
         fontWeight: "bold"
       },
       indicatorStyle: {
-        borderBottomColor: "#87B56A",
+        borderBottomColor: "black",
         borderBottomWidth: 2
       }
     }

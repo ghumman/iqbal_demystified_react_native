@@ -73,7 +73,7 @@ class ProfilePage extends React.Component {
   static navigationOptions = {
     title: "My Profile",
     headerStyle: {},
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -407,10 +407,11 @@ class ProfilePage extends React.Component {
             }}
           >
             <View>
-              <Button onPress={() => this.myDownloads()} title="MY DOWNLOADS" />
+              <Button color="black" onPress={() => this.myDownloads()} title="MY DOWNLOADS" />
             </View>
             <View>
               <Button
+                color="black"
                 onPress={() => this.changePassword()}
                 title="CHANGE PASSWORD"
               />
@@ -420,16 +421,24 @@ class ProfilePage extends React.Component {
             style={{
               justifyContent: "center",
               alignItems: "center",
-              paddingTop: 1
+              padding: 1
             }}
           >
-            <Button onPress={() => this.signOut()} title="SIGN OUT" />
+            <Button color="black" onPress={() => this.signOut()} title="SIGN OUT" />
           </View>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <View>
-            <Picker
+        <View style={{flex: 1}}></View>
+
+        {/* <View style={{ flex: 1 }}>
+          <View style={{borderColor: "black", borderWidth: 2}}> */}
+          <View
+          style={{
+            flex: 1
+          }}
+        >
+          <View style={{borderColor: "black", borderWidth: 1, }}>
+          <Picker
               selectedValue={this.state.dropdownState}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({ dropdownState: itemValue })
@@ -440,7 +449,10 @@ class ProfilePage extends React.Component {
             </Picker>
           </View>
         </View>
-        <View style={{ flex: 1 }}>
+            
+          {/* </View>
+        </View> */}
+        <View style={{ flex: 3 }}>
           <ScrollView>{myTable}</ScrollView>
         </View>
       </View>
@@ -472,7 +484,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FF0000"
+    color: "black"
   }
 });
 // return <h1>I got following message : {this.props.location.state.detail}</h1>

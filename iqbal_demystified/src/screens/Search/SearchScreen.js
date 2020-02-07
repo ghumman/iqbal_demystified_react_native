@@ -67,7 +67,7 @@ class SearchPage extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Allama Iqbal Search Engine",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 10,
@@ -129,7 +129,7 @@ class SearchPage extends React.Component {
   starTogglingSher = sher => {
     var that = this;
 
-    this.readBookmarksSher().then(function(result) {
+    this.readBookmarksSher().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -205,7 +205,7 @@ class SearchPage extends React.Component {
   starToggling = poem => {
     var that = this;
 
-    this.readBookmarks().then(function(result) {
+    this.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -277,10 +277,10 @@ class SearchPage extends React.Component {
     var that = this;
     this.setState({ messageResults: "Searching..." });
     that.setState({ poemList: [] });
-    StaticContentService.getPoemListSearch(listId).then(function(response) {
+    StaticContentService.getPoemListSearch(listId).then(function (response) {
       console.log("Reseponse");
       console.log(response);
-      that.readBookmarks().then(function(result) {
+      that.readBookmarks().then(function (result) {
         console.log("Result");
         console.log(result);
         for (var i = 0; i < response.poems.length; i++) {
@@ -307,10 +307,10 @@ class SearchPage extends React.Component {
     this.setState({ messageResults: "Searching..." });
     that.setState({ sherList: [] });
 
-    StaticContentService.getPoemSearch(poemId).then(function(response) {
+    StaticContentService.getPoemSearch(poemId).then(function (response) {
       console.log("Reseponse");
       console.log(response);
-      that.readBookmarksSher().then(function(result) {
+      that.readBookmarksSher().then(function (result) {
         console.log("Result");
         console.log(result);
 
@@ -414,7 +414,7 @@ class SearchPage extends React.Component {
     if (this.state.selectedOption === "title") {
       if (this.state.poemList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.poemList.map(function(item, index) {
+        var itemsPoemOrSher = this.state.poemList.map(function (item, index) {
           if (item.star) {
             return (
               <View style={{ flex: 1, flexDirection: "column" }}>
@@ -513,7 +513,7 @@ class SearchPage extends React.Component {
     } else {
       if (this.state.sherList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.sherList.map(function(item, index) {
+        var itemsPoemOrSher = this.state.sherList.map(function (item, index) {
           if (item.star) {
             return (
               <View style={{ flex: 1, flexDirection: "column" }}>
@@ -655,136 +655,136 @@ class SearchPage extends React.Component {
         <View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("Back")} title="->" />
+              <Button color= "black" onPress={() => this.handleAlphabet("Back")} title="->" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ح")} title="ح" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ح")} title="ح" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("چ")} title="چ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("چ")} title="چ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ج")} title="ج" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ج")} title="ج" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ث")} title="ث" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ث")} title="ث" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ٹ")} title="ٹ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ٹ")} title="ٹ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ت")} title="ت" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ت")} title="ت" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("پ")} title="پ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("پ")} title="پ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ب")} title="ب" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ب")} title="ب" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ا")} title="ا" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ا")} title="ا" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("آ")} title="آ" />
-            </View>
-          </View>
-          <View style={styles.container}>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ص")} title="ص" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ش")} title="ش" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("س")} title="س" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ژ")} title="ژ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ز")} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ڑ")} title="ڑ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ر")} title="ر" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ز")} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ڈ")} title="ڈ" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("د")} title="د" />
-            </View>
-            <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("خ")} title="خ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("آ")} title="آ" />
             </View>
           </View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("م")} title="م" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ص")} title="ص" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ل")} title="ل" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ش")} title="ش" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("گ")} title="گ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("س")} title="س" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ک")} title="ک" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ژ")} title="ژ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ق")} title="ق" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ز")} title="ز" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ف")} title="ف" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ڑ")} title="ڑ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("غ")} title="غ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ر")} title="ر" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ع")} title="ع" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ز")} title="ز" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ظ")} title="ظ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ڈ")} title="ڈ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ط")} title="ط" />
+              <Button color= "black" onPress={() => this.handleAlphabet("د")} title="د" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ض")} title="ض" />
+              <Button color= "black" onPress={() => this.handleAlphabet("خ")} title="خ" />
             </View>
           </View>
           <View style={styles.container}>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet(" ")} title="Space" />
+              <Button color= "black" onPress={() => this.handleAlphabet("م")} title="م" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ے")} title="ے" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ل")} title="ل" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ي")} title="ي" />
+              <Button color= "black" onPress={() => this.handleAlphabet("گ")} title="گ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ء")} title="ء" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ک")} title="ک" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ھ")} title="ھ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ق")} title="ق" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ہ")} title="ہ" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ف")} title="ف" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("و")} title="و" />
+              <Button color= "black" onPress={() => this.handleAlphabet("غ")} title="غ" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ں")} title="ں" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ع")} title="ع" />
             </View>
             <View style={styles.button}>
-              <Button onPress={() => this.handleAlphabet("ن")} title="ن" />
+              <Button color= "black" onPress={() => this.handleAlphabet("ظ")} title="ظ" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ط")} title="ط" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ض")} title="ض" />
+            </View>
+          </View>
+          <View style={styles.container}>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet(" ")} title="Space" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ے")} title="ے" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ي")} title="ي" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ء")} title="ء" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ھ")} title="ھ" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ہ")} title="ہ" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("و")} title="و" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ں")} title="ں" />
+            </View>
+            <View style={styles.button}>
+              <Button color= "black" onPress={() => this.handleAlphabet("ن")} title="ن" />
             </View>
           </View>
         </View>
@@ -802,6 +802,8 @@ class SearchPage extends React.Component {
           <RadioForm
             radio_props={radio_props}
             initial={0}
+            buttonColor={"black"}
+            selectedButtonColor={"black"}
             onPress={value => {
               this.setState({ selectedOption: value });
             }}
@@ -811,13 +813,27 @@ class SearchPage extends React.Component {
         <View style={styles.RenderedView}>
           <TextInput
             style={{ height: 40 }}
-            placeholder="Search Text..."
+            placeholder="تلاش کریں…"
             onFocus={() => this.handleInputClicked()}
             onChangeText={text => this.setState({ searchText: text })}
             value={this.state.searchText}
           />
         </View>
-        <Button onPress={this.handleSubmit} title="SEARCH" />
+
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <View>
+            <Button color="black" onPress={this.handleSubmit} title="SEARCH" />
+          </View>
+        </View>
+
+
         <View style={{ flex: 5 }}>
           <ScrollView>
             {keyboardTag}
@@ -870,6 +886,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
+    paddingTop: 5,
     borderRadius: Platform.OS === "ios" ? 10 : 0,
     borderWidth: Platform.OS === "ios" ? 1 : 0,
     height: 40

@@ -291,9 +291,9 @@ const styles = StyleSheet.create({
   BookStyle: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#808000",
+    backgroundColor: "gray",
     borderWidth: 0.5,
-    borderColor: "#fff",
+    borderColor: "gray",
     height: 150,
     width: 300,
     borderRadius: 5,

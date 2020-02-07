@@ -54,7 +54,7 @@ class ListPoemScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title || "",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -337,8 +337,8 @@ class ListPoemScreen extends React.Component {
     } else
       return (
         <View style={{ backgroundColor: "#C0C0C0" }}>
-          <Text style={{ fontSize: 14, padding: 10 }}>{item.textUrdu}</Text>
-          <Text style={{ fontSize: 14, padding: 10 }}>{item.textEnglish}</Text>
+          <Text style={{ fontSize: 14, padding: 10, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
+          <Text style={{ fontSize: 14, padding: 10, fontWeight: "bold", color: "black"  }}>{item.textEnglish}</Text>
         </View>
       );
   };
