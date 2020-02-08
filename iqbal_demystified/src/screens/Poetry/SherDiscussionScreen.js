@@ -12,7 +12,8 @@ import {
   SectionList,
   Alert,
   View,
-  Text
+  Text,
+  KeyboardAvoidingView
 } from "react-native";
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
@@ -126,7 +127,7 @@ class SherPage extends React.Component {
               that.state.password +
               "&comment_text=" +
               that.state.userMessageSher
-          }).then(async function(data) {
+          }).then(async function (data) {
             console.log("data");
             console.log(data);
             console.log("Inside then async func");
@@ -168,7 +169,7 @@ class SherPage extends React.Component {
               comment_text: this.state.userMessageWord,
               word_position: this.state.mySelectedId + 1
             }
-          }).then(function(data) {
+          }).then(function (data) {
             console.log("data");
             console.log(data);
             this.getSherWordDiscussion(this.state.sherId);
@@ -213,8 +214,8 @@ class SherPage extends React.Component {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: "sher=" + sherName + "&discussion_type=general"
-      }).then(async function(data) {
-        data.json().then(async function(data) {
+      }).then(async function (data) {
+        data.json().then(async function (data) {
           console.log("data: ");
           console.log(data);
 
@@ -342,7 +343,7 @@ class SherPage extends React.Component {
     var that = this;
     StaticContentService.getSherDiscussion(
       sherGeneralDiscussionServerResponse
-    ).then(function(response) {
+    ).then(function (response) {
       var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
       console.log("Value of sherDiscussionDetailLocal:");
@@ -374,7 +375,7 @@ class SherPage extends React.Component {
           "Content-Type": "text/plain"
         },
         body: { sher: sherName, discussion_type: "word-meanings" }
-      }).then(function(data) {
+      }).then(function (data) {
         var sherWordDiscussionServerResponse = data;
         console.log("sherWordDiscussionServerResponse");
         console.log(sherWordDiscussionServerResponse);
@@ -466,7 +467,7 @@ class SherPage extends React.Component {
             is_like: 1,
             is_cancel: 0
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote registered")
@@ -515,7 +516,7 @@ class SherPage extends React.Component {
             is_like: 0,
             is_cancel: 0
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote registered")
@@ -565,7 +566,7 @@ class SherPage extends React.Component {
             is_like: 0,
             is_cancel: 1
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote removed") {
@@ -619,8 +620,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             // success: (data) => {	// success funciton starts
             console.log("data");
             console.log(data);
@@ -644,8 +645,8 @@ class SherPage extends React.Component {
                     "&password=" +
                     that.state.password +
                     "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
+                }).then(async function (data) {
+                  data.text().then(async function (data) {
                     console.log("data");
                     console.log(data);
                     if (data == "vote removed") {
@@ -704,8 +705,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered")
@@ -760,8 +761,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered") {
@@ -785,8 +786,8 @@ class SherPage extends React.Component {
                     "&password=" +
                     that.state.password +
                     "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
+                }).then(async function (data) {
+                  data.text().then(async function (data) {
                     console.log("data");
                     console.log(data);
                     if (data == "vote removed") {
@@ -843,8 +844,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered")
@@ -899,8 +900,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=1"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote removed") {
@@ -1118,32 +1119,33 @@ class SherPage extends React.Component {
 
         <View style={{ flex: 1 }}>
           <View>
-            <Text>Comments:</Text>
-          </View>
-          <View>
+
+
             <TextInput
-              style={{ height: 40 }}
+              style={{ height: 40, borderWidth: 3, borderColor: "gray" }}
               placeholder="Comments..."
               onChangeText={text => this.setState({ userMessageSher: text })}
             />
+
           </View>
-          <View
-            style={{
-              flex: 0.5,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <View>
-              <Button color="black" onPress={this.handleSubmitSher} title="SUBMIT" />
+
+            <View
+              style={{
+                flex: 0.5,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <View>
+                <Button color="black" onPress={this.handleSubmitSher} title="SUBMIT" />
+              </View>
+              <View>
+                <TouchableHighlight onPress={() => this.onShare()}>
+                  <Image resizeMode="contain" source={iconShare} />
+                </TouchableHighlight>
+              </View>
             </View>
-            <View>
-              <TouchableHighlight onPress={() => this.onShare()}>
-                <Image resizeMode="contain" source={iconShare} />
-              </TouchableHighlight>
-            </View>
-          </View>
         </View>
       </View>
     ); // return ends
@@ -1179,8 +1181,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     margin: 20,
     borderRadius: 10,
-    borderWidth: 1, 
-    borderColor: "black", 
+    borderWidth: 1,
+    borderColor: "black",
     padding: 20
   },
   NavBar: {
