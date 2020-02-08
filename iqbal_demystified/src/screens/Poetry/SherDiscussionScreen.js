@@ -12,7 +12,8 @@ import {
   SectionList,
   Alert,
   View,
-  Text
+  Text,
+  KeyboardAvoidingView
 } from "react-native";
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
@@ -29,6 +30,7 @@ import {
 } from "react-native-table-component";
 
 import iconShare from "../../assets/android_app_assets/share.png";
+import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
 import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
 import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
 
@@ -58,7 +60,8 @@ class SherPage extends React.Component {
       userMessageSher: "",
       userMessageWord: "",
 
-      key: "home"
+      key: "home",
+      height: "40"
     };
     this.handleUserMessageSher = this.handleUserMessageSher.bind(this);
     this.handleUserMessageWord = this.handleUserMessageWord.bind(this);
@@ -126,7 +129,7 @@ class SherPage extends React.Component {
               that.state.password +
               "&comment_text=" +
               that.state.userMessageSher
-          }).then(async function(data) {
+          }).then(async function (data) {
             console.log("data");
             console.log(data);
             console.log("Inside then async func");
@@ -168,7 +171,7 @@ class SherPage extends React.Component {
               comment_text: this.state.userMessageWord,
               word_position: this.state.mySelectedId + 1
             }
-          }).then(function(data) {
+          }).then(function (data) {
             console.log("data");
             console.log(data);
             this.getSherWordDiscussion(this.state.sherId);
@@ -213,8 +216,8 @@ class SherPage extends React.Component {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         body: "sher=" + sherName + "&discussion_type=general"
-      }).then(async function(data) {
-        data.json().then(async function(data) {
+      }).then(async function (data) {
+        data.json().then(async function (data) {
           console.log("data: ");
           console.log(data);
 
@@ -342,7 +345,7 @@ class SherPage extends React.Component {
     var that = this;
     StaticContentService.getSherDiscussion(
       sherGeneralDiscussionServerResponse
-    ).then(function(response) {
+    ).then(function (response) {
       var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
       console.log("Value of sherDiscussionDetailLocal:");
@@ -374,7 +377,7 @@ class SherPage extends React.Component {
           "Content-Type": "text/plain"
         },
         body: { sher: sherName, discussion_type: "word-meanings" }
-      }).then(function(data) {
+      }).then(function (data) {
         var sherWordDiscussionServerResponse = data;
         console.log("sherWordDiscussionServerResponse");
         console.log(sherWordDiscussionServerResponse);
@@ -466,7 +469,7 @@ class SherPage extends React.Component {
             is_like: 1,
             is_cancel: 0
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote registered")
@@ -515,7 +518,7 @@ class SherPage extends React.Component {
             is_like: 0,
             is_cancel: 0
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote registered")
@@ -565,7 +568,7 @@ class SherPage extends React.Component {
             is_like: 0,
             is_cancel: 1
           }
-        }).then(function(data) {
+        }).then(function (data) {
           console.log("data");
           console.log(data);
           if (data == "vote removed") {
@@ -619,8 +622,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             // success: (data) => {	// success funciton starts
             console.log("data");
             console.log(data);
@@ -644,8 +647,8 @@ class SherPage extends React.Component {
                     "&password=" +
                     that.state.password +
                     "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
+                }).then(async function (data) {
+                  data.text().then(async function (data) {
                     console.log("data");
                     console.log(data);
                     if (data == "vote removed") {
@@ -704,8 +707,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=1&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered")
@@ -760,8 +763,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered") {
@@ -785,8 +788,8 @@ class SherPage extends React.Component {
                     "&password=" +
                     that.state.password +
                     "&is_like=0&is_cancel=1"
-                }).then(async function(data) {
-                  data.text().then(async function(data) {
+                }).then(async function (data) {
+                  data.text().then(async function (data) {
                     console.log("data");
                     console.log(data);
                     if (data == "vote removed") {
@@ -843,8 +846,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=0"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote registered")
@@ -899,8 +902,8 @@ class SherPage extends React.Component {
             "&password=" +
             that.state.password +
             "&is_like=0&is_cancel=1"
-        }).then(async function(data) {
-          data.text().then(async function(data) {
+        }).then(async function (data) {
+          data.text().then(async function (data) {
             console.log("data");
             console.log(data);
             if (data == "vote removed") {
@@ -1116,33 +1119,45 @@ class SherPage extends React.Component {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <View>
-            <Text>Comments:</Text>
-          </View>
-          <View>
+        <View style={{
+          flex: 0,
+          flexGrow: 0.1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          borderWidth: 3,
+          borderColor: "black",
+        }}>
+          <View style={{ flex: 5 }}>
+
+
             <TextInput
-              style={{ height: 40 }}
+              keyboardType="email-address"
+              onContentSizeChange={(event) => {
+                this.setState({ height: event.nativeEvent.contentSize.height })
+              }}
+              multiline={true}
+              style={[{ height: 40, borderWidth: 3, borderColor: "gray" },
+              { height: Math.max(40, this.state.height) }]}
               placeholder="Comments..."
               onChangeText={text => this.setState({ userMessageSher: text })}
+              autoGrow
             />
+
           </View>
-          <View
-            style={{
-              flex: 0.5,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <View>
-              <Button color="black" onPress={this.handleSubmitSher} title="SUBMIT" />
-            </View>
-            <View>
-              <TouchableHighlight onPress={() => this.onShare()}>
-                <Image resizeMode="contain" source={iconShare} />
-              </TouchableHighlight>
-            </View>
+
+
+          <View style={{ flex: 0.8 }}>
+
+            <TouchableHighlight onPress={this.handleSubmitSher}>
+              <Image resizeMode="contain" source={iconUploadComment} />
+            </TouchableHighlight>
+          </View>
+          <View style={{ flex: 0.8 }}>
+            <TouchableHighlight onPress={() => this.onShare()}>
+              <Image resizeMode="contain" source={iconShare} />
+            </TouchableHighlight>
           </View>
         </View>
       </View>
@@ -1177,11 +1192,11 @@ const styles = StyleSheet.create({
   },
   RenderedItem6View: {
     backgroundColor: "white",
-    margin: 20,
+    margin: 2,
     borderRadius: 10,
-    borderWidth: 1, 
-    borderColor: "black", 
-    padding: 20
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 2
   },
   NavBar: {
     flexDirection: "row",
@@ -1212,7 +1227,7 @@ const styles = StyleSheet.create({
   },
 
   MainScrollView: {
-    flex: 3,
+    flex: 5,
     borderWidth: 1
   }
 });

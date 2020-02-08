@@ -28,11 +28,12 @@ import logo from "../../assets/allam_iqbal_pic.jpg";
 
 // 6 main logos on main page
 import iconSignIn from "../../assets/android_app_assets/icon_signed_in.png";
-import iconBest from "../../assets/android_app_assets/icon_best.png";
+import iconSignOut from "../../assets/android_app_assets/icon_signed_out_resized.png";
+import iconBest from "../../assets/android_app_assets/icon_best_resized.png";
 import iconBookmarks from "../../assets/android_app_assets/icon_bookmark.png";
-import iconDiscussion from "../../assets/android_app_assets/icon_discussion.png";
-import iconSearch from "../../assets/android_app_assets/icon_search.png";
-import iconInfo from "../../assets/android_app_assets/icon_info.png";
+import iconDiscussion from "../../assets/android_app_assets/icon_discussion_resized.png";
+import iconSearch from "../../assets/android_app_assets/icon_search_resized.png";
+import iconInfo from "../../assets/android_app_assets/icon_info_resized.png";
 
 // books logo in the middle of the page
 import booksLogo from "../../assets/android_app_assets/books_logo.png";
@@ -101,7 +102,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     // first thing when app starts is to make Iqbal-Demystified folder, so that we can put .mp3, txt and yaml files in it.
-    RNFS.mkdir(RNFS.DocumentDirectoryPath + "/Iqbal-Demystified").then(function(
+    RNFS.mkdir(RNFS.DocumentDirectoryPath + "/Iqbal-Demystified").then(function (
       res
     ) {
       // console.log("Iqbal-Demystified directory exists now");
@@ -139,6 +140,19 @@ export default class HomeScreen extends React.Component {
       this.setState({ signinConfirmation: "not signed in" });
       this.setState({ username: "" });
       this.setState({ gotoPage: "RegisterPage" });
+    }
+  }
+
+  userIcon = () => {
+    try {
+
+      if (this.state.username.length > 0)
+        return iconSignIn;
+      else
+        return iconSignOut;
+    }
+    catch {
+      return iconSignOut
     }
   }
 
@@ -204,7 +218,7 @@ export default class HomeScreen extends React.Component {
               <Image
                 style={styles.RowImage}
                 resizeMode="contain"
-                source={iconSignIn}
+                source={this.userIcon()}
               />
             </TouchableHighlight>
 
