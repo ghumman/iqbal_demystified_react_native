@@ -31,3 +31,22 @@ allprojects {
         }
     }
 }
+
+subprojects {
+    afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 28     // have to match with build.gradle and app/build.gradle ones
+                buildToolsVersion '28.0.3'  // have to match with build.gradle and app/build.gradle ones
+                variantFilter { variant ->
+                    def names = variant.flavors*.name
+                    // To check for a certain build type, use variant.buildType.name == "<buildType>"
+                    if (names.contains("reactNative51") || names.contains("reactNative55") || names.contains("reactNative56")) {
+                        // Gradle ignores any variants that satisfy the conditions above.
+                        setIgnore(true)
+                    }
+                }
+            }
+        }
+    }
+}
