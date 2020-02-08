@@ -30,6 +30,7 @@ import {
 } from "react-native-table-component";
 
 import iconShare from "../../assets/android_app_assets/share.png";
+import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
 import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
 import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
 
@@ -59,7 +60,8 @@ class SherPage extends React.Component {
       userMessageSher: "",
       userMessageWord: "",
 
-      key: "home"
+      key: "home",
+      height: "40"
     };
     this.handleUserMessageSher = this.handleUserMessageSher.bind(this);
     this.handleUserMessageWord = this.handleUserMessageWord.bind(this);
@@ -1107,7 +1109,7 @@ class SherPage extends React.Component {
       );
     }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <View style={styles.MainScrollView}>
           <ScrollView>
             <View>
@@ -1117,35 +1119,47 @@ class SherPage extends React.Component {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1 }}>
-          <View>
+        <View style={{
+          flex: 0,
+          flexGrow: 0.1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          borderWidth: 3,
+          borderColor: "black",
+        }}>
+          <View style={{ flex: 5}}>
 
 
             <TextInput
-              style={{ height: 40, borderWidth: 3, borderColor: "gray" }}
+              keyboardType="email-address"
+              onContentSizeChange={(event) => {
+                this.setState({ height: event.nativeEvent.contentSize.height })
+              }}
+              multiline={true}
+              style={[{ height: 40, borderWidth: 3, borderColor: "gray" },
+              { height: Math.max(40, this.state.height) }]}
               placeholder="Comments..."
               onChangeText={text => this.setState({ userMessageSher: text })}
+              selectTextOnFocus
+              autoGrow
             />
 
           </View>
 
-            <View
-              style={{
-                flex: 0.5,
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <View>
-                <Button color="black" onPress={this.handleSubmitSher} title="SUBMIT" />
-              </View>
-              <View>
-                <TouchableHighlight onPress={() => this.onShare()}>
-                  <Image resizeMode="contain" source={iconShare} />
-                </TouchableHighlight>
-              </View>
-            </View>
+
+          <View style={{ flex: 0.8 }}>
+
+            <TouchableHighlight onPress={this.handleSubmitSher}>
+              <Image resizeMode="contain" source={iconUploadComment} />
+            </TouchableHighlight>
+          </View>
+          <View style={{ flex: 0.8 }}>
+            <TouchableHighlight onPress={() => this.onShare()}>
+              <Image resizeMode="contain" source={iconShare} />
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
     ); // return ends
@@ -1214,7 +1228,7 @@ const styles = StyleSheet.create({
   },
 
   MainScrollView: {
-    flex: 3,
+    flex: 5,
     borderWidth: 1
   }
 });
