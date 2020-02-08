@@ -1142,7 +1142,6 @@ class SherPage extends React.Component {
               { height: Math.max(40, this.state.height) }]}
               placeholder="Comments..."
               onChangeText={text => this.setState({ userMessageSher: text })}
-              selectTextOnFocus
               autoGrow
             />
 

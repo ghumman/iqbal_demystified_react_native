@@ -2,6 +2,7 @@ import React from "react";
 import {
   Image,
   Platform,
+  Share,
   ScrollView,
   TextInput,
   Button,
@@ -27,6 +28,8 @@ import {
   Cell
 } from "react-native-table-component";
 
+import iconShare from "../../assets/android_app_assets/share.png";
+import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
 import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
 import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
 
@@ -57,7 +60,8 @@ class SherPage extends React.Component {
       userMessageSher: "",
       userMessageWord: "",
 
-      key: "home"
+      key: "home",
+      height: "40"
     };
     this.handleUserMessageSher = this.handleUserMessageSher.bind(this);
     this.handleUserMessageWord = this.handleUserMessageWord.bind(this);
@@ -1000,6 +1004,33 @@ class SherPage extends React.Component {
     };
   }
 
+  onShare = async () => {
+    var that = this;
+    try {
+      const result = await Share.share({
+        title: "Iqbal Demystified",
+        message:
+          that.state.sherText[0] +
+          "\n" +
+          that.state.sherText[1] +
+          "\n" +
+          "(Iqbal Demystified by International Iqbal Society)"
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   render() {
     Moment.locale("en");
 
@@ -1011,14 +1042,17 @@ class SherPage extends React.Component {
       // borderColor: "gray",
       // borderStyle: "dotted",
       // borderWidth: 1
+      borderRadius: 10
     };
     const viewStylesWithMeanings = {
       borderColor: "gray",
-      borderWidth: 1
+      borderWidth: 1, 
+      borderRadius: 10
     };
     const viewStylesSelected = {
       borderColor: "black",
-      borderWidth: 4
+      borderWidth: 4, 
+      borderRadius: 10
     };
 
     const textStylesNotSelected = {
@@ -1208,7 +1242,56 @@ class SherPage extends React.Component {
           </ScrollView>
         </View>
 
-        <View style={{ flex: 1 }}>
+
+
+        <View style={{
+          flex: 0,
+          flexGrow: 0.1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          alignContent: "center",
+          borderWidth: 3,
+          borderColor: "black",
+        }}>
+          <View style={{ flex: 5}}>
+
+
+            <TextInput
+              keyboardType="email-address"
+              onContentSizeChange={(event) => {
+                this.setState({ height: event.nativeEvent.contentSize.height })
+              }}
+              multiline={true}
+              style={[{ height: 40, borderWidth: 3, borderColor: "gray" },
+              { height: Math.max(40, this.state.height) }]}
+              placeholder="Comments..."
+              onChangeText={text => this.setState({ userMessageWord: text })}
+              autoGrow
+            />
+
+          </View>
+
+
+          <View style={{ flex: 0.8 }}>
+
+            <TouchableHighlight onPress={this.handleSubmitWord}>
+              <Image resizeMode="contain" source={iconUploadComment} />
+            </TouchableHighlight>
+          </View>
+          <View style={{ flex: 0.8 }}>
+            <TouchableHighlight onPress={() => this.onShare()}>
+              <Image resizeMode="contain" source={iconShare} />
+            </TouchableHighlight>
+          </View>
+        </View>
+
+
+
+
+
+
+        {/* <View style={{ flex: 1 }}>
           <View>
             <Text>Comments:</Text>
           </View>
@@ -1232,7 +1315,7 @@ class SherPage extends React.Component {
             <View>
         <Button color="black" onPress={this.handleSubmitWord} title="SUBMIT" />
             </View>
-            </View>
+            </View> */}
       </View>
     ); // return ends
   } // render function ends
@@ -1293,11 +1376,11 @@ const styles = StyleSheet.create({
   },
   RenderedItem6View: {
     backgroundColor: "white",
-    margin: 20,
+    margin: 2,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black", 
-    padding: 20
+    padding: 2
   },
   NavBar: {
     flexDirection: "row",
