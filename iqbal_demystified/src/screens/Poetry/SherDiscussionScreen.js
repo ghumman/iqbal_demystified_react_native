@@ -1193,11 +1193,11 @@ const styles = StyleSheet.create({
   },
   RenderedItem6View: {
     backgroundColor: "white",
-    margin: 20,
+    margin: 2,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    padding: 20
+    padding: 2
   },
   NavBar: {
     flexDirection: "row",
