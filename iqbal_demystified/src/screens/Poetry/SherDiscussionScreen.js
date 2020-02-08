@@ -1109,7 +1109,7 @@ class SherPage extends React.Component {
       );
     }
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View style={styles.MainScrollView}>
           <ScrollView>
             <View>
@@ -1129,7 +1129,7 @@ class SherPage extends React.Component {
           borderWidth: 3,
           borderColor: "black",
         }}>
-          <View style={{ flex: 5}}>
+          <View style={{ flex: 5 }}>
 
 
             <TextInput
