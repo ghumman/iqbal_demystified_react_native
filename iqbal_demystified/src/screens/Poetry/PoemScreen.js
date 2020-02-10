@@ -785,7 +785,7 @@ class PoemPage extends React.Component {
         textAlign: "center",
         textDecorationLine: "underline",
         color: "blue",
-        padding: 10
+        padding: 2
       };
     };
 
@@ -798,7 +798,7 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 10
+            padding: 2
           };
           break;
         case "Nafees":
@@ -811,7 +811,7 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 10
+            padding: 2
           };
           break;
         case "Kasheeda":
@@ -824,7 +824,7 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 10
+            padding: 2
           };
           break;
         case "Fajer":
@@ -837,7 +837,7 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 10
+            padding: 2
           };
           break;
       }
@@ -1809,7 +1809,7 @@ class PoemPage extends React.Component {
 
           {videoSetup}
 
-          <View style={{ flex: 0.1, alignItems: "flex-end", padding: 4 }}>
+          <View style={{ flex: 0.1, alignItems: "flex-end", padding: 2 }}>
             <TouchableHighlight
               onPress={() =>
                 this.setState({ detailsVisible: !this.state.detailsVisible })
@@ -1865,14 +1865,14 @@ class PoemPage extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22
+    paddingTop: 2
   },
 
   RenderedTextNormal: {
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -1882,7 +1882,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -1892,7 +1892,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -1904,7 +1904,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -1997,7 +1997,7 @@ const styles = StyleSheet.create({
     marginRight: 40,
     marginLeft: 40,
     marginTop: 10,
-    padding: 10,
+    padding: 2,
     backgroundColor: "gray",
     borderRadius: 10,
     borderWidth: 1,
@@ -2007,9 +2007,9 @@ const styles = StyleSheet.create({
   listMenu: {
     color: "white",
     fontSize: 16,
-    paddingLeft: 20,
-    paddingTop: 12,
-    paddingBottom: 12
+    paddingLeft: 2,
+    paddingTop: 2,
+    paddingBottom: 2
   }
 });
 

@@ -64,7 +64,7 @@ class ListPoemScreen extends React.Component {
 
   starToggling = poem => {
     var that = this;
-    this.readBookmarks().then(function(result) {
+    this.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -170,7 +170,7 @@ class ListPoemScreen extends React.Component {
   getPoemList(listId) {
     this.setState({ poemText: [] });
     var that = this;
-    StaticContentService.getPoemList(listId).then(function(response) {
+    StaticContentService.getPoemList(listId).then(function (response) {
       var yamlObject = YAML.parse(response);
       that.setState({ poemList: yamlObject.sections });
 
@@ -178,7 +178,7 @@ class ListPoemScreen extends React.Component {
 
       var checkValueVar = [];
 
-      that.readBookmarks().then(function(result) {
+      that.readBookmarks().then(function (result) {
         var set = new Set(result);
 
         for (var i = 0; i < yamlObject.sections.length; i++) {
@@ -337,8 +337,8 @@ class ListPoemScreen extends React.Component {
     } else
       return (
         <View style={{ backgroundColor: "#C0C0C0" }}>
-          <Text style={{ fontSize: 14, padding: 10, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
-          <Text style={{ fontSize: 14, padding: 10, fontWeight: "bold", color: "black"  }}>{item.textEnglish}</Text>
+          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
+          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
         </View>
       );
   };
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
   RenderedTextNafees: {
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
   RenderedTextKasheeda: {
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
   RenderedTextFajer: {
@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
   MainContainer: {
