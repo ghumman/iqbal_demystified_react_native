@@ -843,18 +843,18 @@ class PoemPage extends React.Component {
       }
     };
 
-    var itemScroll = this.state.poemTextNew.map(function(item, index) {
+    var poemVersesWithBookmarkStars = this.state.poemTextNew.map(function(item, index) {
       if (item.star) {
         if (that.state.text == "Urdu") {
           if (that.state.detailsVisible) {
             try {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -869,7 +869,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -919,12 +920,12 @@ class PoemPage extends React.Component {
               );
             } catch (e) {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -939,7 +940,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -980,12 +982,12 @@ class PoemPage extends React.Component {
             }
           } else {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1000,7 +1002,8 @@ class PoemPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1029,12 +1032,12 @@ class PoemPage extends React.Component {
           if (that.state.detailsVisible) {
             try {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1049,7 +1052,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1099,12 +1103,12 @@ class PoemPage extends React.Component {
               );
             } catch (e) {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1119,7 +1123,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1160,12 +1165,12 @@ class PoemPage extends React.Component {
             }
           } else {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1180,7 +1185,8 @@ class PoemPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1211,12 +1217,12 @@ class PoemPage extends React.Component {
           if (that.state.detailsVisible) {
             try {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1231,7 +1237,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1281,12 +1288,12 @@ class PoemPage extends React.Component {
               );
             } catch (e) {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1301,7 +1308,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1342,12 +1350,12 @@ class PoemPage extends React.Component {
             }
           } else {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1362,7 +1370,8 @@ class PoemPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1391,12 +1400,12 @@ class PoemPage extends React.Component {
           if (that.state.detailsVisible) {
             try {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1411,7 +1420,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1461,12 +1471,12 @@ class PoemPage extends React.Component {
               );
             } catch (e) {
               return (
-                <View style={{ flex: 1, flexDirection: "column" }}>
+                <View style={{ flex: 1, flexDirection: "row" }}>
                   <View
                     style={{
                       justifyContent: "center",
                       alignItems: "center",
-                      flex: 0.2
+                      flex: 0.1
                     }}
                   >
                     <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1481,7 +1491,8 @@ class PoemPage extends React.Component {
                     style={{
                       borderBottomWidth: 0.5,
                       borderBottomColor: "#d6d7da",
-                      flex: 0.8
+                      flex: 0.9,
+                      alignItems: "center"
                     }}
                   >
                     <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1522,12 +1533,12 @@ class PoemPage extends React.Component {
             }
           } else {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -1542,7 +1553,8 @@ class PoemPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -1840,7 +1852,7 @@ class PoemPage extends React.Component {
                 </Text>
               </View>
               {displayIntro}
-              {itemScroll}
+              {poemVersesWithBookmarkStars}
             </ScrollView>
           </View>
 
@@ -1909,9 +1921,7 @@ const styles = StyleSheet.create({
   },
 
   MainContainer: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center"
+    flex: 1
   },
 
   UrduTitleNormal: {
