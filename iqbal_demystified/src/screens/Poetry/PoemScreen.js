@@ -14,8 +14,9 @@ import {
   SectionList,
   Alert,
   View,
-  Text
+  Text,
 } from "react-native";
+import Slider from '@react-native-community/slider';
 import { NavigationEvents } from 'react-navigation';
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
@@ -1073,6 +1074,13 @@ class PoemPage extends React.Component {
               </Text>
             </View>
           </View>
+          <Slider
+            style={{ width: 200, height: 40 }}
+            minimumValue={0}
+            maximumValue={1}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#000000"
+          />
         </View>
       );
     else audioPlayProgressBar = <View></View>;
