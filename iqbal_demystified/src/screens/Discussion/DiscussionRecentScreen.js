@@ -75,8 +75,8 @@ class CommentsPage extends React.Component {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
-      }).then(async function(data) {
-        data.text().then(async function(data) {
+      }).then(async function (data) {
+        data.text().then(async function (data) {
           console.log("data");
           console.log(data);
           that.getRecentSher(data);
@@ -92,7 +92,7 @@ class CommentsPage extends React.Component {
   starToggling = sher => {
     var that = this;
 
-    this.readBookmarks().then(function(result) {
+    this.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -167,13 +167,13 @@ class CommentsPage extends React.Component {
 
   getRecentSher(sherRecentList) {
     var that = this;
-    StaticContentService.getRecentSher(sherRecentList).then(function(response) {
+    StaticContentService.getRecentSher(sherRecentList).then(function (response) {
       console.log(
         "Back from Static Content Service.sherRecentList call, response: "
       );
       console.log(response);
 
-      that.readBookmarks().then(function(result) {
+      that.readBookmarks().then(function (result) {
         console.log("result");
         console.log(result);
 
@@ -247,8 +247,8 @@ class CommentsPage extends React.Component {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
-      }).then(function(data) {
-        data.text().then(async function(data) {
+      }).then(function (data) {
+        data.text().then(async function (data) {
           console.log("data");
           console.log(data);
           that.getPopularSher(data);
@@ -274,10 +274,10 @@ class CommentsPage extends React.Component {
       try {
         el.sherContent[1].text = el.sherContent[1].text.split("|");
         console.log(el.sherContent[1].text);
-      } catch (err) {}
+      } catch (err) { }
       try {
         el.sherContent[2].text = el.sherContent[2].text.split("|");
-      } catch (err) {}
+      } catch (err) { }
       return (el.sherContent = el.sherContent);
     });
 
@@ -354,33 +354,34 @@ class CommentsPage extends React.Component {
         fontFamilyTextVariable = styles.RenderedTextFajer;
         break;
     }
-    if (item.star) {
-      if (that.state.text == "Urdu") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => this.onSubmit(item.id)}>
+    return (
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 0.1
+          }}
+        >
+          <TouchableHighlight onPress={() => that.starToggling(item)}>
+            <Image
+              resizeMode="cover"
+              source={item.star ? starLiked : starNotLiked}
+              style={{ width: 20, height: 20 }}
+            />
+          </TouchableHighlight>
+        </View>
+        <View
+          style={{
+            borderBottomWidth: 0.5,
+            borderBottomColor: "#d6d7da",
+            flex: 0.9,
+            alignItems: "center"
+          }}
+        >
+          <TouchableHighlight onPress={() => this.onSubmit(item.id)}>
+            <View>
+              {that.state.text == "Urdu" ? (
                 <View>
                   <View>
                     <Text style={fontFamilyTextVariable}>
@@ -392,306 +393,159 @@ class CommentsPage extends React.Component {
                       {item.sherContent[0].text[1]}
                     </Text>
                   </View>
+                </View>)
+                : (
                   <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[0]}
-                    </Text>
-                  </View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.sherContent[2].text[0]}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.sherContent[2].text[1]}
+                      </Text>
+                    </View>
+                    </View>
+                    )}
                   <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[1]}
-                    </Text>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.sherContent[1].text[0]}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.sherContent[1].text[1]}
+                      </Text>
+                    </View>
                   </View>
-                </View>
               </TouchableHighlight>
             </View>
-          </View>
+        </View>
         );
-      } else if (that.state.text == "Roman") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => this.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[2].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[2].text[1]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[1]}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
-          </View>
-        );
-      }
-    } else {
-      if (that.state.text == "Urdu") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starNotLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => this.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[0].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[0].text[1]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[1]}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
-          </View>
-        );
-      } else if (that.state.text == "Roman") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starNotLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => this.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[2].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[2].text[1]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[0]}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.sherContent[1].text[1]}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
-          </View>
-        );
-      }
-    }
+
   };
 
   render() {
     return (
       <View>
-        <FlatList data={this.state.recentData} renderItem={this.renderItem} />
-      </View>
-    );
-  }
-}
-
+          <FlatList data={this.state.recentData} renderItem={this.renderItem} />
+        </View>
+        );
+      }
+    }
+    
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22
-  },
+          container: {
+          flex: 1
+      },
   item: {
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18,
-    height: 44
-  },
+          textAlign: "center",
+        padding: 2,
+        fontSize: 18,
+        height: 44
+      },
   RenderedView: {
-    borderWidth: 0.5,
-    borderColor: "#d6d7da"
-  },
-
+          borderWidth: 0.5,
+        borderColor: "#d6d7da"
+      },
+    
   RenderedText: {
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18
-  },
-
+          textAlign: "center",
+        padding: 2,
+        fontSize: 18
+      },
+    
   RenderedTextNormal: {
-    flexShrink: 1,
-    flexWrap: "wrap",
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18
-  },
-
+          flexShrink: 1,
+        flexWrap: "wrap",
+        textAlign: "center",
+        padding: 2,
+        fontSize: 18
+      },
+    
   RenderedTextNafees: {
-    fontFamily:
-      Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
-    flexShrink: 1,
-    flexWrap: "wrap",
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18
-  },
-
+          fontFamily:
+          Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
+        flexShrink: 1,
+        flexWrap: "wrap",
+        textAlign: "center",
+        padding: 2,
+        fontSize: 18
+      },
+    
   RenderedTextKasheeda: {
-    fontFamily:
-      Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
-    flexShrink: 1,
-    flexWrap: "wrap",
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18
-  },
-
+          fontFamily:
+          Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
+        flexShrink: 1,
+        flexWrap: "wrap",
+        textAlign: "center",
+        padding: 2,
+        fontSize: 18
+      },
+    
   RenderedTextFajer: {
-    fontFamily:
-      Platform.OS === "ios"
-        ? "FajerNooriNastalique"
-        : "Fajer Noori Nastalique 15-12-2006",
-    flexShrink: 1,
-    flexWrap: "wrap",
-    textAlign: "center",
-    padding: 10,
-    fontSize: 18
-  },
-
+          fontFamily:
+          Platform.OS === "ios"
+            ? "FajerNooriNastalique"
+            : "Fajer Noori Nastalique 15-12-2006",
+        flexShrink: 1,
+        flexWrap: "wrap",
+        textAlign: "center",
+        padding: 2,
+        fontSize: 18
+      },
+    
   MainContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
+          flex: 1
+      },
   UrduTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
+          fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      },
+    
   UrduTitleNormal: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
+          textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      },
+    
   UrduTitleNafees: {
-    fontFamily:
-      Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
+          fontFamily:
+          Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      },
+    
   UrduTitleKasheeda: {
-    fontFamily:
-      Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
+          fontFamily:
+          Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      },
+    
   UrduTitleFajer: {
-    fontFamily:
-      Platform.OS === "ios"
-        ? "FajerNooriNastalique"
-        : "Fajer Noori Nastalique 15-12-2006",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
+          fontFamily:
+          Platform.OS === "ios"
+            ? "FajerNooriNastalique"
+            : "Fajer Noori Nastalique 15-12-2006",
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      },
   EnglishTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  }
-});
-
-export default CommentsPage;
+          textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FF0000"
+      }
+    });
+    
+    export default CommentsPage;
