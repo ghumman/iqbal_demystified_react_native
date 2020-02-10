@@ -237,7 +237,7 @@ class ListPoemScreen extends React.Component {
 
   renderItem = ({ item }) => {
     var that = this;
-    var fontFamilyTextVariable;
+    var fontFamilyTextVariable;                           
     switch (this.state.font) {
       case "Normal":
         fontFamilyTextVariable = styles.RenderedTextNormal;
@@ -256,12 +256,12 @@ class ListPoemScreen extends React.Component {
     if (item.id != 0) {
       if (item.star)
         return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
             <View
               style={{
+                flex: 0.1, 
                 justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -276,7 +276,8 @@ class ListPoemScreen extends React.Component {
               style={{
                 borderBottomWidth: 0.5,
                 borderBottomColor: "#d6d7da",
-                flex: 0.8
+                flex: 0.9,
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -296,12 +297,12 @@ class ListPoemScreen extends React.Component {
         );
       else
         return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
             <View
               style={{
+                flex: 0.1, 
                 justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -316,7 +317,8 @@ class ListPoemScreen extends React.Component {
               style={{
                 borderBottomWidth: 0.5,
                 borderBottomColor: "#d6d7da",
-                flex: 0.8
+                flex: 0.9,
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -335,12 +337,12 @@ class ListPoemScreen extends React.Component {
           </View>
         );
     } else
-      return (
-        <View style={{ backgroundColor: "#C0C0C0" }}>
-          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
-          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
-        </View>
-      );
+    return (
+      <View style={{ backgroundColor: "#C0C0C0" }}>
+        <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
+        <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
+      </View>
+    );
   };
 
   render() {
@@ -384,6 +386,7 @@ const styles = StyleSheet.create({
   RenderedTextNormal: {
     flexShrink: 1,
     flexWrap: "wrap",
+    alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
     fontSize: 18
@@ -393,6 +396,7 @@ const styles = StyleSheet.create({
       Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
     flexShrink: 1,
     flexWrap: "wrap",
+    alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
     fontSize: 18
@@ -402,6 +406,7 @@ const styles = StyleSheet.create({
       Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
     flexShrink: 1,
     flexWrap: "wrap",
+    alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
     fontSize: 18
@@ -413,14 +418,13 @@ const styles = StyleSheet.create({
         : "Fajer Noori Nastalique 15-12-2006",
     flexShrink: 1,
     flexWrap: "wrap",
+    alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
     fontSize: 18
   },
   MainContainer: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
   },
   UrduTitle: {
     textAlign: "center",
