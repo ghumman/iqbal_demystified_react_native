@@ -66,7 +66,7 @@ class PoemPage extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "My Downloads",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -564,12 +564,12 @@ class PoemPage extends React.Component {
       index
     ) {
       return (
-        <View style={{ flex: 1, flexDirection: "column" }}>
+        <View style={{ flex: 1, flexDirection: "row" }}>
           <View
             style={{
               justifyContent: "center",
               alignItems: "center",
-              flex: 0.2
+              flex: 0.1
             }}
           >
             <TouchableHighlight
@@ -586,7 +586,8 @@ class PoemPage extends React.Component {
             style={{
               borderBottomWidth: 0.5,
               borderBottomColor: "#d6d7da",
-              flex: 0.8
+              flex: 0.9,
+              alignItems: "center"
             }}
           >
             <TouchableHighlight
@@ -611,12 +612,12 @@ class PoemPage extends React.Component {
     var itemScroll = this.state.poemTextNew.map(function(item, index) {
       if (item.star)
         return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
             <View
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                flex: 0.2
+                flex: 0.1
               }}
             >
               <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -631,7 +632,8 @@ class PoemPage extends React.Component {
               style={{
                 borderBottomWidth: 0.5,
                 borderBottomColor: "#d6d7da",
-                flex: 0.8
+                flex: 0.9,
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -663,12 +665,12 @@ class PoemPage extends React.Component {
         );
       else
         return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
             <View
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                flex: 0.2
+                flex: 0.1
               }}
             >
               <TouchableHighlight onPress={() => that.starToggling(item)}>
@@ -683,7 +685,8 @@ class PoemPage extends React.Component {
               style={{
                 borderBottomWidth: 0.5,
                 borderBottomColor: "#d6d7da",
-                flex: 0.8
+                flex: 0.9,
+                alignItems: "center"
               }}
             >
               <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -761,16 +764,16 @@ class PoemPage extends React.Component {
     var audioBox;
     if (this.state.showAudioBox)
       audioBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Hide Audio Box</Text>
+        <Text style={{ backgroundColor: "gray" }}>Hide Audio Box</Text>
       );
     else
       audioBox = (
-        <Text style={{ backgroundColor: "skyblue" }}>Show Audio Box</Text>
+        <Text style={{ backgroundColor: "gray" }}>Show Audio Box</Text>
       );
 
-    var audioSystem1;
+    var aduioControlButtons;
     if (this.state.showAudioBox)
-      audioSystem1 = (
+      aduioControlButtons = (
         <View
           style={{
             flex: 0.2,
@@ -809,11 +812,11 @@ class PoemPage extends React.Component {
           </TouchableHighlight>
         </View>
       );
-    else audioSystem1 = <View></View>;
+    else aduioControlButtons = <View></View>;
 
-    var audioSystem2;
+    var audioPlayProgressBar;
     if (this.state.showAudioBox)
-      audioSystem2 = (
+      audioPlayProgressBar = (
         <View style={{ flex: 0.2 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
@@ -833,7 +836,7 @@ class PoemPage extends React.Component {
           </View>
         </View>
       );
-    else audioSystem2 = <View></View>;
+    else audioPlayProgressBar = <View></View>;
 
     let path =
       RNFS.DocumentDirectoryPath +
@@ -912,8 +915,8 @@ class PoemPage extends React.Component {
           </TouchableHighlight>
         </View>
 
-        {audioSystem1}
-        {audioSystem2}
+        {aduioControlButtons}
+        {audioPlayProgressBar}
       </View>
     );
   } // render function ends
@@ -924,14 +927,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
   MainContainer: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center"
+    flex: 1
   },
   HighlightProperties: {
     flex: 1,
