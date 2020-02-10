@@ -335,7 +335,7 @@ class ListPoemScreen extends React.Component {
                   </View>
                 </View>
               </TouchableHighlight>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
+              <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
             </View>
           </View>
         );
@@ -369,15 +369,16 @@ class ListPoemScreen extends React.Component {
 
     return (
       <View style={styles.MainContainer}>
-        
+
         <NavigationEvents onWillFocus={() => this.onDidFocusCustomFunction()} />
 
         <FlatList
           data={this.state.poemTextFinal}
           renderItem={this.renderItem}
+          extraData={this.state}
         />
       </View>
-    );Focus
+    ); Focus
   }
 }
 
