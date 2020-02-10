@@ -16,11 +16,6 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
-// import Divider from '@material-ui/core/Divider';
-// import { Divider } from 'react-native-elements';
-
-// import StaticContentService from './StaticContentServiceYamlTest2';
-// import StaticContentService from './StaticContentServiceYamlTest';
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import AsyncStorage from "@react-native-community/async-storage";
@@ -196,45 +191,7 @@ class ListPoemScreen extends React.Component {
   getPoemList() {
     this.setState({ poemText: [] });
 
-    // Alert.alert('bookName reaceived is {bookname}')
-    // console.log('Inside getPoemList')
-    // console.log('bookName reaceived is {listId}')
-    // Alert.alert(bookname)
-    // console.log(listId)
-
     var that = this;
-
-    // console.log("response: ");
-    //console.log(response);
-
-    // var yamlObject = YAML.parse(response)
-
-    // console.log("yamlObject : ")
-    // console.log(yamlObject)
-
-    // that.setState({poemList: yamlObject.sections});
-
-    // console.log("that.state.poemList : ")
-    // console.log(that.state.poemList);
-
-    // that.setState({poemListName: that.state.poemList.poems});
-
-    // console.log("that.state.poemListName : ")
-    // console.log(that.state.poemListName);
-
-    // console.log("yamlObject.name.text[0]")
-    // console.log(yamlObject.name[0].text)
-
-    // console.log("checkValueVar");
-
-    // var checkValueVar = [];
-
-    // console.log("Value of yamlObject.sections.length");
-    // console.log(yamlObject.sections.length);
-
-    // console.log("Value of yamlObject.sections[0].sectionName.length");
-    // console.log(yamlObject.sections[0].sectionName.length);
-
     that.readBookmarks().then(function(result) {
       console.log("result");
       console.log(result);
@@ -295,9 +252,9 @@ class ListPoemScreen extends React.Component {
     }
 
     return (
-      <View style={{ flex: 1, flexDirection: "column" }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
         <View
-          style={{ justifyContent: "center", alignItems: "center", flex: 0.2 }}
+          style={{ justifyContent: "center", alignItems: "center", flex: 0.1 }}
         >
           <TouchableHighlight onPress={() => that.starToggling(item)}>
             <Image
@@ -311,7 +268,8 @@ class ListPoemScreen extends React.Component {
           style={{
             borderBottomWidth: 0.5,
             borderBottomColor: "#d6d7da",
-            flex: 0.8
+            flex: 0.9, 
+            alignItems: "center"
           }}
         >
           <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
@@ -338,39 +296,10 @@ class ListPoemScreen extends React.Component {
     ));
 
     var that = this;
-    /*
-		var itemScroll = this.state.poemText.map( function (item, index) {
-
-          		 if (item.id != 0 ) {
-				if (item.star)
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight onPress={() => that.onSubmit(item.id)}><Text style={styles.RenderedText}>{item.textUrdu}</Text></TouchableHighlight></View></View></View>
-				else
-					return <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems: 'center'}}><View  style={{justifyContent: 'center',alignItems: 'center' }}><TouchableHighlight onPress={() =>that.starToggling(item.id)} ><Image resizeMode='cover' source={starNotLiked} style={{width: 20, height: 20}} /></TouchableHighlight></View><View style={{justifyContent: 'space-between'}}><View style={styles.RenderedView} ><TouchableHighlight  onPress={() => that.onSubmit(item.id)}><Text style={styles.RenderedText}>{item.textUrdu}</Text></TouchableHighlight></View></View></View>
-
-			}
-			else
-				return <Text style={styles.RenderedText}>{item.textUrdu}</Text>
-
-		});
-*/
     return (
       <View style={styles.MainContainer}>
-        <View>
-          <Text style={styles.UrduTitle}>Bookmarked Poems</Text>
-        </View>
-        {/*
-			<ScrollView style={{flex: 1}} contentContainerStyle={{alignItems: 'center'}}>
-				{itemScroll}
-			</ScrollView>
-			*/}
-
-        {/*
-                                <Text > {item3}
-                                </Text>
-				*/}
         <FlatList
           data={this.state.poemTextFinal}
-          // renderItem={({item}) => <TouchableHighlight onPress={() => this.onSubmit(item.id)}><Text style={styles.RenderedText}>{item.text}</Text></TouchableHighlight>}
           renderItem={this.renderItem}
         />
       </View>
@@ -381,53 +310,32 @@ class ListPoemScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22
   },
-  /*
-  RenderedText: {
-    textAlign: 'center',
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#d6d7da',
-  },
-*/
 
   StarImage: {
     width: 30,
     height: 30,
     alignItems: "center",
     justifyContent: "center"
-    // textAlign: 'center',
-    // resizeMode: 'contain',
   },
   RenderedView: {
-    // height: 44,
-    // borderBottomRadius: 4,
     borderBottomWidth: 0.5,
     borderBottomColor: "#d6d7da"
   },
 
   RenderedText: {
-    // flex: 1,
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
-    // height: 44,
-    // borderRadius: 4,
-    // borderWidth: 0.5,
-    // borderColor: '#d6d7da',
   },
 
   RenderedTextNormal: {
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -439,7 +347,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -451,7 +359,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -465,14 +373,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
   MainContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1
   },
   UrduTitle: {
     fontSize: 20,

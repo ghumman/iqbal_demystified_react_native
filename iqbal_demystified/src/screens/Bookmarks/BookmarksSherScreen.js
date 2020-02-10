@@ -17,10 +17,6 @@ import StaticContentService from "../Misc/StaticContentServiceYaml";
 import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
-// for formatting
-// import './TabView1.css';
-
-// import Divider from '@material-ui/core/Divider';
 
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -69,7 +65,7 @@ class PoemPage extends React.Component {
 
     this.setState({ poemText: [] });
 
-    that.readBookmarks().then(function(result) {
+    that.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -94,7 +90,7 @@ class PoemPage extends React.Component {
   starToggling = sher => {
     var that = this;
 
-    this.readBookmarks().then(function(result) {
+    this.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -231,133 +227,84 @@ class PoemPage extends React.Component {
     }
 
     var that = this;
-    var itemScroll = this.state.poemTextNew.map(function(item, index) {
-      if (that.state.text == "Urdu") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu1}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu2}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish1}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish2}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
+    var itemScroll = this.state.poemTextNew.map(function (item, index) {
+      return (
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 0.1
+            }}
+          >
+            <TouchableHighlight onPress={() => that.starToggling(item)}>
+              <Image
+                resizeMode="cover"
+                source={starLiked}
+                style={{ width: 20, height: 20 }}
+              />
+            </TouchableHighlight>
           </View>
-        );
-      } else if (that.state.text == "Roman") {
-        return (
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flex: 0.2
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.8
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+          <View
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: "#d6d7da",
+              flex: 0.9,
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+              <View>
+                {(that.state.text == "Urdu") ?
+                  (<View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>{item.textUrdu1}</Text>
+                    </View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>{item.textUrdu2}</Text>
+                    </View>
+                  </View>)
+                  :
+                  (<View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.textRoman1}
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={fontFamilyTextVariable}>
+                        {item.textRoman2}
+                      </Text>
+                    </View>
+                  </View>)}
+
+
                 <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textRoman1}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textRoman2}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish1}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish2}
-                    </Text>
-                  </View>
+                  <Text style={fontFamilyTextVariable}>
+                    {item.textEnglish1}
+                  </Text>
                 </View>
-              </TouchableHighlight>
-            </View>
+                <View>
+                  <Text style={fontFamilyTextVariable}>
+                    {item.textEnglish2}
+                  </Text>
+                </View>
+              </View>
+            </TouchableHighlight>
           </View>
-        );
-      }
+        </View>
+      );
+
     });
 
-    var testItem = this.state.poemTextNew.map((item, index) => (
-      <View style={{ flexDirection: "row" }}>
-        <View style={{ justifyContent: "center" }}>
-          <Image source={starNotLiked} style={{ width: 30, height: 30 }} />
-        </View>
-        <View style={{}}>
-          <Text>Hello</Text>
-        </View>
-      </View>
-    ));
 
     return (
       <View style={styles.MainContainer}>
-        <View>
-          <Text style={styles.UrduTitle}>Bookmarked Verses</Text>
-        </View>
-
         <ScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ alignItems: "center" }}
         >
           {itemScroll}
-          {/*{testItem}*/}
         </ScrollView>
       </View>
     );
@@ -366,8 +313,7 @@ class PoemPage extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 22
+    flex: 1
   },
   StarImage: {
     width: 30,
@@ -385,7 +331,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -393,7 +339,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -403,7 +349,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -413,7 +359,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
@@ -425,14 +371,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     flexWrap: "wrap",
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
   MainContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1
   },
   UrduTitle: {
     fontSize: 20,
