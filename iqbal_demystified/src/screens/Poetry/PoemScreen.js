@@ -16,6 +16,7 @@ import {
   View,
   Text
 } from "react-native";
+import { NavigationEvents } from 'react-navigation';
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import ActionBar from "react-native-action-bar";
@@ -303,7 +304,6 @@ class PoemPage extends React.Component {
   }
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
 
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
@@ -1129,6 +1129,7 @@ class PoemPage extends React.Component {
           </View>
         )}
       >
+        <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
         <View style={styles.MainContainer}>
           <View style={{ flex: 0.3 }}>
             <ActionBar
