@@ -256,89 +256,46 @@ class ListPoemScreen extends React.Component {
     }
 
     if (item.id != 0) {
-      if (item.star)
-        return (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 0.1,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.9,
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
+      return (
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View
+            style={{
+              flex: 0.1,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight onPress={() => that.starToggling(item)}>
+              <Image
+                resizeMode="cover"
+                source={item.star ? starLiked : starNotLiked}
+                style={{ width: 20, height: 20 }}
+              />
+            </TouchableHighlight>
           </View>
-        );
-      else
-        return (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 0.1,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starNotLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.9,
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+          <View
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: "#d6d7da",
+              flex: 0.9,
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+              <View>
                 <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish}
-                    </Text>
-                  </View>
+                  <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
                 </View>
-              </TouchableHighlight>
-              <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-            </View>
+                <View>
+                  <Text style={fontFamilyTextVariable}>
+                    {item.textEnglish}
+                  </Text>
+                </View>
+              </View>
+            </TouchableHighlight>
           </View>
-        );
+        </View>
+      );
     } else
       return (
         <View style={{ backgroundColor: "#C0C0C0" }}>
@@ -375,7 +332,7 @@ class ListPoemScreen extends React.Component {
         <FlatList
           data={this.state.poemTextFinal}
           renderItem={this.renderItem}
-          extraData={this.state}
+          extraData={this.state.text}
         />
       </View>
     ); Focus

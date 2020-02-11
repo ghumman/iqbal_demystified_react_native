@@ -333,7 +333,7 @@ class InfoPage extends React.Component {
           >
             <View style={styles.HighlightProperties}>
               <Text style={styles.EnglishTitle}>
-                Iqbal Demystifed React Native Android and iPhone App
+                Iqbal RN Android and iPhone App
               </Text>
               <TouchableHighlight
                 onPress={() =>
