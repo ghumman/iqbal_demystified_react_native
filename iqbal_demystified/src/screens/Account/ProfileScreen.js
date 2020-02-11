@@ -437,7 +437,6 @@ class ProfilePage extends React.Component {
               padding: 1, 
               borderColor: "black",
               borderWidth: 1,
-              marginTop: 3
             }}
           >
             <Picker
