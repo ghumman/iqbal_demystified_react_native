@@ -11,7 +11,7 @@ import {
   View,
   Text
 } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { NavigationEvents } from 'react-navigation';
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
@@ -48,7 +48,8 @@ class ListPoemScreen extends React.Component {
       poemObjects: [],
 
       font: "Normal",
-      text: "Urdu"
+      text: "Urdu",
+      focusListener: ""
     }; // this.state ends
   } // constructor ends
 
@@ -145,6 +146,7 @@ class ListPoemScreen extends React.Component {
     });
   };
 
+
   componentDidMount() {
     try {
       this.onDidFocusCustomFunction();
@@ -237,8 +239,8 @@ class ListPoemScreen extends React.Component {
 
   renderItem = ({ item }) => {
     var that = this;
-    var fontFamilyTextVariable;                           
-    switch (this.state.font) {
+    var fontFamilyTextVariable;
+    switch (that.state.font) {
       case "Normal":
         fontFamilyTextVariable = styles.RenderedTextNormal;
         break;
@@ -254,95 +256,53 @@ class ListPoemScreen extends React.Component {
     }
 
     if (item.id != 0) {
-      if (item.star)
-        return (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 0.1, 
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.9,
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
-                <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableHighlight>
-            </View>
+      return (
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View
+            style={{
+              flex: 0.1,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight onPress={() => that.starToggling(item)}>
+              <Image
+                resizeMode="cover"
+                source={item.star ? starLiked : starNotLiked}
+                style={{ width: 20, height: 20 }}
+              />
+            </TouchableHighlight>
           </View>
-        );
-      else
-        return (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View
-              style={{
-                flex: 0.1, 
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.starToggling(item)}>
-                <Image
-                  resizeMode="cover"
-                  source={starNotLiked}
-                  style={{ width: 20, height: 20 }}
-                />
-              </TouchableHighlight>
-            </View>
-            <View
-              style={{
-                borderBottomWidth: 0.5,
-                borderBottomColor: "#d6d7da",
-                flex: 0.9,
-                alignItems: "center"
-              }}
-            >
-              <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+          <View
+            style={{
+              borderBottomWidth: 0.5,
+              borderBottomColor: "#d6d7da",
+              flex: 0.9,
+              alignItems: "center"
+            }}
+          >
+            <TouchableHighlight onPress={() => that.onSubmit(item.id)}>
+              <View>
                 <View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
-                  </View>
-                  <View>
-                    <Text style={fontFamilyTextVariable}>
-                      {item.textEnglish}
-                    </Text>
-                  </View>
+                  <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
                 </View>
-              </TouchableHighlight>
-            </View>
+                <View>
+                  <Text style={fontFamilyTextVariable}>
+                    {item.textEnglish}
+                  </Text>
+                </View>
+              </View>
+            </TouchableHighlight>
           </View>
-        );
+        </View>
+      );
     } else
-    return (
-      <View style={{ backgroundColor: "#C0C0C0" }}>
-        <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
-        <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
-      </View>
-    );
+      return (
+        <View style={{ backgroundColor: "#C0C0C0" }}>
+          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
+          <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
+        </View>
+      );
   };
 
   render() {
@@ -362,23 +322,20 @@ class ListPoemScreen extends React.Component {
         break;
     }
 
-    var item3 = this.state.poemText.map(item => (
-      <Text key={item.index} onClick={() => this.onSubmit(item.id)}>
-        {" "}
-        {item.textUrdu}
-      </Text>
-    ));
 
-    var that = this;
 
     return (
       <View style={styles.MainContainer}>
+
+        <NavigationEvents onWillFocus={() => this.onDidFocusCustomFunction()} />
+
         <FlatList
           data={this.state.poemTextFinal}
           renderItem={this.renderItem}
+          extraData={this.state.text}
         />
       </View>
-    );
+    ); Focus
   }
 }
 

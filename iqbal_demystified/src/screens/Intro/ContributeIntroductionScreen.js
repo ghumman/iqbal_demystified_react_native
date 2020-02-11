@@ -50,7 +50,7 @@ class ContributeIntroductionScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: "Contribute!",
-    headerTintColor: "red",
+    headerTintColor: "black",
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -212,7 +212,7 @@ class ContributeIntroductionScreen extends React.Component {
       backgroundColor: "#ffffff",
       paddingLeft: 15,
       paddingRight: 15,
-      borderBottomColor: this.state.isFocused ? "black" : "red",
+      borderBottomColor: this.state.isFocused ? "black" : "gray",
       borderBottomWidth: 1
     };
 

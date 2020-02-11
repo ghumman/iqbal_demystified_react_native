@@ -14,6 +14,7 @@ import {
   View,
   Text
 } from "react-native";
+import Slider from '@react-native-community/slider';
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
@@ -86,7 +87,7 @@ class PoemPage extends React.Component {
   getPoem(listId) {
     console.log("listId: " + listId);
     var that = this;
-    StaticContentService.getPoem(listId).then(function(response) {
+    StaticContentService.getPoem(listId).then(function (response) {
       console.log("response: ");
       console.log(response);
 
@@ -104,7 +105,7 @@ class PoemPage extends React.Component {
       console.log("yamlObject.sher.length");
       console.log(yamlObject.sher.length);
 
-      that.readBookmarks().then(function(result) {
+      that.readBookmarks().then(function (result) {
         console.log("result");
         console.log(result);
 
@@ -191,7 +192,7 @@ class PoemPage extends React.Component {
   starToggling = sher => {
     var that = this;
 
-    this.readBookmarks().then(function(result) {
+    this.readBookmarks().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -323,6 +324,10 @@ class PoemPage extends React.Component {
     this.setState({ paused: true });
   };
 
+  onSeek = data => {
+    this.player.seek(data)
+  }
+
   getCurrentTimePercentage() {
     if (this.state.currentTime > 0) {
       return (
@@ -400,7 +405,7 @@ class PoemPage extends React.Component {
         console.log("result.length", result.length);
         var previousResult = result;
 
-        that.readDownloadedAudioFile().then(function(result1) {
+        that.readDownloadedAudioFile().then(function (result1) {
           for (i = 0; i < previousResult.length; i++) {
             if (previousResult[i].isFile()) {
               console.log("prevousResult[i].name", previousResult[i].name);
@@ -450,7 +455,7 @@ class PoemPage extends React.Component {
 
   readFromDownloadedAudioFile = poem => {
     var that = this;
-    this.readDownloadedAudioFile().then(function(result) {
+    this.readDownloadedAudioFile().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -483,7 +488,7 @@ class PoemPage extends React.Component {
   deleteDownloadEntry(audioFile) {
     var that = this;
 
-    this.readDownloadedAudioFile().then(function(result) {
+    this.readDownloadedAudioFile().then(function (result) {
       console.log("result");
       console.log(result);
 
@@ -559,7 +564,7 @@ class PoemPage extends React.Component {
 
   render() {
     var that = this;
-    var itemDownload = this.state.downloadedDataFinal.map(function(
+    var itemDownload = this.state.downloadedDataFinal.map(function (
       item,
       index
     ) {
@@ -609,7 +614,7 @@ class PoemPage extends React.Component {
         </View>
       );
     });
-    var itemScroll = this.state.poemTextNew.map(function(item, index) {
+    var itemScroll = this.state.poemTextNew.map(function (item, index) {
       if (item.star)
         return (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -820,18 +825,36 @@ class PoemPage extends React.Component {
         <View style={{ flex: 0.2 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
-              <Text>
-                {formattedCurrentMinutes}:{formattedCurrentSeconds}
-              </Text>
-              <View
+              <View style={{ flex: 0.2 }}>
+                <Text>
+                  {formattedCurrentMinutes}:{formattedCurrentSeconds}
+                </Text>
+              </View>
+              {/* <View
                 style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
               />
               <View
                 style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
-              />
-              <Text>
-                {formattedTotalMinutes}:{formattedTotalSeconds}
-              </Text>
+              /> */}
+
+              <View style={{ flex: 0.6 }}>
+                <Slider
+                  minimumValue={0}
+                  maximumValue={this.state.duration}
+                  value={this.state.currentTime}
+                  step={1}
+                  onValueChange={this.onSeek}
+                  onSlidingStart={() => { this.setState({ paused: !this.state.paused }) }}
+                  onSlidingComplete={() => { this.setState({ paused: !this.state.paused }) }}
+                  minimumTrackTintColor="gray"
+                  maximumTrackTintColor="black"
+                />
+              </View>
+              <View style={{ flex: 0.2 }}>
+                <Text>
+                  {formattedTotalMinutes}:{formattedTotalSeconds}
+                </Text>
+              </View>
             </View>
           </View>
         </View>

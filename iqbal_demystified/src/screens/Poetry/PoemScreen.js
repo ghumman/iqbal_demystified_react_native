@@ -14,8 +14,10 @@ import {
   SectionList,
   Alert,
   View,
-  Text
+  Text,
 } from "react-native";
+import Slider from '@react-native-community/slider';
+import { NavigationEvents } from 'react-navigation';
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import ActionBar from "react-native-action-bar";
@@ -303,7 +305,6 @@ class PoemPage extends React.Component {
   }
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
 
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
@@ -392,6 +393,10 @@ class PoemPage extends React.Component {
   onEnd = () => {
     this.setState({ paused: true });
   };
+
+  onSeek = data => {
+    this.player.seek(data)
+  }
 
   getCurrentTimePercentage() {
     if (this.state.currentTime > 0) {
@@ -1059,20 +1064,38 @@ class PoemPage extends React.Component {
         <View style={{ flex: 0.2 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
-              <Text>
-                {formattedCurrentMinutes}:{formattedCurrentSeconds}
-              </Text>
-              <View
+              <View style={{ flex: 0.2 }}>
+                <Text>
+                  {formattedCurrentMinutes}:{formattedCurrentSeconds}
+                </Text>
+              </View>
+              {/* <View
                 style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
               />
               <View
                 style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
-              />
-              <Text>
-                {formattedTotalMinutes}:{formattedTotalSeconds}
-              </Text>
+              /> */}
+              <View style={{ flex: 0.6 }}>
+                <Slider
+                  minimumValue={0}
+                  maximumValue={this.state.duration}
+                  value={this.state.currentTime}
+                  step={1}
+                  onValueChange={this.onSeek}
+                  onSlidingStart={() => { this.setState({ paused: !this.state.paused }) }}
+                  onSlidingComplete={() => { this.setState({ paused: !this.state.paused }) }}
+                  minimumTrackTintColor="gray"
+                  maximumTrackTintColor="black"
+                />
+              </View>
+              <View style={{ flex: 0.2 }}>
+                <Text>
+                  {formattedTotalMinutes}:{formattedTotalSeconds}
+                </Text>
+              </View>
             </View>
           </View>
+
         </View>
       );
     else audioPlayProgressBar = <View></View>;
@@ -1129,6 +1152,7 @@ class PoemPage extends React.Component {
           </View>
         )}
       >
+        <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
         <View style={styles.MainContainer}>
           <View style={{ flex: 0.3 }}>
             <ActionBar
