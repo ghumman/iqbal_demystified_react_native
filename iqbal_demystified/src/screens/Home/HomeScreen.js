@@ -27,13 +27,13 @@ const MESSAGE = "message";
 import logo from "../../assets/allam_iqbal_pic.jpg";
 
 // 6 main logos on main page
-import iconSignIn from "../../assets/android_app_assets/icon_signed_in.png";
-import iconSignOut from "../../assets/android_app_assets/icon_signed_out_resized.png";
-import iconBest from "../../assets/android_app_assets/icon_best_resized.png";
-import iconBookmarks from "../../assets/android_app_assets/icon_bookmark.png";
-import iconDiscussion from "../../assets/android_app_assets/icon_discussion_resized.png";
-import iconSearch from "../../assets/android_app_assets/icon_search_resized.png";
-import iconInfo from "../../assets/android_app_assets/icon_info_resized.png";
+import iconSignIn from "../../assets/android_app_assets/icon_signed_in_resized_350.png";
+import iconSignOut from "../../assets/android_app_assets/icon_signed_out_resized_350.png";
+import iconBest from "../../assets/android_app_assets/icon_best_resized_350.png";
+import iconBookmarks from "../../assets/android_app_assets/icon_bookmark_resized_350.png";
+import iconDiscussion from "../../assets/android_app_assets/icon_discussion_resized_350.png";
+import iconSearch from "../../assets/android_app_assets/icon_search_resized_350.png";
+import iconInfo from "../../assets/android_app_assets/icon_info_resized_350.png";
 
 // books logo in the middle of the page
 import booksLogo from "../../assets/android_app_assets/books_logo.png";

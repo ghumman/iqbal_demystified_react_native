@@ -401,7 +401,7 @@ class ProfilePage extends React.Component {
           <Text style={styles.Message}>More profile features coming soon!</Text>
         </View>
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 2 }}>
 
           <View
             style={{
