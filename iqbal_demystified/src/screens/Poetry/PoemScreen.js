@@ -35,7 +35,11 @@ import iconForward from "../../assets/android_app_assets/audio_player_forward.pn
 import iconPause from "../../assets/android_app_assets/audio_player_pause.png";
 import iconPlay from "../../assets/android_app_assets/audio_player_play.png";
 
-import Video from "react-native-video";
+import Video, {
+  OnSeekData,
+  OnLoadData,
+  OnProgressData,
+} from "react-native-video";
 
 const menuList = require("../../shared/Constants");
 
@@ -393,6 +397,10 @@ class PoemPage extends React.Component {
   onEnd = () => {
     this.setState({ paused: true });
   };
+
+  onSeek = data =>  {
+    this.player.seek(data)
+  }
 
   getCurrentTimePercentage() {
     if (this.state.currentTime > 0) {
@@ -1060,27 +1068,36 @@ class PoemPage extends React.Component {
         <View style={{ flex: 0.2 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
+              <View style={{flex: 0.2}}> 
               <Text>
                 {formattedCurrentMinutes}:{formattedCurrentSeconds}
               </Text>
-              <View
+              </View>
+              {/* <View
                 style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
               />
               <View
                 style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
+              /> */}
+              <View style={{flex: 0.6}}>
+              <Slider
+                minimumValue={0}
+                maximumValue={this.state.duration}
+                value={this.state.currentTime}
+                step={1}
+                onValueChange={this.onSeek}
+                minimumTrackTintColor="gray"
+                maximumTrackTintColor="black"
               />
+              </View>
+              <View style={{flex: 0.2}}>
               <Text>
                 {formattedTotalMinutes}:{formattedTotalSeconds}
               </Text>
+              </View>
             </View>
           </View>
-          <Slider
-            style={{ width: 200, height: 40 }}
-            minimumValue={0}
-            maximumValue={1}
-            minimumTrackTintColor="#FFFFFF"
-            maximumTrackTintColor="#000000"
-          />
+
         </View>
       );
     else audioPlayProgressBar = <View></View>;
