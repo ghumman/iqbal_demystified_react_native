@@ -332,7 +332,7 @@ class ListPoemScreen extends React.Component {
         <FlatList
           data={this.state.poemTextFinal}
           renderItem={this.renderItem}
-          extraData={this.state.text}
+          extraData={this.state.font}
         />
       </View>
     ); Focus

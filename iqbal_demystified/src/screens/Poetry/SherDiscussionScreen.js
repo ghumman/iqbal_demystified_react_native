@@ -228,7 +228,7 @@ class SherPage extends React.Component {
           if (Platform.OS == "ios") {
             path =
               RNFS.MainBundlePath +
-              "/assets/poems/" +
+              "/src/assets/poems/" +
               sherArray[0] +
               "/" +
               sherArray[0] +

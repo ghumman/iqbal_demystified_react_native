@@ -193,8 +193,8 @@ class ProfilePage extends React.Component {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
-      }).then(async function(data) {
-        data.text().then(async function(data) {
+      }).then(async function (data) {
+        data.text().then(async function (data) {
           console.log("data");
           console.log(data);
 
@@ -385,7 +385,9 @@ class ProfilePage extends React.Component {
     const state = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 0.6 }}>
+
+
+        <View style={{ flex: 1 }}>
           <View style={styles.UsernameView}>
             <View style={styles.UsernameViewInner}>
               <Text style={styles.Username}>{this.state.username}</Text>
@@ -397,6 +399,9 @@ class ProfilePage extends React.Component {
             You can also vote to others' comments!
           </Text>
           <Text style={styles.Message}>More profile features coming soon!</Text>
+        </View>
+
+        <View style={{ flex: 1 }}>
 
           <View
             style={{
@@ -426,19 +431,16 @@ class ProfilePage extends React.Component {
           >
             <Button color="black" onPress={() => this.signOut()} title="SIGN OUT" />
           </View>
-        </View>
 
-        <View style={{flex: 1}}></View>
-
-        {/* <View style={{ flex: 1 }}>
-          <View style={{borderColor: "black", borderWidth: 2}}> */}
           <View
-          style={{
-            flex: 1
-          }}
-        >
-          <View style={{borderColor: "black", borderWidth: 1, }}>
-          <Picker
+            style={{
+              padding: 1, 
+              borderColor: "black",
+              borderWidth: 1,
+              marginTop: 3
+            }}
+          >
+            <Picker
               selectedValue={this.state.dropdownState}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({ dropdownState: itemValue })
@@ -449,9 +451,8 @@ class ProfilePage extends React.Component {
             </Picker>
           </View>
         </View>
-            
-          {/* </View>
-        </View> */}
+
+
         <View style={{ flex: 3 }}>
           <ScrollView>{myTable}</ScrollView>
         </View>
