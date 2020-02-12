@@ -848,6 +848,26 @@ class PoemPage extends React.Component {
       }
     };
 
+    showNotes = function (item) {
+      try {
+        return (
+          <View>
+            {item.sherContent[1].notes.map((item2, key2) => (
+              <Text
+                key={key2}
+                style={IntroSettings(that.state.fontGlobalSize)}
+              >
+                {item2.phrase}:{item2.meaning}
+              </Text>
+            ))}
+          </View>
+        )
+      }
+      catch (e) {
+        return null;
+      }
+    }
+
     var poemVersesWithBookmarkStars = this.state.poemTextNew.map(function (item, index) {
 
       return (
@@ -931,16 +951,9 @@ class PoemPage extends React.Component {
                       </Text>
                     </View>
 
-                    <View>
-                      {item.sherContent[1].notes.map((item2, key2) => (
-                        <Text
-                          key={key2}
-                          style={IntroSettings(that.state.fontGlobalSize)}
-                        >
-                          {item2.phrase}:{item2.meaning}
-                        </Text>
-                      ))}
-                    </View>
+                    {showNotes(item)}
+
+
                   </View>}
               </View>
             </TouchableHighlight>
@@ -1061,7 +1074,7 @@ class PoemPage extends React.Component {
     var audioPlayProgressBar;
     if (this.state.showAudioBox)
       audioPlayProgressBar = (
-        <View style={{ flex: 0.2 }}>
+        <View style={{ flex: 0.4 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
               <View style={{ flex: 0.2 }}>
