@@ -437,10 +437,11 @@ class ProfilePage extends React.Component {
               padding: 1, 
               borderColor: "black",
               borderWidth: 1,
-              marginTop: 3
             }}
           >
             <Picker
+              style={{height: 100}}
+              itemStyle={{height: 100}}
               selectedValue={this.state.dropdownState}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({ dropdownState: itemValue })

@@ -822,7 +822,7 @@ class PoemPage extends React.Component {
     var audioPlayProgressBar;
     if (this.state.showAudioBox)
       audioPlayProgressBar = (
-        <View style={{ flex: 0.2 }}>
+        <View style={{ flex: 0.4 }}>
           <View style={styles.controls}>
             <View style={styles.progress}>
               <View style={{ flex: 0.2 }}>
