@@ -889,7 +889,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     borderRadius: Platform.OS === "ios" ? 10 : 0,
     borderWidth: Platform.OS === "ios" ? 1 : 0,
-    height: 40
+    height: 60
   }
 });
 
