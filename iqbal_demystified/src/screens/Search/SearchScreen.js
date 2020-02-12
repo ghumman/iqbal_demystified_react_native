@@ -415,20 +415,19 @@ class SearchPage extends React.Component {
       if (this.state.poemList.length != 0) {
         var that = this;
         var itemsPoemOrSher = this.state.poemList.map(function (item, index) {
-          if (item.star) {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight onPress={() => that.starToggling(item)}>
                     <Image
                       resizeMode="cover"
-                      source={starLiked}
+                      source={item.star ? starLiked : starNotLiked}
                       style={{ width: 20, height: 20 }}
                     />
                   </TouchableHighlight>
@@ -437,7 +436,8 @@ class SearchPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <Text
@@ -457,54 +457,12 @@ class SearchPage extends React.Component {
                 </View>
               </View>
             );
-          } else {
-            return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flex: 0.2
-                  }}
-                >
-                  <TouchableHighlight onPress={() => that.starToggling(item)}>
-                    <Image
-                      resizeMode="cover"
-                      source={starNotLiked}
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </TouchableHighlight>
-                </View>
-                <View
-                  style={{
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: "#d6d7da",
-                    flex: 0.8
-                  }}
-                >
-                  <Text
-                    style={styles.RenderedText}
-                    key={item.id}
-                    onPress={() => that.onSubmitPoem(item.id)}
-                  >
-                    {item.poemName[0].text}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitPoem(item.id)}
-                  >
-                    {" "}
-                    {item.poemName[1].text}{" "}
-                  </Text>
-                </View>
-              </View>
-            );
-          }
+          
         });
       } else {
         var itemsPoemOrSher = (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ padding: 10, fontSize: 18 }}>
+            <Text style={{ padding: 2, fontSize: 18 }}>
               {this.state.messageResults}
             </Text>
           </View>
@@ -514,14 +472,13 @@ class SearchPage extends React.Component {
       if (this.state.sherList.length != 0) {
         var that = this;
         var itemsPoemOrSher = this.state.sherList.map(function (item, index) {
-          if (item.star) {
             return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
+              <View style={{ flex: 1, flexDirection: "row" }}>
                 <View
                   style={{
                     justifyContent: "center",
                     alignItems: "center",
-                    flex: 0.2
+                    flex: 0.1
                   }}
                 >
                   <TouchableHighlight
@@ -529,7 +486,7 @@ class SearchPage extends React.Component {
                   >
                     <Image
                       resizeMode="cover"
-                      source={starLiked}
+                      source={item.star ? starLiked : starNotLiked}
                       style={{ width: 20, height: 20 }}
                     />
                   </TouchableHighlight>
@@ -538,7 +495,8 @@ class SearchPage extends React.Component {
                   style={{
                     borderBottomWidth: 0.5,
                     borderBottomColor: "#d6d7da",
-                    flex: 0.8
+                    flex: 0.9,
+                    alignItems: "center"
                   }}
                 >
                   <Text
@@ -571,69 +529,12 @@ class SearchPage extends React.Component {
                 </View>
               </View>
             );
-          } else {
-            return (
-              <View style={{ flex: 1, flexDirection: "column" }}>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flex: 0.2
-                  }}
-                >
-                  <TouchableHighlight
-                    onPress={() => that.starTogglingSher(item)}
-                  >
-                    <Image
-                      resizeMode="cover"
-                      source={starNotLiked}
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </TouchableHighlight>
-                </View>
-                <View
-                  style={{
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: "#d6d7da",
-                    flex: 0.8
-                  }}
-                >
-                  <Text
-                    style={styles.RenderedText}
-                    key={item.id}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {" "}
-                    {item.sherContent[0].text[0]}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {item.sherContent[0].text[1]}{" "}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {" "}
-                    {item.sherContent[1].text[0]}{" "}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {item.sherContent[1].text[1]}
-                  </Text>
-                </View>
-              </View>
-            );
-          }
+         
         });
       } else {
         var itemsPoemOrSher = (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ padding: 10, fontSize: 18 }}>
+            <Text style={{ padding: 2, fontSize: 18 }}>
               {this.state.messageResults}
             </Text>
           </View>
@@ -863,14 +764,12 @@ const styles = StyleSheet.create({
 
   RenderedText: {
     textAlign: "center",
-    padding: 10,
+    padding: 2,
     fontSize: 18
   },
 
   MainContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    flex: 1
   },
   UrduTitle: {
     fontSize: 20,
@@ -882,7 +781,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#FF0000",
-    padding: 3
+    padding: 2
   },
 
   button: {
