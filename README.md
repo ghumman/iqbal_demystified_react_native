@@ -2,10 +2,10 @@
 
 This application is built using React Native CLI. This project was enhancement of our Web Application: [Iqbal Demystified React Web Client](http://iqbal-demystified-react.herokuapp.com)
 
-![First Set of Screenshots](/iqbal_demystified/src/assets/screenshots1.png)
-![Second Set of Screenshots](/iqbal_demystified/src/assets/screenshots2.png)
-![Third Set of Screenshots](/iqbal_demystified/src/assets/screenshots3.png)
-![Forth Set of Screenshots](/iqbal_demystified/src/assets/screenshots4.png)
+![First Set of Screenshots](/src/assets/screenshots1.png)
+![Second Set of Screenshots](/src/assets/screenshots2.png)
+![Third Set of Screenshots](/src/assets/screenshots3.png)
+![Forth Set of Screenshots](/src/assets/screenshots4.png)
 
 ## Features
 
