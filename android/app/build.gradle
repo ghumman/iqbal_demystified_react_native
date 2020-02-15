@@ -102,11 +102,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.iqbal_demystified"
+        applicationId "com.vanity.iqbal"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20
-        versionName "2.0"
+        versionCode 402
+        versionName "4.0.2"
     }
     signingConfigs {
         release {

@@ -1,4 +1,4 @@
-package com.iqbal_demystified;
+package com.vanity.iqbal;
 
 import com.facebook.react.ReactActivity;
 
