@@ -882,6 +882,8 @@ class PoemPage extends React.Component {
           onEnd={this.onEnd}
           repeat={true}
           onError={this.videoError}
+          playWhenInactive={true}
+          playInBackground={true}
         />
       );
     else videoSetup = null;
