@@ -28,6 +28,7 @@ import iconGithub from "../../assets/android_app_assets/github.png";
 import iconIis from "../../assets/android_app_assets/iqbal_com_pk.png";
 import iconAcademy from "../../assets/android_app_assets/iap.png";
 
+const VERSION = "Version No.: 4.0.3";
 const FONT = "Normal";
 const TEXT = "Urdu";
 
@@ -469,6 +470,8 @@ class InfoPage extends React.Component {
             </TouchableHighlight>
           </View>
           <Text style={styles.RenderedText}>Iqbal Academy Pakistan</Text>
+            <Text style={styles.RenderedText}>{VERSION}</Text>
+
         </ScrollView>
       </View>
     ); // return ends
