@@ -61,7 +61,9 @@ class SherPage extends React.Component {
       userMessageWord: "",
 
       key: "home",
-      height: "40"
+      height: "40", 
+
+      testWidth: '99%' // for copy paste textinput issue
     };
     this.handleUserMessageSher = this.handleUserMessageSher.bind(this);
     this.handleUserMessageWord = this.handleUserMessageWord.bind(this);
@@ -407,6 +409,12 @@ class SherPage extends React.Component {
   }
 
   componentDidMount() {
+
+    setTimeout(() => {
+      this.setState({testWidth: '100%'})
+    }, 100);
+
+
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
@@ -1138,7 +1146,7 @@ class SherPage extends React.Component {
                 this.setState({ height: event.nativeEvent.contentSize.height })
               }}
               multiline={true}
-              style={[{ height: 40, borderWidth: 3, borderColor: "gray" },
+              style={[{ height: 40, borderWidth: 3, borderColor: "gray", width: this.state.testWidth},
               { height: Math.max(40, this.state.height) }]}
               placeholder="Comments..."
               onChangeText={text => this.setState({ userMessageSher: text })}
@@ -1179,12 +1187,14 @@ const styles = StyleSheet.create({
   RenderedText: {
     textAlign: "center",
     padding: 10,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   CommentsText: {
     textAlign: "center",
     padding: 10,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   flexPoint8: {
@@ -1208,22 +1218,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-
-  UrduTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000",
-    padding: 5,
-    margin: 5
-  },
-
-  EnglishTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
   },
 
   MainScrollView: {

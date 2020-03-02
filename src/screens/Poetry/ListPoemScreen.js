@@ -306,21 +306,6 @@ class ListPoemScreen extends React.Component {
   };
 
   render() {
-    var fontFamilyTitleVariable;
-    switch (this.state.font) {
-      case "Normal":
-        fontFamilyTitleVariable = styles.UrduTitleNormal;
-        break;
-      case "Nafees":
-        fontFamilyTitleVariable = styles.UrduTitleNafees;
-        break;
-      case "Kasheeda":
-        fontFamilyTitleVariable = styles.UrduTitleKasheeda;
-        break;
-      case "Fajer":
-        fontFamilyTitleVariable = styles.UrduTitleFajer;
-        break;
-    }
 
 
 
@@ -346,7 +331,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   RenderedTextNafees: {
     fontFamily:
@@ -356,7 +342,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   RenderedTextKasheeda: {
     fontFamily:
@@ -366,7 +353,8 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   RenderedTextFajer: {
     fontFamily:
@@ -378,53 +366,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   MainContainer: {
     flex: 1,
   },
-  UrduTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
-  UrduTitleNormal: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
-  UrduTitleNafees: {
-    fontFamily:
-      Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
-  UrduTitleKasheeda: {
-    fontFamily:
-      Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  },
-
-  UrduTitleFajer: {
-    fontFamily:
-      Platform.OS === "ios"
-        ? "FajerNooriNastalique"
-        : "Fajer Noori Nastalique 15-12-2006",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  }
 });
 
 export default ListPoemScreen;

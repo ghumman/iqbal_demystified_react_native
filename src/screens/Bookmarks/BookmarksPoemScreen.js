@@ -336,7 +336,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   RenderedTextNafees: {
@@ -348,7 +349,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   RenderedTextKasheeda: {
@@ -360,7 +362,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   RenderedTextFajer: {
@@ -374,23 +377,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   MainContainer: {
     flex: 1
   },
-  UrduTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "black"
-  },
-  EnglishTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
-  }
 });
 
 export default ListPoemScreen;
