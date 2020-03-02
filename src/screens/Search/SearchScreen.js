@@ -416,49 +416,49 @@ class SearchPage extends React.Component {
       if (this.state.poemList.length != 0) {
         var that = this;
         var itemsPoemOrSher = this.state.poemList.map(function (item, index) {
-            return (
-              <View style={{ flex: 1, flexDirection: "row" }}>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flex: 0.1
-                  }}
-                >
-                  <TouchableHighlight onPress={() => that.starToggling(item)}>
-                    <Image
-                      resizeMode="cover"
-                      source={item.star ? starLiked : starNotLiked}
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </TouchableHighlight>
-                </View>
-                <View
-                  style={{
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: "#d6d7da",
-                    flex: 0.9,
-                    alignItems: "center"
-                  }}
-                >
-                  <Text
-                    style={styles.RenderedText}
-                    key={item.id}
-                    onPress={() => that.onSubmitPoem(item.id)}
-                  >
-                    {item.poemName[0].text}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitPoem(item.id)}
-                  >
-                    {" "}
-                    {item.poemName[1].text}{" "}
-                  </Text>
-                </View>
+          return (
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 0.1
+                }}
+              >
+                <TouchableHighlight onPress={() => that.starToggling(item)}>
+                  <Image
+                    resizeMode="cover"
+                    source={item.star ? starLiked : starNotLiked}
+                    style={{ width: 20, height: 20 }}
+                  />
+                </TouchableHighlight>
               </View>
-            );
-          
+              <View
+                style={{
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: "#d6d7da",
+                  flex: 0.9,
+                  alignItems: "center"
+                }}
+              >
+                <Text
+                  style={styles.RenderedText}
+                  key={item.id}
+                  onPress={() => that.onSubmitPoem(item.id)}
+                >
+                  {item.poemName[0].text}
+                </Text>
+                <Text
+                  style={styles.RenderedText}
+                  onPress={() => that.onSubmitPoem(item.id)}
+                >
+                  {" "}
+                  {item.poemName[1].text}{" "}
+                </Text>
+              </View>
+            </View>
+          );
+
         });
       } else {
         var itemsPoemOrSher = (
@@ -473,64 +473,64 @@ class SearchPage extends React.Component {
       if (this.state.sherList.length != 0) {
         var that = this;
         var itemsPoemOrSher = this.state.sherList.map(function (item, index) {
-            return (
-              <View style={{ flex: 1, flexDirection: "row" }}>
-                <View
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flex: 0.1
-                  }}
+          return (
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flex: 0.1
+                }}
+              >
+                <TouchableHighlight
+                  onPress={() => that.starTogglingSher(item)}
                 >
-                  <TouchableHighlight
-                    onPress={() => that.starTogglingSher(item)}
-                  >
-                    <Image
-                      resizeMode="cover"
-                      source={item.star ? starLiked : starNotLiked}
-                      style={{ width: 20, height: 20 }}
-                    />
-                  </TouchableHighlight>
-                </View>
-                <View
-                  style={{
-                    borderBottomWidth: 0.5,
-                    borderBottomColor: "#d6d7da",
-                    flex: 0.9,
-                    alignItems: "center"
-                  }}
-                >
-                  <Text
-                    style={styles.RenderedText}
-                    key={item.id}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {" "}
-                    {item.sherContent[0].text[0]}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {item.sherContent[0].text[1]}{" "}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {" "}
-                    {item.sherContent[1].text[0]}{" "}
-                  </Text>
-                  <Text
-                    style={styles.RenderedText}
-                    onPress={() => that.onSubmitSher(item.id)}
-                  >
-                    {item.sherContent[1].text[1]}
-                  </Text>
-                </View>
+                  <Image
+                    resizeMode="cover"
+                    source={item.star ? starLiked : starNotLiked}
+                    style={{ width: 20, height: 20 }}
+                  />
+                </TouchableHighlight>
               </View>
-            );
-         
+              <View
+                style={{
+                  borderBottomWidth: 0.5,
+                  borderBottomColor: "#d6d7da",
+                  flex: 0.9,
+                  alignItems: "center"
+                }}
+              >
+                <Text
+                  style={styles.RenderedText}
+                  key={item.id}
+                  onPress={() => that.onSubmitSher(item.id)}
+                >
+                  {" "}
+                  {item.sherContent[0].text[0]}
+                </Text>
+                <Text
+                  style={styles.RenderedText}
+                  onPress={() => that.onSubmitSher(item.id)}
+                >
+                  {item.sherContent[0].text[1]}{" "}
+                </Text>
+                <Text
+                  style={styles.RenderedText}
+                  onPress={() => that.onSubmitSher(item.id)}
+                >
+                  {" "}
+                  {item.sherContent[1].text[0]}{" "}
+                </Text>
+                <Text
+                  style={styles.RenderedText}
+                  onPress={() => that.onSubmitSher(item.id)}
+                >
+                  {item.sherContent[1].text[1]}
+                </Text>
+              </View>
+            </View>
+          );
+
         });
       } else {
         var itemsPoemOrSher = (
@@ -554,332 +554,228 @@ class SearchPage extends React.Component {
       keyboardTag = (
         <View>
 
-           <View style={styles.container}>
+          <View style={styles.container}>
             <View style={styles.buttonViewStyle}>
-            <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("Back")}>
-              <Text style={styles.buttonTextStyle}>{'->'}</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ح")}>
-              <Text style={styles.buttonTextStyle}>ح</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("Back")}>
+                <Text style={styles.buttonTextStyle}>{'->'}</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("چ")}>
-              <Text style={styles.buttonTextStyle}>چ</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ح")}>
+                <Text style={styles.buttonTextStyle}>ح</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ج")}>
-              <Text style={styles.buttonTextStyle}>ج</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("چ")}>
+                <Text style={styles.buttonTextStyle}>چ</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ث")}>
-              <Text style={styles.buttonTextStyle}>ث</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ج")}>
+                <Text style={styles.buttonTextStyle}>ج</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ٹ")}>
-              <Text style={styles.buttonTextStyle}>ٹ</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ث")}>
+                <Text style={styles.buttonTextStyle}>ث</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ت")}>
-              <Text style={styles.buttonTextStyle}>ت</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ٹ")}>
+                <Text style={styles.buttonTextStyle}>ٹ</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("پ")}>
-              <Text style={styles.buttonTextStyle}>پ</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ت")}>
+                <Text style={styles.buttonTextStyle}>ت</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ب")}>
-              <Text style={styles.buttonTextStyle}>ب</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("پ")}>
+                <Text style={styles.buttonTextStyle}>پ</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ا")}>
-              <Text style={styles.buttonTextStyle}>ا</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ب")}>
+                <Text style={styles.buttonTextStyle}>ب</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("آ")}>
-              <Text style={styles.buttonTextStyle}>آ</Text>
-            </TouchableOpacity>
-            </View>
-            </View>
-
-            <View style={styles.container}>
-            <View style={styles.buttonViewStyle}>
-            <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ص")}>
-              <Text style={styles.buttonTextStyle}>ص</Text>
-            </TouchableOpacity>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ا")}>
+                <Text style={styles.buttonTextStyle}>ا</Text>
+              </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ش")}>
-              <Text style={styles.buttonTextStyle}>ش</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("س")}>
-              <Text style={styles.buttonTextStyle}>س</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ژ")}>
-              <Text style={styles.buttonTextStyle}>ژ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ز")}>
-              <Text style={styles.buttonTextStyle}>ز</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ڑ")}>
-              <Text style={styles.buttonTextStyle}>ڑ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ر")}>
-              <Text style={styles.buttonTextStyle}>ر</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ز")}>
-              <Text style={styles.buttonTextStyle}>ز</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ڈ")}>
-              <Text style={styles.buttonTextStyle}>ڈ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("د")}>
-              <Text style={styles.buttonTextStyle}>د</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("خ")}>
-              <Text style={styles.buttonTextStyle}>خ</Text>
-            </TouchableOpacity>
-            </View>
-            </View>
-
-
-            <View style={styles.container}>
-            <View style={styles.buttonViewStyle}>
-            <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("م")}>
-              <Text style={styles.buttonTextStyle}>م</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ل")}>
-              <Text style={styles.buttonTextStyle}>ل</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("گ")}>
-              <Text style={styles.buttonTextStyle}>گ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ک")}>
-              <Text style={styles.buttonTextStyle}>ک</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ق")}>
-              <Text style={styles.buttonTextStyle}>ق</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ف")}>
-              <Text style={styles.buttonTextStyle}>ف</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("غ")}>
-              <Text style={styles.buttonTextStyle}>غ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ع")}>
-              <Text style={styles.buttonTextStyle}>ع</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ظ")}>
-              <Text style={styles.buttonTextStyle}>ظ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ط")}>
-              <Text style={styles.buttonTextStyle}>ط</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ض")}>
-              <Text style={styles.buttonTextStyle}>ض</Text>
-            </TouchableOpacity>
-            </View>
-            </View>
-
-            <View style={styles.container}>
-            <View style={styles.buttonViewStyle}>
-            <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet(" ")}>
-              <Text style={styles.buttonTextStyle}>Space</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ے")}>
-              <Text style={styles.buttonTextStyle}>ے</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ي")}>
-              <Text style={styles.buttonTextStyle}>ي</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ء")}>
-              <Text style={styles.buttonTextStyle}>ء</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ھ")}>
-              <Text style={styles.buttonTextStyle}>ھ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ہ")}>
-              <Text style={styles.buttonTextStyle}>ہ</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("و")}>
-              <Text style={styles.buttonTextStyle}>و</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ں")}>
-              <Text style={styles.buttonTextStyle}>ں</Text>
-            </TouchableOpacity>
-            </View>
-            <View style={styles.buttonViewStyle}>
-              <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ن")}>
-              <Text style={styles.buttonTextStyle}>ن</Text>
-            </TouchableOpacity>
-            </View>
-            </View>
-
-
-          {/* <View style={styles.container}>
-            <View style={{alignItems: "center", justifyContent: "center"}}>
-          <TouchableOpacity  style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ص")}>
-              <Text style={{color: "white", textAlign: "center"}}>ص</Text>
-            </TouchableOpacity>
-            </View>
-
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ش")} title="ش" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("س")} title="س" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ژ")} title="ژ" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ز")} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ڑ")} title="ڑ" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ر")} title="ر" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ز")} title="ز" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ڈ")} title="ڈ" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("د")} title="د" />
-            </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("خ")} title="خ" />
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("آ")}>
+                <Text style={styles.buttonTextStyle}>آ</Text>
+              </TouchableOpacity>
             </View>
           </View>
+
           <View style={styles.container}>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("م")} title="م" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ص")}>
+                <Text style={styles.buttonTextStyle}>ص</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ل")} title="ل" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ش")}>
+                <Text style={styles.buttonTextStyle}>ش</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("گ")} title="گ" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("س")}>
+                <Text style={styles.buttonTextStyle}>س</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ک")} title="ک" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ژ")}>
+                <Text style={styles.buttonTextStyle}>ژ</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ق")} title="ق" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ز")}>
+                <Text style={styles.buttonTextStyle}>ز</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ف")} title="ف" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ڑ")}>
+                <Text style={styles.buttonTextStyle}>ڑ</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("غ")} title="غ" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ر")}>
+                <Text style={styles.buttonTextStyle}>ر</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ع")} title="ع" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ز")}>
+                <Text style={styles.buttonTextStyle}>ز</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ظ")} title="ظ" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ڈ")}>
+                <Text style={styles.buttonTextStyle}>ڈ</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ط")} title="ط" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("د")}>
+                <Text style={styles.buttonTextStyle}>د</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ض")} title="ض" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("خ")}>
+                <Text style={styles.buttonTextStyle}>خ</Text>
+              </TouchableOpacity>
             </View>
           </View>
+
+
           <View style={styles.container}>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet(" ")} title="Space" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("م")}>
+                <Text style={styles.buttonTextStyle}>م</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ے")} title="ے" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ل")}>
+                <Text style={styles.buttonTextStyle}>ل</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ي")} title="ي" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("گ")}>
+                <Text style={styles.buttonTextStyle}>گ</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ء")} title="ء" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ک")}>
+                <Text style={styles.buttonTextStyle}>ک</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ھ")} title="ھ" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ق")}>
+                <Text style={styles.buttonTextStyle}>ق</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ہ")} title="ہ" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ف")}>
+                <Text style={styles.buttonTextStyle}>ف</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("و")} title="و" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("غ")}>
+                <Text style={styles.buttonTextStyle}>غ</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ں")} title="ں" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ع")}>
+                <Text style={styles.buttonTextStyle}>ع</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.button}>
-              <Button color= "black" onPress={() => this.handleAlphabet("ن")} title="ن" />
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ظ")}>
+                <Text style={styles.buttonTextStyle}>ظ</Text>
+              </TouchableOpacity>
             </View>
-          </View> */}
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ط")}>
+                <Text style={styles.buttonTextStyle}>ط</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ض")}>
+                <Text style={styles.buttonTextStyle}>ض</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.container}>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet(" ")}>
+                <Text style={styles.buttonTextStyle}>Space</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ے")}>
+                <Text style={styles.buttonTextStyle}>ے</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ي")}>
+                <Text style={styles.buttonTextStyle}>ي</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ء")}>
+                <Text style={styles.buttonTextStyle}>ء</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ھ")}>
+                <Text style={styles.buttonTextStyle}>ھ</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ہ")}>
+                <Text style={styles.buttonTextStyle}>ہ</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("و")}>
+                <Text style={styles.buttonTextStyle}>و</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ں")}>
+                <Text style={styles.buttonTextStyle}>ں</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ن")}>
+                <Text style={styles.buttonTextStyle}>ن</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       );
     } else {
@@ -984,15 +880,15 @@ const styles = StyleSheet.create({
   },
 
   buttonTextStyle: {
-    color: "white", 
+    color: "white",
     textAlign: "center",
     fontFamily:
       Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
   },
 
   buttonViewStyle: {
-    alignItems: "center", 
-    justifyContent: "center", 
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 10
   },
 
@@ -1005,7 +901,7 @@ const styles = StyleSheet.create({
     borderWidth: Platform.OS === "ios" ? 1 : 0,
     height: 35,
     // width: 35,
-    borderRadius:10,
+    borderRadius: 10,
     backgroundColor: "blue"
   }
 });
