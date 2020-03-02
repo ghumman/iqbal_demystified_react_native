@@ -1187,12 +1187,14 @@ const styles = StyleSheet.create({
   RenderedText: {
     textAlign: "center",
     padding: 10,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
   CommentsText: {
     textAlign: "center",
     padding: 10,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   flexPoint8: {
@@ -1216,22 +1218,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
-  },
-
-  UrduTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000",
-    padding: 5,
-    margin: 5
-  },
-
-  EnglishTitle: {
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#FF0000"
   },
 
   MainScrollView: {

@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontFamily: "Times New Roman",
     fontSize: 20,
     fontWeight: "bold",
-    color: "gray"
+    color: "black"
   },
   BottomArea: {
     flex: 1,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     fontFamily: "Times New Roman",
     fontSize: 20,
     fontWeight: "bold",
-    color: "gray"
+    color: "black"
   },
   Image: {
     flex: 1,

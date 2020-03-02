@@ -731,6 +731,18 @@ class PoemPage extends React.Component {
       };
     };
 
+    IntroSettingsWords = function (argument) {
+      argument = parseInt(argument);
+      return {
+        flexWrap: "wrap",
+        fontSize: argument,
+        textAlign: "center",
+        padding: 2,
+        color: "green",
+        backgroundColor: "yellow"
+      };
+    };
+
     fontSizeVariableTitle = function (argument) {
       argument = parseInt(argument);
       switch (that.state.font) {
@@ -803,7 +815,8 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 2
+            padding: 2,
+            color: "black"
           };
           break;
         case "Nafees":
@@ -816,7 +829,8 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 2
+            padding: 2,
+            color: "black"
           };
           break;
         case "Kasheeda":
@@ -829,7 +843,8 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 2
+            padding: 2,
+            color: "black"
           };
           break;
         case "Fajer":
@@ -842,7 +857,8 @@ class PoemPage extends React.Component {
             flexShrink: 1,
             flexWrap: "wrap",
             textAlign: "center",
-            padding: 2
+            padding: 2,
+            color: "black"
           };
           break;
       }
@@ -855,7 +871,7 @@ class PoemPage extends React.Component {
             {item.sherContent[1].notes.map((item2, key2) => (
               <Text
                 key={key2}
-                style={IntroSettings(that.state.fontGlobalSize)}
+                style={IntroSettingsWords(that.state.fontGlobalSize)}
               >
                 {item2.phrase}:{item2.meaning}
               </Text>
