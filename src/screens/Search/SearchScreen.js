@@ -463,7 +463,7 @@ class SearchPage extends React.Component {
       } else {
         var itemsPoemOrSher = (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ padding: 2, fontSize: 18 }}>
+            <Text style={{ padding: 2, fontSize: 18, color: "black" }}>
               {this.state.messageResults}
             </Text>
           </View>
@@ -535,7 +535,7 @@ class SearchPage extends React.Component {
       } else {
         var itemsPoemOrSher = (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text style={{ padding: 2, fontSize: 18 }}>
+            <Text style={{ padding: 2, fontSize: 18, color: "black" }}>
               {this.state.messageResults}
             </Text>
           </View>
@@ -853,7 +853,8 @@ const styles = StyleSheet.create({
   RenderedText: {
     textAlign: "center",
     padding: 2,
-    fontSize: 18
+    fontSize: 18,
+    color: "black"
   },
 
   MainContainer: {

@@ -453,7 +453,8 @@ const styles = StyleSheet.create({
   RenderedText: {
           textAlign: "center",
         padding: 2,
-        fontSize: 18
+        fontSize: 18,
+        color: "black"
       },
     
   RenderedTextNormal: {
@@ -461,7 +462,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         textAlign: "center",
         padding: 2,
-        fontSize: 18
+        fontSize: 18,
+        color: "black"
       },
     
   RenderedTextNafees: {
@@ -471,7 +473,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         textAlign: "center",
         padding: 2,
-        fontSize: 18
+        fontSize: 18,
+        color: "black"
       },
     
   RenderedTextKasheeda: {
@@ -481,7 +484,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         textAlign: "center",
         padding: 2,
-        fontSize: 18
+        fontSize: 18,
+        color: "black"
       },
     
   RenderedTextFajer: {
@@ -493,58 +497,8 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
         textAlign: "center",
         padding: 2,
-        fontSize: 18
-      },
-    
-  MainContainer: {
-          flex: 1
-      },
-  UrduTitle: {
-          fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
-      },
-    
-  UrduTitleNormal: {
-          textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
-      },
-    
-  UrduTitleNafees: {
-          fontFamily:
-          Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
-      },
-    
-  UrduTitleKasheeda: {
-          fontFamily:
-          Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
-      },
-    
-  UrduTitleFajer: {
-          fontFamily:
-          Platform.OS === "ios"
-            ? "FajerNooriNastalique"
-            : "Fajer Noori Nastalique 15-12-2006",
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
-      },
-  EnglishTitle: {
-          textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#FF0000"
+        fontSize: 18,
+        color: "black"
       }
     });
     
