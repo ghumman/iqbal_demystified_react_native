@@ -89,10 +89,6 @@ class SherPage extends React.Component {
   }
 
   handleSubmitSher(event) {
-    // console.log("username: ");
-    // console.log(this.state.username);
-    // console.log("password: ");
-    // console.log(this.state.password);
     this.send_sher_message();
     event.preventDefault();
   }
@@ -103,11 +99,6 @@ class SherPage extends React.Component {
   }
 
   async send_sher_message() {
-    // console.log("Inside send_sher_message");
-    // console.log("username: ");
-    // console.log(this.state.username);
-    // console.log("password: ");
-    // console.log(this.state.password);
 
     var that = this;
 
@@ -134,9 +125,6 @@ class SherPage extends React.Component {
               "&comment_text=" +
               that.state.userMessageSher
           }).then(async function (data) {
-            // console.log("data");
-            // console.log(data);
-            // console.log("Inside then async func");
             that.getSherGeneralDiscussion(that.state.sherId);
           }); // success function ends
         } catch (err) {
@@ -176,8 +164,6 @@ class SherPage extends React.Component {
               word_position: this.state.mySelectedId + 1
             }
           }).then(function (data) {
-            // console.log("data");
-            // console.log(data);
             this.getSherWordDiscussion(this.state.sherId);
           }); // success function ends
         } catch (err) {
@@ -185,7 +171,6 @@ class SherPage extends React.Component {
           Alert.alert(err);
         }
 
-        // console.log("messageSher sent to send sher message function");
       } // if not logged in empty
       else {
         Alert.alert("Please login first to add comments.");
@@ -211,8 +196,6 @@ class SherPage extends React.Component {
   async getSherGeneralDiscussion(sherName) {
     var that = this;
     try {
-      // console.log("sherName: ");
-      // console.log(sherName);
       var localData = { sher: sherName, discussion_type: "general" };
       fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
         method: "POST",
@@ -222,8 +205,6 @@ class SherPage extends React.Component {
         body: "sher=" + sherName + "&discussion_type=general"
       }).then(async function (data) {
         data.json().then(async function (data) {
-          // console.log("data: ");
-          // console.log(data);
 
           var sherArray = sherName.split("_");
 
@@ -252,31 +233,20 @@ class SherPage extends React.Component {
             yamlFile = await RNFS.readFileAssets(path, "utf8");
           }
 
-          // console.log("After calling yamlFiles");
-          // console.log("Value of yamlFile");
-          // console.log(yamlFile);
-
           var sherIndex = sherArray[2] - 1;
           var yamlObject = YAML.parse(yamlFile);
 
-          // console.log("this is the sher text");
-          // console.log(yamlObject.sher[sherIndex].sherContent[0].text);
 
           var sherTextTemp = yamlObject.sher[sherIndex].sherContent[0].text;
 
           var sherTextLocal = sherTextTemp.split("|");
           that.setState({ sherText: sherTextLocal });
 
-          // console.log("that.state.sherText");
-          // console.log(that.state.sherText);
-
           var wordTextLocal = that.state.sherText[0]
             .split(" ")
             .concat(that.state.sherText[1].split(" "));
           var ii;
-          // console.log("Original array: ");
-          // for (ii = 0; ii < wordTextLocal.length; ii++)
-          //   console.log(wordTextLocal[ii]);
+
           for (ii = 0; ii < wordTextLocal.length; ii++) {
             if (
               wordTextLocal[ii] == "" ||
@@ -285,48 +255,20 @@ class SherPage extends React.Component {
             ) {
               wordTextLocal.splice(ii, 1);
               ii--;
-              // console.log("inside if Value of wordTextLocal[ii]");
-              // console.log(ii);
-              // console.log(wordTextLocal[ii]);
             } else {
-              // console.log(
-                // "inside else before replace Value of wordTextLocal[ii]"
-              // );
-              // console.log(ii);
-              // console.log(wordTextLocal[ii]);
 
               wordTextLocal[ii] = wordTextLocal[ii].replace(
                 /[|&!;$%@"<>()+,]/g,
                 ""
               );
-              // console.log("inside else Value of wordTextLocal[ii]");
-              // console.log(ii);
-              // console.log(wordTextLocal[ii]);
             } // else ends
           } // for wordTextLocal.... ends
-          // console.log("wordTextLocal.length");
-          // console.log(wordTextLocal.length);
-          // for (ii = 0; ii < wordTextLocal.length; ii++)
-          //   console.log(wordTextLocal[ii]);
-
-          // if (wordTextLocal[6] == "") console.log("Empty string");
-          // else if (wordTextLocal[6] == " ") console.log("Space string");
-          // else {
-          //   console.log("Neither empty nor space: ");
-          //   console.log(wordTextLocal[6]);
-          // }
-
+          
           // make wordTextLocal equal to this.state.wordText
           that.setState({ wordText: wordTextLocal });
 
           var poemTextLocal = yamlObject.heading[0].text;
           var sherGeneralDiscussionServerResponseLocal = data;
-
-          // console.log("poemTextLocal: ");
-          // console.log(poemTextLocal);
-
-          // console.log("sherGeneralDiscussionServerResponseLocal");
-          // console.log(sherGeneralDiscussionServerResponseLocal);
 
           that.setState({ poemText: poemTextLocal });
           that.setState({
@@ -352,22 +294,12 @@ class SherPage extends React.Component {
     ).then(function (response) {
       var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
-      // console.log("Value of sherDiscussionDetailLocal:");
-      // console.log(sherDiscussionDetailLocal);
-      // console.log("Value of sherDiscussionDetailLocal.length:");
-      // console.log(sherDiscussionDetailLocal.length);
-
       for (var i = 0; i < sherDiscussionDetailLocal.length; i++) {
-        // console.log("Value of sherDiscussionDetailLocal[i].data:");
-        // console.log(sherDiscussionDetailLocal[i].text);
-        // console.log(decodeURI(sherDiscussionDetailLocal[i].text));
 
         sherDiscussionDetailLocal[i].text = decodeURI(
           sherDiscussionDetailLocal[i].text
         );
 
-        // console.log("Value of sherDiscussionDetailLocal[i].data:");
-        // console.log(sherDiscussionDetailLocal[i].text);
       }
       that.setState({ sherDiscussionDetail: sherDiscussionDetailLocal });
     }); // .then(func res) ends
@@ -383,8 +315,6 @@ class SherPage extends React.Component {
         body: { sher: sherName, discussion_type: "word-meanings" }
       }).then(function (data) {
         var sherWordDiscussionServerResponse = data;
-        // console.log("sherWordDiscussionServerResponse");
-        // console.log(sherWordDiscussionServerResponse);
 
         this.getWordDiscussion(sherWordDiscussionServerResponse);
       }); // success function ends
@@ -399,8 +329,6 @@ class SherPage extends React.Component {
     var wordDiscussionDetailLocal = JSON.parse(
       sherWordDiscussionServerResponse
     );
-    // console.log("wordDiscussionDetailLocal");
-    // console.log(wordDiscussionDetailLocal);
 
     for (var i = 0; i < wordDiscussionDetailLocal.length; i++) {
       wordDiscussionDetailLocal[i].text = decodeURI(
@@ -440,9 +368,7 @@ class SherPage extends React.Component {
         try {
           
           let sherInstanceId =  this.props.navigation.getParam("detailSher");
-          console.log("poemId: " + sherInstanceId);
           var sherInstanceSplitedId = sherInstanceId.split('_');
-          console.log("poemId: " +  sherInstanceSplitedId[0] +  '_' +  sherInstanceSplitedId[1]);
           var poemInstanceId = sherInstanceSplitedId[0] +  '_' +  sherInstanceSplitedId[1];
           this.setState({ poemId: poemInstanceId});
         }
@@ -453,9 +379,6 @@ class SherPage extends React.Component {
       }
 
       let sherName = this.props.navigation.getParam("detailSher");
-      console.log("In poempage.js inside componentdidmount");
-      console.log("sherName: ");
-      console.log(sherName);
       this.getSherGeneralDiscussion(sherName);
     } catch (e) {
       // try ends
@@ -481,8 +404,6 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
 
   vote_like_word(comment_general_id) {
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     if (this.state.username != "") {
       try {
@@ -501,8 +422,6 @@ class SherPage extends React.Component {
             is_cancel: 0
           }
         }).then(function (data) {
-          // console.log("data");
-          // console.log(data);
           if (data == "vote registered")
             this.getSherWordDiscussion(this.state.sherId);
           else if (data == "vote already registered") {
@@ -522,7 +441,6 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   ///////////////////////////////////////////////////////////
@@ -530,8 +448,6 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
 
   vote_dislike_word(comment_general_id) {
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     if (this.state.username != "") {
       try {
@@ -550,8 +466,6 @@ class SherPage extends React.Component {
             is_cancel: 0
           }
         }).then(function (data) {
-          // console.log("data");
-          // console.log(data);
           if (data == "vote registered")
             this.getSherWordDiscussion(this.state.sherId);
           else if (data == "vote already registered") {
@@ -572,7 +486,6 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   ///////////////////////////////////////////////////////////
@@ -580,8 +493,6 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
 
   vote_unregister_word(comment_general_id) {
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     if (this.state.username != "") {
       try {
@@ -600,8 +511,6 @@ class SherPage extends React.Component {
             is_cancel: 1
           }
         }).then(function (data) {
-          // console.log("data");
-          // console.log(data);
           if (data == "vote removed") {
             this.getSherWordDiscussion(this.state.sherId);
             Alert.alert("Your vote is removed");
@@ -620,17 +529,12 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   ///////////////////////////////////////////////////////////
   //	Vote Like General
   ///////////////////////////////////////////////////////////
   vote_like_arrow(comment_general_id) {
-    // console.log("Inside vote_like");
-
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     var that = this;
 
@@ -655,9 +559,6 @@ class SherPage extends React.Component {
             "&is_like=1&is_cancel=0"
         }).then(async function (data) {
           data.text().then(async function (data) {
-            // success: (data) => {	// success funciton starts
-            // console.log("data");
-            // console.log(data);
             if (data == "vote registered") {
               Alert.alert("Vote registered.");
               that.getSherGeneralDiscussion(that.state.sherId);
@@ -680,8 +581,7 @@ class SherPage extends React.Component {
                     "&is_like=0&is_cancel=1"
                 }).then(async function (data) {
                   data.text().then(async function (data) {
-                    // console.log("data");
-                    // console.log(data);
+
                     if (data == "vote removed") {
                       Alert.alert("Vote removed.");
                       that.getSherGeneralDiscussion(that.state.sherId);
@@ -708,14 +608,9 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   vote_like(comment_general_id) {
-    // console.log("Inside vote_like");
-
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     var that = this;
 
@@ -740,8 +635,7 @@ class SherPage extends React.Component {
             "&is_like=1&is_cancel=0"
         }).then(async function (data) {
           data.text().then(async function (data) {
-            // console.log("data");
-            // console.log(data);
+
             if (data == "vote registered")
               that.getSherGeneralDiscussion(that.state.sherId);
             else if (data == "vote already registered") {
@@ -762,7 +656,6 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   ///////////////////////////////////////////////////////////
@@ -770,10 +663,6 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
 
   vote_dislike_arrow(comment_general_id) {
-    // console.log("Inside vote_dislike");
-
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     var that = this;
 
@@ -796,8 +685,7 @@ class SherPage extends React.Component {
             "&is_like=0&is_cancel=0"
         }).then(async function (data) {
           data.text().then(async function (data) {
-            // console.log("data");
-            // console.log(data);
+
             if (data == "vote registered") {
               Alert.alert("Vote registered.");
 
@@ -821,8 +709,7 @@ class SherPage extends React.Component {
                     "&is_like=0&is_cancel=1"
                 }).then(async function (data) {
                   data.text().then(async function (data) {
-                    // console.log("data");
-                    // console.log(data);
+
                     if (data == "vote removed") {
                       Alert.alert("Vote removed.");
                       that.getSherGeneralDiscussion(that.state.sherId);
@@ -849,14 +736,9 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   vote_dislike(comment_general_id) {
-    // console.log("Inside vote_dislike");
-
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     var that = this;
 
@@ -879,8 +761,7 @@ class SherPage extends React.Component {
             "&is_like=0&is_cancel=0"
         }).then(async function (data) {
           data.text().then(async function (data) {
-            // console.log("data");
-            // console.log(data);
+
             if (data == "vote registered")
               that.getSherGeneralDiscussion(that.state.sherId);
             else if (data == "vote already registered") {
@@ -901,7 +782,6 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   ///////////////////////////////////////////////////////////
@@ -909,10 +789,6 @@ class SherPage extends React.Component {
   ///////////////////////////////////////////////////////////
 
   vote_unregister(comment_general_id) {
-    // console.log("Inside vote_unregister");
-
-    // console.log("Value of comment_general_id");
-    // console.log(comment_general_id);
 
     var that = this;
 
@@ -935,8 +811,6 @@ class SherPage extends React.Component {
             "&is_like=0&is_cancel=1"
         }).then(async function (data) {
           data.text().then(async function (data) {
-            // console.log("data");
-            // console.log(data);
             if (data == "vote removed") {
               that.getSherGeneralDiscussion(that.state.sherId);
               Alert.alert("Your vote is removed");
@@ -956,16 +830,11 @@ class SherPage extends React.Component {
       );
     }
 
-    // console.log("messageSher sent to send sher message function");
   }
 
   selectedWord(wordText, wordId) {
     this.setState({ mySelectedWord: wordText });
     this.setState({ mySelectedId: wordId });
-    // console.log("Value of mySelectedWord");
-    // console.log(this.state.mySelectedWord);
-    // console.log("Value of mySelectedId");
-    // console.log(this.state.mySelectedId);
   }
 
   onShare = async () => {
