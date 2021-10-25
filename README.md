@@ -1,6 +1,6 @@
 # Open Source Iqbal Demystifed React Native Application for iOS and Android
 
-This application is built using React Native CLI. This project was enhancement of our Web Application: [Iqbal Demystified React Web Client](http://iqbal-demystified-react.herokuapp.com)
+This application is built using React Native CLI. This project was enhancement of our Web Application: [Iqbal Demystified React Web Client](https://ghumman.github.io/iqbal-demystified-web/)
 
 ![First Set of Screenshots](/src/assets/screenshots1.png)
 ![Second Set of Screenshots](/src/assets/screenshots2.png)
@@ -80,5 +80,3 @@ Divide your code in smaller functions.
 Declare all constants inside constants file.
 Please include name of issue you are working on in your commit message like 'ID-3: Updated Readme'
 ```
-
-
