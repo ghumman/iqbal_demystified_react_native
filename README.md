@@ -44,6 +44,21 @@ https://facebook.github.io/react-native/docs/getting-started.html
 
 After following the above guide you should have Node, Watchman, JDK, Android Studio for Android and XCode for iOS development installed on your system. Use the following code to run the app on simulators or actual connected devices
 
+
+Notes: 
+- Make sure you have `react-native-cli` installed, if not use following command to install it. 
+```
+sudo npm install -g react-native-cli
+```
+Without `react-native-cli`, command `react-native` won't work. 
+- Make sure you have node 10.19.0 installed and currently used, if not use following commands to install node version10.19.0
+```
+sudo npm install -g n
+sudo n 10.19.0
+```
+- Sometimes `react-native run-android` would be enough, sometimes you need to first run `react-native start` or `npm start` on one terminal and run `react-native run-android` on the other terminal. 
+
+
 ```
 git clone https://github.com/ghumman/iqbal_demystified_react_native
 cd iqbal_demystified_react_native/iqbal_demystified
