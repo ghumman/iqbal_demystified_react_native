@@ -120,7 +120,7 @@ class Register extends React.Component {
             "&username=" +
             that.state.username.trim() +
             "&password=" +
-            that.state.password.trim() +
+            that.state.password1.trim() +
             "&email=" +
             that.state.email.trim()
         }).then(async function (data) {
@@ -134,12 +134,12 @@ class Register extends React.Component {
               that.setState({ signinConfirmation: "done" });
 
               AsyncStorage.setItem(USERNAME, that.state.username);
-              AsyncStorage.setItem(PASSWORD, that.state.password);
-              AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
+              AsyncStorage.setItem(PASSWORD, that.state.password1);
+              AsyncStorage.setItem(MESSAGE, "done");
               that.props.navigation.navigate("Home", {
                 profileUsername: that.state.username,
-                profilePassword: that.state.password,
-                profileSigninConfirmation: that.state.signinConfirmation
+                profilePassword: that.state.password1,
+                profileSigninConfirmation: "done"
               });
             } // if data.trim... ends
             // else if account not registered
