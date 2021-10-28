@@ -799,7 +799,7 @@ class SearchPage extends React.Component {
           />
         </View>
 
-        <View style={styles.RenderedView}>
+        <ScrollView style={styles.RenderedView} keyboardShouldPersistTaps={'always'}>
           <TextInput
             style={{ height: 40 }}
             placeholder="تلاش کریں…"
@@ -807,7 +807,7 @@ class SearchPage extends React.Component {
             onChangeText={text => this.setState({ searchText: text })}
             value={this.state.searchText}
           />
-        </View>
+        </ScrollView>
 
         <View
           style={{
@@ -824,7 +824,7 @@ class SearchPage extends React.Component {
 
 
         <View style={{ flex: 5 }}>
-          <ScrollView>
+          <ScrollView keyboardShouldPersistTaps={'always'}>
             {keyboardTag}
             {itemsPoemOrSher}
           </ScrollView>
