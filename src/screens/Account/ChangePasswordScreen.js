@@ -122,15 +122,15 @@ class ChangePassword extends React.Component {
                 Alert.alert("Password Successfully Changed");
                 console.log("Password Successfully Changed");
 
-                that.setState({ signinConfirmation: data });
-                that.setState({ password: that.state.newPassword });
+                that.setState({ signinConfirmation: "done" });
+                that.setState({ password: that.state.newPassword1 });
 
                 AsyncStorage.setItem(USERNAME, that.state.username);
-                AsyncStorage.setItem(PASSWORD, that.state.password);
-                AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
+                AsyncStorage.setItem(PASSWORD, that.state.newPassword1);
+                AsyncStorage.setItem(MESSAGE, "done");
                 that.props.navigation.navigate("Home", {
                   profileUsername: that.state.username,
-                  profilePassword: that.state.password,
+                  profilePassword: that.state.newPassword1,
                   profileSigninConfirmation: that.state.signinConfirmation
                 });
               } // if data is equal to done ends
