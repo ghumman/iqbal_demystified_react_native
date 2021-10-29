@@ -1,16 +1,10 @@
 import React from "react";
 import {
-  TouchableOpacity,
   TouchableHighlight,
-  Button,
   View,
-  Text,
   Image,
-  Platform,
-  StyleSheet,
-  Alert
-} from "react-native";
-import { NavigationEvents } from "react-navigation";
+  StyleSheet} from "react-native";
+import { createMaterialTopTabNavigator, NavigationEvents } from "react-navigation";
 
 // used for reading and writing application wide variables
 import AsyncStorage from "@react-native-community/async-storage";
@@ -24,19 +18,49 @@ const PASSWORD = "password";
 const MESSAGE = "message";
 
 // iqbal logo
-import logo from "../../assets/allam_iqbal_pic.jpg";
 
 // 6 main logos on main page
-import iconSignIn from "../../assets/android_app_assets/icon_signed_in.png";
-import iconSignOut from "../../assets/android_app_assets/icon_signed_out_resized.png";
-import iconBest from "../../assets/android_app_assets/icon_best_resized.png";
-import iconBookmarks from "../../assets/android_app_assets/icon_bookmark.png";
-import iconDiscussion from "../../assets/android_app_assets/icon_discussion_resized.png";
-import iconSearch from "../../assets/android_app_assets/icon_search_resized.png";
-import iconInfo from "../../assets/android_app_assets/icon_info_resized.png";
+import iconSignIn from "../../assets/android_app_assets/icon_signed_in_resized_350.png";
+import iconSignOut from "../../assets/android_app_assets/icon_signed_out_resized_350.png";
+import iconBest from "../../assets/android_app_assets/icon_best_resized_350.png";
+import iconBookmarks from "../../assets/android_app_assets/icon_bookmark_resized_350.png";
+import iconDiscussion from "../../assets/android_app_assets/icon_discussion_resized_350.png";
+import iconSearch from "../../assets/android_app_assets/icon_search_resized_350.png";
+import iconInfo from "../../assets/android_app_assets/icon_info_resized_350.png";
 
-// books logo in the middle of the page
-import booksLogo from "../../assets/android_app_assets/books_logo.png";
+import Urdu from "./Urdu";
+import Farsi1 from "./Farsi1";
+import Farsi2 from "./Farsi2";
+
+
+const TabNavigator = createMaterialTopTabNavigator(
+  {
+    Urdu: Urdu,
+    Farsi1: Farsi1,
+    Farsi2: Farsi2
+  },
+  {
+    tabBarPosition: "top",
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: "black",
+      inactiveTintColor: "grey",
+      style: {
+        backgroundColor: "white"
+      },
+      labelStyle: {
+        textAlign: "center",
+        fontSize: 18,
+        fontWeight: "bold"
+      },
+      indicatorStyle: {
+        borderBottomColor: "black",
+        borderBottomWidth: 2
+      }
+    }
+  }
+);
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -103,7 +127,6 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     // first thing when app starts is to make Iqbal-Demystified folder, so that we can put .mp3, txt and yaml files in it.
     RNFS.mkdir(RNFS.DocumentDirectoryPath + "/Iqbal-Demystified").then(function (
-      res
     ) {
       // console.log("Iqbal-Demystified directory exists now");
     });
@@ -156,9 +179,9 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  static router = TabNavigator.router;
+
   render() {
-    const state = this.state;
-    const { navigate } = this.props.navigation;
     return (
       <View style={{ flex: 1 }}>
         {/*
@@ -168,41 +191,13 @@ export default class HomeScreen extends React.Component {
 	*/}
         <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
 
-        {/*
-	  allama iqbal picture
-	*/}
-        <View style={{ flex: 2 }}>
-          <Image style={styles.Image} source={logo} />
+        <View style={{ flex: 4 }}>
+          <TabNavigator navigation={this.props.navigation} />
         </View>
 
-        {/*
-	  main book logo in the center
-	*/}
-        <View style={styles.MainContainer}>
-          <TouchableOpacity
-            style={styles.BookStyle}
-            activeOpacity={0.5}
-            onPress={() =>
-              navigate("TabFunction", {
-                profileSigninConfirmation: this.state.signinConfirmation,
-                profileUsername: this.state.username,
-                profilePassword: this.state.password
-              })
-            }
-          >
-            <Image source={booksLogo} style={styles.ImageIconStyle} />
-            <View style={styles.SeparatorLine} />
-            <Text style={styles.TextStyle}> BOOKS </Text>
-          </TouchableOpacity>
-        </View>
 
-        {/*
-	  all six logos at the bottom
-	*/}
         <View style={{ flex: 2 }}>
-          {/*
-	    first row of logos
-	  */}
+          {/*first row of logos*/}
           <View
             style={{
               flex: 1,
@@ -245,9 +240,7 @@ export default class HomeScreen extends React.Component {
             </TouchableHighlight>
           </View>
 
-          {/*
-	    second row of logos
-	  */}
+          {/* second row of logos */}
           <View
             style={{
               flex: 1,

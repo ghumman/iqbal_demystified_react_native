@@ -2,7 +2,6 @@
 import React from "react";
 import { Platform, View, Text } from "react-native";
 import {
-  createMaterialTopTabNavigator,
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
@@ -30,7 +29,6 @@ import InfoScreen from "./screens/Intro/InfoScreen";
 import SearchScreen from "./screens/Search/SearchScreen";
 
 // navigators
-import TabNavigator from "./screens/BooksCollection/TabScreen"; // shows book tabs like urdu/farsi
 import SherNavigator from "./screens/Poetry/SherTabsScreen"; // shows sher and word meanings discussion
 import BookmarksNavigator from "./screens/Bookmarks/BookmarksTabsScreen"; // shows bookmarked poems and shers
 import DiscussionNavigator from "./screens/Discussion/DiscussionTabsScreen"; // shows recent, popular and my poems tabs
@@ -50,18 +48,6 @@ const AppNavigator = createStackNavigator(
       }
     },
     ListPoem: ListPoemScreen,
-    TabFunction: {
-      screen: TabNavigator,
-      navigationOptions: {
-        headerTitle: "Books",
-        headerTintColor: "black",
-        headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: 20,
-          textAlign: "center"
-        }
-      }
-    },
     SherTabs: {
       screen: SherNavigator,
       navigationOptions: {

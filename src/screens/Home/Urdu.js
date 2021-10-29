@@ -10,12 +10,13 @@ import {
 } from "react-native";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
-// following are books in second tab - Farsi 2
-import farsi2Book1 from "../../assets/android_app_assets/book_javed_nama_persian_9.jpg";
-import farsi2Book2 from "../../assets/android_app_assets/book_pas_cheh_bayad_kard_persian_10.jpg";
-import farsi2Book3 from "../../assets/android_app_assets/book_armaghan_ae_hijaz_persian_11.jpg";
+// following are books in first tab - Urdu
+import urduBook1 from "../../assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg";
+import urduBook2 from "../../assets/android_app_assets/book_bang_ae_dara_urdu_1.jpg";
+import urduBook3 from "../../assets/android_app_assets/book_armaghan_ae_hijaz_urdu_4.jpg";
+import urduBook4 from "../../assets/android_app_assets/book_zarb_ae_kaleem_urdu_3.jpg";
 
-class Farsi2 extends React.Component {
+class Urdu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,20 +25,17 @@ class Farsi2 extends React.Component {
       password: ""
     };
   }
-
   static navigationOptions = {
-    title: "Farsi (2)"
+    title: "اردو"
   };
+
 
   onSubmit = bookNumber => {
     const { navigate } = this.props.navigation;
 
     console.log("You are inside onSubmit Going to ListPoem");
-    // Alert.alert('You are inside onSubmit Going to ListPoem');
-    // Alert.alert('Value of this.state.username');
     console.log("Value of this.state.username");
     const localUsername = "test2";
-    // Alert.alert(localUsername);
     console.log(localUsername);
     console.log("Value of this.state.signinConfirmation");
     console.log(this.state.signinConfirmation);
@@ -63,7 +61,6 @@ class Farsi2 extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      // Alert.alert("Inside catch");
       console.log("Inside catch");
       console.log("Error");
       console.log(e);
@@ -84,23 +81,23 @@ class Farsi2 extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_009")}
+                onPress={() => this.onSubmit("List_002")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi2Book1}
+                  source={urduBook1}
                 />
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_010")}
+                onPress={() => this.onSubmit("List_001")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi2Book2}
+                  source={urduBook2}
                 />
               </TouchableHighlight>
             </View>
@@ -115,15 +112,25 @@ class Farsi2 extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_011")}
+                onPress={() => this.onSubmit("List_004")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi2Book3}
+                  source={urduBook3}
                 />
               </TouchableHighlight>
-              <View style={{ flex: 1 }}></View>
+
+              <TouchableHighlight
+                style={styles.HighlightProperties}
+                onPress={() => this.onSubmit("List_003")}
+              >
+                <Image
+                  style={styles.RowImage}
+                  resizeMode="contain"
+                  source={urduBook4}
+                />
+              </TouchableHighlight>
             </View>
           </View>
         </View>
@@ -153,4 +160,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Farsi2;
+export default Urdu;

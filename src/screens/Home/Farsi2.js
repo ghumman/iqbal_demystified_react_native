@@ -10,13 +10,12 @@ import {
 } from "react-native";
 import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
-// following are books in second tab - Farsi 1
-import farsi1Book1 from "../../assets/android_app_assets/book_rumuz_ae_bekhudi_persian_6.jpg";
-import farsi1Book2 from "../../assets/android_app_assets/book_asrar_ae_khudi_persian_5.jpg";
-import farsi1Book3 from "../../assets/android_app_assets/book_payam_ae_hijaz_persian_7.jpg";
-import farsi1Book4 from "../../assets/android_app_assets/book_zabur_ae_ajam_persian_8.jpg";
+// following are books in second tab - Farsi 2
+import farsi2Book1 from "../../assets/android_app_assets/book_javed_nama_persian_9.jpg";
+import farsi2Book2 from "../../assets/android_app_assets/book_pas_cheh_bayad_kard_persian_10.jpg";
+import farsi2Book3 from "../../assets/android_app_assets/book_armaghan_ae_hijaz_persian_11.jpg";
 
-class Farsi1 extends React.Component {
+class Farsi2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,9 +25,9 @@ class Farsi1 extends React.Component {
     };
   }
 
+  
   static navigationOptions = {
-    title: "Farsi (1)",
-    headerTitle: "farsi"
+    title: "فارسی(۲)"
   };
 
   onSubmit = bookNumber => {
@@ -71,7 +70,6 @@ class Farsi1 extends React.Component {
       console.log(e);
     }
   }
-
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -87,23 +85,23 @@ class Farsi1 extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_006")}
+                onPress={() => this.onSubmit("List_009")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi1Book1}
+                  source={farsi2Book1}
                 />
               </TouchableHighlight>
 
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_005")}
+                onPress={() => this.onSubmit("List_010")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi1Book2}
+                  source={farsi2Book2}
                 />
               </TouchableHighlight>
             </View>
@@ -118,25 +116,15 @@ class Farsi1 extends React.Component {
             >
               <TouchableHighlight
                 style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_007")}
+                onPress={() => this.onSubmit("List_011")}
               >
                 <Image
                   style={styles.RowImage}
                   resizeMode="contain"
-                  source={farsi1Book3}
+                  source={farsi2Book3}
                 />
               </TouchableHighlight>
-
-              <TouchableHighlight
-                style={styles.HighlightProperties}
-                onPress={() => this.onSubmit("List_008")}
-              >
-                <Image
-                  style={styles.RowImage}
-                  resizeMode="contain"
-                  source={farsi1Book4}
-                />
-              </TouchableHighlight>
+              <View style={{ flex: 1 }}></View>
             </View>
           </View>
         </View>
@@ -152,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     margin: 10
   },
+
   RowSpace: {
     flex: 1,
     width: null,
@@ -165,4 +154,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Farsi1;
+export default Farsi2;
