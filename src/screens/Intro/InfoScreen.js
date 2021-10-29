@@ -6,25 +6,18 @@ import {
   Linking,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
-  Alert,
   View,
   Text
 } from "react-native";
 import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+  } from "react-native-simple-radio-button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import qs from "qs";
 
-import iconReact from "../../assets/android_app_assets/react.png";
-import iconVue from "../../assets/android_app_assets/vue.png";
+import iconWebsite from "../../assets/android_app_assets/iqbal_website3.jpg";
 import iconFacebook from "../../assets/android_app_assets/facebook_link.png";
-import iconGithub from "../../assets/android_app_assets/github.png";
+import iconGithub from "../../assets/android_app_assets/github_logo_fancy.jpg";
 import iconIis from "../../assets/android_app_assets/iqbal_com_pk.png";
 import iconAcademy from "../../assets/android_app_assets/iap.png";
 
@@ -65,7 +58,7 @@ class InfoPage extends React.Component {
     };
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Settings",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -185,7 +178,7 @@ class InfoPage extends React.Component {
     });
   }
 
-  async sendEmail(to, subject, body, options = {}) {
+  async sendEmail(to, subject, body) {
     console.log("Inside sendEmail");
     const cc = "";
     const bcc = "";
@@ -261,8 +254,10 @@ class InfoPage extends React.Component {
       "Iqbal Demystified App helps the young generation to fully understand the work of Allama Iqbal. The purpose of this app is to facilitate students who are unable to benefit from Iqbal's work because of the difficult terms used or lack of knowledge about the context of the poems.\n\nUsers can contribute to this app in several ways including but not limited to writing poem introductions, providing audios for poems and adding more references to difficult words. We are always open to suggestions and comments and are looking for other effective techniques that can facilitate learning about our lost heritage.";
 
     var developerText =
-      "We have open-sourced our repositories and codebase in an attempt to involve the community to help us with this project. If you are interested in working on a new feature for the app, please contact us.\n\nFollowing are the 4 GitHub repositories for this project. Please get involved!";
+      "We have open-sourced our repositories and codebase in an attempt to involve the community to help us with this project. If you are interested in working on a new feature for the app, please contact us.\n\nFollowing are the 2 GitHub repositories for this project. Please get involved!";
 
+    var websiteText =
+      "You can also use Iqbal Demystified Application as a website. This website runs on all internet browsers and use the same credentials of mobile application to login, posting comments, like/dislike comments and other features.";
     return (
       <View>
         <ScrollView>
@@ -317,26 +312,30 @@ class InfoPage extends React.Component {
             </TouchableHighlight>
           </View>
 
+          <Text style={styles.EnglishTitle}>Iqbal Demystified Website</Text>
+          <Text style={styles.RenderedText}>{websiteText}</Text>
+          <View style={styles.ImageView}>
+            
+            <Text 
+              style={{color: 'blue', textDecorationLine: 'underline'}}
+              onPress={() => Linking.openURL('https://ghumman.github.io/iqbal-demystified-web')}
+            >
+            Iqbal Demystified Website</Text>
+            <TouchableHighlight
+              onPress={() =>
+                Linking.openURL("https://ghumman.github.io/iqbal-demystified-web")
+              }
+            >
+              <Image source={iconWebsite} resizeMode="cover"/>
+            </TouchableHighlight>
+          </View>
+
           <Text style={styles.EnglishTitle}>Are you a developer?</Text>
           <Text style={styles.RenderedText}>{developerText}</Text>
 
-          {/*
-	    first row of logos
-	  */}
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              padding: 10,
-              justifyContent: "space-around"
-            }}
-          >
-            <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>
-                Iqbal RN Android and iPhone App
-              </Text>
-              <TouchableHighlight
+          <Text style={styles.EnglishTitle}>Mobile Application Code</Text>
+          <View style={{alignItems: "center"}}>
+          <TouchableHighlight
                 onPress={() =>
                   Linking.openURL(
                     "https://github.com/ghumman/iqbal_demystified_react_native"
@@ -344,60 +343,15 @@ class InfoPage extends React.Component {
                 }
               >
                 <Image
-                  style={styles.RowImage}
-                  resizeMode="center"
+                  style={{alignContent: "center"}}
+                  resizeMode="stretch"
                   source={iconGithub}
                 />
               </TouchableHighlight>
-            </View>
-            <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Demystified Old Android App</Text>
-              <TouchableHighlight
-                onPress={() =>
-                  Linking.openURL(
-                    "https://github.com/AzeemGhumman/iqbal-demystified-android-app"
-                  )
-                }
-              >
-                <Image
-                  style={styles.RowImage}
-                  resizeMode="center"
-                  source={iconGithub}
-                />
-              </TouchableHighlight>
-            </View>
-          </View>
+              </View>
 
-          {/*
-	    second row of logos
-	  */}
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              padding: 10,
-              justifyContent: "space-around"
-            }}
-          >
-            <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Demystified Dataset</Text>
-              <TouchableHighlight
-                onPress={() =>
-                  Linking.openURL(
-                    "https://github.com/AzeemGhumman/iqbal-demystified-dataset"
-                  )
-                }
-              >
-                <Image
-                  style={styles.RowImage}
-                  resizeMode="center"
-                  source={iconGithub}
-                />
-              </TouchableHighlight>
-            </View>
-
-            <View style={styles.HighlightProperties}>
-              <Text style={styles.EnglishTitle}>Iqbal Demystified Web Application</Text>
+              <Text style={styles.EnglishTitle}>Website Code</Text>
+              <View style={{alignItems: "center"}}>
               <TouchableHighlight
                 onPress={() =>
                   Linking.openURL(
@@ -406,35 +360,14 @@ class InfoPage extends React.Component {
                 }
               >
                 <Image
-                  style={styles.RowImage}
-                  resizeMode="center"
+                  style={{justifyContent: "center"}}
+                  resizeMode="stretch"
                   source={iconGithub}
                 />
               </TouchableHighlight>
-            </View>
-          </View>
+              </View>
 
-          <Text style={styles.EnglishTitle}>Vue Web Client</Text>
-          <View style={styles.ImageView}>
-            <TouchableHighlight
-              onPress={() =>
-                Linking.openURL("https://iqbal-demystified.herokuapp.com/")
-              }
-            >
-              <Image source={iconVue} />
-            </TouchableHighlight>
-          </View>
-
-          <Text style={styles.EnglishTitle}>React Web Client</Text>
-          <View style={styles.ImageView}>
-            <TouchableHighlight
-              onPress={() =>
-                Linking.openURL("http://iqbal-demystified-react.herokuapp.com/")
-              }
-            >
-              <Image source={iconReact} />
-            </TouchableHighlight>
-          </View>
+         
 
           <Text style={styles.RenderedText}>
             {"ﺷﮑﻮﮦﺀ۔ ﻇﻠﻤﺖِ ﺷﺐ ﺳﮯ ﺗﻮ ﮐﮩﯿﮟ ﺑﮩﺘﺮ ﺗﮭﺎ"}
@@ -506,12 +439,6 @@ const styles = StyleSheet.create({
   ImageView: {
     justifyContent: "center",
     alignItems: "center"
-  },
-  HighlightProperties: {
-    flex: 1,
-    overflow: "hidden",
-    alignItems: "center",
-    margin: 10
   },
   RowImage: {
     flex: 1
