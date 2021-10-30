@@ -1,27 +1,20 @@
 import React from "react";
 import {
   Platform,
-  ScrollView,
   Image,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
-  Alert,
   View,
   Text
 } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
-import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
-import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
 var RNFS = require("react-native-fs");
-var YAML = require("yaml");
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -57,42 +50,29 @@ class ListPoemScreen extends React.Component {
     var that = this;
 
     this.readBookmarks().then(function(result) {
-      console.log("result");
-      console.log(result);
 
       // create a path you want to write to
       // :warning: on iOS, you cannot write into `RNFS.MainBundlePath`,
       // but `RNFS.DocumentDirectoryPath` exists on both platforms and is writable
 
       if (result.includes(poem.id)) {
-        console.log("poem is in the file");
         var index = result.indexOf(poem.id);
         if (index > -1) {
           result.splice(index, 3);
         }
 
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
 
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
-
+          .then(() => {
             that.getPoemList();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       } else {
-        console.log("poem is not in the file");
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
         // var sherNumberComma = sherNumber + ',';
@@ -101,12 +81,10 @@ class ListPoemScreen extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
             that.getPoemList();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       }
     });
@@ -124,67 +102,42 @@ class ListPoemScreen extends React.Component {
   }
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
 
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
-        // console.log("res: ")
-        // console.log(res)
         this.setState({ font: "Normal" });
       }
     });
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
-        // console.log("res: ")
-        // console.log(res)
         this.setState({ text: "Urdu" });
       }
     });
   };
 
   componentDidMount() {
-    // Alert.alert('inside componentDidMount')
-    console.log("inside componentDidMount");
     // retrive the data
     try {
       this.onDidFocusCustomFunction();
 
-      console.log(
-        "value of this.props.navigation.getParam(profileSigninConfirmation)"
-      );
-      console.log(this.props.navigation.getParam("profileSigninConfirmation"));
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
           "profileSigninConfirmation"
         )
       });
-      console.log("setState signin confirmation passed");
       this.setState({
         username: this.props.navigation.getParam("profileUsername")
       });
-      console.log("setState username passed");
       this.setState({
         password: this.props.navigation.getParam("profilePassword")
       });
-      console.log("setState password passed");
-      // let bookName = this.props.navigation.getParam('detailBook');
-      // console.log('setState bookName passed')
       this.getPoemList();
-      // console.log('setState getPoemList passed')
     } catch (e) {
-      // Alert.alert("Inside catch");
-      console.log("Inside catch");
-      console.log("Error");
-      console.log(e);
     }
   }
 
@@ -193,14 +146,8 @@ class ListPoemScreen extends React.Component {
 
     var that = this;
     that.readBookmarks().then(function(result) {
-      console.log("result");
-      console.log(result);
-
-      // var set = new Set(result);
 
       for (i = 0; i < (result.length - 1) / 3; i++) {
-        console.log("Inside for loop for putting result");
-
         that.state.poemText.push({
           id: result[i * 3],
           textUrdu: result[i * 3 + 1],
@@ -210,14 +157,10 @@ class ListPoemScreen extends React.Component {
 
       that.setState({ poemTextFinal: that.state.poemText });
 
-      console.log("that.setState.poemTextFinal");
-      console.log(that.setState.poemTextFinal);
     });
   }
 
   onSubmit = poemNumber => {
-    console.log("Value of poemNumber: ");
-    console.log(poemNumber);
     if (poemNumber != 0) {
       this.props.navigation.navigate("Poem", {
         detailPoem: poemNumber,
@@ -225,11 +168,6 @@ class ListPoemScreen extends React.Component {
         profileUsername: this.state.username,
         profilePassword: this.state.password
       });
-      /*        this.props.history.push({
-                            pathname: '/PoemPage',
-                            state: { detailPoem: poemNumber, profileSigninConfirmation : this.state.signinConfirmation, profileUsername : this.state.username, profilePassword: this.state.password }
-                  })
-	*/
     }
   };
 
@@ -288,14 +226,7 @@ class ListPoemScreen extends React.Component {
   };
 
   render() {
-    var item3 = this.state.poemText.map(item => (
-      <Text key={item.index} onClick={() => this.onSubmit(item.id)}>
-        {" "}
-        {item.textUrdu}
-      </Text>
-    ));
 
-    var that = this;
     return (
       <View style={styles.MainContainer}>
         <FlatList
@@ -341,8 +272,6 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextNafees: {
-    // fontFamily: 'NafeesNastaleeq',
-    // fontFamily: 'Nafees Nastaleeq v1.02',
     fontFamily:
       Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
     flexShrink: 1,
@@ -354,8 +283,6 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextKasheeda: {
-    // fontFamily: 'JameelNooriKasheeda',
-    // fontFamily: 'Jameel Noori Kasheeda',
     fontFamily:
       Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
     flexShrink: 1,
@@ -367,8 +294,6 @@ const styles = StyleSheet.create({
   },
 
   RenderedTextFajer: {
-    // fontFamily: 'FajerNooriNastalique',
-    // fontFamily: 'Fajer Noori Nastalique 15-12-2006',
     fontFamily:
       Platform.OS === "ios"
         ? "FajerNooriNastalique"

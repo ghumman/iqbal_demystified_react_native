@@ -1,14 +1,10 @@
 import React from "react";
 import {
   TouchableHighlight,
-  Alert,
-  Button,
   View,
-  Text,
   Image,
   StyleSheet
 } from "react-native";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 // following are books in first tab - Urdu
 import urduBook1 from "../../assets/android_app_assets/book_bal_ae_jabreel_urdu_2.jpg";
@@ -33,12 +29,6 @@ class Urdu extends React.Component {
   onSubmit = bookNumber => {
     const { navigate } = this.props.navigation;
 
-    console.log("You are inside onSubmit Going to ListPoem");
-    console.log("Value of this.state.username");
-    const localUsername = "test2";
-    console.log(localUsername);
-    console.log("Value of this.state.signinConfirmation");
-    console.log(this.state.signinConfirmation);
     navigate("ListPoem", {
       detailBook: bookNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
@@ -61,9 +51,6 @@ class Urdu extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      console.log("Inside catch");
-      console.log("Error");
-      console.log(e);
     }
   }
   render() {

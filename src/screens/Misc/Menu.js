@@ -1,22 +1,16 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component } from "react";
 import {
   View,
   ScrollView,
   Text,
   TouchableOpacity,
-  Image,
   StyleSheet
 } from "react-native";
 
 const menuList = require("../../shared/Constants.js");
 
 export default class Menu extends Component {
-  menuItemClicked = item => {
-    console.log("item: ");
-    console.log(item);
-
-    console.log("item.index: ");
-    console.log(item.index);
+  menuItemClicked = () => {
   };
   render() {
     var that = this;

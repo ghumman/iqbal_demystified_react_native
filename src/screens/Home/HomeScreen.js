@@ -93,13 +93,10 @@ export default class HomeScreen extends React.Component {
     AsyncStorage.getItem(MESSAGE).then(res => {
       this.setState({ signinConfirmation: res });
       if (res != "done") {
-        // console.log("Profile Signin Confirmation message is not done ")
-
         this.setState({ signinConfirmation: "not signed in" });
         this.setState({ username: "" });
         this.setState({ gotoPage: "Register" });
       } else {
-        // console.log("You're signed in and profileSigninConfirmation message is done");
         this.setState({ gotoPage: "Profile" });
       }
     });
@@ -128,7 +125,6 @@ export default class HomeScreen extends React.Component {
     // first thing when app starts is to make Iqbal-Demystified folder, so that we can put .mp3, txt and yaml files in it.
     RNFS.mkdir(RNFS.DocumentDirectoryPath + "/Iqbal-Demystified").then(function (
     ) {
-      // console.log("Iqbal-Demystified directory exists now");
     });
     try {
       // gets AsyncStorage username, passowrd, message and sets gotoPage to either Register or Profile
@@ -148,18 +144,14 @@ export default class HomeScreen extends React.Component {
       });
 
       if (this.state.signinConfirmation != "done") {
-        // console.log("Profile Signin Confirmation message is not done ")
         this.setState({ signinConfirmation: "not signed in" });
         this.setState({ username: "" });
         this.setState({ gotoPage: "Register" });
       } else {
-        // console.log("You're signed in and profileSigninConfirmation message is done");
         this.setState({ gotoPage: "Profile" });
       }
     } catch (e) {
       // try ends
-      // console.log("Inside catch")
-      // console.log("Not signed in or just started the app");
       this.setState({ signinConfirmation: "not signed in" });
       this.setState({ username: "" });
       this.setState({ gotoPage: "RegisterPage" });

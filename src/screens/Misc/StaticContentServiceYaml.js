@@ -17,7 +17,6 @@ export default {
       }
       return yamlFile;
     } catch (e) {
-      console.log("" + e);
     }
   },
 
@@ -58,7 +57,6 @@ export default {
           yamlObject[i - 1] = YAML.parse(yamlFile[i - 1]);
         }
 
-      console.log("Testing");
       for (k = 0; k < yamlObject.length; k++) {
         for (i = 0; i < yamlObject[k].sections.length; i++) {
           if (Object.keys(yamlObject[k].sections[i]) == "poems") {
@@ -70,34 +68,15 @@ export default {
               ) {
                 newList["poems"].push(yamlObject[k].sections[i].poems[j]);
 
-                console.log("Inside second for");
-                console.log(
-                  yamlObject[k].sections[i].poems[j].poemName[0].text
-                );
               }
             }
           }
         }
       }
 
-      console.log("Testing Finished");
-
       return newList;
 
-      if (
-        JSON.stringify(
-          yamlObject[0].sections[1].poems[0].poemName[0].text
-        ).match(listId)
-      ) {
-        console.log("Found");
-        console.log(yamlObject[0].sections[1].poems[0]);
-        return newList;
-      } else {
-        console.log("Not Found");
-      }
-      return { poems: [] };
     } catch (e) {
-      console.log("" + e);
     }
   },
 
@@ -106,9 +85,6 @@ export default {
       var path = Array(1440);
       var yamlFile = Array(1440);
       var yamlObject = Array(1440);
-
-      // var yamlFile = Array(2);
-      // var yamlObject = Array(2);
 
       var i, ii, j, k, l;
       var numberOfFiles = [172, 179, 202, 43, 19, 31, 163, 153, 61, 25, 392];
@@ -292,8 +268,6 @@ export default {
           } // else if l > 9 ends
         }
       }
-      console.log("Testing");
-      console.log(yamlObject.length);
       for (k = 0; k < yamlObject.length; k++) {
         for (i = 0; i < yamlObject[k].sher.length; i++) {
           if (
@@ -303,17 +277,12 @@ export default {
           ) {
             newList["sher"].push(yamlObject[k].sher[i]);
 
-            console.log("Inside second for");
-            console.log(yamlObject[k].sher[i]);
           }
         }
       }
 
-      console.log("Testing Finished");
-
       return newList;
     } catch (e) {
-      console.log("" + e);
     }
   },
 
@@ -322,9 +291,6 @@ export default {
       var arr = poemId.split("_");
 
       //print both parts of string
-      console.log("arr[0]: " + arr[0]);
-      console.log("arr[1]: " + arr[1]);
-
       var path = "";
       var yamlFile = "";
 
@@ -344,20 +310,14 @@ export default {
 
       return yamlFile;
     } catch (e) {
-      console.log("" + e);
     }
   },
 
   async getRecentSher(sherList) {
     try {
-      console.log("Inside getRecentSher");
-      console.log(sherList);
-
       var newList = { sher: [] };
       var i;
       var sherArray = sherList.split(",");
-      console.log("sherArray");
-      console.log(sherArray);
       for (i = 0; i < sherArray.length - 1; i++) {
         var arr = sherArray[i].split("_");
 
@@ -386,30 +346,15 @@ export default {
         newList["sher"].push(yamlObject.sher[sherIndex]);
       } // for number of total shers ends
 
-      console.log(
-        "newList at the end of Static getRecentSher sending it back to function call"
-      );
-      console.log(newList);
-
       return newList;
     } catch (e) {
-      console.log(
-        "Inside catch inside StaticContentServiceYaml inside getRecentSher"
-      );
-      console.log("" + e);
     }
   }, // function getRecent Sher ends
 
   async getSherDiscussion(sherGeneralDiscussionServerResponse) {
     try {
-      console.log(
-        "Inside getSherDiscussion inside StaticContentServiceYaml, Value of sherGeneralServerResponse: "
-      );
-
-      console.log(sherGeneralDiscussionServerResponse);
       return sherGeneralDiscussionServerResponse;
     } catch (e) {
-      console.log("" + e);
     }
   } // function getSherDiscussion Sher
 }; // default ends

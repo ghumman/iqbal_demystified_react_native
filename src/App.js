@@ -1,6 +1,6 @@
 // This is the first file which is reached and it sets all navigators
 import React from "react";
-import { Platform, View, Text } from "react-native";
+import { Platform } from "react-native";
 import {
   createStackNavigator,
   createAppContainer

@@ -1,13 +1,10 @@
 import React from "react";
 import {
   Platform,
-  ScrollView,
   Image,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
-  Alert,
   View,
   Text
 } from "react-native";
@@ -66,11 +63,7 @@ class ListPoemScreen extends React.Component {
   starToggling = poem => {
     var that = this;
     this.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(poem.id)) {
-        console.log("poem is in the file");
         var index = result.indexOf(poem.id);
         if (index > -1) {
           result.splice(index, 3);
@@ -81,13 +74,11 @@ class ListPoemScreen extends React.Component {
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            // console.log('FILE WRITTEN!');
+          .then(() => {
             let bookName = that.props.navigation.getParam("detailBook");
             that.getPoemList(bookName);
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       } else {
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
@@ -96,14 +87,11 @@ class ListPoemScreen extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
             let bookName = that.props.navigation.getParam("detailBook");
-            console.log("In listPoemScreen.js inside starToggling else");
             that.getPoemList(bookName);
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       }
     });
@@ -123,24 +111,16 @@ class ListPoemScreen extends React.Component {
   onDidFocusCustomFunction = () => {
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
-        console.log("res: ");
-        console.log(res);
         this.setState({ font: "Normal" });
       }
     });
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
-        console.log("res: ");
-        console.log(res);
         this.setState({ text: "Urdu" });
       }
     });
@@ -164,8 +144,6 @@ class ListPoemScreen extends React.Component {
       let bookName = this.props.navigation.getParam("detailBook");
       this.getPoemList(bookName);
     } catch (e) {
-      console.log("Error");
-      console.log(e);
     }
   }
 
@@ -178,7 +156,6 @@ class ListPoemScreen extends React.Component {
 
       that.setState({ poemListName: that.state.poemList.poems });
 
-      var checkValueVar = [];
 
       that.readBookmarks().then(function (result) {
         var set = new Set(result);

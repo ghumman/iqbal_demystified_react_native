@@ -1,28 +1,17 @@
 import React from "react";
 import {
   TextInput,
-  Image,
   ScrollView,
   Linking,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
-  Alert,
   View,
   Text
 } from "react-native";
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import qs from "qs";
 
-import iconIis from "../../assets/android_app_assets/iqbal_com_pk.png";
-import iconAcademy from "../../assets/android_app_assets/iap.png";
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -48,7 +37,7 @@ class ContributeIntroductionScreen extends React.Component {
     };
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Contribute!",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -59,54 +48,37 @@ class ContributeIntroductionScreen extends React.Component {
   });
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
-
     try {
       AsyncStorage.getItem(FONT).then(res => {
         if (res !== null) {
-          console.log("res is not equal to null: ");
-          console.log(res);
           this.setState({ font: res });
           switch (res) {
             case "Normal":
-              console.log("case is Normal");
               this.setState({ fontIndex: 0 });
               break;
             case "Nafees":
-              console.log("case is Nafees");
               this.setState({ fontIndex: 1 });
               break;
             case "Kasheeda":
-              console.log("case is Kasheeda");
               this.setState({ fontIndex: 2 });
               break;
             case "Fajer":
-              console.log("case is Fajer");
               this.setState({ fontIndex: 3 });
               break;
           }
-          console.log("this.state.fontIndex");
-          console.log(this.state.fontIndex);
           this.setState({ fontIndexReady: true });
         } else {
-          console.log("res: ");
-          console.log(res);
-
           this.setState({ font: "Normal" });
           this.setState({ fontIndex: 0 });
           this.setState({ fontIndexReady: true });
         }
       });
     } catch (err) {
-      console.log("err: ");
-      console.log(err);
       this.setState({ font: "Normal" });
     }
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
         switch (res) {
           case "Urdu":
@@ -116,13 +88,8 @@ class ContributeIntroductionScreen extends React.Component {
             this.setState({ textIndex: 1 });
             break;
         }
-        console.log("this.state.textIndex");
-        console.log(this.state.textIndex);
         this.setState({ textIndexReady: true });
       } else {
-        console.log("res: ");
-        console.log(res);
-
         this.setState({ text: "Urdu" });
         this.setState({ textIndex: 0 });
         this.setState({ textIndexReady: true });
@@ -152,7 +119,6 @@ class ContributeIntroductionScreen extends React.Component {
           "\n\n\n"
       });
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 
@@ -165,25 +131,20 @@ class ContributeIntroductionScreen extends React.Component {
   handleBlur = () => this.setState({ isFocused: false });
 
   sendEmailFunction() {
-    console.log("Inside sendEmailFunciton");
     this.sendEmail(
       "admin@ghummantech.com",
       "Iqbal Demystified App - User Email",
       this.state.emailText
     ).then(() => {
-      console.log("Our email successful provided to device mail ");
     });
   }
 
-  async sendEmail(to, subject, body, options = {}) {
-    console.log("Inside sendEmail");
+  async sendEmail(to, subject, body) {
     const cc = "";
     const bcc = "";
 
-    console.log("Before url = mailto...");
     let url = `mailto:${to}`;
 
-    console.log("Before const query");
     const query = qs.stringify({
       subject: subject,
       body: body,
@@ -195,13 +156,11 @@ class ContributeIntroductionScreen extends React.Component {
       url += `?${query}`;
     }
 
-    console.log("Before canOpen = await Linking...");
     const canOpen = await Linking.canOpenURL(url);
 
     if (!canOpen) {
       throw new Error("Provided URL can not be handled");
     }
-    console.log("Before return Linking...");
     return Linking.openURL(url);
   }
 
@@ -216,7 +175,6 @@ class ContributeIntroductionScreen extends React.Component {
       borderBottomWidth: 1
     };
 
-    let signinTag;
 
     return (
       <View>

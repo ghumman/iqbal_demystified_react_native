@@ -8,8 +8,6 @@ import {
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -18,15 +16,6 @@ import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import Moment from "moment";
 
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell
-} from "react-native-table-component";
 
 import iconShare from "../../assets/android_app_assets/share.png";
 import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
@@ -125,7 +114,7 @@ class SherPage extends React.Component {
               that.state.password +
               "&comment_text=" +
               that.state.userMessageSher
-          }).then(async function (data) {
+          }).then(async function () {
             that.getSherGeneralDiscussion(that.state.sherId);
           }); // success function ends
         } catch (err) {
@@ -168,7 +157,7 @@ class SherPage extends React.Component {
               that.state.userMessageWord +
               "&word_position=" +
               that.state.mySelectedId
-          }).then(async function (data) {
+          }).then(async function () {
 
             that.getSherWordDiscussion(that.state.sherId);
           }); // success function ends
@@ -177,7 +166,6 @@ class SherPage extends React.Component {
           Alert.alert(err);
         }
 
-        // console.log("messageSher sent to send sher message function");
       } // if not logged in empty
       else {
         Alert.alert("Please login first to add comments.");
@@ -204,7 +192,6 @@ class SherPage extends React.Component {
     var that = this;
     try {
 
-      var localData = { sher: sherName, discussion_type: "general" };
       fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
         method: "POST",
         headers: {
@@ -300,7 +287,7 @@ class SherPage extends React.Component {
     var that = this;
     StaticContentService.getSherDiscussion(
       sherGeneralDiscussionServerResponse
-    ).then(function (response) {
+    ).then(function () {
       var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
       for (var i = 0; i < sherDiscussionDetailLocal.length; i++) {
@@ -373,9 +360,8 @@ class SherPage extends React.Component {
 
       this.getSherGeneralDiscussion(sherName);
       this.getSherWordDiscussion(sherName);
-    } catch (e) {
-      // try ends
-      console.log("Inside catch");
+    } // try ends
+    catch (e) {
     } // catch ends
   } // componentDidMount ends
 
@@ -871,9 +857,6 @@ class SherPage extends React.Component {
   render() {
     Moment.locale("en");
 
-    var item4 = this.state.sherText.map((item, index) => (
-      <Text key={item.index}> {item}</Text>
-    ));
 
     const viewStylesNotSelected = {
       // borderColor: "gray",
@@ -945,38 +928,8 @@ class SherPage extends React.Component {
       }
     });
 
-    var item6 = this.state.sherDiscussionDetail.map((item, index) => (
-      <View key={item.id}>
-        <Text>{item.username}</Text>
-        <View></View>
-        <View>
-          <Text>{item.timestamp}</Text>
-        </View>
-        <View>
-          <Text>{item.text}</Text>
-        </View>
-        <View>
-          <Button onPress={() => this.vote_like(item.id)} title="LIKE" />
-        </View>
-        <View>
-          <Text>SCORE: {item.score}</Text>
-        </View>
-        <View>
-          <Button onPress={() => this.vote_dislike(item.id)} title="DISLIKE" />
-        </View>
-        <View>
-          <Text></Text>
-        </View>
-        <View>
-          <Button
-            onPress={() => this.vote_unregister(item.id)}
-            title="UNREGISTER"
-          />
-        </View>
-      </View>
-    ));
 
-    var singleWordsComments = this.state.wordDiscussionDetail.map((item, index) => {
+    var singleWordsComments = this.state.wordDiscussionDetail.map((item) => {
       if (item.wordposition == this.state.mySelectedId)
         return (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -1043,28 +996,11 @@ class SherPage extends React.Component {
         );
     });
 
-    let signinTag;
     var signinMessageLocal = "";
     if (this.state.signinConfirmation === "done") {
       signinMessageLocal = this.state.username.charAt(0).toUpperCase();
-      signinTag = (
-        <button type="button" class="btn btn-success btn-circle btn-lg">
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
     } else {
       signinMessageLocal = "Sign In";
-      signinTag = (
-        <button
-          type="button"
-          class="btn btn-primary"
-          onClick={() => this.signMeIn()}
-        >
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
     }
     return (
       <View style={{ flex: 1 }}>

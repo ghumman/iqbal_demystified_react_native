@@ -3,25 +3,18 @@ import {
   Platform,
   ScrollView,
   Image,
-  TextInput,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
-  Alert,
   View,
   Text
 } from "react-native";
-import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
-import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 
 import AsyncStorage from "@react-native-community/async-storage";
 
 var RNFS = require("react-native-fs");
-var YAML = require("yaml");
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -66,12 +59,7 @@ class PoemPage extends React.Component {
     this.setState({ poemText: [] });
 
     that.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       for (i = 0; i < (result.length - 1) / 7; i++) {
-        console.log("Inside for loop for putting result");
-
         that.state.poemText.push({
           id: result[i * 7],
           textUrdu1: result[i * 7 + 1],
@@ -91,34 +79,22 @@ class PoemPage extends React.Component {
     var that = this;
 
     this.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(sher.id)) {
         var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
 
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
 
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
-
+          .then(() => {
             that.getPoem();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       } else {
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
@@ -141,12 +117,10 @@ class PoemPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherAt, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
             that.getPoem();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       }
     });
@@ -164,12 +138,8 @@ class PoemPage extends React.Component {
   }
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
-
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
         this.setState({ font: "Normal" });
@@ -178,8 +148,6 @@ class PoemPage extends React.Component {
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
         this.setState({ text: "Urdu" });
@@ -205,7 +173,6 @@ class PoemPage extends React.Component {
 
       this.getPoem();
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 
@@ -227,7 +194,7 @@ class PoemPage extends React.Component {
     }
 
     var that = this;
-    var itemScroll = this.state.poemTextNew.map(function (item, index) {
+    var itemScroll = this.state.poemTextNew.map(function (item) {
       return (
         <View style={{ flex: 1, flexDirection: "row" }}>
           <View

@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  ScrollView,
   TextInput,
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -42,7 +39,7 @@ class Register extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Register",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -78,30 +75,11 @@ class Register extends React.Component {
   }
 
   onSubmitSignin = () => {
-    console.log("Inside onSubmitSignin");
     this.props.navigation.navigate("Signin");
   };
 
   // handleSubmit
   handleSubmit(event) {
-    console.log("first name: ");
-    console.log(this.state.firstName);
-
-    console.log("last name: ");
-    console.log(this.state.lastName);
-
-    console.log("username: ");
-    console.log(this.state.username);
-
-    console.log("email: ");
-    console.log(this.state.email);
-
-    console.log("password1: ");
-    console.log(this.state.password1);
-
-    console.log("password2: ");
-    console.log(this.state.password2);
-
     var that = this;
 
     if (this.state.password1.trim() == this.state.password2.trim()) {
@@ -130,7 +108,6 @@ class Register extends React.Component {
               "Your account has been created! Please check your email and activate your account by clicking on a link that we have sent you in the email. Don't forget to check in your Junk folder."
             ) {
               Alert.alert(data);
-              console.log("Successfully Registered");
               that.setState({ signinConfirmation: "done" });
 
               AsyncStorage.setItem(USERNAME, that.state.username);

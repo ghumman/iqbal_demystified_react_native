@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  ScrollView,
   TextInput,
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -24,7 +21,7 @@ class ForgotPassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Forgot Password",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -57,10 +54,7 @@ class ForgotPassword extends React.Component {
           body: "email=" + that.state.email
         }).then(async function (data) {
           data.text().then(async function (data) {
-            console.log("data");
-            console.log(data);
             if (data.trim() == "email sent") {
-              console.log(data);
               Alert.alert(
                 "Email sent with the new password. Please check your email."
               );
@@ -80,7 +74,6 @@ class ForgotPassword extends React.Component {
       } // catch ends
     } // if email not empty ends
     else {
-      console.log("Email can not be empty");
       Alert.alert("Email can not be empty");
     }
     event.preventDefault();

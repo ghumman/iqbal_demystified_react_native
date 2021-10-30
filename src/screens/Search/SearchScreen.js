@@ -8,24 +8,18 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
 } from "react-native";
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from "react-native-simple-radio-button";
+  } from "react-native-simple-radio-button";
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 var RNFS = require("react-native-fs");
-var YAML = require("yaml");
 
 var radio_props = [
   { label: "Title", value: "title" },
@@ -66,7 +60,7 @@ class SearchPage extends React.Component {
     this.handleOptionChange = this.handleOptionChange.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Allama Iqbal Search Engine",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -77,8 +71,6 @@ class SearchPage extends React.Component {
   });
 
   handleAlphabet(alphabetValue) {
-    console.log("alphabetValue: ");
-    console.log(alphabetValue);
     if (alphabetValue != "Back")
       this.setState({ searchText: this.state.searchText + alphabetValue });
     else
@@ -91,7 +83,6 @@ class SearchPage extends React.Component {
   }
 
   handleInputClicked() {
-    console.log("Input box is clicked: ");
     this.setState({ inputBoxClicked: true });
   }
 
@@ -104,22 +95,13 @@ class SearchPage extends React.Component {
   }
 
   // handleSubmit
-  handleSubmit(event) {
+  handleSubmit() {
     this.setState({ inputBoxClicked: false });
-
-    console.log("SEARCH is pressed");
-    console.log("You searched for: ");
-    console.log(this.state.searchText);
-
-    console.log("Option selected is: ");
-    console.log(this.state.selectedOption);
 
     if (this.state.searchText.trim() != "") {
       if (this.state.selectedOption == "title") {
-        console.log("going to getPoemListSearch");
         this.getPoemListSearch(this.state.searchText.trim());
       } else if (this.state.selectedOption == "text") {
-        console.log("going to getPoemSearch");
         this.getPoemSearch(this.state.searchText.trim());
       }
     } else {
@@ -131,32 +113,19 @@ class SearchPage extends React.Component {
     var that = this;
 
     this.readBookmarksSher().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(sher.id)) {
         var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
-
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
-
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
         that.handleSubmit();
       } else {
@@ -180,11 +149,9 @@ class SearchPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherAt, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
 
         that.handleSubmit();
@@ -207,38 +174,22 @@ class SearchPage extends React.Component {
     var that = this;
 
     this.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(poem.id)) {
-        console.log("poem is in the file");
         var index = result.indexOf(poem.id);
         if (index > -1) {
           result.splice(index, 3);
         }
-
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
-
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
-
+          .then(() => {
             that.handleSubmit();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       } else {
-        console.log("poem is not in the file");
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-poems.yaml";
 
         var sherNumberComma =
@@ -251,13 +202,10 @@ class SearchPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
-
+          .then(() => {
             that.handleSubmit();
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       }
     });
@@ -279,24 +227,16 @@ class SearchPage extends React.Component {
     this.setState({ messageResults: "Searching..." });
     that.setState({ poemList: [] });
     StaticContentService.getPoemListSearch(listId).then(function (response) {
-      console.log("Reseponse");
-      console.log(response);
       that.readBookmarks().then(function (result) {
-        console.log("Result");
-        console.log(result);
         for (var i = 0; i < response.poems.length; i++) {
           if (result.includes(response.poems[i].id)) {
             response.poems[i].star = true;
-            console.log("star added");
           } else {
             response.poems[i].star = false;
-            console.log("star not added");
           }
         }
 
         that.setState({ poemList: response.poems });
-        console.log("poemList");
-        console.log(that.state.poemList);
         that.setState({ messageResults: "No Results Found" });
       });
     });
@@ -309,33 +249,24 @@ class SearchPage extends React.Component {
     that.setState({ sherList: [] });
 
     StaticContentService.getPoemSearch(poemId).then(function (response) {
-      console.log("Reseponse");
-      console.log(response);
       that.readBookmarksSher().then(function (result) {
-        console.log("Result");
-        console.log(result);
-
         for (var i = 0; i < response.sher.length; i++) {
           try {
             if (result.includes(response.sher[i].id))
               response.sher[i].star = true;
             else response.sher[i].star = false;
           } catch (e) {
-            console.log("catch caught an error");
           }
         }
 
         response.sher.map(el => {
           el.sherContent[0].text = el.sherContent[0].text.split("|");
-          console.log(el.sherContent[0].text);
           try {
             el.sherContent[1].text = el.sherContent[1].text.split("|");
-            console.log(el.sherContent[1].text);
           } catch (err) {
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
             });
-            console.log(el.sherContent[1].text);
           }
           try {
             el.sherContent[2].text = el.sherContent[2].text.split("|");
@@ -343,13 +274,9 @@ class SearchPage extends React.Component {
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
             });
-            console.log(el.sherContent[2].text);
           }
           return (el.sherContent = el.sherContent);
         });
-        console.log("Reseponse");
-        console.log(response);
-
         that.setState({ sherList: response.sher });
         that.setState({ messageResults: "No Results Found" });
       });
@@ -357,8 +284,6 @@ class SearchPage extends React.Component {
   }
 
   onSubmitPoem = poemNumber => {
-    console.log("Value of poemNumber: ");
-    console.log(poemNumber);
     this.props.navigation.navigate("Poem", {
       detailPoem: poemNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
@@ -390,32 +315,20 @@ class SearchPage extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 
   render() {
-    var items = this.state.bookSections.map((item, key) => (
+    var items = this.state.bookSections.map((item) => (
       <Text key={item.sectionName}>{item.sectionName}</Text>
     ));
-    var items2 = items.map((item, key) => (
-      <Text key={item.text}>{item.text}</Text>
-    ));
 
-    var item3 = this.state.poemText.map(item => (
-      <Text key={item.index} onPress={() => this.onSubmit(item.id)}>
-        {" "}
-        {item.text}: {item.id}
-      </Text>
-    ));
 
     var itemsPoemOrSher = [];
-    var lenghtPoem = this.state.poemList.length;
-    var lenghtSher = this.state.sherList.length;
     if (this.state.selectedOption === "title") {
       if (this.state.poemList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.poemList.map(function (item, index) {
+        var itemsPoemOrSher = this.state.poemList.map(function (item) {
           return (
             <View style={{ flex: 1, flexDirection: "row" }}>
               <View
@@ -472,7 +385,7 @@ class SearchPage extends React.Component {
     } else {
       if (this.state.sherList.length != 0) {
         var that = this;
-        var itemsPoemOrSher = this.state.sherList.map(function (item, index) {
+        var itemsPoemOrSher = this.state.sherList.map(function (item) {
           return (
             <View style={{ flex: 1, flexDirection: "row" }}>
               <View
@@ -543,7 +456,6 @@ class SearchPage extends React.Component {
       }
     }
 
-    var aVar = this.state.bookSections.length;
     var stationsArr = [];
     for (var i = 0; i < this.state.bookSections.length; i++) {
       stationsArr.push(<Text>{this.data}</Text>);

@@ -5,29 +5,15 @@ import {
   Image,
   ScrollView,
   TextInput,
-  Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
-  Text,
-  KeyboardAvoidingView
-} from "react-native";
+  Text} from "react-native";
 import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import Moment from "moment";
 
-import {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell
-} from "react-native-table-component";
 
 import iconShare from "../../assets/android_app_assets/share.png";
 import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
@@ -74,7 +60,7 @@ class SherPage extends React.Component {
     this.handleSubmitWord = this.handleSubmitWord.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ }) => {
     return {
       title: "Discussion"
     };
@@ -124,7 +110,7 @@ class SherPage extends React.Component {
               that.state.password +
               "&comment_text=" +
               that.state.userMessageSher
-          }).then(async function (data) {
+          }).then(async function () {
             that.getSherGeneralDiscussion(that.state.sherId);
           }); // success function ends
         } catch (err) {
@@ -163,7 +149,7 @@ class SherPage extends React.Component {
               comment_text: this.state.userMessageWord,
               word_position: this.state.mySelectedId + 1
             }
-          }).then(function (data) {
+          }).then(function () {
             this.getSherWordDiscussion(this.state.sherId);
           }); // success function ends
         } catch (err) {
@@ -196,7 +182,6 @@ class SherPage extends React.Component {
   async getSherGeneralDiscussion(sherName) {
     var that = this;
     try {
-      var localData = { sher: sherName, discussion_type: "general" };
       fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
         method: "POST",
         headers: {
@@ -291,7 +276,7 @@ class SherPage extends React.Component {
     var that = this;
     StaticContentService.getSherDiscussion(
       sherGeneralDiscussionServerResponse
-    ).then(function (response) {
+    ).then(function () {
       var sherDiscussionDetailLocal = sherGeneralDiscussionServerResponse;
 
       for (var i = 0; i < sherDiscussionDetailLocal.length; i++) {
@@ -373,7 +358,6 @@ class SherPage extends React.Component {
           this.setState({ poemId: poemInstanceId});
         }
         catch(e) {
-          console.log("Unable to get poem id")
         }
 
       }
@@ -382,7 +366,6 @@ class SherPage extends React.Component {
       this.getSherGeneralDiscussion(sherName);
     } catch (e) {
       // try ends
-      console.log("Inside catch");
     } // catch ends
   } // componentDidMount ends
 
@@ -868,27 +851,15 @@ class SherPage extends React.Component {
 
   render() {
     Moment.locale("en");
-    var completeSher = this.state.sherText.map((item, index) => (
+    var completeSher = this.state.sherText.map((item) => (
       <Text key={item.index} style={styles.RenderedText}>
         {" "}
         {item}
       </Text>
     ));
 
-    var item5 = this.state.wordText.map((item, index) => (
-      <span key={item.index}>
-        <button
-          type="button"
-          class="btn btn-primary"
-          onClick={() => this.selectedWord(item, index)}
-        >
-          {" "}
-          {item}{" "}
-        </button>{" "}
-      </span>
-    ));
 
-    var sherComments = this.state.sherDiscussionDetail.map((item, index) => (
+    var sherComments = this.state.sherDiscussionDetail.map((item) => (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 0.1, flexDirection: "column" }}>
           <View
@@ -942,73 +913,12 @@ class SherPage extends React.Component {
       </View>
     ));
 
-    var item7 = this.state.wordDiscussionDetail.map((item, index) => {
-      if (item.wordposition - 1 == this.state.mySelectedId)
-        return (
-          <div key={item.id}>
-            {" "}
-            <div class="float-left">
-              <p> {item.username}</p>
-            </div>{" "}
-            <div class="float-right">
-              <p> {item.timestamp}</p>{" "}
-            </div>
-            <br />{" "}
-            <p>
-              {item.text}
-              <br />
-              <br />{" "}
-              <button
-                type="button"
-                class="btn btn-primary"
-                onClick={() => this.vote_like_word(item.id)}
-              >
-                {" "}
-                LIKE{" "}
-              </button>
-              <span class="px-2"> SCORE: {item.score}</span>
-              <button
-                type="button"
-                class="btn btn-primary"
-                onClick={() => this.vote_dislike_word(item.id)}
-              >
-                DISLIKE
-              </button>
-              <p></p>
-              <button
-                type="button"
-                class="btn btn-primary"
-                onClick={() => this.vote_unregister_word(item.id)}
-              >
-                UNREGISTER
-              </button>
-            </p>
-          </div>
-        );
-    });
 
-    let signinTag;
     var signinMessageLocal = "";
     if (this.state.signinConfirmation === "done") {
       signinMessageLocal = this.state.username.charAt(0).toUpperCase();
-      signinTag = (
-        <button type="button" class="btn btn-success btn-circle btn-lg">
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
     } else {
       signinMessageLocal = "Sign In";
-      signinTag = (
-        <button
-          type="button"
-          class="btn btn-primary"
-          onClick={() => this.signMeIn()}
-        >
-          {" "}
-          {signinMessageLocal}{" "}
-        </button>
-      );
     }
 
     var goToPoem;

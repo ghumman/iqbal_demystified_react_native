@@ -4,14 +4,10 @@ import {
   TouchableOpacity,
   Modal,
   Linking,
-  ImageBackground,
   ScrollView,
   Image,
-  TextInput,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text,
@@ -22,7 +18,6 @@ import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import ActionBar from "react-native-action-bar";
 import DrawerLayout from "react-native-drawer-layout";
-import Menu from "../Misc/Menu";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -112,115 +107,55 @@ class PoemPage extends React.Component {
   };
 
   getPoem(listId) {
-    console.log("listId: " + listId);
-
     var that = this;
     StaticContentService.getPoem(listId).then(function (response) {
-      console.log("response: ");
-      console.log(response);
-
       var yamlObject = YAML.parse(response);
-      console.log("yamlObject : ");
-      console.log(yamlObject);
       try {
         that.setState({ introductionText: yamlObject.description[0].text });
-        console.log("that.state.introductionText[0].text");
-        console.log(that.state.introductionText[0].text);
       } catch (e) {
         that.setState({ introductionText: "" });
       }
 
       that.setState({ poemAudioUrl: yamlObject.audioUrl });
-      console.log("that.state.poemAudioUrl");
-      console.log(that.state.poemAudioUrl);
-
-      console.log("yamlObject.sher");
-      console.log(yamlObject.sher);
-
-      console.log("yamlObject.sher.length");
-      console.log(yamlObject.sher.length);
-
       that.readBookmarks().then(function (result) {
-        console.log("result");
-        console.log(result);
-
         for (var i = 0; i < yamlObject.sher.length; i++) {
           try {
             if (result.includes(yamlObject.sher[i].id))
               yamlObject.sher[i].star = true;
             else yamlObject.sher[i].star = false;
           } catch (e) {
-            console.log("catch caught an error");
           }
         }
 
-        console.log("yamlObject.sher");
-        console.log(yamlObject.sher);
-
         let newArr = [yamlObject.sher];
-        console.log("Value of newArr");
-        console.log(newArr);
-
-        console.log("newArr[0].length");
-        console.log(newArr[0].length);
-
-        console.log("Value of newArr");
-        console.log(newArr);
-
         yamlObject.sher.map(el => {
           try {
             el.sherContent[0].text = el.sherContent[0].text.split("|");
-            console.log(el.sherContent[0].text);
           } catch (err) {
-            console.log("zero catch");
           }
           try {
             el.sherContent[1].text = el.sherContent[1].text.split("|");
-            console.log(el.sherContent[1].text);
           } catch (err) {
-            console.log("first catch");
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
             });
-
-            console.log(el.sherContent[1].text);
           }
           try {
             el.sherContent[2].text = el.sherContent[2].text.split("|");
           } catch (err) {
-            console.log("second catch");
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
             });
-            console.log(el.sherContent[2].text);
           }
           return (el.sherContent = el.sherContent);
         });
-
-        console.log("Value of newArr");
-        console.log(newArr);
-
-        console.log("Value of newArr[0]");
-        console.log(newArr[0]);
-
-        console.log("Value of newArr[1]");
-        console.log(newArr[1]);
-
-        console.log("Value of newArr.length");
-        console.log(newArr[0].length);
 
         that.setState({
           poemTextNew: newArr[0]
         });
         that.setState({ poemNameUrdu: yamlObject.heading[0].text });
         that.setState({ poemNameEnglish: yamlObject.heading[1].text });
-
         that.props.navigation.setParams({ title: that.state.poemNameUrdu });
-
-        console.log("poemNameUrdu: ");
-        console.log(yamlObject.heading[0].text);
-        console.log("poemNameEnglish: ");
-        console.log(yamlObject.heading[1].text);
       });
     });
   }
@@ -228,35 +163,23 @@ class PoemPage extends React.Component {
   starToggling = sher => {
     var that = this;
     this.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
       if (result.includes(sher.id)) {
         var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
 
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
-
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
 
         let poemName = that.props.navigation.getParam("detailPoem");
-        console.log("In poempage.js inside starToggling if");
         that.getPoem(poemName);
       } else {
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
@@ -279,15 +202,12 @@ class PoemPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherAt, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
 
         let poemName = that.props.navigation.getParam("detailPoem");
-        console.log("In poempage.js inside starToggling else");
         that.getPoem(poemName);
       }
     });
@@ -308,8 +228,6 @@ class PoemPage extends React.Component {
 
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
         this.setState({ font: "Normal" });
@@ -318,8 +236,6 @@ class PoemPage extends React.Component {
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
         this.setState({ text: "Urdu" });
@@ -348,10 +264,8 @@ class PoemPage extends React.Component {
       });
 
       let poemName = this.props.navigation.getParam("detailPoem");
-      console.log("In poempage.js inside componentdidmount");
       this.getPoem(poemName);
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 
@@ -370,13 +284,12 @@ class PoemPage extends React.Component {
   };
 
   playTrack() {
-    console.log("Inside playTrack");
     let localSong = RNFS.CachesDirectoryPath + "/song-name.mp3";
     RNFS.downloadFile(
       "http://www.iqbal.com.pk/mp3/Zia%20Muhauddin%20Reads%20Bang%20e%20Dara/001-%20Himala.mp3",
       localSong
     ).then(() => {
-      let song = new Sound(localSong, "", error => {
+      let song = new Sound(localSong, "", () => {
         song.play();
       });
     });
@@ -417,7 +330,6 @@ class PoemPage extends React.Component {
         [
           {
             text: "CANCEL",
-            onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
           {
@@ -433,14 +345,9 @@ class PoemPage extends React.Component {
   saveToDownloadedAudioFile = poem => {
     var that = this;
     this.readDownloadedAudioFile().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(poem)) {
-        console.log("poem is in the file");
         return null;
       } else {
-        console.log("poem is not in the file");
         var path = RNFS.DocumentDirectoryPath + "/downloaded-poems.yaml";
 
         var sherNumberComma =
@@ -453,11 +360,9 @@ class PoemPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherNumberComma, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
       }
     });
@@ -475,7 +380,6 @@ class PoemPage extends React.Component {
   }
 
   onDownloadAudio() {
-    console.log("Inside onDownloadAudio");
     let path =
       RNFS.DocumentDirectoryPath +
       "/Iqbal-Demystified/" +
@@ -485,10 +389,8 @@ class PoemPage extends React.Component {
     if (this.state.poemAudioUrl != "") {
       RNFS.exists(path).then(exists => {
         if (exists) {
-          console.log("BLAH EXISTS");
           this.setState({ isDownloadDone: true });
         } else {
-          console.log("BLAH DOES NOT EXIST");
           try {
             RNFS.downloadFile({
               fromUrl: that.state.poemAudioUrl,
@@ -496,29 +398,19 @@ class PoemPage extends React.Component {
               progress: (res: DownloadProgressCallbackResult) => {
                 that.setState({ modalVisible: true });
 
-                console.log("res: ");
-                console.log(res);
                 let progressPercent =
                   (res.bytesWritten / res.contentLength) * 100;
-                console.log("progressPercent");
-                console.log(Math.round(progressPercent));
                 that.setState({
                   progressDownloadPercent: Math.round(progressPercent)
                 });
               }
             })
-              .promise.then(r => {
-                console.log("r: ");
-                console.log(r);
+              .promise.then(() => {
                 that.setState({ modalVisible: false });
-                console.log("Download completed");
                 that.saveToDownloadedAudioFile(that.state.poemNumber + ".mp3");
                 this.setState({ isDownloadDone: true });
               })
               .catch(err => {
-                console.log("inside .catch err...");
-                console.log("err: ");
-                console.log(err);
                 Alert.alert(err.toString());
                 that.setState({ modalVisible: false });
                 this.setState({ isDownloadDone: false });
@@ -527,8 +419,6 @@ class PoemPage extends React.Component {
               });
           } catch (error) {
             // try ends
-            console.log("error: ");
-            console.log(error);
             that.setState({ modalVisible: false });
             this.setState({ isDownloadDone: false });
             this.setState({ paused: true });
@@ -545,7 +435,6 @@ class PoemPage extends React.Component {
         [
           {
             text: "CANCEL",
-            onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
           {
@@ -566,15 +455,12 @@ class PoemPage extends React.Component {
       ".mp3";
     RNFS.exists(path).then(exists => {
       if (exists) {
-        console.log("BLAH EXISTS");
       } else {
-        console.log("BLAH DOES NOT EXIST");
       }
     });
   }
 
   videoError() {
-    console.log("Inside videoError");
   }
 
   setDrawerState() {
@@ -594,14 +480,7 @@ class PoemPage extends React.Component {
   setFontSizeIfNotSet = appendment => {
     AsyncStorage.getItem(FONT_SIZE).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null, res:  ");
-        console.log(res);
-
         if (appendment == -1) {
-          console.log("You have pressed Zoom Out");
-          console.log("FONT_MIN_SIZE: ");
-          console.log(FONT_MIN_SIZE);
-
           if (res <= FONT_MIN_SIZE)
             Alert.alert("This is the smallest font size");
           else {
@@ -609,10 +488,6 @@ class PoemPage extends React.Component {
             this.setState({ fontGlobalSize: parseInt(res) - 4 });
           }
         } else if (appendment == 1) {
-          console.log("You have pressed Zoom In");
-          console.log("FONT_MAX_SIZE: ");
-          console.log(FONT_MAX_SIZE);
-
           if (res >= FONT_MAX_SIZE)
             Alert.alert("This is the largest font size");
           else {
@@ -623,13 +498,9 @@ class PoemPage extends React.Component {
 
         // if appendment is 0, meaning you have set the FONT_SIZE before on this phone, and now you have come to this Screen to set fontGlobalSize
         else if (appendment == 0) {
-          console.log("First time in setFontSizeIfNotSet");
-          console.log("res:");
-          console.log(res);
           this.setState({ fontGlobalSize: parseInt(res) });
         }
       } else {
-        console.log("FONT_SIZE is never set before, res");
         AsyncStorage.setItem(FONT_SIZE, FONT_DEFAULT_SIZE);
 
         this.setState({ fontGlobalSize: parseInt(FONT_DEFAULT_SIZE) });
@@ -638,12 +509,6 @@ class PoemPage extends React.Component {
   };
 
   menuItemClicked = item => {
-    console.log("item: ");
-    console.log(item);
-
-    console.log("item.index: ");
-    console.log(item.index);
-
     if (item.index == 1) {
       this.setFontSizeIfNotSet(1);
     } else if (item.index == 2) {
@@ -698,24 +563,14 @@ class PoemPage extends React.Component {
         );
     else displayIntro = null;
 
-    var fontFamilyTextVariable;
-    var fontFamilyTitleVariable;
     switch (this.state.font) {
       case "Normal":
-        fontFamilyTitleVariable = styles.UrduTitleNormal;
-        fontFamilyTextVariable = styles.RenderedTextNormal;
         break;
       case "Nafees":
-        fontFamilyTitleVariable = styles.UrduTitleNafees;
-        fontFamilyTextVariable = styles.RenderedTextNafees;
         break;
       case "Kasheeda":
-        fontFamilyTitleVariable = styles.UrduTitleKasheeda;
-        fontFamilyTextVariable = styles.RenderedTextKasheeda;
         break;
       case "Fajer":
-        fontFamilyTitleVariable = styles.UrduTitleFajer;
-        fontFamilyTextVariable = styles.RenderedTextFajer;
         break;
     }
 
@@ -884,7 +739,7 @@ class PoemPage extends React.Component {
       }
     }
 
-    var poemVersesWithBookmarkStars = this.state.poemTextNew.map(function (item, index) {
+    var poemVersesWithBookmarkStars = this.state.poemTextNew.map(function (item) {
 
       return (
         <View style={{ flex: 1, flexDirection: "row" }}>
@@ -1006,10 +861,6 @@ class PoemPage extends React.Component {
         />
       );
 
-    const flexCompleted = Math.round(this.getCurrentTimePercentage() * 100);
-    const flexRemaining = Math.round(
-      (1 - this.getCurrentTimePercentage()) * 100
-    );
 
     var totalMinutes = Math.floor(this.state.duration / 60);
     var totalSeconds = Math.round(this.state.duration - totalMinutes * 60);

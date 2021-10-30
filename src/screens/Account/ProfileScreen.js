@@ -2,29 +2,22 @@ import React from "react";
 import {
   Picker,
   ScrollView,
-  TextInput,
   Button,
-  TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
 } from "react-native";
-import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import {
   Table,
   TableWrapper,
   Row,
-  Rows,
   Col
 } from "react-native-table-component";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
-var YAML = require("yaml");
 
 const USERNAME = "username";
 const PASSWORD = "password";
@@ -85,26 +78,6 @@ class ProfilePage extends React.Component {
     this.setState({ dropdownState: event.target.value });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log("this.state.leaderBoardText");
-    console.log(this.state.leaderBoardText);
-
-    console.log("this.state.leaderBoardTextEven");
-    console.log(this.state.leaderBoardTextEven);
-
-    console.log("this.state.leaderBoardTextEvenDiscussion");
-    console.log(this.state.leaderBoardTextEvenDiscussion);
-
-    console.log("this.state.leaderBoardTextOddDiscussion");
-    console.log(this.state.leaderBoardTextOddDiscussion);
-
-    console.log("this.state.leaderBoardTextEvenWord");
-    console.log(this.state.leaderBoardTextEvenWord);
-
-    console.log("this.state.leaderBoardTextOddWord");
-    console.log(this.state.leaderBoardTextOddWord);
-  }
-
   componentDidMount() {
     try {
       this.setState({
@@ -119,9 +92,7 @@ class ProfilePage extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
       this.get_leader_board();
-      console.log(this.state.leaderBoardTextOddWord);
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 
@@ -139,11 +110,6 @@ class ProfilePage extends React.Component {
   };
 
   myDownloads = () => {
-    console.log("this.state.username");
-    console.log(this.state.username);
-
-    console.log("this.state.password");
-    console.log(this.state.password);
     this.props.navigation.navigate("DownloadAudios", {
       profileUsername: this.state.username,
       profilePassword: this.state.password,
@@ -152,11 +118,6 @@ class ProfilePage extends React.Component {
   };
 
   changePassword = () => {
-    console.log("this.state.username");
-    console.log(this.state.username);
-
-    console.log("this.state.password");
-    console.log(this.state.password);
     this.props.navigation.navigate("ChangePassword", {
       profileUsername: this.state.username,
       profilePassword: this.state.password,
@@ -168,7 +129,6 @@ class ProfilePage extends React.Component {
     AsyncStorage.removeItem(USERNAME);
     AsyncStorage.removeItem(PASSWORD);
     AsyncStorage.removeItem(MESSAGE);
-    console.log("All store variables are removed");
 
     this.props.navigation.navigate("Home", {
       profileUsername: "",
@@ -195,8 +155,6 @@ class ProfilePage extends React.Component {
         }
       }).then(async function (data) {
         data.text().then(async function (data) {
-          console.log("data");
-          console.log(data);
 
           leaderBoardTextLocal = data.split(",");
           leaderBoardTextLocal.splice(-1, 1);
@@ -263,9 +221,6 @@ class ProfilePage extends React.Component {
       Alert.alert("inside catch err");
       Alert.alert(err);
     }
-    console.log("messageSher sent to send sher message function");
-    console.log("ajax: that.state.leaderBoardTextEvenDiscussion");
-    console.log(that.state.leaderBoardTextEvenDiscussion);
   }
 
   render() {
@@ -309,25 +264,8 @@ class ProfilePage extends React.Component {
       item => <Text key={item}> {item}</Text>
     );
 
-    var itemEvenDiscussionName = this.state.leaderBoardTextEvenDiscussionName.map(
-      item => <Text key={item}> {item.name}</Text>
-    );
 
-    const columns = [
-      {
-        Header: "Leaderboard Name",
-        accessor: "name" // String-based value accessors!
-      },
-      {
-        Header: "Points",
-        accessor: "points" // String-based value accessors!
-      }
-    ];
     const tableHeader = ["Leaderboard Name", "Points"];
-    const concatData = [
-      this.state.leaderBoardTextEvenDiscussionName,
-      this.state.leaderBoardTextOddDiscussionName
-    ];
 
     var myTable = "";
 
@@ -382,7 +320,6 @@ class ProfilePage extends React.Component {
         </Table>
       );
     }
-    const state = this.state;
     return (
       <View style={{ flex: 1 }}>
 
@@ -443,7 +380,7 @@ class ProfilePage extends React.Component {
               style={{height: 100}}
               itemStyle={{height: 100}}
               selectedValue={this.state.dropdownState}
-              onValueChange={(itemValue, itemIndex) =>
+              onValueChange={(itemValue) =>
                 this.setState({ dropdownState: itemValue })
               }
             >

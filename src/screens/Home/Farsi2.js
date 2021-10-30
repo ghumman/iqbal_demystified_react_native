@@ -1,14 +1,10 @@
 import React from "react";
 import {
   TouchableHighlight,
-  Alert,
-  Button,
   View,
-  Text,
   Image,
   StyleSheet
 } from "react-native";
-import { createBottomTabNavigator, createAppContainer } from "react-navigation";
 
 // following are books in second tab - Farsi 2
 import farsi2Book1 from "../../assets/android_app_assets/book_javed_nama_persian_9.jpg";
@@ -32,16 +28,6 @@ class Farsi2 extends React.Component {
 
   onSubmit = bookNumber => {
     const { navigate } = this.props.navigation;
-
-    console.log("You are inside onSubmit Going to ListPoem");
-    // Alert.alert('You are inside onSubmit Going to ListPoem');
-    // Alert.alert('Value of this.state.username');
-    console.log("Value of this.state.username");
-    const localUsername = "test2";
-    // Alert.alert(localUsername);
-    console.log(localUsername);
-    console.log("Value of this.state.signinConfirmation");
-    console.log(this.state.signinConfirmation);
     navigate("ListPoem", {
       detailBook: bookNumber,
       profileSigninConfirmation: this.state.signinConfirmation,
@@ -64,10 +50,6 @@ class Farsi2 extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      // Alert.alert("Inside catch");
-      console.log("Inside catch");
-      console.log("Error");
-      console.log(e);
     }
   }
   render() {

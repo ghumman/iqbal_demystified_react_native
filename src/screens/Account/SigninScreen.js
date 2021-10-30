@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  ScrollView,
   TextInput,
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -31,7 +28,7 @@ class Signin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Sign In",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -43,13 +40,13 @@ class Signin extends React.Component {
 
   login() {
     if (this.state.username != "" && this.state.password != "") {
-      this.try_login(this.state.username, this.state.password);
+      this.try_login();
     } else {
       Alert.alert("A username and password must be present");
     } // else if user or password are empty ends
   } // function login ends
 
-  async try_login(inputUsername, inputPassword) {
+  async try_login() {
     var that = this;
     try {
       fetch("https://www.icanmakemyownapp.com/iqbal/v3/login.php", {
@@ -64,16 +61,9 @@ class Signin extends React.Component {
           that.state.password.trim()
       }).then(async function (data) {
         data.text().then(async function (data) {
-          console.log("data");
-          console.log(data);
           if (data == "done") {
-            console.log("Successfully Logged in");
             that.setState({ errorMessage: "Successfully Logged in" });
             that.setState({ signinConfirmation: data });
-
-            console.log("navigating to home with following parameters");
-            console.log("that.state.signinConfirmation");
-            console.log(that.state.signinConfirmation);
 
             AsyncStorage.setItem(USERNAME, that.state.username);
             AsyncStorage.setItem(PASSWORD, that.state.password);

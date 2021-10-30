@@ -1,12 +1,9 @@
 import React from "react";
 import {
-  ScrollView,
   TextInput,
   Button,
   TouchableHighlight,
   StyleSheet,
-  FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -41,7 +38,7 @@ class ChangePassword extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ }) => ({
     headerTitle: "Change Password",
     headerTintColor: "black",
     headerTitleStyle: {
@@ -72,22 +69,6 @@ class ChangePassword extends React.Component {
   handleSubmit(event) {
     var that = this;
     event.preventDefault();
-    console.log("Inside Change Password: inside handleSubmit");
-    console.log("this.state.username");
-    console.log(this.state.username);
-
-    console.log("this.state.password");
-    console.log(this.state.password);
-
-    console.log("this.state.currentPassword");
-    console.log(this.state.currentPassword);
-
-    console.log("this.state.newPassword1");
-    console.log(this.state.newPassword1);
-
-    console.log("this.state.newPassword2");
-    console.log(this.state.newPassword2);
-
     if (
       this.state.currentPassword != "" &&
       this.state.newPassword1 != "" &&
@@ -96,9 +77,6 @@ class ChangePassword extends React.Component {
       if (this.state.newPassword1.trim() == this.state.newPassword2.trim()) {
         this.setState({ newPassword: this.state.newPassword1 });
         try {
-          console.log(
-            "Inside try inside chnagepasswordscreen inside trying to change password"
-          );
           fetch(
             "https://www.icanmakemyownapp.com/iqbal/v3/change-password.php",
             {
@@ -116,11 +94,8 @@ class ChangePassword extends React.Component {
             }
           ).then(async function (data) {
             data.text().then(async function (data) {
-              console.log("data");
-              console.log(data);
               if (data.trim() == "done") {
                 Alert.alert("Password Successfully Changed");
-                console.log("Password Successfully Changed");
 
                 that.setState({ signinConfirmation: "done" });
                 that.setState({ password: that.state.newPassword1 });
@@ -141,10 +116,6 @@ class ChangePassword extends React.Component {
           }); // then async func ends
         } catch (err) {
           // try ends
-          console.log(
-            "Inside catch err inside ChangePasswordScreen inside trying to change password, err: "
-          );
-          console.log(err);
           Alert.alert("inside catch err");
           Alert.alert(err);
         } // catch finishes
@@ -173,8 +144,6 @@ class ChangePassword extends React.Component {
         password: this.props.navigation.getParam("profilePassword")
       });
     } catch (e) {
-      console.log("Inside catch");
-      console.log("Not signed in or just started the app");
 
       this.setState({ signinConfirmation: "not signed in" });
       this.setState({ username: "" });

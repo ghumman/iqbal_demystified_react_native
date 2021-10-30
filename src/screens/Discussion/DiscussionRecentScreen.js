@@ -2,13 +2,9 @@ import React from "react";
 import {
   Platform,
   Image,
-  ScrollView,
-  TextInput,
-  Button,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -21,7 +17,6 @@ import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 var RNFS = require("react-native-fs");
-var YAML = require("yaml");
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -77,8 +72,6 @@ class CommentsPage extends React.Component {
         }
       }).then(async function (data) {
         data.text().then(async function (data) {
-          console.log("data");
-          console.log(data);
           that.getRecentSher(data);
         }); // then async function ends
       }); // then async function ends
@@ -93,32 +86,19 @@ class CommentsPage extends React.Component {
     var that = this;
 
     this.readBookmarks().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(sher.id)) {
         var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
-
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
-
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
         that.getSherRecentListFromServer();
       } else {
@@ -143,11 +123,9 @@ class CommentsPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherAt, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
         that.getSherRecentListFromServer();
       }
@@ -168,36 +146,20 @@ class CommentsPage extends React.Component {
   getRecentSher(sherRecentList) {
     var that = this;
     StaticContentService.getRecentSher(sherRecentList).then(function (response) {
-      console.log(
-        "Back from Static Content Service.sherRecentList call, response: "
-      );
-      console.log(response);
-
       that.readBookmarks().then(function (result) {
-        console.log("result");
-        console.log(result);
-
         for (var i = 0; i < response.sher.length; i++) {
           try {
             if (result.includes(response.sher[i].id))
               response.sher[i].star = true;
             else response.sher[i].star = false;
           } catch (e) {
-            console.log("catch caught an error");
           }
         }
         let newArr = [response.sher];
-        console.log(
-          "Value of newArr inside getRecentSher inside then function responseafter newArr = response.sher"
-        );
-        console.log(newArr);
-
         response.sher.map(el => {
           el.sherContent[0].text = el.sherContent[0].text.split("|");
-          console.log(el.sherContent[0].text);
           try {
             el.sherContent[1].text = el.sherContent[1].text.split("|");
-            console.log(el.sherContent[1].text);
           } catch (err) {
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
@@ -212,18 +174,6 @@ class CommentsPage extends React.Component {
           }
           return (el.sherContent = el.sherContent);
         });
-
-        console.log("Value of newArr");
-        console.log(newArr);
-
-        console.log("Value of newArr[0]");
-        console.log(newArr[0]);
-
-        console.log("Value of newArr[1]");
-        console.log(newArr[1]);
-
-        console.log("Value of newArr.length");
-        console.log(newArr[0].length);
 
         that.setState({
           recentData: newArr[0]
@@ -249,8 +199,6 @@ class CommentsPage extends React.Component {
         }
       }).then(function (data) {
         data.text().then(async function (data) {
-          console.log("data");
-          console.log(data);
           that.getPopularSher(data);
         }); // then function data ends
       }); // then function data ends
@@ -264,16 +212,10 @@ class CommentsPage extends React.Component {
   getPopularSher(sherPopularList) {
     var response = StaticContentService.getRecentSher(sherPopularList);
     let newArrPopular = [response.sher];
-    console.log("Value of newArrPopular");
-    console.log(newArrPopular);
-    console.log("I am at this point");
-
     response.sher.map(el => {
       el.sherContent[0].text = el.sherContent[0].text.split("|");
-      console.log(el.sherContent[0].text);
       try {
         el.sherContent[1].text = el.sherContent[1].text.split("|");
-        console.log(el.sherContent[1].text);
       } catch (err) { }
       try {
         el.sherContent[2].text = el.sherContent[2].text.split("|");
@@ -291,12 +233,8 @@ class CommentsPage extends React.Component {
   ///////////////////////////////////////////////////////////////////
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
-
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
         this.setState({ font: "Normal" });
@@ -305,8 +243,6 @@ class CommentsPage extends React.Component {
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
         this.setState({ text: "Urdu" });
@@ -330,10 +266,7 @@ class CommentsPage extends React.Component {
       });
 
       this.getSherRecentListFromServer();
-      // this.getSherPopularListFromServer()
-      console.log("In poempage.js inside componentdidmount");
     } catch (e) {
-      console.log("Inside catch");
     }
   }
 

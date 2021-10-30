@@ -2,13 +2,9 @@ import React from "react";
 import {
   Platform,
   Image,
-  ScrollView,
-  TextInput,
-  Button,
   TouchableHighlight,
   StyleSheet,
   FlatList,
-  SectionList,
   Alert,
   View,
   Text
@@ -22,7 +18,6 @@ import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
 
 var RNFS = require("react-native-fs");
-var YAML = require("yaml");
 
 const FONT = "Normal";
 const TEXT = "Urdu";
@@ -93,22 +88,12 @@ class CommentsPage extends React.Component {
   getRecentSher(sherRecentList) {
     var that = this;
     StaticContentService.getRecentSher(sherRecentList).then(function (response) {
-      console.log(
-        "Back from Static Content Service.sherRecentList call, response: "
-      );
-      console.log(response);
       let newArr = [response.sher];
-      console.log(
-        "Value of newArr inside getRecentSher inside then function responseafter newArr = response.sher"
-      );
-      console.log(newArr);
 
       response.sher.map(el => {
         el.sherContent[0].text = el.sherContent[0].text.split("|");
-        console.log(el.sherContent[0].text);
         try {
           el.sherContent[1].text = el.sherContent[1].text.split("|");
-          console.log(el.sherContent[1].text);
         } catch (err) {
           el.sherContent.push({
             text: ["#translation missing", "#translation missing"]
@@ -123,18 +108,6 @@ class CommentsPage extends React.Component {
         }
         return (el.sherContent = el.sherContent);
       });
-
-      console.log("Value of newArr");
-      console.log(newArr);
-
-      console.log("Value of newArr[0]");
-      console.log(newArr[0]);
-
-      console.log("Value of newArr[1]");
-      console.log(newArr[1]);
-
-      console.log("Value of newArr.length");
-      console.log(newArr[0].length);
 
       that.setState({
         recentData: newArr[0]
@@ -164,12 +137,8 @@ class CommentsPage extends React.Component {
     var that = this;
 
     that.readBookmarks().then(function (result) {
-      console.log("result.length");
-      console.log(result.length);
       var bookmarksPoemList = [];
       for (i = 0; i < result.length - 1; i += 3) {
-        console.log("result[x]");
-        console.log(result[i]);
         bookmarksPoemList.push(result[i]);
       } // end of for loop
 
@@ -181,13 +150,7 @@ class CommentsPage extends React.Component {
           }
         }).then(function (data) {
           data.text().then(async function (data) {
-            console.log("data");
-            console.log(data);
-
             var dataArrayPopular = data.split(",");
-            console.log("dataArrayPopular");
-            console.log(dataArrayPopular);
-
             var poemDataArray = [];
             for (j = 0; j < dataArrayPopular.length - 1; j++) {
               if (
@@ -210,13 +173,7 @@ class CommentsPage extends React.Component {
                 }
               ).then(async function (data) {
                 data.text().then(async function (data) {
-                  console.log("following is recent data");
-                  console.log(data);
-
                   var dataArrayRecent = data.split(",");
-                  console.log("dataArrayRecent");
-                  console.log(dataArrayRecent);
-
                   for (j = 0; j < dataArrayRecent.length - 1; j++) {
                     // include the element from recent list only if sliced version meaning xxx_yyy is present inside bookmarksPoemList.yaml file but it is not already added from popular list
                     if (
@@ -231,19 +188,8 @@ class CommentsPage extends React.Component {
                       poemDataArray.push(dataArrayRecent[j]);
                   }
 
-                  console.log("poemDataArray");
-                  console.log(poemDataArray);
-
                   var poemDataArrayString = poemDataArray.toString();
-
-                  console.log("poemDataArrayString");
-                  console.log(poemDataArrayString);
-
                   poemDataArrayString += ",";
-
-                  console.log("poemDataArrayString after comma");
-                  console.log(poemDataArrayString);
-
                   that.getPopularSher(poemDataArrayString);
                 }); // then async function ends
               }); // then async function ends
@@ -268,30 +214,20 @@ class CommentsPage extends React.Component {
       response
     ) {
       that.readBookmarksShers().then(function (result) {
-        console.log("result");
-        console.log(result);
-
         for (var i = 0; i < response.sher.length; i++) {
           try {
             if (result.includes(response.sher[i].id))
               response.sher[i].star = true;
             else response.sher[i].star = false;
           } catch (e) {
-            console.log("catch caught an error");
           }
         }
 
         let newArrPopular = [response.sher];
-        console.log("Value of newArrPopular");
-        console.log(newArrPopular);
-        console.log("I am at this point");
-
         response.sher.map(el => {
           el.sherContent[0].text = el.sherContent[0].text.split("|");
-          console.log(el.sherContent[0].text);
           try {
             el.sherContent[1].text = el.sherContent[1].text.split("|");
-            console.log(el.sherContent[1].text);
           } catch (err) {
             el.sherContent.push({
               text: ["#translation missing", "#translation missing"]
@@ -319,12 +255,8 @@ class CommentsPage extends React.Component {
   ///////////////////////////////////////////////////////////////////
 
   onDidFocusCustomFunction = () => {
-    console.log("Inside onDidFocusCustomFunction");
-
     AsyncStorage.getItem(FONT).then(res => {
       if (res !== null) {
-        console.log("res is not equal to null: ");
-        console.log(res);
         this.setState({ font: res });
       } else {
         this.setState({ font: "Normal" });
@@ -333,8 +265,6 @@ class CommentsPage extends React.Component {
 
     AsyncStorage.getItem(TEXT).then(res => {
       if (res !== null) {
-        console.log("res is not null: ");
-        console.log(res);
         this.setState({ text: res });
       } else {
         this.setState({ text: "Urdu" });
@@ -346,32 +276,19 @@ class CommentsPage extends React.Component {
     var that = this;
 
     this.readBookmarksShers().then(function (result) {
-      console.log("result");
-      console.log(result);
-
       if (result.includes(sher.id)) {
         var index = result.indexOf(sher.id);
         if (index > -1) {
           result.splice(index, 7);
         }
-
-        console.log("result");
-        console.log(result);
-
         var newData = result.join("@");
-
-        console.log("newData");
-        console.log(newData);
-
         var path = RNFS.DocumentDirectoryPath + "/bookmarked-shers.txt";
 
         // write the file
         RNFS.writeFile(path, newData, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
         that.getSherPopularListFromServer();
       } else {
@@ -395,11 +312,9 @@ class CommentsPage extends React.Component {
 
         // write the file
         RNFS.appendFile(path, sherAt, "utf8")
-          .then(success => {
-            console.log("FILE WRITTEN!");
+          .then(() => {
           })
-          .catch(err => {
-            console.log(err.message);
+          .catch(() => {
           });
 
         that.getSherPopularListFromServer();
@@ -433,21 +348,14 @@ class CommentsPage extends React.Component {
       this.setState({
         password: this.props.navigation.getParam("profilePassword")
       });
-
-      console.log("passed setState going to getSherPopularListFromServer");
       this.getSherPopularListFromServer();
-
-      console.log("In poempage.js inside componentdidmount");
     } catch (e) {
-      console.log("Inside catch componentDidMount");
     }
   }
 
   renderItem = ({ item }) => {
     var that = this;
     var fontFamilyTextVariable;
-    console.log("this.state.font");
-    console.log(this.state.font);
     switch (this.state.font) {
       case "Normal":
         fontFamilyTextVariable = styles.RenderedTextNormal;

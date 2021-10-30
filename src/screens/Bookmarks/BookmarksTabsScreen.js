@@ -1,10 +1,5 @@
-import React from "react";
-import { View, Text } from "react-native";
 import {
-  createMaterialTopTabNavigator,
-  createStackNavigator,
-  createAppContainer
-} from "react-navigation";
+  createMaterialTopTabNavigator} from "react-navigation";
 
 import BookmarksPoemScreen from "./BookmarksPoemScreen";
 import BookmarksSherScreen from "./BookmarksSherScreen";
