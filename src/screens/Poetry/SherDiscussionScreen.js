@@ -14,14 +14,19 @@ import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import Moment from "moment";
 
+import AsyncStorage from "@react-native-community/async-storage";
 
-import iconShare from "../../assets/android_app_assets/share.png";
-import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
-import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
-import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
+import iconShare from "../../assets/android_app_assets/share2.png";
+import iconUploadComment from "../../assets/android_app_assets/upload_comment2.png";
+import iconUpVote from "../../assets/android_app_assets/vote_up_unselected2.png";
+import iconDownVote from "../../assets/android_app_assets/vote_down_unselected2.png";
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");
+
+// initializing
+const USERNAME = "username";
+const PASSWORD = "password";
 
 class SherPage extends React.Component {
   constructor(props) {
@@ -329,19 +334,16 @@ class SherPage extends React.Component {
       this.setState({testWidth: '100%'})
     }, 100);
 
+    AsyncStorage.getItem(USERNAME).then(res => {
+      this.setState({ username: res });
+    });
+
+    AsyncStorage.getItem(PASSWORD).then(res => {
+      this.setState({ password: res });
+    });
+
 
     try {
-      this.setState({
-        signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
-      });
-      this.setState({
-        username: this.props.navigation.getParam("profileUsername")
-      });
-      this.setState({
-        password: this.props.navigation.getParam("profilePassword")
-      });
       this.setState({ sherId: this.props.navigation.getParam("detailSher") });
 
       // if not coming from Poem set comingFromPoem to false.
@@ -368,151 +370,6 @@ class SherPage extends React.Component {
       // try ends
     } // catch ends
   } // componentDidMount ends
-
-  signMeIn = () => {
-    if (this.state.username == "") {
-      this.props.history.push({
-        pathname: "/RegisterPage",
-        state: {
-          profileSigninConfirmation: this.state.signinConfirmation,
-          profileUsername: this.state.username,
-          profilePassword: this.state.password
-        }
-      });
-    }
-  };
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Like Word
-  ///////////////////////////////////////////////////////////
-
-  vote_like_word(comment_general_id) {
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain"
-          },
-          body: {
-            sher: this.state.sherId,
-            discussion_type: "word-meanings",
-            comment_id: comment_general_id,
-            username: this.state.username,
-            password: this.state.password,
-            is_like: 1,
-            is_cancel: 0
-          }
-        }).then(function (data) {
-          if (data == "vote registered")
-            this.getSherWordDiscussion(this.state.sherId);
-          else if (data == "vote already registered") {
-            Alert.alert(
-              "Vote is already registerd. Unregister vote first and then you can revote"
-            );
-          }
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Dislike Word
-  ///////////////////////////////////////////////////////////
-
-  vote_dislike_word(comment_general_id) {
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain"
-          },
-          body: {
-            sher: this.state.sherId,
-            discussion_type: "word-meanings",
-            comment_id: comment_general_id,
-            username: this.state.username,
-            password: this.state.password,
-            is_like: 0,
-            is_cancel: 0
-          }
-        }).then(function (data) {
-          if (data == "vote registered")
-            this.getSherWordDiscussion(this.state.sherId);
-          else if (data == "vote already registered") {
-            Alert.alert(
-              "Vote is already registerd. Unregister vote first and then you can revote"
-            );
-          }
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-        this.message = err;
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Unregister Word
-  ///////////////////////////////////////////////////////////
-
-  vote_unregister_word(comment_general_id) {
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain"
-          },
-          body: {
-            sher: this.state.sherId,
-            discussion_type: "word-meanings",
-            comment_id: comment_general_id,
-            username: this.state.username,
-            password: this.state.password,
-            is_like: 0,
-            is_cancel: 1
-          }
-        }).then(function (data) {
-          if (data == "vote removed") {
-            this.getSherWordDiscussion(this.state.sherId);
-            Alert.alert("Your vote is removed");
-          } else if (data == "invalid is_cancel value") {
-            Alert.alert("You have not liked or disliked it yet.");
-          }
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
 
   ///////////////////////////////////////////////////////////
   //	Vote Like General
@@ -880,7 +737,7 @@ class SherPage extends React.Component {
               justifyContent: "center"
             }}
           >
-            <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+            <Text style={{ color: "green", fontSize: 24, fontWeight: "bold" }}>
               {item.score}
             </Text>
           </View>
@@ -900,25 +757,22 @@ class SherPage extends React.Component {
         </View>
         <View
           key={item.id}
-          style={[styles.RenderedItem6View, styles.flexPoint8]}
+          style={[styles.RenderedItem8View, styles.flexPoint8]}
         >
           <View style={styles.NavBar}>
-            <Text>{item.username}</Text>
-            <Text>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
+            <Text style={{color: "brown"}}>{item.username}</Text>
+            <Text style={{color: "brown"}}>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
           </View>
           <View>
-            <Text style={styles.CommentsText}>{item.text}</Text>
+            <Text style={styles.CommentsText}>{item.text}{"\n"}{"\n"}{"\n"}</Text>
           </View>
         </View>
       </View>
     ));
 
 
-    var signinMessageLocal = "";
     if (this.state.signinConfirmation === "done") {
-      signinMessageLocal = this.state.username.charAt(0).toUpperCase();
     } else {
-      signinMessageLocal = "Sign In";
     }
 
     var goToPoem;
@@ -970,7 +824,7 @@ class SherPage extends React.Component {
 
 
             <TextInput
-              keyboardType="email-address"
+              keyboardType="default"
               onContentSizeChange={(event) => {
                 this.setState({ height: event.nativeEvent.contentSize.height })
               }}
@@ -1010,14 +864,14 @@ const styles = StyleSheet.create({
   RenderedView: {
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: "#d6d7da"
+    borderColor: "#d6d7da",
   },
 
   RenderedText: {
     textAlign: "center",
     padding: 10,
     fontSize: 18,
-    color: "black"
+    color: "green"
   },
   CommentsText: {
     textAlign: "center",
@@ -1035,7 +889,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    padding: 2
+    padding: 4
+  },
+  RenderedItem8View: {
+    backgroundColor: "gray",
+    marginBottom: 8,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    paddingBottom: 8
+  },
+    RenderedItem8View: {
+    backgroundColor: "white",
+    margin: 4,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    padding: 4
   },
   NavBar: {
     flexDirection: "row",

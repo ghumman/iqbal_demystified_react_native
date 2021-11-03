@@ -67,11 +67,11 @@ class Signin extends React.Component {
 
             AsyncStorage.setItem(USERNAME, that.state.username);
             AsyncStorage.setItem(PASSWORD, that.state.password);
-            AsyncStorage.setItem(MESSAGE, that.state.signinConfirmation);
+            AsyncStorage.setItem(MESSAGE, "done");
             that.props.navigation.navigate("Home", {
               profileUsername: that.state.username,
               profilePassword: that.state.password,
-              profileSigninConfirmation: that.state.signinConfirmation
+              profileSigninConfirmation: "done"
             });
           } else {
             Alert.alert(data);

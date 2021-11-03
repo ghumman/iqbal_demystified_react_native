@@ -15,8 +15,8 @@ const SherNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "gray",
+      activeTintColor: "green",
+      inactiveTintColor: "lightgreen",
       style: {
         backgroundColor: "white"
       },
@@ -38,7 +38,10 @@ SherNavigator.navigationOptions = ({ navigation }) => {
   if (headerTitle != null) {
     return {
       headerTitle,
-      headerTintColor: "black",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: 'green',
+      },
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 20,

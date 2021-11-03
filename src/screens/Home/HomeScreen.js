@@ -75,26 +75,16 @@ export default class HomeScreen extends React.Component {
 
   onDidFocusCustomFunction = () => {
     AsyncStorage.getItem(USERNAME).then(res => {
-      if (res !== null) {
-        this.setState({ username: res });
-      } else {
-        this.setState({ username: res });
-      }
+      this.setState({ username: res });
     });
 
     AsyncStorage.getItem(PASSWORD).then(res => {
-      if (res !== null) {
-        this.setState({ password: res });
-      } else {
-        this.setState({ password: res });
-      }
+      this.setState({ password: res });
     });
 
     AsyncStorage.getItem(MESSAGE).then(res => {
       this.setState({ signinConfirmation: res });
       if (res != "done") {
-        this.setState({ signinConfirmation: "not signed in" });
-        this.setState({ username: "" });
         this.setState({ gotoPage: "Register" });
       } else {
         this.setState({ gotoPage: "Profile" });
@@ -130,26 +120,27 @@ export default class HomeScreen extends React.Component {
       // gets AsyncStorage username, passowrd, message and sets gotoPage to either Register or Profile
       this.onDidFocusCustomFunction();
 
-      // following code is inherited from React, where username, encrypted password and signinconfirmation message used to get transfer through url and used to pass to every single page.
-      this.setState({
-        signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
-      });
-      this.setState({
-        username: this.props.navigation.getParam("profileUsername")
-      });
-      this.setState({
-        password: this.props.navigation.getParam("profilePassword")
-      });
 
-      if (this.state.signinConfirmation != "done") {
-        this.setState({ signinConfirmation: "not signed in" });
-        this.setState({ username: "" });
-        this.setState({ gotoPage: "Register" });
-      } else {
-        this.setState({ gotoPage: "Profile" });
-      }
+      // following code is inherited from React, where username, encrypted password and signinconfirmation message used to get transfer through url and used to pass to every single page.
+      // this.setState({
+      //   signinConfirmation: this.props.navigation.getParam(
+      //     "profileSigninConfirmation"
+      //   )
+      // });
+      // this.setState({
+      //   username: this.props.navigation.getParam("profileUsername")
+      // });
+      // this.setState({
+      //   password: this.props.navigation.getParam("profilePassword")
+      // });
+
+      // if (this.state.signinConfirmation != "done") {
+      //   this.setState({ signinConfirmation: "not signed in" });
+      //   this.setState({ username: "" });
+      //   this.setState({ gotoPage: "Register" });
+      // } else {
+      //   this.setState({ gotoPage: "Profile" });
+      // }
     } catch (e) {
       // try ends
       this.setState({ signinConfirmation: "not signed in" });
@@ -184,7 +175,7 @@ export default class HomeScreen extends React.Component {
         <NavigationEvents onDidFocus={() => this.onDidFocusCustomFunction()} />
 
         <View style={{ flex: 4 }}>
-          <TabNavigator navigation={this.props.navigation} />
+          <TabNavigator navigation={this.props.navigation}/>
         </View>
 
 

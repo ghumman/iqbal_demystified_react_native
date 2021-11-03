@@ -16,14 +16,19 @@ import StaticContentService from "../Misc/StaticContentServiceYaml";
 
 import Moment from "moment";
 
+import AsyncStorage from "@react-native-community/async-storage";
 
-import iconShare from "../../assets/android_app_assets/share.png";
-import iconUploadComment from "../../assets/android_app_assets/upload_comment.png";
-import iconUpVote from "../../assets/android_app_assets/vote_up_unselected.png";
-import iconDownVote from "../../assets/android_app_assets/vote_down_unselected.png";
+import iconShare from "../../assets/android_app_assets/share2.png";
+import iconUploadComment from "../../assets/android_app_assets/upload_comment2.png";
+import iconUpVote from "../../assets/android_app_assets/vote_up_unselected2.png";
+import iconDownVote from "../../assets/android_app_assets/vote_down_unselected2.png";
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");
+
+// initializing
+const USERNAME = "username";
+const PASSWORD = "password";
 
 class SherPage extends React.Component {
   constructor(props) {
@@ -343,17 +348,15 @@ class SherPage extends React.Component {
 
   componentDidMount() {
     try {
-      this.setState({
-        signinConfirmation: this.props.navigation.getParam(
-          "profileSigninConfirmation"
-        )
+
+      AsyncStorage.getItem(USERNAME).then(res => {
+        this.setState({ username: res });
       });
-      this.setState({
-        username: this.props.navigation.getParam("profileUsername")
+  
+      AsyncStorage.getItem(PASSWORD).then(res => {
+        this.setState({ password: res });
       });
-      this.setState({
-        password: this.props.navigation.getParam("profilePassword")
-      });
+
       this.setState({ sherId: this.props.navigation.getParam("detailSher") });
 
       let sherName = this.props.navigation.getParam("detailSher");
@@ -364,19 +367,6 @@ class SherPage extends React.Component {
     catch (e) {
     } // catch ends
   } // componentDidMount ends
-
-  signMeIn = () => {
-    if (this.state.username == "") {
-      this.props.history.push({
-        pathname: "/RegisterPage",
-        state: {
-          profileSigninConfirmation: this.state.signinConfirmation,
-          profileUsername: this.state.username,
-          profilePassword: this.state.password
-        }
-      });
-    }
-  };
 
   ///////////////////////////////////////////////////////////
   //	Vote Like Word
@@ -451,50 +441,6 @@ class SherPage extends React.Component {
         "You are you not logged in. Please Login to give your feedback."
       );
     }
-  }
-
-  vote_like_word(comment_general_id) {
-
-    var that = this;
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=1&is_cancel=0"
-        }).then(async function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote registered")
-              that.getSherWordDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
   }
 
   ///////////////////////////////////////////////////////////
@@ -574,247 +520,6 @@ class SherPage extends React.Component {
     }
 
   }
-  vote_dislike_word(comment_general_id) {
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=0"
-        }).then(function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote registered")
-              that.getSherWordDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-        this.message = err;
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Unregister Word
-  ///////////////////////////////////////////////////////////
-
-  vote_unregister_word(comment_general_id) {
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=word-meanings&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=1"
-        }).then(async function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote removed") {
-              that.getSherWordDiscussion(that.state.sherId);
-              Alert.alert("Your vote is removed");
-            } else if (data == "invalid is_cancel value") {
-              Alert.alert("You have not liked or disliked it yet.");
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Like General
-  ///////////////////////////////////////////////////////////
-
-  vote_like(comment_general_id) {
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        localTestString =
-          "sher=002_001_001&discussion_type=general&comment_id=319&username=agent3&password=agent&is_like=1&is_cancel=0";
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=general&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=1&is_cancel=0"
-        }).then(async function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote registered")
-              that.getSherGeneralDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Dislike General
-  ///////////////////////////////////////////////////////////
-
-  vote_dislike(comment_general_id) {
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=general&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=0"
-        }).then(async function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote registered")
-              that.getSherGeneralDiscussion(that.state.sherId);
-            else if (data == "vote already registered") {
-              Alert.alert(
-                "Vote is already registerd. Unregister vote first and then you can revote"
-              );
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
-
-  ///////////////////////////////////////////////////////////
-  //	Vote Unregister General
-  ///////////////////////////////////////////////////////////
-
-  vote_unregister(comment_general_id) {
-
-    var that = this;
-
-    if (this.state.username != "") {
-      try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-          body:
-            "sher=" +
-            that.state.sherId +
-            "&discussion_type=general&comment_id=" +
-            comment_general_id +
-            "&username=" +
-            that.state.username +
-            "&password=" +
-            that.state.password +
-            "&is_like=0&is_cancel=1"
-        }).then(async function (data) {
-          data.text().then(async function (data) {
-            if (data == "vote removed") {
-              that.getSherGeneralDiscussion(that.state.sherId);
-              Alert.alert("Your vote is removed");
-            } else if (data == "invalid is_cancel value") {
-              Alert.alert("You have not liked or disliked it yet.");
-            }
-          }); // data.text.then.func ends
-        }); // success function ends
-      } catch (err) {
-        Alert.alert("inside catch err");
-        Alert.alert(err);
-      }
-    } // if username not empty ends
-    else {
-      Alert.alert(
-        "You are you not logged in. Please Login to give your feedback."
-      );
-    }
-
-  }
 
   selectedWord(wordText, wordId) {
     this.setState({ mySelectedWord: wordText });
@@ -865,12 +570,12 @@ class SherPage extends React.Component {
       borderRadius: 10
     };
     const viewStylesWithMeanings = {
-      borderColor: "gray",
+      borderColor: "black",
       borderWidth: 1,
       borderRadius: 10
     };
     const viewStylesSelected = {
-      borderColor: "black",
+      borderColor: "red",
       borderWidth: 4,
       borderRadius: 10
     };
@@ -880,7 +585,7 @@ class SherPage extends React.Component {
       fontWeight: "normal"
     };
     const textStylesSelected = {
-      color: "black",
+      color: "green",
       fontWeight: "bold"
     };
 
@@ -985,8 +690,8 @@ class SherPage extends React.Component {
               style={[styles.RenderedItem6View, styles.flexPoint8]}
             >
               <View style={styles.NavBar}>
-                <Text>{item.username}</Text>
-                <Text>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
+                <Text style={{color: "brown"}}>{item.username}</Text>
+                <Text style={{color: "brown"}}>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
               </View>
               <View>
                 <Text style={styles.CommentsText}>{item.text}</Text>

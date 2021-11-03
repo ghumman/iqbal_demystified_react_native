@@ -38,6 +38,9 @@ class Urdu extends React.Component {
   };
 
   componentDidMount() {
+
+    console.log("inside Urdu, value of this.props: ");
+    console.log(this.props);
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(
