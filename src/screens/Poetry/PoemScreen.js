@@ -88,7 +88,10 @@ class PoemPage extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title || "",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -582,7 +585,7 @@ class PoemPage extends React.Component {
         textAlign: "center",
         padding: 2,
         color: "black",
-        backgroundColor: "gray"
+        backgroundColor: "lightgreen"
       };
     };
 
@@ -593,20 +596,21 @@ class PoemPage extends React.Component {
         fontSize: argument,
         textAlign: "center",
         padding: 2,
-        color: "green",
-        backgroundColor: "yellow"
+        color: "black",
+        backgroundColor: "lightgreen"
       };
     };
 
-    fontSizeVariableTitle = function (argument) {
+    fontSizeVariableTitle = function (argument, lang) {
       argument = parseInt(argument);
+      languageColor = (lang) ? 'green' : 'black'
       switch (that.state.font) {
         case "Normal":
           return {
             flexWrap: "wrap",
             fontSize: argument,
             textAlign: "center",
-            color: "black"
+            color: languageColor,
           };
           break;
         case "Nafees":
@@ -618,7 +622,7 @@ class PoemPage extends React.Component {
                 : "Nafees Nastaleeq v1.02",
             fontSize: argument,
             textAlign: "center",
-            color: "black"
+            color: languageColor,
           };
           break;
         case "Kasheeda":
@@ -630,7 +634,7 @@ class PoemPage extends React.Component {
                 : "Jameel Noori Kasheeda",
             fontSize: argument,
             textAlign: "center",
-            color: "black"
+            color: languageColor,
           };
           break;
         case "Fajer":
@@ -642,7 +646,7 @@ class PoemPage extends React.Component {
                 : "Fajer Noori Nastalique 15-12-2006",
             fontSize: argument,
             textAlign: "center",
-            color: "black"
+            color: languageColor,
           };
           break;
       }
@@ -661,8 +665,9 @@ class PoemPage extends React.Component {
       };
     };
 
-    fontSizeVariable = function (argument) {
+    fontSizeVariable = function (argument, lang) {
       argument = parseInt(argument);
+      languageColor = (lang) ? 'green' : 'black'
       switch (that.state.font) {
         case "Normal":
           return {
@@ -671,7 +676,7 @@ class PoemPage extends React.Component {
             flexWrap: "wrap",
             textAlign: "center",
             padding: 2,
-            color: "black"
+            color: languageColor
           };
           break;
         case "Nafees":
@@ -685,7 +690,7 @@ class PoemPage extends React.Component {
             flexWrap: "wrap",
             textAlign: "center",
             padding: 2,
-            color: "black"
+            color: languageColor
           };
           break;
         case "Kasheeda":
@@ -699,7 +704,7 @@ class PoemPage extends React.Component {
             flexWrap: "wrap",
             textAlign: "center",
             padding: 2,
-            color: "black"
+            color: languageColor
           };
           break;
         case "Fajer":
@@ -713,7 +718,7 @@ class PoemPage extends React.Component {
             flexWrap: "wrap",
             textAlign: "center",
             padding: 2,
-            color: "black"
+            color: languageColor
           };
           break;
       }
@@ -809,14 +814,14 @@ class PoemPage extends React.Component {
                   <View>
                     <View>
                       <Text
-                        style={fontSizeVariable(that.state.fontGlobalSize)}
+                        style={fontSizeVariable(that.state.fontGlobalSize, "english")}
                       >
                         {item.sherContent[1].text[0]}
                       </Text>
                     </View>
                     <View>
                       <Text
-                        style={fontSizeVariable(that.state.fontGlobalSize)}
+                        style={fontSizeVariable(that.state.fontGlobalSize, "english")}
                       >
                         {item.sherContent[1].text[1]}
                       </Text>
@@ -878,21 +883,21 @@ class PoemPage extends React.Component {
     var audioBox;
     if (this.state.showAudioBox)
       audioBox = (
-        <Text style={{ backgroundColor: "gray", color: "black" }}>Hide Audio Box</Text>
+        <Text style={{ backgroundColor: "lightgreen", color: "black", borderRadius: 10, paddingLeft: 2, paddingRight: 2}}>Hide Audio Box</Text>
       );
     else
       audioBox = (
-        <Text style={{ backgroundColor: "gray", color: "black" }}>Show Audio Box</Text>
+        <Text style={{ backgroundColor: "lightreen", color: "black", borderRadius: 10, paddingLeft: 2, paddingRight: 2 }}>Show Audio Box</Text>
       );
 
     var detailsBox;
     if (this.state.detailsVisible)
       detailsBox = (
-        <Text style={{ backgroundColor: "gray", color: "black" }}>Hide Translation</Text>
+        <Text style={{ backgroundColor: "lightgreen", color: "black" }}>Hide Translation</Text>
       );
     else
       detailsBox = (
-        <Text style={{ backgroundColor: "gray", color: "black" }}>Show Translation</Text>
+        <Text style={{ borderRadius: 10, backgroundColor: "lightgreen", color: "black", padding: 3 }}>Show Translation</Text>
       );
 
     var audioControlButtons;
@@ -964,7 +969,7 @@ class PoemPage extends React.Component {
                   onValueChange={this.onSeek}
                   onSlidingStart={() => { this.setState({ paused: !this.state.paused }) }}
                   onSlidingComplete={() => { this.setState({ paused: !this.state.paused }) }}
-                  minimumTrackTintColor="gray"
+                  minimumTrackTintColor="green"
                   maximumTrackTintColor="black"
                 />
               </View>
@@ -1010,6 +1015,7 @@ class PoemPage extends React.Component {
     return (
       <DrawerLayout
         drawerWidth={300}
+        drawerBackgroundColor="green"
         ref={drawerElement => {
           this.DRAWER = drawerElement;
         }}
@@ -1063,8 +1069,8 @@ class PoemPage extends React.Component {
                   justifyContent: "center",
                   backgroundColor: "skyblue",
                   alignItems: "center",
-                  width: 180,
-                  height: 50
+                  width: 200,
+                  height: 50,
                 }}
               >
                 <Text>
@@ -1093,7 +1099,7 @@ class PoemPage extends React.Component {
                 </Text>
               </View>
               <View style={{ flex: 0.2 }}>
-                <Text style={fontSizeVariableTitle(this.state.fontGlobalSize)}>
+                <Text style={fontSizeVariableTitle(this.state.fontGlobalSize, "english")}>
                   {this.state.poemNameEnglish}
                 </Text>
               </View>
@@ -1255,7 +1261,7 @@ const styles = StyleSheet.create({
   },
 
   wrapper: {
-    backgroundColor: "lightgray",
+    backgroundColor: "lightgreen",
     marginTop: 50
   },
   submit: {
@@ -1263,18 +1269,18 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: 10,
     padding: 2,
-    backgroundColor: "gray",
+    backgroundColor: "green",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "gray"
+    borderColor: "green"
   },
 
   listMenu: {
-    color: "white",
-    fontSize: 16,
-    paddingLeft: 2,
-    paddingTop: 2,
-    paddingBottom: 2
+    color: "black",
+    fontSize: 20,
+    paddingLeft: 4,
+    paddingTop: 4,
+    paddingBottom: 4
   }
 });
 
