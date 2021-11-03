@@ -52,7 +52,10 @@ class ListPoemScreen extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
     headerTitle: navigation.state.params.title || "",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -264,7 +267,7 @@ class ListPoemScreen extends React.Component {
                   <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
                 </View>
                 <View>
-                  <Text style={fontFamilyTextVariable}>
+                  <Text style={styles.RenderedEnglishText}>
                     {item.textEnglish}
                   </Text>
                 </View>
@@ -275,7 +278,7 @@ class ListPoemScreen extends React.Component {
       );
     } else
       return (
-        <View style={{ backgroundColor: "#C0C0C0" }}>
+        <View style={{ backgroundColor: "lightgreen" }}>
           <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textUrdu}</Text>
           <Text style={{ fontSize: 14, padding: 2, fontWeight: "bold", color: "black" }}>{item.textEnglish}</Text>
         </View>
@@ -302,6 +305,15 @@ class ListPoemScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  RenderedEnglishText: {
+    flexShrink: 1,
+    flexWrap: "wrap",
+    alignSelf: 'stretch',
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
+  },
   RenderedTextNormal: {
     flexShrink: 1,
     flexWrap: "wrap",
