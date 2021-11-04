@@ -287,6 +287,21 @@ class CommentsPage extends React.Component {
         fontFamilyTextVariable = styles.RenderedTextFajer;
         break;
     }
+    var fontFamilyTextVariableEnglish;
+    switch (this.state.font) {
+      case "Normal":
+        fontFamilyTextVariableEnglish = styles.RenderedTextNormalEnglish;
+        break;
+      case "Nafees":
+        fontFamilyTextVariableEnglish = styles.RenderedTextNafeesEnglish;
+        break;
+      case "Kasheeda":
+        fontFamilyTextVariableEnglish = styles.RenderedTextKasheedaEnglish;
+        break;
+      case "Fajer":
+        fontFamilyTextVariableEnglish = styles.RenderedTextFajerEnglish;
+        break;
+    }
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View
@@ -342,12 +357,12 @@ class CommentsPage extends React.Component {
                     </View>
                     )}
                   <View>
-                      <Text style={fontFamilyTextVariable}>
+                      <Text style={fontFamilyTextVariableEnglish}>
                         {item.sherContent[1].text[0]}
                       </Text>
                     </View>
                     <View>
-                      <Text style={fontFamilyTextVariable}>
+                      <Text style={fontFamilyTextVariableEnglish}>
                         {item.sherContent[1].text[1]}
                       </Text>
                     </View>
@@ -432,7 +447,58 @@ const styles = StyleSheet.create({
         padding: 2,
         fontSize: 18,
         color: "black"
-      }
+      },
+
+    RenderedTextEnglish: {
+      textAlign: "center",
+      padding: 2,
+      fontSize: 18,
+      color: "green"
+    },
+  
+    RenderedTextNormalEnglish: {
+      flexShrink: 1,
+      flexWrap: "wrap",
+      textAlign: "center",
+      padding: 2,
+      fontSize: 18,
+      color: "green"
+    },
+  
+    RenderedTextNafeesEnglish: {
+      fontFamily:
+        Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
+      flexShrink: 1,
+      flexWrap: "wrap",
+      textAlign: "center",
+      padding: 2,
+      fontSize: 18,
+      color: "green"
+    },
+  
+    RenderedTextKasheedaEnglish: {
+      fontFamily:
+        Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
+      flexShrink: 1,
+      flexWrap: "wrap",
+      textAlign: "center",
+      padding: 2,
+      fontSize: 18,
+      color: "green"
+    },
+  
+    RenderedTextFajerEnglish: {
+      fontFamily:
+        Platform.OS === "ios"
+          ? "FajerNooriNastalique"
+          : "Fajer Noori Nastalique 15-12-2006",
+      flexShrink: 1,
+      flexWrap: "wrap",
+      textAlign: "center",
+      padding: 2,
+      fontSize: 18,
+      color: "green"
+    },
     });
     
     export default CommentsPage;
