@@ -58,6 +58,7 @@ class SearchPage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.handleOptionChange = this.handleOptionChange.bind(this);
+    this.handleInputClicked = this.handleInputClicked.bind(this);
   }
 
   static navigationOptions = ({ }) => ({
@@ -86,6 +87,7 @@ class SearchPage extends React.Component {
   }
 
   handleInputClicked() {
+    console.log('inside handleInputClicked()')
     this.setState({ inputBoxClicked: true });
   }
 
@@ -365,7 +367,7 @@ class SearchPage extends React.Component {
                   {item.poemName[0].text}
                 </Text>
                 <Text
-                  style={styles.RenderedText}
+                  style={styles.RenderedTextEnglish}
                   onPress={() => that.onSubmitPoem(item.id)}
                 >
                   {" "}
@@ -431,14 +433,14 @@ class SearchPage extends React.Component {
                   {item.sherContent[0].text[1]}{" "}
                 </Text>
                 <Text
-                  style={styles.RenderedText}
+                  style={styles.RenderedTextEnglish}
                   onPress={() => that.onSubmitSher(item.id)}
                 >
                   {" "}
                   {item.sherContent[1].text[0]}{" "}
                 </Text>
                 <Text
-                  style={styles.RenderedText}
+                  style={styles.RenderedTextEnglish}
                   onPress={() => that.onSubmitSher(item.id)}
                 >
                   {item.sherContent[1].text[1]}
@@ -465,7 +467,7 @@ class SearchPage extends React.Component {
     }
 
     let keyboardTag;
-    if (this.state.inputBoxClicked === true) {
+    if (this.state.inputBoxClicked) {
       keyboardTag = (
         <View>
 
@@ -661,6 +663,11 @@ class SearchPage extends React.Component {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonViewStyle}>
+              <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ی")}>
+                <Text style={styles.buttonTextStyle}>ی</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonViewStyle}>
               <TouchableOpacity style={styles.buttonTouchableStyle} onPress={() => this.handleAlphabet("ء")}>
                 <Text style={styles.buttonTextStyle}>ء</Text>
               </TouchableOpacity>
@@ -706,8 +713,8 @@ class SearchPage extends React.Component {
           <RadioForm
             radio_props={radio_props}
             initial={0}
-            buttonColor={"black"}
-            selectedButtonColor={"black"}
+            buttonColor={"green"}
+            selectedButtonColor={"green"}
             onPress={value => {
               this.setState({ selectedOption: value });
             }}
@@ -716,9 +723,9 @@ class SearchPage extends React.Component {
 
         <ScrollView style={styles.RenderedView} keyboardShouldPersistTaps={'always'}>
           <TextInput
+            onTouchStart={() => this.handleInputClicked()}
             style={{ height: 40 }}
             placeholder="تلاش کریں…"
-            onFocus={() => this.handleInputClicked()}
             onChangeText={text => this.setState({ searchText: text })}
             value={this.state.searchText}
           />
@@ -733,7 +740,7 @@ class SearchPage extends React.Component {
           }}
         >
           <View>
-            <Button color="black" onPress={this.handleSubmit} title="SEARCH" />
+            <Button color="green" onPress={this.handleSubmit} title="SEARCH" />
           </View>
         </View>
 
@@ -771,6 +778,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "black"
   },
+  RenderedTextEnglish: {
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
+  },
 
   MainContainer: {
     flex: 1
@@ -797,6 +810,8 @@ const styles = StyleSheet.create({
 
   buttonTextStyle: {
     color: "white",
+    fontWeight: "900",
+    fontSize: 20,
     textAlign: "center",
     fontFamily:
       Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
@@ -818,7 +833,7 @@ const styles = StyleSheet.create({
     height: 35,
     // width: 35,
     borderRadius: 10,
-    backgroundColor: "blue"
+    backgroundColor: "green"
   }
 });
 
