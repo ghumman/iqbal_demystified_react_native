@@ -16,8 +16,8 @@ const DiscussionNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "gray",
+      activeTintColor: "green",
+      inactiveTintColor: "lightgreen",
       style: {
         backgroundColor: "white"
       },

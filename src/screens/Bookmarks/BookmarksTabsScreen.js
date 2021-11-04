@@ -13,9 +13,13 @@ const BookmarksNavigator = createMaterialTopTabNavigator(
     tabBarPosition: "top",
     swipeEnabled: true,
     animationEnabled: true,
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "gray",
+      activeTintColor: "green",
+      inactiveTintColor: "lightgreen",
       style: {
         backgroundColor: "white"
       },
@@ -31,5 +35,20 @@ const BookmarksNavigator = createMaterialTopTabNavigator(
     }
   }
 );
+
+BookmarksNavigator.navigationOptions = ({ }) => {
+    return {
+      headerTitle: "Bookmarks",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: 'green',
+      },
+      headerTitleStyle: {
+        fontWeight: "bold",
+        fontSize: 20,
+        textAlign: "center"
+      }
+    };
+};
 
 export default BookmarksNavigator;

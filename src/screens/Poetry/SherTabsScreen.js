@@ -51,7 +51,10 @@ SherNavigator.navigationOptions = ({ navigation }) => {
   } else {
     return {
       headerTitle: "Discussion",
-      headerTintColor: "black",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: 'green',
+      },
       headerTitleStyle: {
         fontWeight: "bold",
         fontSize: 20,

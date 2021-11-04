@@ -57,22 +57,16 @@ const AppNavigator = createStackNavigator(
 
     BookmarksTabs: {
       screen: BookmarksNavigator,
-      navigationOptions: {
-        headerTitle: "Bookmarks",
-        headerTintColor: "black",
-        headerTitleStyle: {
-          fontWeight: "bold",
-          fontSize: 20,
-          textAlign: "center"
-        }
-      }
     },
 
     DiscussionTabs: {
       screen: DiscussionNavigator,
       navigationOptions: {
         headerTitle: "Discussion",
-        headerTintColor: "black",
+        headerTintColor: "white",
+        headerStyle: {
+          backgroundColor: 'green',
+        },
         headerTitleStyle: {
           fontWeight: "bold",
           fontSize: 20,

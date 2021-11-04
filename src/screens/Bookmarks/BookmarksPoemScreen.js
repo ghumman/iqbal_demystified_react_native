@@ -189,6 +189,22 @@ class ListPoemScreen extends React.Component {
         break;
     }
 
+    var fontFamilyTextVariableEnglish;
+    switch (this.state.font) {
+      case "Normal":
+        fontFamilyTextVariableEnglish = styles.RenderedTextNormalEnglish;
+        break;
+      case "Nafees":
+        fontFamilyTextVariableEnglish = styles.RenderedTextNafeesEnglish;
+        break;
+      case "Kasheeda":
+        fontFamilyTextVariableEnglish = styles.RenderedTextKasheedaEnglish;
+        break;
+      case "Fajer":
+        fontFamilyTextVariableEnglish = styles.RenderedTextFajerEnglish;
+        break;
+    }
+
     return (
       <View style={{ flex: 1, flexDirection: "row" }}>
         <View
@@ -216,7 +232,7 @@ class ListPoemScreen extends React.Component {
                 <Text style={fontFamilyTextVariable}>{item.textUrdu}</Text>
               </View>
               <View>
-                <Text style={fontFamilyTextVariable}>{item.textEnglish}</Text>
+                <Text style={fontFamilyTextVariableEnglish}>{item.textEnglish}</Text>
               </View>
             </View>
           </TouchableHighlight>
@@ -304,6 +320,58 @@ const styles = StyleSheet.create({
     padding: 2,
     fontSize: 18,
     color: "black"
+  },
+
+  RenderedTextEnglish: {
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18
+  },
+
+  RenderedTextNormalEnglish: {
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
+  },
+
+  RenderedTextNafeesEnglish: {
+    fontFamily:
+      Platform.OS === "ios" ? "NafeesNastaleeq" : "Nafees Nastaleeq v1.02",
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
+  },
+
+  RenderedTextKasheedaEnglish: {
+    fontFamily:
+      Platform.OS === "ios" ? "JameelNooriKasheeda" : "Jameel Noori Kasheeda",
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
+  },
+
+  RenderedTextFajerEnglish: {
+    fontFamily:
+      Platform.OS === "ios"
+        ? "FajerNooriNastalique"
+        : "Fajer Noori Nastalique 15-12-2006",
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green"
   },
 
   MainContainer: {
