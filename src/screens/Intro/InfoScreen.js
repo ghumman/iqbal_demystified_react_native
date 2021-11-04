@@ -60,7 +60,10 @@ class InfoPage extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Settings",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,

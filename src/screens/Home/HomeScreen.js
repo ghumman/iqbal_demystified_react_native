@@ -44,8 +44,8 @@ const TabNavigator = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "black",
-      inactiveTintColor: "grey",
+      activeTintColor: "green",
+      inactiveTintColor: "lightgreen",
       style: {
         backgroundColor: "white"
       },

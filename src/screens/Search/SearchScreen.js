@@ -62,7 +62,10 @@ class SearchPage extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Allama Iqbal Search Engine",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 10,

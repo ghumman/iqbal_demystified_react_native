@@ -40,7 +40,10 @@ class ChangePassword extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Change Password",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,

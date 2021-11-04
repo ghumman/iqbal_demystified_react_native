@@ -30,7 +30,10 @@ class Signin extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Sign In",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,

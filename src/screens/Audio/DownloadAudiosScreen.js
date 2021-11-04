@@ -63,7 +63,10 @@ class PoemPage extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "My Downloads",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,

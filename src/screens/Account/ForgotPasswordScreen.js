@@ -23,7 +23,10 @@ class ForgotPassword extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Forgot Password",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,

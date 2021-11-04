@@ -41,7 +41,10 @@ class Register extends React.Component {
 
   static navigationOptions = ({ }) => ({
     headerTitle: "Register",
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
