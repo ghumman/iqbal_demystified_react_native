@@ -65,8 +65,10 @@ class ProfilePage extends React.Component {
 
   static navigationOptions = {
     title: "My Profile",
-    headerStyle: {},
-    headerTintColor: "black",
+    headerTintColor: "white",
+    headerStyle: {
+      backgroundColor: 'green',
+    },
     headerTitleStyle: {
       fontWeight: "bold",
       fontSize: 20,
@@ -349,11 +351,11 @@ class ProfilePage extends React.Component {
             }}
           >
             <View>
-              <Button color="black" onPress={() => this.myDownloads()} title="MY DOWNLOADS" />
+              <Button color="green" onPress={() => this.myDownloads()} title="MY DOWNLOADS" />
             </View>
             <View>
               <Button
-                color="black"
+                color="green"
                 onPress={() => this.changePassword()}
                 title="CHANGE PASSWORD"
               />
@@ -366,7 +368,7 @@ class ProfilePage extends React.Component {
               padding: 1
             }}
           >
-            <Button color="black" onPress={() => this.signOut()} title="SIGN OUT" />
+            <Button color="green" onPress={() => this.signOut()} title="SIGN OUT" />
           </View>
 
           <View
@@ -384,8 +386,8 @@ class ProfilePage extends React.Component {
                 this.setState({ dropdownState: itemValue })
               }
             >
-              <Picker.Item label="Discussion" value="discussion" />
-              <Picker.Item label="Word Meanings" value="word" />
+              <Picker.Item label="Discussion" value="discussion" style={{backgroundColor: "red"}}/>
+              <Picker.Item label="Word Meanings" value="word" style={{backgroundColor: "red"}} />
             </Picker>
           </View>
         </View>
@@ -400,10 +402,10 @@ class ProfilePage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  head: { height: 28, backgroundColor: "#f1f8ff" },
+  head: { height: 28, backgroundColor: "green"},
   wrapper: { flexDirection: "row" },
-  title: { flex: 1, backgroundColor: "#f6f8fa" },
-  text: { textAlign: "center" },
+  title: { flex: 1, backgroundColor: "lightgreen" },
+  text: { textAlign: "center", color: "white" },
 
   Message: {
     textAlign: "center"
@@ -417,13 +419,13 @@ const styles = StyleSheet.create({
   UsernameViewInner: {
     borderWidth: 2,
     borderRadius: 4,
-    borderColor: "#d6d7da"
+    borderColor: "lightgreen"
   },
   Username: {
     textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
-    color: "black"
+    color: "green"
   }
 });
 // return <h1>I got following message : {this.props.location.state.detail}</h1>
