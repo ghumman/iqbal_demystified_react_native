@@ -5,7 +5,6 @@ import {
   Share,
   ScrollView,
   TextInput,
-  Button,
   TouchableHighlight,
   StyleSheet,
   Alert,
@@ -526,12 +525,6 @@ class SherPage extends React.Component {
     this.setState({ mySelectedId: wordId + 1 });
   }
 
-  chooseColor() {
-    return {
-      borderColor: "red"
-    };
-  }
-
   onShare = async () => {
     var that = this;
     try {
@@ -564,9 +557,6 @@ class SherPage extends React.Component {
 
 
     const viewStylesNotSelected = {
-      // borderColor: "gray",
-      // borderStyle: "dotted",
-      // borderWidth: 1
       borderRadius: 10
     };
     const viewStylesWithMeanings = {
@@ -687,26 +677,20 @@ class SherPage extends React.Component {
             </View>
             <View
               key={item.id}
-              style={[styles.RenderedItem6View, styles.flexPoint8]}
+              style={[styles.RenderedItem8View, styles.flexPoint8]}
             >
               <View style={styles.NavBar}>
                 <Text style={{color: "brown"}}>{item.username}</Text>
                 <Text style={{color: "brown"}}>{Moment(item.timestamp).format("MMM DD, YYYY")}</Text>
               </View>
               <View>
-                <Text style={styles.CommentsText}>{item.text}</Text>
+                <Text style={styles.CommentsText}>{item.text}{"\n"}{"\n"}{"\n"}</Text>
               </View>
             </View>
           </View>
         );
     });
 
-    var signinMessageLocal = "";
-    if (this.state.signinConfirmation === "done") {
-      signinMessageLocal = this.state.username.charAt(0).toUpperCase();
-    } else {
-      signinMessageLocal = "Sign In";
-    }
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.FirstSection}>
@@ -736,7 +720,7 @@ class SherPage extends React.Component {
 
 
             <TextInput
-              keyboardType="email-address"
+              keyboardType="default"
               onContentSizeChange={(event) => {
                 this.setState({ height: event.nativeEvent.contentSize.height })
               }}
@@ -823,7 +807,7 @@ const styles = StyleSheet.create({
   flexPoint8: {
     flex: 0.8
   },
-  RenderedItem6View: {
+  RenderedItem8View: {
     backgroundColor: "white",
     margin: 2,
     borderRadius: 10,
