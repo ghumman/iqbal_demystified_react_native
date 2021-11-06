@@ -223,7 +223,7 @@ class Register extends React.Component {
           }}
         >
           <View>
-            <Button color="black" onPress={this.handleSubmit} title="REGISTER" />
+            <Button color="green" onPress={this.handleSubmit} title="REGISTER" />
           </View>
         </View>
         <View>

@@ -109,7 +109,7 @@ class ForgotPassword extends React.Component {
           }}
         >
           <View>
-            <Button color="black" onPress={this.handleSubmit} title="RESET MY PASSWORD" />
+            <Button color="green" onPress={this.handleSubmit} title="RESET MY PASSWORD" />
           </View>
         </View>
 

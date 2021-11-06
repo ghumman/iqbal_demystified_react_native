@@ -207,7 +207,7 @@ class ChangePassword extends React.Component {
           }}
         >
           <View>
-            <Button color="black" onPress={this.handleSubmit} title="CHANGE PASSWORD!" />
+            <Button color="green" onPress={this.handleSubmit} title="CHANGE PASSWORD!" />
           </View>
         </View>
 
