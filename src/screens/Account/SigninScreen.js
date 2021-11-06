@@ -9,6 +9,7 @@ import {
   Text
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+const sharedConstants = require("../../shared/Constants");
 
 const USERNAME = "username";
 const PASSWORD = "password";
@@ -52,7 +53,7 @@ class Signin extends React.Component {
   async try_login() {
     var that = this;
     try {
-      fetch("https://www.icanmakemyownapp.com/iqbal/v3/login.php", {
+      fetch(sharedConstants.BACKEND_URL + "login.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"

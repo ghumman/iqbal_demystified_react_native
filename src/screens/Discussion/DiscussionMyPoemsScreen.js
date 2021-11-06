@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 import starLiked from "../../assets/android_app_assets/star_liked.png";
 import starNotLiked from "../../assets/android_app_assets/star_not_liked.png";
+const sharedConstants = require("../../shared/Constants");
 
 var RNFS = require("react-native-fs");
 
@@ -68,7 +69,7 @@ class CommentsPage extends React.Component {
   async getSherRecentListFromServer() {
     var that = this;
     try {
-      fetch("https://icanmakemyownapp.com/iqbal/v3/feed.php?type=recent", {
+      fetch(sharedConstants.BACKEND_URL + "feed.php?type=recent", {
         method: "GET",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -143,7 +144,7 @@ class CommentsPage extends React.Component {
       } // end of for loop
 
       try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/feed.php?type=popular", {
+        fetch(sharedConstants.BACKEND_URL + "feed.php?type=popular", {
           method: "GET",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -164,7 +165,7 @@ class CommentsPage extends React.Component {
             try {
               // $.ajax({
               fetch(
-                "https://icanmakemyownapp.com/iqbal/v3/feed.php?type=recent",
+                sharedConstants.BACKEND_URL + "feed.php?type=recent",
                 {
                   method: "GET",
                   headers: {

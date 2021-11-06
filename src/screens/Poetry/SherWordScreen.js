@@ -21,6 +21,7 @@ import iconShare from "../../assets/android_app_assets/share2.png";
 import iconUploadComment from "../../assets/android_app_assets/upload_comment2.png";
 import iconUpVote from "../../assets/android_app_assets/vote_up_unselected2.png";
 import iconDownVote from "../../assets/android_app_assets/vote_down_unselected2.png";
+const sharedConstants = require("../../shared/Constants");
 
 var RNFS = require("react-native-fs");
 var YAML = require("yaml");
@@ -104,7 +105,7 @@ class SherPage extends React.Component {
         this.state.password.trim() != ""
       ) {
         try {
-          fetch("https://icanmakemyownapp.com/iqbal/v3/post-comment.php", {
+          fetch(sharedConstants.BACKEND_URL + "post-comment.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -145,7 +146,7 @@ class SherPage extends React.Component {
         this.state.password.trim() != ""
       ) {
         try {
-          fetch("https://icanmakemyownapp.com/iqbal/v3/post-comment.php", {
+          fetch(sharedConstants.BACKEND_URL + "post-comment.php", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -196,7 +197,7 @@ class SherPage extends React.Component {
     var that = this;
     try {
 
-      fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
+      fetch(sharedConstants.BACKEND_URL + "get-discussion.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -307,7 +308,7 @@ class SherPage extends React.Component {
   async getSherWordDiscussion(sherName) {
     var that = this;
     try {
-      fetch("https://icanmakemyownapp.com/iqbal/v3/get-discussion.php", {
+      fetch(sharedConstants.BACKEND_URL + "get-discussion.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -376,7 +377,7 @@ class SherPage extends React.Component {
     var that = this;
     if (this.state.username != "") {
       try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+        fetch(sharedConstants.BACKEND_URL + "vote.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -398,7 +399,7 @@ class SherPage extends React.Component {
               that.getSherWordDiscussion(that.state.sherId);
             } else if (data == "vote already registered") {
               try {
-                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+                fetch(sharedConstants.BACKEND_URL + "vote.php", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
@@ -452,7 +453,7 @@ class SherPage extends React.Component {
 
     if (this.state.username != "") {
       try {
-        fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+        fetch(sharedConstants.BACKEND_URL + "vote.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -474,7 +475,7 @@ class SherPage extends React.Component {
               that.getSherWordDiscussion(that.state.sherId);
             } else if (data == "vote already registered") {
               try {
-                fetch("https://icanmakemyownapp.com/iqbal/v3/vote.php", {
+                fetch(sharedConstants.BACKEND_URL + "vote.php", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/x-www-form-urlencoded"

@@ -8,6 +8,7 @@ import {
   View,
   Text
 } from "react-native";
+const sharedConstants = require("../../shared/Constants");
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class ForgotPassword extends React.Component {
     var that = this;
     if (this.state.email.trim() != "") {
       try {
-        fetch("https://www.icanmakemyownapp.com/iqbal/v3/forgot-password.php", {
+        fetch(sharedConstants.BACKEND_URL + "forgot-password.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"

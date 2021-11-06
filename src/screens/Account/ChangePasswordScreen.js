@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 
+const sharedConstants = require("../../shared/Constants");
+
 const USERNAME = "username";
 const PASSWORD = "password";
 const MESSAGE = "message";
@@ -81,7 +83,7 @@ class ChangePassword extends React.Component {
         this.setState({ newPassword: this.state.newPassword1 });
         try {
           fetch(
-            "https://www.icanmakemyownapp.com/iqbal/v3/change-password.php",
+            sharedConstants.BACKEND_URL + "change-password.php",
             {
               method: "POST",
               headers: {
@@ -134,6 +136,8 @@ class ChangePassword extends React.Component {
   }
 
   componentDidMount() {
+
+    console.log("sharedConstants: ", sharedConstants.BACKEND_URL);
     try {
       this.setState({
         signinConfirmation: this.props.navigation.getParam(

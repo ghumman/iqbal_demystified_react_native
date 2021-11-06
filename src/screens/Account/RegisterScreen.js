@@ -9,6 +9,7 @@ import {
   Text
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+const sharedConstants = require("../../shared/Constants");
 
 const USERNAME = "username";
 const PASSWORD = "password";
@@ -88,7 +89,7 @@ class Register extends React.Component {
     if (this.state.password1.trim() == this.state.password2.trim()) {
       this.setState({ password: this.state.password1 });
       try {
-        fetch("https://www.icanmakemyownapp.com/iqbal/v3/create-account.php", {
+        fetch(sharedConstants.BACKEND_URL + "create-account.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"

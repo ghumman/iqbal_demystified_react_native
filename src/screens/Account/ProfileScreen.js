@@ -17,7 +17,7 @@ import {
 } from "react-native-table-component";
 
 import AsyncStorage from "@react-native-community/async-storage";
-
+const sharedConstants = require("../../shared/Constants");
 
 const USERNAME = "username";
 const PASSWORD = "password";
@@ -150,7 +150,7 @@ class ProfilePage extends React.Component {
 
     var that = this;
     try {
-      fetch("https://www.icanmakemyownapp.com/iqbal/v3/leaderboard.php", {
+      fetch(sharedConstants.BACKEND_URL + "leaderboard.php", {
         method: "GET",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
