@@ -479,10 +479,10 @@ class PoemPage extends React.Component {
             >
               <View>
                 <View>
-                  <Text style={styles.RenderedText}>{item.audioFile}</Text>
+                  <Text style={styles.RenderedTextColor}>{item.audioFile}</Text>
                 </View>
                 <View>
-                  <Text style={styles.RenderedText}>{item.urduTitle}</Text>
+                  <Text style={styles.RenderedTextColor}>{item.urduTitle}</Text>
                 </View>
                 <View>
                   <Text style={styles.RenderedText}>{item.englishTitle}</Text>
@@ -526,11 +526,11 @@ class PoemPage extends React.Component {
     var audioBox;
     if (this.state.showAudioBox)
       audioBox = (
-        <Text style={{ backgroundColor: "gray" }}>Hide Audio Box</Text>
+        <Text style={{ backgroundColor: "lightgreen", color: "black", borderRadius: 10, paddingLeft: 2, paddingRight: 2}}>Hide Audio Box</Text>
       );
     else
       audioBox = (
-        <Text style={{ backgroundColor: "gray" }}>Show Audio Box</Text>
+        <Text style={{ backgroundColor: "lightreen", color: "black", borderRadius: 10, paddingLeft: 2, paddingRight: 2 }}>Show Audio Box</Text>
       );
 
     var aduioControlButtons;
@@ -603,7 +603,7 @@ class PoemPage extends React.Component {
                   onValueChange={this.onSeek}
                   onSlidingStart={() => { this.setState({ paused: !this.state.paused }) }}
                   onSlidingComplete={() => { this.setState({ paused: !this.state.paused }) }}
-                  minimumTrackTintColor="gray"
+                  minimumTrackTintColor="green"
                   maximumTrackTintColor="black"
                 />
               </View>
@@ -706,6 +706,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 2,
     fontSize: 18
+  },
+  RenderedTextColor: {
+    flexShrink: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
+    padding: 2,
+    fontSize: 18,
+    color: "green",
   },
 
   MainContainer: {
