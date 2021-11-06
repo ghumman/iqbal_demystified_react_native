@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Platform,
   StyleSheet
 } from "react-native";
 
@@ -45,10 +46,12 @@ const styles = StyleSheet.create({
   },
   TopText: {
     textAlign: "center",
-    fontFamily: "Times New Roman",
+    fontFamily: Platform.OS === "ios"
+    ? "GillSans-UltraBold"
+    : "sans-serif-condensed",    
     fontSize: 20,
-    fontWeight: "bold",
-    color: "black"
+    fontWeight: "900",
+    color: "green"
   },
   BottomArea: {
     flex: 1,
@@ -58,10 +61,12 @@ const styles = StyleSheet.create({
   },
   BottomText: {
     textAlign: "center",
-    fontFamily: "Times New Roman",
+    fontFamily: Platform.OS === "ios"
+    ? "GillSans-UltraBold"
+    : "sans-serif-condensed",  
     fontSize: 20,
-    fontWeight: "bold",
-    color: "black"
+    fontWeight: "900",
+    color: "green"
   },
   Image: {
     flex: 1,
