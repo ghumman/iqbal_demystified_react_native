@@ -4,8 +4,8 @@ buildscript {
     ext {
         buildToolsVersion = "28.0.3"
         minSdkVersion = 16
-        compileSdkVersion = 28
-        targetSdkVersion = 28
+        compileSdkVersion = 30
+        targetSdkVersion = 30
         supportLibVersion = "28.0.0"
     }
     repositories {
@@ -36,7 +36,7 @@ subprojects {
     afterEvaluate {project ->
         if (project.hasProperty("android")) {
             android {
-                compileSdkVersion 28     // have to match with build.gradle and app/build.gradle ones
+                compileSdkVersion 30     // have to match with build.gradle and app/build.gradle ones
                 buildToolsVersion '28.0.3'  // have to match with build.gradle and app/build.gradle ones
                 variantFilter { variant ->
                     def names = variant.flavors*.name
