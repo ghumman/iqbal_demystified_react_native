@@ -18,7 +18,7 @@
     "js-yaml": "^3.13.1",
     "moment": "^2.24.0",
     "react": "16.8.3",
-    "react-native": "0.59.9",
+    "react-native": "0.62.3",
     "react-native-action-bar": "^2.0.5",
     "react-native-drawer-layout": "^2.0.0",
     "react-native-fs": "^2.13.3",
